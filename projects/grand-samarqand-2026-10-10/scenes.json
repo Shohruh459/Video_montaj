@@ -9,7 +9,7 @@
       "src": "pixabay_video_80965.mp4",
       "from": 0,
       "dur": 6,
-      "sub": "Samarqandga xush kelibsiz."
+      "sub": "Samarqand shahriga xush kelibsiz."
     },
     {
       "kind": "lower",
@@ -59,6 +59,6 @@
     "music_pause_db": 11.5,
     "music_duck_db": 8,
     "music_start": "auto",
-    "music": "raw/music/cand_23_5.wav"
+    "music": "raw/music/cand_44_13.wav"
   }
 }

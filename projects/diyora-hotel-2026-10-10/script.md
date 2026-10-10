@@ -1,7 +1,7 @@
 # Diyora Hotel — Instagram Reels demo
 
 **Holat: DEMO.** Kadrlar — Pixabay stok (haqiqiy mehmonxona emas). Matn umumiy, aniq faktsiz (yulduz, manzil, narx, xizmatlar ro'yxati YO'Q).
-Format: 9:16 (1080x1920) · ~30 s · 30 fps · ovoz: asosiy (ayol, `config/voice.json`) · fon musiqasi: cand_24_3.wav (dataset `mrfakename/cc0-music-captioned`, muallifi noma'lum — faqat demo) · aksent rang #4fc3a1
+Format: 9:16 (1080x1920) · ~30 s · 30 fps · ovoz: asosiy (ayol, `config/voice.json`) · fon musiqasi: cand_30_0.wav (dataset `mrfakename/cc0-music-captioned`, muallifi noma'lum — faqat demo) · aksent rang #4fc3a1
 
 ## Diktor matni (TTS) / subtitr
 1. Diyora Hotel. Uyingizdek qulay.  →  subtitr: Diyora Hotel. Uyingizdek qulay.
