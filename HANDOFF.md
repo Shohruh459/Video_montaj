@@ -102,3 +102,9 @@ Pixabay'da Song Plus'ning o'zi ehtimol yo'q → umumiy elektromobil kadrlari; an
 - `qc.sh` "kutilmagan jimlik" 5 joyni topdi — bular ovoz pauzalari (musiqa yo'q); musiqa qo'shilgach yo'qoladi.
 - Pixabay'da zamonaviy EV salon yo'q: 24125 (rulda BMW logotipi) va 158316 (Porsche-ga o'xshash 3D) RAD ETILDI. Pexels kaliti berish vaqtincha to'xtatilgan (foydalanuvchi aytdi) — qayta tekshir.
 - Qoldi: musiqa (manba), subtitr, kadrlar (rasmiy/diler material), 16:9 va 4:5, brend sozlamasi, tijoriy ovoz.
+
+## Yangilanish (2026-10-10, subtitr)
+- **Subtitr tayyor va draftda sinaldi:** Remotion `Subtitles` komponenti (pastdan 200 px = ~10%, ≤2 qator, DejaVu Sans Bold 38 px, qora yarim shaffof quti), `scenes.json` dagi `sub` maydoni (TTS matnidan alohida; harflar `oʻ`/`gʻ` = U+02BB), vaqt = ovoz qatori oralig'i. `out/<name>.srt` avtomatik chiqadi. To'liq o'lchamda (1080) bitta kadr bilan `oʻ`, `gʻ`, `ng` ko'zdan kechirildi — to'g'ri. `--final` subtitr bilan HALI qayta render qilinmagan.
+- Sahna yozuvlari va CTA subtitr bilan to'qnashmasligi uchun yuqoriga ko'tarildi (paddingBottom 460).
+- **Musiqa manbasi:** `freepd.com` ochiq lekin sayt yopilgan (fayllar 404); `archive.org` ochiq lekin litsenziya uploader tomonidan yoziladi (ishonchsiz); `incompetech.com`, `mixkit.co`, `freemusicarchive.org`, `musopen.org` yopiq. Musiqa hali tanlanmagan; `build.music` ducking zanjiri sinalmagan.
+- Qoidaga qo'shish kutilmoqda (foydalanuvchi keyin deydi): subtitr `sub` maydoni va SRT, musiqa manbasi tartibi.
