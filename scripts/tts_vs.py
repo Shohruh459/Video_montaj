@@ -21,11 +21,29 @@ try:
 except Exception:
     sys.exit("XATO: VoiceStudio backend ishlamayapti (http://localhost:3900). Ishga tushiring (fayl boshidagi izohga qarang).")
 
+base = cfg["api"].rsplit("/v1", 1)[0]
+
+
+def ensure_profile():
+    """Backendda asosiy ovoz profili bo'lmasa, namunadan yaratadi; profil ID sini qaytaradi."""
+    for pr in json.loads(urllib.request.urlopen(base + "/profiles", timeout=30).read()):
+        if pr["name"] == cfg["profile_name"]:
+            return pr["id"]
+    ref = root / cfg["ref_audio"]
+    text = (root / cfg["ref_text_file"]).read_text(encoding="utf-8").strip()
+    out = subprocess.run(["curl", "-sS", "--fail-with-body", "-X", "POST", base + "/profiles",
+                          "-F", f"name={cfg['profile_name']}", "-F", f"ref_audio=@{ref}",
+                          "-F", f"ref_text={text}", "-F", "language=Uzbek", "-F", "kind=clone"],
+                         capture_output=True, text=True, check=True).stdout
+    return json.loads(out)["id"]
+
+
+profile_id = ensure_profile()
 tmp = pathlib.Path(tempfile.mkdtemp())
 parts = []
 for i, line in enumerate(lines):
-    body = {k: cfg[k] for k in ("model", "language", "instruct", "response_format")}
-    body.update(voice="default", input=line, seed=a.seed, speed=a.speed)
+    body = {k: cfg[k] for k in ("model", "language", "response_format")}
+    body.update(voice=profile_id, input=line, seed=a.seed, speed=a.speed)
     req = urllib.request.Request(cfg["api"], json.dumps(body).encode(), {"Content-Type": "application/json"})
     f = tmp / f"p{i:02d}.wav"
     f.write_bytes(urllib.request.urlopen(req, timeout=900).read())

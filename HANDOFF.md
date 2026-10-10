@@ -82,3 +82,8 @@ Pixabay'da Song Plus'ning o'zi ehtimol yo'q → umumiy elektromobil kadrlari; an
 - Skript: `scripts/tts_vs.py` (qatorma-qator, pauza bilan). Hali to'liq 30 s matn bilan sinalmagan; to'liq matn avval 14 s chiqdi → `--speed 0.9`, `--pause 0.5–0.8` bilan 30 s ga yaqinlashtirish kerak.
 - Backend fon jarayoni sessiyalar/turlar orasida to'xtaydi: `cd /home/user/debpalash/voicestudio && OMNIVOICE_ANALYTICS_DISABLED=1 setsid nohup bun scripts/dev-backend.mjs > log 2>&1 < /dev/null & disown`, so'ng `GET :3900/health` = ok.
 - Litsenziya: CC-BY-NC → faqat demo.
+
+## Yangilanish (2026-10-10, ovoz qotirildi)
+- Foydalanuvchi **`vtest_2_ayol_past`** ni tanladi (seed'li variantlar emas). Asl fayl **ovoz namunasi (reference)** sifatida `config/voice_ref/asosiy_ayol_past.wav` (+ `.txt` transkript) ga saqlandi; `scripts/tts_vs.py` backendda `ASOSIY-ayol-past` profilini (clone) yo'q bo'lsa o'zi yaratadi. `config/voice.json` yangilandi. Yangi sessiyada faqat backendni ishga tushirish kifoya.
+- Sinov: o'sha jumla va BYD matni shu profil bilan yaratildi (BYD: `--speed 0.9 --pause 0.9` → 19.1 s, −14.5 LUFS, peak −1.9). Foydalanuvchi eshitib baholashi kutilmoqda (namunaga o'xshashligi, talaffuz).
+- 30 s ga yetish uchun: sekinroq tezlik (0.8) va/yoki uzunroq pauza; yoki matnni biroz uzaytirish (mijoz tasdig'i bilan). Pauzalar sahna kesishlariga mos bo'lsin.
