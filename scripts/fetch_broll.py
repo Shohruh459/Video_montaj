@@ -23,7 +23,8 @@ def key():
 
 def call(kind, **params):
     q = urllib.parse.urlencode({"key": key(), **params})
-    with urllib.request.urlopen(f"{API[kind]}?{q}", timeout=30) as r:
+    req = urllib.request.Request(f"{API[kind]}?{q}", headers={"User-Agent": "video-montaj/1.0"})
+    with urllib.request.urlopen(req, timeout=30) as r:
         return json.load(r)
 
 
