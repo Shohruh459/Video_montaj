@@ -1,0 +1,11 @@
+{
+  "_izoh": "Asosiy ovoz (foydalanuvchi tanlagan: 2-raqam). seed — vaqtincha, foydalanuvchi tasdiqlaguncha o'zgarishi mumkin. LITSENZIYA: OmniVoice CC-BY-NC — faqat demo/sinov.",
+  "engine": "voicestudio-omnivoice",
+  "api": "http://localhost:3900/v1/audio/speech",
+  "model": "omnivoice",
+  "language": "uz",
+  "instruct": "female, middle-aged, low pitch",
+  "seed": 42,
+  "response_format": "wav",
+  "speed": 1.0
+}

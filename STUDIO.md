@@ -16,3 +16,7 @@ Yangi sessiya/server: `bash scripts/setup.sh` → keyin `HANDOFF.md` ni o'qi.
 - Remotion chiqishi `yuvj420p` → yakuniy eksportda `yuv420p` ga qayta kodlash.
 - Brauzer: Playwright `chromium_headless_shell` (render.mjs o'zi topadi, `CHROMIUM_PATH` bilan almashtiriladi).
 - Tarmoq: bu sandbox'da Microsoft/ElevenLabs/Azure TTS manzillari yopiq.
+
+## Asosiy ovoz (tasdiqlangan)
+- 2-raqamli ovoz: ayol, o'rta yosh, past (`config/voice.json`), dvigatel VoiceStudio/OmniVoice (CPU, ~3× real vaqt). `python3 scripts/tts_vs.py matn.txt out.wav`.
+- Litsenziya CC-BY-NC → faqat demo. Backend o'rnatish: HANDOFF.md (voicestudio klon, `node scripts/setup-api.mjs`, model `k2-fsa/OmniVoice` 3.27 GB). Kerakli domenlar: `*.hf.co`, `download-r2.pytorch.org`.

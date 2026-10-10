@@ -26,6 +26,7 @@ Papka: `projects/<mijoz>-<sana>/{raw,voice,broll,out}` (`projects/_template` dan
 Tartib: **matnni tayyorla → ovoz tanla → namuna eshittir → tasdiq → to'liq.**
 - Matnni TTS uchun **tozala**: raqamlar, sana, narx, qisqartma va chet so'zlarni **so'z bilan yoz** (`2500` → `ikki ming besh yuz`, `AI` → `ey-ay`). Gaplar qisqa (≤ 20 so'z). Urg'u/pauza uchun vergul va nuqta ishlat.
 - Lotin imlosini **to'g'ri** yoz: `oʻ`, `gʻ`, `sh`, `ch`, `ng`. Kirill matn kelsa — lotinga o'gir va mijozdan so'ra.
+- **ASOSIY OVOZ (foydalanuvchi tanlagan, 2-raqam):** VoiceStudio/OmniVoice, `config/voice.json` (ayol, o'rta yosh, past ovoz, `uz`, qotirilgan `seed`). Ishlatish: `python3 scripts/tts_vs.py matn.txt out.wav` (har qator alohida + pauza). Boshqa ovoz so'ralmasa — shuni ishlat, seed'ni o'zgartirma (ovoz har rolikda bir xil bo'lsin). **Litsenziya: model CC-BY-NC — faqat demo/sinov; mijozning tijoriy ishida ishlatma, jonli diktor yoki tijoriy ruxsatli ovoz taklif qil.** Backend: `bun scripts/dev-backend.mjs` (voicestudio repo), sessiyalar orasida to'xtaydi.
 - Variantlar (past → yuqori sifat/narx):
   1. `scripts/tts_uz.py` — Microsoft neyron ovozi (`uz-UZ-MadinaNeural`, `uz-UZ-SardorNeural`), bepul, draft va oddiy ishlar uchun yaxshi.
   2. Azure Speech yoki ElevenLabs (kalitni `.env` ga qo'y) — ko'proq nazorat (SSML, urg'u).

@@ -76,3 +76,9 @@ Pixabay'da Song Plus'ning o'zi ehtimol yo'q → umumiy elektromobil kadrlari; an
 - `speech.platform.bing.com` hali yopiq.
 - **MODEL HALI YUKLANMAGAN** (`k2-fsa/OmniVoice`, 2.45 GB). **Litsenziya: model og'irliklari CC-BY-NC (tijoriy emas)**, audio_tokenizer — Boson Higgs Audio community license. Demo/sinov uchun mumkin; **mijoz (tijoriy) ishi uchun BO'LMAYDI** — yakuniy ishda jonli diktor/ruxsat etilgan ovoz kerak. Yuklashdan oldin foydalanuvchi roziligi shart (loyiha qoidasi) — so'ralgan, javob kutilmoqda.
 - Keyingi: rozilik bo'lsa `POST /models/install {"repo_id":"k2-fsa/OmniVoice"}` → `GET /models/install/status` → `POST /v1/audio/speech` (til: uz) → `voice/` → foydalanuvchiga eshittir.
+
+## Yangilanish (2026-10-10, asosiy ovoz)
+- VoiceStudio o'rnatildi, model yuklandi (3.27 GB), ovoz namunalari yuborildi. Foydalanuvchi **2-raqamli ovozni asosiy** qildi: `female, middle-aged, low pitch` (`config/voice.json`). Asl 2-raqam seed'siz edi → ovozni qotirish uchun seed 7/42/1986 namunalari yuborildi; **foydalanuvchi qaysi seed'ni tanlashini kutamiz** (hozir vaqtincha 42). Tanlangach `config/voice.json` da `seed`ni yangila.
+- Skript: `scripts/tts_vs.py` (qatorma-qator, pauza bilan). Hali to'liq 30 s matn bilan sinalmagan; to'liq matn avval 14 s chiqdi → `--speed 0.9`, `--pause 0.5–0.8` bilan 30 s ga yaqinlashtirish kerak.
+- Backend fon jarayoni sessiyalar/turlar orasida to'xtaydi: `cd /home/user/debpalash/voicestudio && OMNIVOICE_ANALYTICS_DISABLED=1 setsid nohup bun scripts/dev-backend.mjs > log 2>&1 < /dev/null & disown`, so'ng `GET :3900/health` = ok.
+- Litsenziya: CC-BY-NC → faqat demo.
