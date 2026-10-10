@@ -118,20 +118,38 @@ def lufs(path):
     return float(re.findall(r"I:\s+(-?[\d.]+) LUFS", r)[-1])
 
 
+def steadiest_start(path, length):
+    """Trekda `length` soniyalik eng barqaror balandlikdagi oyna boshlanishi (s) — qisqa muddatli LUFS tebranishi eng kam."""
+    import statistics as st
+    r = subprocess.run(["ffmpeg", "-nostats", "-i", str(path), "-af", "ebur128=metadata=1,ametadata=print:key=lavfi.r128.S:file=-", "-f", "null", "-"], capture_output=True, text=True)
+    v = [float(x) for x in re.findall(r"lavfi.r128.S=(-?[\d.]+)", r.stdout)]
+    sec = [st.mean([y for y in v[i * 10:(i + 1) * 10] if y > -100] or [-70]) for i in range(len(v) // 10)]
+    L = int(length) + 1
+    if len(sec) <= L:
+        return 0
+    return min(range(0, len(sec) - L), key=lambda s0: st.pstdev(sec[s0:s0 + L]) + (3 if sec[s0] < -40 else 0))
+
+
 if b.get("music"):
     # Musiqa: pauzadagi daraja = ovoz − music_pause_db (12); nutq paytida yana −music_duck_db (8) → ovozdan ≈ −20 dB (qoida: −18…−22).
     # Ducking ovoz qatorlari vaqti bo'yicha, silliq (0.3 s) o'tish bilan — deterministik.
     m = (proj / b["music"]).resolve()
     stem = out / "music_stem.wav"
-    sh(["ffmpeg", "-v", "error", "-y", "-ss", str(b.get("music_start", 0)), "-stream_loop", "-1", "-i", str(m), "-t", f"{total:.3f}", "-ar", "48000", "-ac", "2", str(stem)])
+    mstart = b.get("music_start", 0)
+    if mstart == "auto":
+        mstart = steadiest_start(m, total)
+        print(f"musiqa boshlanishi (avto): {mstart} s")
+    sh(["ffmpeg", "-v", "error", "-y", "-ss", str(mstart), "-stream_loop", "-1", "-i", str(m), "-t", f"{total:.3f}", "-ar", "48000", "-ac", "2", str(stem)])
     v_i, m_i = lufs(out / "voice_final.wav"), lufs(stem)
     pause_db, duck_db = b.get("music_pause_db", 12), b.get("music_duck_db", 8)
     gain = v_i - pause_db - m_i
     win = "+".join(f"clip((t-{x['from']-0.3:.3f})/0.3,0,1)*clip(({x['to']+0.3:.3f}-t)/0.3,0,1)" for x in subs)
     print(f"musiqa: manba {m_i:.1f} LUFS, ovoz {v_i:.1f} LUFS → gain {gain:+.1f} dB; pauzada ovozdan -{pause_db} dB, nutqda -{pause_db + duck_db} dB")
+    # Ovoz tiniqligi uchun musiqada "joy ochish": past gul (<70 Hz) kesiladi, 250 Hz loyqalik va 2.5 kHz nutq sohasi biroz pasaytiriladi
+    eq = "highpass=f=70,equalizer=f=250:t=q:w=1:g=-3,equalizer=f=2500:t=q:w=1.2:g=-3," if b.get("music_eq", True) else ""
     inputs += ["-i", str(stem)]
     fc = (f"[0:a]aresample=48000,pan=stereo|c0=c0|c1=c0,apad=whole_dur={total:.3f}[v];"
-          f"[1:a]volume={gain:.2f}dB,volume='pow(10,-{duck_db}*min(1,{win})/20)':eval=frame,"
+          f"[1:a]{eq}volume={gain:.2f}dB,volume='pow(10,-{duck_db}*min(1,{win})/20)':eval=frame,"
           f"afade=t=in:d=1.2,afade=t=out:st={total-2:.2f}:d=2[md];"
           f"[v][md]amix=inputs=2:normalize=0:duration=first[mx]")
 else:

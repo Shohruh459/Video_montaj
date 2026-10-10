@@ -12,6 +12,6 @@ const total = (scenes) =>
 export const Root = () => (
   <Composition id="Montage" component={Montage} durationInFrames={30 * FPS}
     fps={FPS} width={1080} height={1920}
-    defaultProps={{scenes: [], brand: 'BYD SONG PLUS', cta: 'Sinov haydashga yoziling', subs: []}}
+    defaultProps={{scenes: [], brand: 'BYD SONG PLUS', cta: 'Sinov haydashga yoziling', subs: [], accent: '#35d6c0'}}
     calculateMetadata={({props}) => ({durationInFrames: total(props.scenes)})} />
 );

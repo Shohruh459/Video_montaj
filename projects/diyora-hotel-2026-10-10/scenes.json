@@ -1,0 +1,63 @@
+{
+  "publicDir": "broll",
+  "brand": "DIYORA HOTEL",
+  "cta": "Bron qilish uchun yozing",
+  "accent": "#4fc3a1",
+  "scenes": [
+    {
+      "kind": "title",
+      "src": "pixabay_video_211152.mp4",
+      "from": 0,
+      "dur": 6,
+      "sub": "Diyora Hotel. Uyingizdek qulay."
+    },
+    {
+      "kind": "lower",
+      "src": "pixabay_video_25907.mp4",
+      "from": 8,
+      "dur": 6,
+      "sub": "Sokin tong, yoqimli dam olish.",
+      "text": "Sokin dam olish"
+    },
+    {
+      "kind": "lower",
+      "src": "pixabay_video_135141.mp4",
+      "from": 0,
+      "dur": 6,
+      "sub": "Shinam xona, ravon xizmat.",
+      "text": "Shinam xonalar"
+    },
+    {
+      "kind": "lower",
+      "src": "pixabay_video_25639.mp4",
+      "from": 9,
+      "dur": 6,
+      "sub": "Har bir lahza sizning qulayligingiz uchun.",
+      "text": "Qulaylik va eʼtibor"
+    },
+    {
+      "kind": "end",
+      "src": "pixabay_video_25907.mp4",
+      "from": 18,
+      "dur": 6,
+      "sub": "Diyora Hotel. Xush kelibsiz."
+    }
+  ],
+  "build": {
+    "name": "diyora-hotel",
+    "format": "vertical",
+    "target_duration": 30,
+    "lead": 0.8,
+    "tail": 2.6,
+    "min_pause": 0.5,
+    "max_pause": 2.4,
+    "speed": 0.85,
+    "voice_lines": "voice/script_lines.txt",
+    "xfade": 0.4,
+    "preroll": 0.4,
+    "music_pause_db": 11.5,
+    "music_duck_db": 8,
+    "music_start": "auto",
+    "music": "raw/music/cand_24_3.wav"
+  }
+}

@@ -1,9 +1,10 @@
-import React from 'react';
+import React, {createContext, useContext} from 'react';
 import {AbsoluteFill, Sequence, OffthreadVideo, staticFile, useCurrentFrame, useVideoConfig,
   interpolate, spring, Easing} from 'remotion';
 
 const FONT = '"Noto Sans", "DejaVu Sans", Arial, sans-serif';
-const ACCENT = '#35d6c0';
+const DEFAULT_ACCENT = '#35d6c0';
+const AccentCtx = createContext(DEFAULT_ACCENT);
 const X = 12; // crossfade, kadr (0.4 s)
 
 const useIn = (delay = 0, damping = 18) => {
@@ -33,12 +34,13 @@ const Clip = ({src, from, dur, cx = 0.5, dim = 0}) => {
 };
 
 const Title = ({text, sub}) => {
+  const ACCENT = useContext(AccentCtx);
   const p = useIn(6, 16);
   const line = useIn(14, 22);
   const sp = interpolate(p, [0, 1], [40, 6]);
   return (
     <AbsoluteFill style={{justifyContent: 'center', alignItems: 'center'}}>
-      <div style={{fontFamily: FONT, fontWeight: 800, fontSize: 96, color: '#fff', textAlign: 'center',
+      <div style={{fontFamily: FONT, fontWeight: 800, fontSize: Math.min(96, Math.floor(940 / (text.length * 0.74))), color: '#fff', textAlign: 'center',
         letterSpacing: sp, opacity: p, transform: `translateY(${(1 - p) * 30}px)`,
         textShadow: '0 6px 30px rgba(0,0,0,.6)'}}>{text}</div>
       <div style={{height: 6, width: 420 * line, background: ACCENT, marginTop: 28, borderRadius: 3}} />
@@ -50,6 +52,7 @@ const Title = ({text, sub}) => {
 
 // Pastki "lower-third": xavfsiz zona — pastdan ≥ 10% (192 px)
 const Lower = ({text}) => {
+  const ACCENT = useContext(AccentCtx);
   const p = useIn(8);
   return (
     <AbsoluteFill style={{justifyContent: 'flex-end', alignItems: 'center', paddingBottom: 460}}>
@@ -63,6 +66,7 @@ const Lower = ({text}) => {
 };
 
 const Cta = ({text}) => {
+  const ACCENT = useContext(AccentCtx);
   const p = useIn(22, 14);
   return (
     <AbsoluteFill style={{justifyContent: 'flex-end', alignItems: 'center', paddingBottom: 460}}>
@@ -90,9 +94,10 @@ const Subtitles = ({subs}) => {
   );
 };
 
-export const Montage = ({scenes, brand, cta, subs = []}) => {
+export const Montage = ({scenes, brand, cta, subs = [], accent}) => {
   let start = 0;
   return (
+    <AccentCtx.Provider value={accent || DEFAULT_ACCENT}>
     <AbsoluteFill style={{background: '#000'}}>
       {scenes.map((s, i) => {
         const dur = Math.round(s.dur * 30);
@@ -111,5 +116,6 @@ export const Montage = ({scenes, brand, cta, subs = []}) => {
       })}
       <Subtitles subs={subs} />
     </AbsoluteFill>
+    </AccentCtx.Provider>
   );
 };

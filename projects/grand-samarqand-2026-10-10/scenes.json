@@ -1,0 +1,63 @@
+{
+  "publicDir": "broll",
+  "brand": "GRAND SAMARQAND",
+  "cta": "Bron qilish uchun yozing",
+  "accent": "#d9b45a",
+  "scenes": [
+    {
+      "kind": "title",
+      "src": "pixabay_video_80965.mp4",
+      "from": 0,
+      "dur": 6,
+      "sub": "Samarqandga xush kelibsiz."
+    },
+    {
+      "kind": "lower",
+      "src": "pixabay_video_80965.mp4",
+      "from": 11.5,
+      "dur": 6,
+      "sub": "Tarix nafasi shu yerda yashaydi.",
+      "text": "Tarix nafasi"
+    },
+    {
+      "kind": "lower",
+      "src": "pixabay_video_135169.mp4",
+      "from": 0,
+      "dur": 6,
+      "sub": "Shinam xonalar, sokin tunlar.",
+      "text": "Shinam xonalar"
+    },
+    {
+      "kind": "lower",
+      "src": "pixabay_video_25639.mp4",
+      "from": 0,
+      "dur": 6,
+      "sub": "Mazali dasturxon va mehmondoʻst xizmat.",
+      "text": "Mehmondoʻst xizmat"
+    },
+    {
+      "kind": "end",
+      "src": "pixabay_video_25907.mp4",
+      "from": 4,
+      "dur": 6,
+      "sub": "Grand Samarqand. Sizni kutib turibmiz."
+    }
+  ],
+  "build": {
+    "name": "grand-samarqand",
+    "format": "vertical",
+    "target_duration": 30,
+    "lead": 0.8,
+    "tail": 2.6,
+    "min_pause": 0.5,
+    "max_pause": 2.4,
+    "speed": 0.85,
+    "voice_lines": "voice/script_lines.txt",
+    "xfade": 0.4,
+    "preroll": 0.4,
+    "music_pause_db": 11.5,
+    "music_duck_db": 8,
+    "music_start": "auto",
+    "music": "raw/music/cand_23_5.wav"
+  }
+}
