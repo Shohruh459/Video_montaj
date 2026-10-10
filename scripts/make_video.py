@@ -6,7 +6,7 @@ Ishlatish:
 Kirish: projects/<loyiha>/scenes.json  ("build" bo'limi: voice_lines, target_duration, lead, tail, music, ...)
 Sahna i  <->  ovoz qatori i (soni teng bo'lishi kerak). Sahna uzunliklari ovoz davomiyligidan hisoblanadi.
 Ovoz qatorlari keshlanadi (voice/cache/) — matn/tezlik/seed o'zgarmasa qayta generatsiya qilinmaydi."""
-import argparse, hashlib, json, pathlib, re, subprocess, sys
+import argparse, hashlib, json, pathlib, re, subprocess, sys, textwrap
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "scripts"))
@@ -74,6 +74,31 @@ res = json.loads(json.dumps(cfg)); res.pop("build", None)
 res["publicDir"] = str((proj / cfg.get("publicDir", "broll")).resolve())
 for i, s in enumerate(res["scenes"]):
     s["dur"] = round((t0[i + 1] - t0[i] + xf) if i < len(scenes) - 1 else (total - t0[i]), 3)
+# Subtitr: matn sahnadagi "sub" (bo'lmasa ovoz qatori); vaqt = ovoz qatori oralig'i. Qator: gap bo'yicha, uzun bo'lsa wrap, ≤ 2 qator
+def split_lines(text, per_line=36):
+    lines = []
+    for sent in re.split(r"(?<=[.!?])\s+", text.strip()):
+        lines += [sent] if len(sent) <= per_line else textwrap.wrap(sent, 30)
+    if len(lines) > 2:
+        print(f"OGOHLANTIRISH: subtitr {len(lines)} qator: {text[:40]}")
+    return "\n".join(lines)
+
+
+def srt_time(x):
+    h, m, sec = int(x // 3600), int(x % 3600 // 60), x % 60
+    return f"{h:02d}:{m:02d}:{int(sec):02d},{int(round((sec % 1) * 1000)):03d}"
+
+
+subs = []
+for i, s in enumerate(scenes):
+    txt = split_lines(s.get("sub") or lines[i])
+    longest = max(len(l) for l in txt.split("\n"))
+    if longest > 42:
+        print(f"OGOHLANTIRISH: subtitr qatori {longest} belgi (>42): {txt[:40]}")
+    subs.append({"text": txt, "from": round(max(0, starts[i] - 0.1), 3), "to": round(min(total, starts[i] + d[i] + 0.25), 3)})
+res["subs"] = subs
+(out / f"{b['name']}.srt").write_text("\n".join(
+    f"{i+1}\n{srt_time(x['from'])} --> {srt_time(x['to'])}\n{x['text']}\n" for i, x in enumerate(subs)), encoding="utf-8")
 (out / "scenes.resolved.json").write_text(json.dumps(res, ensure_ascii=False, indent=2), encoding="utf-8")
 
 # 4) Remotion

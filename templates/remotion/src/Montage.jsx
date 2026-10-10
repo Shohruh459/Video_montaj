@@ -52,7 +52,7 @@ const Title = ({text, sub}) => {
 const Lower = ({text}) => {
   const p = useIn(8);
   return (
-    <AbsoluteFill style={{justifyContent: 'flex-end', alignItems: 'center', paddingBottom: 300}}>
+    <AbsoluteFill style={{justifyContent: 'flex-end', alignItems: 'center', paddingBottom: 460}}>
       <div style={{display: 'flex', alignItems: 'center', gap: 22, opacity: p, transform: `translateY(${(1 - p) * 60}px)`}}>
         <div style={{width: 10 * p, height: 84, background: ACCENT, borderRadius: 5}} />
         <div style={{fontFamily: FONT, fontWeight: 700, fontSize: 64, color: '#fff',
@@ -65,7 +65,7 @@ const Lower = ({text}) => {
 const Cta = ({text}) => {
   const p = useIn(22, 14);
   return (
-    <AbsoluteFill style={{justifyContent: 'flex-end', alignItems: 'center', paddingBottom: 300}}>
+    <AbsoluteFill style={{justifyContent: 'flex-end', alignItems: 'center', paddingBottom: 460}}>
       <div style={{fontFamily: FONT, fontWeight: 700, fontSize: 48, color: '#06231f', background: ACCENT,
         padding: '26px 54px', borderRadius: 60, opacity: p, transform: `scale(${0.8 + 0.2 * p})`,
         boxShadow: '0 10px 40px rgba(0,0,0,.45)'}}>{text}</div>
@@ -73,7 +73,24 @@ const Cta = ({text}) => {
   );
 };
 
-export const Montage = ({scenes, brand, cta}) => {
+
+// Subtitr: ekran chetidan 10% (192 px) yuqorida, ≤ 2 qator. Qator uzilishlari make_video.py da belgilanadi.
+const Subtitles = ({subs}) => {
+  const f = useCurrentFrame();
+  const t = f / 30;
+  const cur = subs.find((s) => t >= s.from && t <= s.to);
+  if (!cur) return null;
+  const k = Math.min(1, (t - cur.from) / 0.15, (cur.to - t) / 0.15);
+  return (
+    <AbsoluteFill style={{justifyContent: 'flex-end', alignItems: 'center', paddingBottom: 200}}>
+      <div style={{fontFamily: FONT, fontWeight: 700, fontSize: 38, lineHeight: 1.3, color: '#fff', textAlign: 'center',
+        whiteSpace: 'pre-line', maxWidth: 920, background: 'rgba(0,0,0,.62)', padding: '14px 28px', borderRadius: 18,
+        opacity: Math.max(0, k), transform: `translateY(${(1 - Math.max(0, k)) * 12}px)`}}>{cur.text}</div>
+    </AbsoluteFill>
+  );
+};
+
+export const Montage = ({scenes, brand, cta, subs = []}) => {
   let start = 0;
   return (
     <AbsoluteFill style={{background: '#000'}}>
@@ -92,6 +109,7 @@ export const Montage = ({scenes, brand, cta}) => {
           </Sequence>
         );
       })}
+      <Subtitles subs={subs} />
     </AbsoluteFill>
   );
 };
