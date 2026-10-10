@@ -3,6 +3,8 @@
 Til: foydalanuvchi bilan **o'zbek tilida** (lotin yozuvi) gaplash. Kod, fayl nomlari va buyruqlar inglizcha qoladi.
 Asosiy qoida: **sifatsiz ishni topshirmaymiz.** Shubha bo'lsa — to'xtab so'ra yoki namuna ko'rsat.
 
+> **Yangi sessiya: avval `HANDOFF.md` ni o'qi** (loyiha holati, sinalganlar, keyingi qadamlar). Ish oxirida uni yangila.
+
 ## 1. Ish tartibi (har bir buyurtma uchun)
 1. **Brif**: maqsad, auditoriya, davomiylik, format (9:16 / 16:9 / 1:1), platforma, uslub, ovoz (erkak/ayol), logotip/ranglar, muddat. Yetishmasa so'ra — taxmin qilma.
 2. **Ssenariy + matn** `projects/<mijoz>-<sana>/script.md` ga yoz. Mijoz tasdiqlamaguncha render qilma.
