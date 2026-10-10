@@ -1,0 +1,12 @@
+{
+  "publicDir": "broll",
+  "brand": "BYD SONG PLUS",
+  "cta": "Sinov haydashga yoziling",
+  "scenes": [
+    {"kind": "title", "src": "pixabay_video_199.mp4",    "from": 10, "dur": 4.4},
+    {"kind": "lower", "src": "pixabay_video_340897.mp4", "from": 0,  "dur": 6.4, "text": "Jim. Silliq."},
+    {"kind": "lower", "src": "pixabay_video_4053.mp4",   "from": 5,  "dur": 7.4, "text": "Zamonaviy salon"},
+    {"kind": "lower", "src": "pixabay_video_200682.mp4", "from": 2,  "dur": 7.4, "text": "Tejamkor va qulay"},
+    {"kind": "end",   "src": "pixabay_video_19627.mp4",  "from": 3,  "dur": 6.0, "cx": 0.35}
+  ]
+}

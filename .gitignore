@@ -11,3 +11,4 @@ projects/*/voice/*
 projects/*/broll/*
 projects/*/out/*
 !projects/*/*/.gitkeep
+node_modules/

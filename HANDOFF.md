@@ -25,3 +25,12 @@ Pixabay'da Song Plus'ning o'zi ehtimol yo'q → umumiy elektromobil kadrlari; an
 1. Brifni to'ldir (yuqoridagi so'rovlar) — kerak bo'lsa foydalanuvchiga qisqa so'ra.
 2. `python scripts/fetch_broll.py search "electric car" --type video` → tanla → `get` bilan `projects/byd-2026-10-10/broll` ga yukla.
 3. O'zbekcha matn (raqamlar so'z bilan) → ovoz namunasi → Kinocut bilan montaj → `export.sh` → `qc.sh` → foydalanuvchiga yubor.
+
+## Yangilanish (2026-10-10, Remotion sinovi)
+- Montaj instrumenti: ffmpeg+drawtext draft (`projects/byd-2026-10-10/build_draft.py`, 7 s) **va** Remotion (`templates/remotion`, `node templates/remotion/render.mjs <scenes.json> <out.mp4> [scale] [crf]`, 540x960 draft ≈ 2 daq 7 s). Ikkalasi ishlaydi.
+- Remotion: o'rnatilgan `remotion@4.0.250`. Chromium'ning yangi versiyasi old-headless'ni qo'llamaydi → `/opt/pw-browsers/chromium_headless_shell-1194/chrome-linux/headless_shell` ishlatiladi (`render.mjs` da, `CHROMIUM_PATH` bilan almashtiriladi). `node_modules` gitga kirmaydi.
+- Remotion chiqishi `yuvj420p` (full range) → yakuniy eksportda `scripts/export.sh` bilan `yuv420p`ga qayta kodlash kerak. Hali sinalmagan.
+- Pixabay: `fetch_broll.py` 403 berardi (User-Agent yo'q) — tuzatilgan.
+- Kadrlar: Song Plus'ga mos zamonaviy SUV/salon yo'q. 4053 (eski Mercedes salon) — zaif, almashtirish kerak. 199 ochilish — eski SUV. Yaroqli: 340897, 200682, 19627.
+- Ovoz: Microsoft TTS ulanmaydi (DNS). Foydalanuvchi "keyin kelishamiz" dedi. Ovoz/musiqa hali yo'q.
+- Keyingi: yaxshiroq salon/ochilish kadrlari yoki rasmiy material → v3; ovoz kelishilgach audio + ducking → export → qc.
