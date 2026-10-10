@@ -25,7 +25,8 @@
       "from": 0,
       "dur": 6,
       "sub": "Shinam xonalar, sokin tunlar.",
-      "text": "Shinam xonalar"
+      "text": "Shinam xonalar",
+      "cx": 0.8
     },
     {
       "kind": "lower",

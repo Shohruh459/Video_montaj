@@ -22,10 +22,11 @@
     {
       "kind": "lower",
       "src": "pixabay_video_135141.mp4",
-      "from": 0,
+      "from": 3,
       "dur": 6,
       "sub": "Shinam xona, ravon xizmat.",
-      "text": "Shinam xonalar"
+      "text": "Shinam xonalar",
+      "cx": 0.6
     },
     {
       "kind": "lower",

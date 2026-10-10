@@ -40,7 +40,7 @@ const Title = ({text, sub}) => {
   const sp = interpolate(p, [0, 1], [40, 6]);
   return (
     <AbsoluteFill style={{justifyContent: 'center', alignItems: 'center'}}>
-      <div style={{fontFamily: FONT, fontWeight: 800, fontSize: Math.min(96, Math.floor(940 / (text.length * 0.74))), color: '#fff', textAlign: 'center',
+      <div style={{fontFamily: FONT, fontWeight: 800, fontSize: Math.min(96, Math.floor((860 / text.length - 6) / 0.85)), color: '#fff', textAlign: 'center',
         letterSpacing: sp, opacity: p, transform: `translateY(${(1 - p) * 30}px)`,
         textShadow: '0 6px 30px rgba(0,0,0,.6)'}}>{text}</div>
       <div style={{height: 6, width: 420 * line, background: ACCENT, marginTop: 28, borderRadius: 3}} />
