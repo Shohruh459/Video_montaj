@@ -70,3 +70,9 @@ Pixabay'da Song Plus'ning o'zi ehtimol yo'q → umumiy elektromobil kadrlari; an
   3. Backend: `bun run dev:api` (port 3900), `GET /health`, `GET /models`; model `k2-fsa/OmniVoice` (2.45 GB) o'rnatishdan oldin foydalanuvchiga hajm/litsenziyani ayt, rozilik ol (`POST /models/install`).
   4. `script.md` matnidan o'zbekcha ayol ovoz namunasi → `voice/` → `SendUserFile` → foydalanuvchi eshitadi.
   5. Bing ochiq bo'lsa: `python3 scripts/tts_uz.py` bilan Madina namunasini ham yarat, solishtirish uchun.
+
+## Yangilanish (2026-10-10, kechroq) — VoiceStudio o'rnatildi
+- `download-r2.pytorch.org` OCHILDI (404 = server javob beradi). `node scripts/setup-api.mjs` muvaffaqiyatli tugadi (`.venv` 2.4 GB, CPU torch). `bun scripts/dev-backend.mjs` ishga tushdi: `GET :3900/health` → `{"status":"ok","device":"cpu","version":"0.5.7"}`. MCP `/mcp` da. (Yuqoridagi "yopiq" yozuvlar eskirdi.)
+- `speech.platform.bing.com` hali yopiq.
+- **MODEL HALI YUKLANMAGAN** (`k2-fsa/OmniVoice`, 2.45 GB). **Litsenziya: model og'irliklari CC-BY-NC (tijoriy emas)**, audio_tokenizer — Boson Higgs Audio community license. Demo/sinov uchun mumkin; **mijoz (tijoriy) ishi uchun BO'LMAYDI** — yakuniy ishda jonli diktor/ruxsat etilgan ovoz kerak. Yuklashdan oldin foydalanuvchi roziligi shart (loyiha qoidasi) — so'ralgan, javob kutilmoqda.
+- Keyingi: rozilik bo'lsa `POST /models/install {"repo_id":"k2-fsa/OmniVoice"}` → `GET /models/install/status` → `POST /v1/audio/speech` (til: uz) → `voice/` → foydalanuvchiga eshittir.
