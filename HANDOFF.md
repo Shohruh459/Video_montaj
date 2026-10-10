@@ -122,3 +122,9 @@ Pixabay'da Song Plus'ning o'zi ehtimol yo'q → umumiy elektromobil kadrlari; an
 - Musiqa: Grand `cand_23_5` (HF shard 23 qator 5, sitar-arfa-pianino), Diyora `cand_24_3` (shard 24 qator 3, pianino-gitara jazz) — muallif noma'lum, FAQAT DEMO. Davomiylik ~25 s (nutq qisqa; pauza 2.4 s chegarasi).
 - **Ogohlantirish:** ikkala demo oxirgi sahnalarida dengiz bo'yidagi hovuz (25639, 25907) — Samarqand dengizsiz; Grand uchun mos emas. Samarqand/O'zbekiston interyer/mehmonxona kadrlari Pixabay'da juda kam. Kadrlar baribir stok (haqiqiy mehmonxona emas).
 - Ochiq: haqiqiy foto/video, logotip, kontakt, tijoriy ovoz va musiqa, qoidani yangilash.
+
+## Yangilanish (2026-10-10, mehmonxona demolariga fikr-mulohaza)
+- Foydalanuvchi eshitdi: Grand'da boshidagi "Samarqandga xush kelibsiz." talaffuzi xato ("samrkand" kabi), oxirida "Grand Samarqand" to'g'ri. Diyora musiqasi (`cand_24_3`) "gap qo'yilgan musiqa" ekan (tavsifda "restoran/kofexona muhiti" — ichida odamlar ovozi bo'lishi mumkin) → ALMASHTIRILADI. Qolgan hammasi joyida (foydalanuvchi aytdi).
+- Talaffuz: 5 variant yaratildi (`projects/grand-samarqand-2026-10-10/voice/test/`: boshqa seed'lar, "Samarqand shahriga…", "Samarqand, xush kelibsiz."); foydalanuvchi tanlovini kutamiz. Tanlangach `voice/script_lines.txt` va (kerak bo'lsa) per-line seed qo'llab-quvvatlashini `make_video.py` ga qo'sh (hozir seed butun loyiha uchun bitta).
+- Diyora uchun yangi musiqa nomzodlari: `cand_30_0` (sekin jazz gitara+pianino, 123 s), `cand_44_13` (orkestr, 1024 s). `30_10` buzilgan, `20_15` va `8_13` juda qisqa. Tanlangach `scenes.json build.music` ni yangila va `--final` qayta render. Dars: trek tavsifida "restaurant/crowd/street/ambient sounds" so'zlari bo'lsa — ichida shovqin/gap bo'lishi mumkin, tanlama.
+- Yuklash limiti 30 MiB: kattaroq videoni yuborish uchun `*_share.mp4` (crf 22) nusxa yarat.
