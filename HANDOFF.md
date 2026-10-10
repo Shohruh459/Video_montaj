@@ -96,3 +96,9 @@ Pixabay'da Song Plus'ning o'zi ehtimol yo'q → umumiy elektromobil kadrlari; an
 - Kuzatuv: pauza yuqori chegaraga (2.4 s) yetdi (nutq 16.6 s) → bo'shliqlar uzun; matnni biroz uzaytirish yoki tezlikni 0.8 ga tushirish mumkin. Ovoz-kadr sinxronini eshitib tekshirmadim.
 - Pexels: domenlar (`api.pexels.com`, `videos.pexels.com`, `images.pexels.com`) yopiq; kalit `PEXELS_API_KEY` yo'q. Foydalanuvchi qo'shgach `fetch_broll.py --source pexels` yoziladi.
 - Kadrlar sifati o'zgarmadi: salon (4053, eski Mercedes) va ochilish (199) zaif.
+
+## Yangilanish (2026-10-10, --final sinaldi)
+- `make_video.py --final` SINALDI: `out/byd-song-plus_final.mp4` — 1080x1920, H.264 High, yuv420p, 30 fps, 29.58 s, 20.5 MB, AAC 48 kHz stereo (haqiqiy bitrate ~139 kbps, so'ralgan 256k emas — ffmpeg aac kodeki oddiy kontentda past bitrate beradi; kerak bo'lsa tekshir), −14.0 LUFS, qora kadr yo'q. Remotion 1080 render + eksport ≈ 6 daqiqa (4 CPU, GPU yo'q).
+- `qc.sh` "kutilmagan jimlik" 5 joyni topdi — bular ovoz pauzalari (musiqa yo'q); musiqa qo'shilgach yo'qoladi.
+- Pixabay'da zamonaviy EV salon yo'q: 24125 (rulda BMW logotipi) va 158316 (Porsche-ga o'xshash 3D) RAD ETILDI. Pexels kaliti berish vaqtincha to'xtatilgan (foydalanuvchi aytdi) — qayta tekshir.
+- Qoldi: musiqa (manba), subtitr, kadrlar (rasmiy/diler material), 16:9 va 4:5, brend sozlamasi, tijoriy ovoz.
