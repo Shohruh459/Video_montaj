@@ -53,8 +53,11 @@
     "max_pause": 2.4,
     "speed": 0.85,
     "voice_lines": "voice/script_lines.txt",
-    "music": null,
+    "music": "raw/music/cand_3_14.wav",
     "xfade": 0.4,
-    "preroll": 0.4
+    "preroll": 0.4,
+    "music_pause_db": 11.5,
+    "music_duck_db": 8,
+    "music_start": 80
   }
 }
