@@ -3,10 +3,53 @@
   "brand": "BYD SONG PLUS",
   "cta": "Sinov haydashga yoziling",
   "scenes": [
-    {"kind": "title", "src": "pixabay_video_199.mp4",    "from": 10, "dur": 4.4},
-    {"kind": "lower", "src": "pixabay_video_340897.mp4", "from": 0,  "dur": 6.4, "text": "Jim. Silliq."},
-    {"kind": "lower", "src": "pixabay_video_4053.mp4",   "from": 5,  "dur": 7.4, "text": "Zamonaviy salon"},
-    {"kind": "lower", "src": "pixabay_video_200682.mp4", "from": 2,  "dur": 7.4, "text": "Tejamkor va qulay"},
-    {"kind": "end",   "src": "pixabay_video_19627.mp4",  "from": 3,  "dur": 6.0, "cx": 0.35}
-  ]
+    {
+      "kind": "title",
+      "src": "pixabay_video_199.mp4",
+      "from": 10,
+      "dur": 4.4
+    },
+    {
+      "kind": "lower",
+      "src": "pixabay_video_340897.mp4",
+      "from": 0,
+      "dur": 6.4,
+      "text": "Jim. Silliq."
+    },
+    {
+      "kind": "lower",
+      "src": "pixabay_video_4053.mp4",
+      "from": 5,
+      "dur": 7.4,
+      "text": "Zamonaviy salon"
+    },
+    {
+      "kind": "lower",
+      "src": "pixabay_video_200682.mp4",
+      "from": 2,
+      "dur": 7.4,
+      "text": "Tejamkor va qulay"
+    },
+    {
+      "kind": "end",
+      "src": "pixabay_video_19627.mp4",
+      "from": 3,
+      "dur": 6.0,
+      "cx": 0.35
+    }
+  ],
+  "build": {
+    "name": "byd-song-plus",
+    "format": "vertical",
+    "target_duration": 30,
+    "lead": 0.8,
+    "tail": 2.6,
+    "min_pause": 0.5,
+    "max_pause": 2.4,
+    "speed": 0.85,
+    "voice_lines": "voice/script_lines.txt",
+    "music": null,
+    "xfade": 0.4,
+    "preroll": 0.4
+  }
 }
