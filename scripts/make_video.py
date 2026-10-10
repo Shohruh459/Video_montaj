@@ -139,7 +139,9 @@ if b.get("music"):
     if mstart == "auto":
         mstart = steadiest_start(m, total)
         print(f"musiqa boshlanishi (avto): {mstart} s")
-    sh(["ffmpeg", "-v", "error", "-y", "-ss", str(mstart), "-stream_loop", "-1", "-i", str(m), "-t", f"{total:.3f}", "-ar", "48000", "-ac", "2", str(stem)])
+    sh(["ffmpeg", "-v", "error", "-y", "-ss", str(mstart), "-stream_loop", "-1", "-i", str(m), "-t", f"{total:.3f}",
+        *(["-af", "acompressor=threshold=-26dB:ratio=3:attack=300:release=1200:makeup=1"] if b.get("music_comp") else []),  # dinamikasi katta treklar: daraja kompressordan KEYIN o'lchanadi
+        "-ar", "48000", "-ac", "2", str(stem)])
     v_i, m_i = lufs(out / "voice_final.wav"), lufs(stem)
     pause_db, duck_db = b.get("music_pause_db", 12), b.get("music_duck_db", 8)
     gain = v_i - pause_db - m_i

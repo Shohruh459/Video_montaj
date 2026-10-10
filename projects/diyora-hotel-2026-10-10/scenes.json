@@ -58,7 +58,8 @@
     "preroll": 0.4,
     "music_pause_db": 11.5,
     "music_duck_db": 8,
-    "music_start": "auto",
-    "music": "raw/music/cand_30_0.wav"
+    "music_start": 42,
+    "music": "raw/music/cand_30_0.wav",
+    "music_comp": true
   }
 }
