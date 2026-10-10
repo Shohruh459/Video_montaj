@@ -57,3 +57,16 @@ Pixabay'da Song Plus'ning o'zi ehtimol yo'q → umumiy elektromobil kadrlari; an
 2. Edge-tts ochiq bo'lsa — Madina namunasi bilan solishtirish uchun yarat.
 3. Ovoz tasdiqlangach: ovozni `build`ga ulash (ducking, musiqa −20 dB, −14 LUFS, `yuv420p`), Remotion yakuniy render (1080x1920), `export.sh` → `qc.sh`.
 4. Parallel: salon/ochilish kadrlari (4053 va 199 zaif) — Pixabay'dan yangilarini qidir yoki rasmiy material so'ra.
+
+## Yangilanish (2026-10-10, VoiceStudio o'rnatish urinishi)
+- **HF CDN ochildi** (`huggingface.co/.../model.safetensors` Range → 206). Model yuklash mumkin.
+- **`speech.platform.bing.com` hali yopiq** (edge-tts ishlamaydi).
+- **VoiceStudio `bun run setup:api` (= `node scripts/setup-api.mjs`) PyTorch bosqichida yiqildi:** CPU torch wheel `https://download-r2.pytorch.org/whl/cpu/torch-2.8.0+cpu-cp311-...whl` — `download-r2.pytorch.org` yopiq (`tunnel error`). Qolgan 311 paket (spacy, gradio, scipy…) PyPI'dan yuklanishda muammosiz. `download.pytorch.org` ochiq, lekin wheel boshqa domenda.
+- **Foydalanuvchi qo'shishi kerak (Allowed domains):** `download-r2.pytorch.org` (yoki `*.pytorch.org`) va `speech.platform.bing.com`. Sozlama faqat YANGI sessiyada ishlaydi.
+- PyPI'dagi `torch` (Linux'da CUDA, bir necha GB) — tavsiya etilmaydi.
+- **Yangi sessiyada qadamlar:**
+  1. Tekshir: `curl -s -o /dev/null -w "%{http_code}" https://download-r2.pytorch.org/` va `https://speech.platform.bing.com/` (000 = yopiq).
+  2. `/home/user/debpalash/voicestudio` yo'q bo'lsa: `GIT_LFS_SKIP_SMUDGE=1 git clone --depth 1 https://github.com/debpalash/voicestudio`. So'ng `OMNIVOICE_ANALYTICS_DISABLED=1 node scripts/setup-api.mjs` (fon rejimida, log faylga; ~5 GB).
+  3. Backend: `bun run dev:api` (port 3900), `GET /health`, `GET /models`; model `k2-fsa/OmniVoice` (2.45 GB) o'rnatishdan oldin foydalanuvchiga hajm/litsenziyani ayt, rozilik ol (`POST /models/install`).
+  4. `script.md` matnidan o'zbekcha ayol ovoz namunasi → `voice/` → `SendUserFile` → foydalanuvchi eshitadi.
+  5. Bing ochiq bo'lsa: `python3 scripts/tts_uz.py` bilan Madina namunasini ham yarat, solishtirish uchun.
