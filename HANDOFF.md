@@ -87,3 +87,12 @@ Pixabay'da Song Plus'ning o'zi ehtimol yo'q → umumiy elektromobil kadrlari; an
 - Foydalanuvchi **`vtest_2_ayol_past`** ni tanladi (seed'li variantlar emas). Asl fayl **ovoz namunasi (reference)** sifatida `config/voice_ref/asosiy_ayol_past.wav` (+ `.txt` transkript) ga saqlandi; `scripts/tts_vs.py` backendda `ASOSIY-ayol-past` profilini (clone) yo'q bo'lsa o'zi yaratadi. `config/voice.json` yangilandi. Yangi sessiyada faqat backendni ishga tushirish kifoya.
 - Sinov: o'sha jumla va BYD matni shu profil bilan yaratildi (BYD: `--speed 0.9 --pause 0.9` → 19.1 s, −14.5 LUFS, peak −1.9). Foydalanuvchi eshitib baholashi kutilmoqda (namunaga o'xshashligi, talaffuz).
 - 30 s ga yetish uchun: sekinroq tezlik (0.8) va/yoki uzunroq pauza; yoki matnni biroz uzaytirish (mijoz tasdig'i bilan). Pauzalar sahna kesishlariga mos bo'lsin.
+
+## Yangilanish (2026-10-10, yig'ish skripti ishladi)
+- **`scripts/make_video.py <loyiha> --draft|--final`** boshidan oxirigacha SINALDI (draft): ovoz (kesh `voice/cache/`) → sahna vaqtlari ovoz davomiyligidan → Remotion → audio mix → mux (yuv420p, aac 256k/48k). Natija: `out/byd-song-plus_draft.mp4`, 540x960, 29.58 s, −14.0 LUFS, peak −3.3, qora kadr yo'q. Remotion davomiyligi dinamik (`calculateMetadata`).
+- **`--final` (1080x1920 + export.sh + qc.sh) HALI SINALMAGAN.** Remotion yakuniy render vaqti noma'lum (draft 0.5 scale ≈ 2 daq).
+- **Musiqa** (`build.music`, ducking filtri yozilgan) HALI SINALMAGAN — musiqa fayli yo'q. **Subtitr** yo'q.
+- `scripts/start_voice.sh` — backendni ishga tushiradi (sessiyalar orasida to'xtaydi).
+- Kuzatuv: pauza yuqori chegaraga (2.4 s) yetdi (nutq 16.6 s) → bo'shliqlar uzun; matnni biroz uzaytirish yoki tezlikni 0.8 ga tushirish mumkin. Ovoz-kadr sinxronini eshitib tekshirmadim.
+- Pexels: domenlar (`api.pexels.com`, `videos.pexels.com`, `images.pexels.com`) yopiq; kalit `PEXELS_API_KEY` yo'q. Foydalanuvchi qo'shgach `fetch_broll.py --source pexels` yoziladi.
+- Kadrlar sifati o'zgarmadi: salon (4053, eski Mercedes) va ochilish (199) zaif.
