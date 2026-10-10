@@ -34,3 +34,26 @@ Pixabay'da Song Plus'ning o'zi ehtimol yo'q → umumiy elektromobil kadrlari; an
 - Kadrlar: Song Plus'ga mos zamonaviy SUV/salon yo'q. 4053 (eski Mercedes salon) — zaif, almashtirish kerak. 199 ochilish — eski SUV. Yaroqli: 340897, 200682, 19627.
 - Ovoz: Microsoft TTS ulanmaydi (DNS). Foydalanuvchi "keyin kelishamiz" dedi. Ovoz/musiqa hali yo'q.
 - Keyingi: yaxshiroq salon/ochilish kadrlari yoki rasmiy material → v3; ovoz kelishilgach audio + ducking → export → qc.
+
+## Yangilanish (2026-10-10, TTS qidiruvi) — YANGI SESSIYADA BIRINCHI SHUNI QIL
+**Holat:** ovoz hali yo'q. Montaj tomoni tayyor (draft v1 ffmpeg, v2 Remotion; `STUDIO.md`).
+
+**Tarmoq (muhit sozlamalari, foydalanuvchi tahrirlaydi):**
+- Ochiq: `huggingface.co`, `download.pytorch.org`, pypi, npm, `raw.githubusercontent.com`.
+- Yopiq edi: `speech.platform.bing.com` (edge-tts), `api.elevenlabs.io`, `aisha.group`, **`us.aws.cdn.hf.co`** (HF katta fayllari → 403 "CONNECT tunnel failed").
+- Foydalanuvchi `*.hf.co` qo'shganini aytdi, lekin shu sessiyada hali yopiq edi. **Yangi sessiyada birinchi tekshiruv:**
+  `curl -sS -L -r 0-1023 -o /dev/null https://huggingface.co/k2-fsa/OmniVoice/resolve/main/model.safetensors` → 200/206 bo'lishi kerak. `speech.platform.bing.com` ham tekshir (edge-tts).
+
+**TTS variantlari (tekshirilgan faktlar):**
+- **Piper:** rasmiy `rhasspy/piper-voices` da `uz` yo'q → o'zbekcha Piper modeli YO'Q. (`piper-tts` PyPI'dan o'rnatiladi, lekin foydasiz.)
+- **VoiceStudio** (`github.com/debpalash/voicestudio`, AGPL-3.0, haqiqiy, faol; klon: `/home/user/debpalash/voicestudio` — sessiyada yo'qolishi mumkin, `git clone --depth 1` bilan qayta ol, `GIT_LFS_SKIP_SMUDGE=1`): dvigatel k2-fsa OmniVoice, til ro'yxatida `uz` bor (115 soat). OpenAI-mos API `http://localhost:3900/v1/audio/speech`, MCP, `skills/voicestudio/SKILL.md`. Interfeyssiz o'rnatish: `bun run setup:api` (uv sync, CPU torch ~5 GB) so'ng `bun run dev:api`. Model `k2-fsa/OmniVoice` 2.45 GB (+ audio_tokenizer). **Sifat eshitilmagan; model og'irliklari litsenziyasi (OmniVoice/Qwen3-0.6B) aniqlanmagan — mijoz ishidan oldin tekshir.** O'rnatishdan oldin foydalanuvchiga hajm/litsenziyani ayt (loyiha qoidasi).
+- **Navoiy TTS** (`aisha-org/navoiy-tts`, Apache-2.0, CosyVoice2 asosida): ~5 GB + CosyVoice runtime; GPU'siz sekin. Demo wav'lar HF'da (`demo/`), CDN ochilgach eshittirib ko'r.
+- **edge-tts (Madina/Sardor):** eng oson, `scripts/tts_uz.py` tayyor; faqat `speech.platform.bing.com` ochilsa ishlaydi. Foydalanuvchi o'z kompyuterida ham olib berishi mumkin.
+- Hamjamiyat HF modellari (`facebook/mms-tts-uzb-script_cyrillic` va b.) — sifat/litsenziya tekshirilmagan (MMS odatda NC).
+- Eslatma: men audioni eshita olmayman — sifatni faqat foydalanuvchi baholaydi. Bepul xizmatlar (TTSMaker, Narakeet, Fish Audio) shartlarini (tijorat) foydalanuvchi o'zi tekshirsin.
+
+**Keyingi qadamlar:**
+1. Tarmoqni tekshir (yuqoridagi curl). Ochiq bo'lsa → VoiceStudio backend'ini o'rnat, `script.md` dagi matndan namuna ovoz (Madina kabi ayol) yarat, `voice/` ga qo'y, `SendUserFile` bilan yubor, foydalanuvchi eshitsin.
+2. Edge-tts ochiq bo'lsa — Madina namunasi bilan solishtirish uchun yarat.
+3. Ovoz tasdiqlangach: ovozni `build`ga ulash (ducking, musiqa −20 dB, −14 LUFS, `yuv420p`), Remotion yakuniy render (1080x1920), `export.sh` → `qc.sh`.
+4. Parallel: salon/ochilish kadrlari (4053 va 199 zaif) — Pixabay'dan yangilarini qidir yoki rasmiy material so'ra.
