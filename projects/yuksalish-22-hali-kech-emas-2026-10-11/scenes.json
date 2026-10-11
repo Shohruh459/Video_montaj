@@ -1,0 +1,96 @@
+{
+  "publicDir": "broll",
+  "brand": "@yuksalish713",
+  "cta": "Bu gapni saqlab qoʻy",
+  "accent": "#f5c542",
+  "clipFilter": "brightness(0.8) contrast(1.12) saturate(0.92)",
+  "karaoke": true,
+  "subMode": "fade",
+  "subBox": false,
+  "subBottom": 760,
+  "subSize": 68,
+  "scenes": [
+    {
+      "kind": "plain",
+      "src": "pixabay_video_131994.mp4",
+      "from": 7.8,
+      "dur": 3,
+      "sub": "«Kech boʻldi» degan gap eng katta yolgʻonlardan biri.",
+      "zoom": 0.1,
+      "zoomOut": false,
+      "dim": 0.12
+    },
+    {
+      "kind": "plain",
+      "src": "pixabay_video_61621.mp4",
+      "from": 5.5,
+      "dur": 3,
+      "sub": "Hali kech emas.",
+      "zoom": 0.1,
+      "zoomOut": true,
+      "dim": 0.12
+    },
+    {
+      "kind": "plain",
+      "src": "pixabay_video_34499.mp4",
+      "from": 9.6,
+      "dur": 3,
+      "sub": "Hech qachon kech emas.",
+      "zoom": 0.1,
+      "zoomOut": false,
+      "dim": 0.12
+    },
+    {
+      "kind": "plain",
+      "src": "pixabay_video_190332.mp4",
+      "from": 8.3,
+      "dur": 3,
+      "sub": "Boshlashning eng yaxshi vaqti — kechagi kun edi.",
+      "zoom": 0.1,
+      "zoomOut": true,
+      "dim": 0.12
+    },
+    {
+      "kind": "plain",
+      "src": "pixabay_video_3019.mp4",
+      "from": 0.3,
+      "dur": 3,
+      "sub": "Ikkinchi eng yaxshi vaqti — *hozir*.",
+      "zoom": 0.1,
+      "zoomOut": false,
+      "dim": 0.12
+    },
+    {
+      "kind": "end",
+      "src": "pixabay_video_7127.mp4",
+      "from": 7.2,
+      "dur": 3,
+      "sub": "Bu gapni saqlab qoʻy.",
+      "nosub": true,
+      "zoom": 0.08,
+      "dim": 0.3
+    }
+  ],
+  "build": {
+    "name": "yuksalish-22",
+    "format": "vertical",
+    "target_duration": 21,
+    "lead": 0.4,
+    "tail": 1.8,
+    "min_pause": 0.45,
+    "max_pause": 0.95,
+    "speed": 0.92,
+    "voice_lines": "voice/script_lines.txt",
+    "xfade": 0.2,
+    "preroll": 0.2,
+    "music": "../../library/music/cin_17_2.wav",
+    "music_start": "auto",
+    "music_comp": true,
+    "music_pause_db": 11.5,
+    "music_duck_db": 8,
+    "also_nomusic": true,
+    "sub_per_line": 24,
+    "sub_wrap": 22,
+    "sub_max_lines": 4
+  }
+}

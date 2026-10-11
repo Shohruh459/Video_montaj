@@ -1,0 +1,96 @@
+{
+  "publicDir": "broll",
+  "brand": "@yuksalish713",
+  "cta": "Kimga kerak — ulash",
+  "accent": "#f5c542",
+  "clipFilter": "brightness(0.8) contrast(1.12) saturate(0.92)",
+  "karaoke": true,
+  "subMode": "fade",
+  "subBox": false,
+  "subBottom": 760,
+  "subSize": 68,
+  "scenes": [
+    {
+      "kind": "plain",
+      "src": "pixabay_video_59291.mp4",
+      "from": 9.2,
+      "dur": 3,
+      "sub": "Oʻzgarish hech qachon qulay boʻlmaydi.",
+      "zoom": 0.1,
+      "zoomOut": false,
+      "dim": 0.12
+    },
+    {
+      "kind": "plain",
+      "src": "pixabay_video_95113.mp4",
+      "from": 10.1,
+      "dur": 3,
+      "sub": "U noqulay, ogʻriqli va qoʻrqinchli.",
+      "zoom": 0.1,
+      "zoomOut": true,
+      "dim": 0.12
+    },
+    {
+      "kind": "plain",
+      "src": "pixabay_video_7127.mp4",
+      "from": 16.6,
+      "dur": 3,
+      "sub": "Lekin oʻzgarmaslik undan ham ogʻriqliroq.",
+      "zoom": 0.1,
+      "zoomOut": false,
+      "dim": 0.12
+    },
+    {
+      "kind": "plain",
+      "src": "pixabay_video_205422.mp4",
+      "from": 1.1,
+      "dur": 3,
+      "sub": "Chunki oʻzgarmaslik seni sekin-asta oʻldiradi.",
+      "zoom": 0.1,
+      "zoomOut": true,
+      "dim": 0.12
+    },
+    {
+      "kind": "plain",
+      "src": "pixabay_video_328740.mp4",
+      "from": 8.2,
+      "dur": 3,
+      "sub": "Oʻzgarish esa *tiriltiradi*.",
+      "zoom": 0.1,
+      "zoomOut": false,
+      "dim": 0.12
+    },
+    {
+      "kind": "end",
+      "src": "pixabay_video_173028.mp4",
+      "from": 5.6,
+      "dur": 3,
+      "sub": "Kimga kerak, ulash.",
+      "nosub": true,
+      "zoom": 0.08,
+      "dim": 0.3
+    }
+  ],
+  "build": {
+    "name": "yuksalish-24",
+    "format": "vertical",
+    "target_duration": 25,
+    "lead": 0.4,
+    "tail": 1.8,
+    "min_pause": 0.45,
+    "max_pause": 0.95,
+    "speed": 0.92,
+    "voice_lines": "voice/script_lines.txt",
+    "xfade": 0.2,
+    "preroll": 0.2,
+    "music": "../../library/music/cin_29_3.wav",
+    "music_start": "auto",
+    "music_comp": true,
+    "music_pause_db": 11.5,
+    "music_duck_db": 8,
+    "also_nomusic": true,
+    "sub_per_line": 24,
+    "sub_wrap": 22,
+    "sub_max_lines": 4
+  }
+}
