@@ -101,8 +101,7 @@ const Subtitles = ({subs, bottom = 200, size = 38, karaoke = false}) => {
         {karaoke ? timed.map((x, i) => {
           const on = t >= x.a0 && t < x.a1, done = t >= x.a1;
           return (<React.Fragment key={i}>
-            <span style={{display: 'inline-block', color: on ? ACCENT : '#fff', opacity: done || on ? 1 : 0.55,
-              transform: `scale(${on ? 1.12 : 1})`}}>{x.w}</span>{x.br ? <br /> : ' '}
+            <span style={{display: 'inline-block', color: on ? ACCENT : '#fff', opacity: done || on ? 1 : 0.55}}>{x.w}</span>{x.br ? <br /> : ' '}
           </React.Fragment>);
         }) : <span style={{whiteSpace: 'pre-line'}}>{cur.text}</span>}
       </div>
