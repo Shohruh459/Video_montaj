@@ -1,0 +1,108 @@
+{
+  "publicDir": "broll",
+  "brand": "@yuksalish713",
+  "cta": "Bu gapni saqlab qoʻy",
+  "accent": "#f5c542",
+  "clipFilter": "brightness(0.8) contrast(1.12) saturate(0.92)",
+  "karaoke": true,
+  "subMode": "fade",
+  "subBox": false,
+  "subBottom": 760,
+  "subSize": 76,
+  "scenes": [
+    {
+      "kind": "plain",
+      "src": "pixabay_video_131994.mp4",
+      "from": 2.0,
+      "dur": 3,
+      "sub": "Vaqtingni behuda oʻtkazayotganingni bilasan.",
+      "zoom": 0.1,
+      "zoomOut": false,
+      "dim": 0.12
+    },
+    {
+      "kind": "plain",
+      "src": "pixabay_video_64594.mp4",
+      "from": 3.1,
+      "dur": 3,
+      "sub": "Lekin baribir telefonni qoʻyolmayapsan.",
+      "zoom": 0.1,
+      "zoomOut": true,
+      "dim": 0.12
+    },
+    {
+      "kind": "plain",
+      "src": "pixabay_video_34499.mp4",
+      "from": 4.8,
+      "dur": 3,
+      "sub": "Har kuni 2 soat yoʻqotish — 1 yilda *730* *soat*.",
+      "zoom": 0.1,
+      "zoomOut": false,
+      "dim": 0.12,
+      "alt": {
+        "src": "pixabay_video_22619.mp4",
+        "from": 28.1,
+        "zoomOut": true
+      }
+    },
+    {
+      "kind": "plain",
+      "src": "pixabay_video_139365.mp4",
+      "from": 6.5,
+      "dur": 3,
+      "sub": "Bu degani — 30 kunlik hayot.",
+      "zoom": 0.1,
+      "zoomOut": true,
+      "dim": 0.12
+    },
+    {
+      "kind": "plain",
+      "src": "pixabay_video_3019.mp4",
+      "from": 3.3,
+      "dur": 3,
+      "sub": "Vaqtingni qaytarib ol.",
+      "zoom": 0.1,
+      "zoomOut": false,
+      "dim": 0.12
+    },
+    {
+      "kind": "plain",
+      "src": "pixabay_video_23014.mp4",
+      "from": 2.5,
+      "dur": 3,
+      "sub": "Yoki uni yoʻqotishda davom et.",
+      "zoom": 0.1,
+      "zoomOut": true,
+      "dim": 0.12
+    },
+    {
+      "kind": "end",
+      "src": "pixabay_video_7127.mp4",
+      "from": 0.2,
+      "dur": 3,
+      "sub": "Bu gapni saqlab qoʻy.",
+      "nosub": true,
+      "zoom": 0.08,
+      "dim": 0.3
+    }
+  ],
+  "build": {
+    "name": "yuksalish-02",
+    "format": "vertical",
+    "target_duration": 21,
+    "lead": 0.4,
+    "tail": 1.8,
+    "min_pause": 0.45,
+    "max_pause": 0.95,
+    "speed": 0.92,
+    "voice_lines": "voice/script_lines.txt",
+    "xfade": 0.2,
+    "preroll": 0.2,
+    "music": "../../library/music/cin_27_0.wav",
+    "music_start": "auto",
+    "music_comp": true,
+    "music_pause_db": 11.5,
+    "music_duck_db": 8,
+    "also_nomusic": true
+  }
+}

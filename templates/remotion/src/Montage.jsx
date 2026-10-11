@@ -70,7 +70,7 @@ const Cta = ({text}) => {
   const p = useIn(22, 14);
   return (
     <AbsoluteFill style={{justifyContent: 'flex-end', alignItems: 'center', paddingBottom: 460}}>
-      <div style={{fontFamily: FONT, fontWeight: 700, fontSize: 48, color: '#06231f', background: ACCENT,
+      <div style={{fontFamily: FONT, fontWeight: 700, fontSize: Math.min(48, Math.floor(880 / (text.length * 0.66))), color: '#06231f', background: ACCENT, whiteSpace: 'nowrap',
         padding: '26px 54px', borderRadius: 60, opacity: p, transform: `scale(${0.8 + 0.2 * p})`,
         boxShadow: '0 10px 40px rgba(0,0,0,.45)'}}>{text}</div>
     </AbsoluteFill>
@@ -78,9 +78,11 @@ const Cta = ({text}) => {
 };
 
 
-// Subtitr: pastdan subBottom px yuqorida (Reels'da pastki ~20% Instagram interfeysi bilan yopiladi), ≤ 2 qator.
+// Subtitr: pastdan `bottom` px yuqorida (Reels'da pastki ~20% Instagram interfeysi bilan yopiladi), ≤ 2 qator.
 // karaoke=true: so'zlar ovoz bilan birga ketma-ket ajratib ko'rsatiladi (so'z vaqti harf soniga mutanosib — taxminiy).
-const Subtitles = ({subs, bottom = 200, size = 38, karaoke = false}) => {
+// mode 'color': joriy so'z accent rangida; 'fade': aytilmagan so'zlar xira, aytilganlari to'liq (motivatsion uslub).
+// Matnda *so'z* — muhim so'z: accent rangi va kattaroq. box=false: fonsiz, kuchli soya bilan.
+const Subtitles = ({subs, bottom = 200, size = 38, karaoke = false, mode = 'color', box = true}) => {
   const ACCENT = useContext(AccentCtx);
   const f = useCurrentFrame();
   const t = f / 30;
@@ -88,22 +90,29 @@ const Subtitles = ({subs, bottom = 200, size = 38, karaoke = false}) => {
   if (!cur) return null;
   const k = Math.max(0, Math.min(1, (t - cur.from) / 0.12, (cur.to - t) / 0.12));
   const lines = cur.text.split('\n');
-  const words = lines.flatMap((l, li) => l.split(' ').map((w, wi, arr) => ({w, br: wi === arr.length - 1 && li < lines.length - 1})));
+  const words = lines.flatMap((l, li) => l.split(' ').map((raw, wi, arr) => {
+    const m = raw.match(/^\*(.+?)\*([^\w*]*)$/u);
+    return {w: m ? m[1] + m[2] : raw.replace(/\*/g, ''), emph: !!m, br: wi === arr.length - 1 && li < lines.length - 1};
+  }));
   const total = words.reduce((a, x) => a + x.w.length + 1, 0);
   const t0 = cur.from + 0.05, t1 = cur.to - 0.2;
   let acc = 0;
   const timed = words.map((x) => { const a0 = t0 + (t1 - t0) * (acc / total); acc += x.w.length + 1; return {...x, a0, a1: t0 + (t1 - t0) * (acc / total)}; });
+  const boxStyle = box ? {background: 'rgba(0,0,0,.55)', padding: '14px 28px', borderRadius: 22}
+    : {textShadow: '0 4px 28px rgba(0,0,0,.9), 0 0 8px rgba(0,0,0,.75), 0 2px 2px rgba(0,0,0,.8)', padding: '0 20px'};
   return (
     <AbsoluteFill style={{justifyContent: 'flex-end', alignItems: 'center', paddingBottom: bottom}}>
-      <div style={{fontFamily: FONT, fontWeight: 800, fontSize: size, lineHeight: 1.3, color: '#fff', textAlign: 'center',
-        maxWidth: 920, background: 'rgba(0,0,0,.55)', padding: '14px 28px', borderRadius: 22,
-        opacity: k, transform: `translateY(${(1 - k) * 14}px)`}}>
+      <div style={{fontFamily: FONT, fontWeight: 800, fontSize: size, lineHeight: 1.25, color: '#fff', textAlign: 'center',
+        maxWidth: 940, opacity: k, transform: `translateY(${(1 - k) * 14}px)`, ...boxStyle}}>
         {karaoke ? timed.map((x, i) => {
           const on = t >= x.a0 && t < x.a1, done = t >= x.a1;
+          const spoken = done || on;
+          const color = x.emph ? ACCENT : (mode === 'color' && on ? ACCENT : '#fff');
+          const opacity = mode === 'fade' ? (spoken ? 1 : 0.28) : (spoken ? 1 : 0.55);
           return (<React.Fragment key={i}>
-            <span style={{display: 'inline-block', color: on ? ACCENT : '#fff', opacity: done || on ? 1 : 0.55}}>{x.w}</span>{x.br ? <br /> : ' '}
+            <span style={{display: 'inline-block', color, opacity, fontSize: x.emph ? '1.22em' : undefined}}>{x.w}</span>{x.br ? <br /> : ' '}
           </React.Fragment>);
-        }) : <span style={{whiteSpace: 'pre-line'}}>{cur.text}</span>}
+        }) : <span style={{whiteSpace: 'pre-line'}}>{cur.text.replace(/\*/g, '')}</span>}
       </div>
     </AbsoluteFill>
   );
@@ -121,7 +130,7 @@ const Badge = ({text, top = 170}) => {
   );
 };
 
-export const Montage = ({scenes, brand, cta, subs = [], accent, clipFilter, titlePos, xfadeFrames, subBottom = 200, subSize = 38, karaoke = false, badge}) => {
+export const Montage = ({scenes, brand, cta, subs = [], accent, clipFilter, titlePos, xfadeFrames, subBottom = 200, subSize = 38, karaoke = false, subMode = 'color', subBox = true, badge}) => {
   const X = xfadeFrames ?? X_DEFAULT;
   let start = 0;
   return (
@@ -142,7 +151,7 @@ export const Montage = ({scenes, brand, cta, subs = [], accent, clipFilter, titl
           </Sequence>
         );
       })}
-      <Subtitles subs={subs} bottom={subBottom} size={subSize} karaoke={karaoke} />
+      <Subtitles subs={subs} bottom={subBottom} size={subSize} karaoke={karaoke} mode={subMode} box={subBox} />
       {badge ? <Badge text={badge} /> : null}
     </AbsoluteFill>
     </AccentCtx.Provider>

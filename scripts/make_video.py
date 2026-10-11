@@ -102,7 +102,20 @@ for i, s in enumerate(scenes):
 res["subs"] = subs
 res["xfadeFrames"] = int(round(xf * 30))
 (out / f"{b['name']}.srt").write_text("\n".join(
-    f"{i+1}\n{srt_time(x['from'])} --> {srt_time(x['to'])}\n{x['text']}\n" for i, x in enumerate(subs)), encoding="utf-8")
+    f"{i+1}\n{srt_time(x['from'])} --> {srt_time(x['to'])}\n{x['text'].replace('*', '')}\n" for i, x in enumerate(subs)), encoding="utf-8")
+# Uzun sahnani ikkiga bo'lish: sahnada "alt" ({"src","from"}) bo'lsa, vaqt o'rtasida ikkinchi kadrga o'tadi (tez kesish)
+_rs = []
+for i, s in enumerate(res["scenes"]):
+    last = i == len(res["scenes"]) - 1
+    st, en = t0[i], (total if last else t0[i + 1])
+    if s.get("alt"):
+        mid = (st + en) / 2
+        a_ = {k: v for k, v in s.items() if k != "alt"}; a_["dur"] = round(mid - st + xf, 3)
+        b_ = {k: v for k, v in s.items() if k != "alt"}; b_.update(s["alt"]); b_["dur"] = round(en - mid + (0 if last else xf), 3)
+        _rs += [a_, b_]
+    else:
+        _rs.append(s)
+res["scenes"] = _rs
 (out / "scenes.resolved.json").write_text(json.dumps(res, ensure_ascii=False, indent=2), encoding="utf-8")
 
 # 4) Remotion
@@ -186,5 +199,18 @@ else:
     sh(["bash", str(ROOT / "scripts/export.sh"), str(tmp), str(final), b.get("format", "vertical")])
     tmp.unlink()
 print("TAYYOR:", final)
+if a.final and b.get("also_nomusic"):
+    # Faqat ovoz (−14 LUFS) — Instagram'da o'z litsenziyali musiqasini qo'shish uchun
+    va = out / "audio_voice_only.wav"
+    vp = out / "voice_pre.wav"
+    sh(["ffmpeg", "-v", "error", "-y", "-i", str(out / "voice_final.wav"), "-af",
+        f"aresample=48000,pan=stereo|c0=c0|c1=c0,apad=whole_dur={total:.3f},atrim=0:{total:.3f},highpass=f=70,afade=t=out:st={total-0.4:.3f}:d=0.4", "-ar", "48000", str(vp)])
+    sh(["ffmpeg", "-v", "error", "-y", "-i", str(vp), "-af", "loudnorm=I=-14:TP=-1.5:LRA=11", "-ar", "48000", "-ac", "2", str(va)])
+    tmp2 = out / "mux_tmp2.mp4"
+    sh(["ffmpeg", "-v", "error", "-y", "-i", str(raw), "-i", str(va), "-map", "0:v", "-map", "1:a", "-c:v", "copy", "-c:a", "pcm_s16le", "-t", f"{total:.3f}", str(tmp2)])
+    nm = out / f"{name}_musiqasiz.mp4"
+    sh(["bash", str(ROOT / "scripts/export.sh"), str(tmp2), str(nm), b.get("format", "vertical")])
+    tmp2.unlink()
+    print("TAYYOR (musiqasiz):", nm)
 if a.final:
     sh(["bash", str(ROOT / "scripts/qc.sh"), str(final)])

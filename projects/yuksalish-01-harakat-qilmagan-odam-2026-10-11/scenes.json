@@ -1,0 +1,113 @@
+{
+  "publicDir": "broll",
+  "brand": "@yuksalish713",
+  "cta": "Yuksalishga obuna boʻl",
+  "accent": "#f5c542",
+  "clipFilter": "brightness(0.8) contrast(1.12) saturate(0.92)",
+  "karaoke": true,
+  "subMode": "fade",
+  "subBox": false,
+  "subBottom": 760,
+  "subSize": 76,
+  "scenes": [
+    {
+      "kind": "plain",
+      "src": "pixabay_video_1694.mp4",
+      "from": 1.0,
+      "dur": 3,
+      "sub": "Koʻp odam orzu qiladi.",
+      "zoom": 0.1,
+      "zoomOut": false,
+      "dim": 0.12
+    },
+    {
+      "kind": "plain",
+      "src": "pixabay_video_139365.mp4",
+      "from": 2.5,
+      "dur": 3,
+      "sub": "Lekin orzu qilish oson.",
+      "zoom": 0.1,
+      "zoomOut": true,
+      "dim": 0.12
+    },
+    {
+      "kind": "plain",
+      "src": "pixabay_video_202743.mp4",
+      "from": 8.5,
+      "dur": 3,
+      "sub": "*Harakat* qilish esa ogʻir.",
+      "zoom": 0.1,
+      "zoomOut": false,
+      "dim": 0.12
+    },
+    {
+      "kind": "plain",
+      "src": "pixabay_video_223578.mp4",
+      "from": 10.4,
+      "dur": 3,
+      "sub": "Shuning uchun 100 kishidan 97 tasi joyida turib qoladi.",
+      "zoom": 0.1,
+      "zoomOut": true,
+      "dim": 0.12,
+      "alt": {
+        "src": "pixabay_video_205422.mp4",
+        "from": 13.6,
+        "zoomOut": false
+      }
+    },
+    {
+      "kind": "plain",
+      "src": "pixabay_video_61621.mp4",
+      "from": 4.9,
+      "dur": 3,
+      "sub": "Agar bugun ham biror narsa qilmasang — erta ham xuddi shunday boʻladi.",
+      "zoom": 0.1,
+      "zoomOut": false,
+      "dim": 0.12,
+      "alt": {
+        "src": "pixabay_video_328740.mp4",
+        "from": 40.1,
+        "zoomOut": true
+      }
+    },
+    {
+      "kind": "plain",
+      "src": "pixabay_video_282995.mp4",
+      "from": 6.2,
+      "dur": 3,
+      "sub": "Yuksalish *harakatdan* boshlanadi.",
+      "zoom": 0.1,
+      "zoomOut": true,
+      "dim": 0.12
+    },
+    {
+      "kind": "end",
+      "src": "pixabay_video_59291.mp4",
+      "from": 12.7,
+      "dur": 3,
+      "sub": "Yuksalishga obuna boʻl.",
+      "nosub": true,
+      "zoom": 0.08,
+      "dim": 0.3
+    }
+  ],
+  "build": {
+    "name": "yuksalish-01",
+    "format": "vertical",
+    "target_duration": 24.5,
+    "lead": 0.4,
+    "tail": 1.8,
+    "min_pause": 0.45,
+    "max_pause": 0.95,
+    "speed": 0.92,
+    "voice_lines": "voice/script_lines.txt",
+    "xfade": 0.2,
+    "preroll": 0.2,
+    "music": "../../library/music/cin_17_2.wav",
+    "music_start": "auto",
+    "music_comp": true,
+    "music_pause_db": 11.5,
+    "music_duck_db": 8,
+    "also_nomusic": true
+  }
+}
