@@ -17,7 +17,7 @@ CAT = {
     "time": [131994, 61621, 34499, 190332, 3019, 16346],
     "phone": [169445, 736],
     "morning": [16346, 7127, 139365, 328740],
-    "crowd": [3614, 3630, 3627, 1694],
+    "crowd": [3630, 3627, 1694],
     "write": [34258, 43869, 130645],
     "read": [84006, 122232, 846, 185092],
     "gym": [135162, 200657],
@@ -32,6 +32,7 @@ RULES = [  # (kalit so'zlar, kategoriya) — birinchi mos kelgani
     (r"o'zgar|tiril|omad|imkoniyat|sabr|o'sish|yuksal", "epic"),
 ]
 FALLBACK = ["epic", "sea", "city", "walk"]
+CX = {200657: 0.8, 135162: 0.62}  # sportchi kadrning o'ng tomonida: kesish markazi
 
 
 def uz_num(n):
@@ -104,13 +105,13 @@ for n, slug, target, cta_key, units in SCRIPTS:
     used = set(); scenes = []; voice = []
     for i, u in enumerate(units):
         cat = category(u, i, len(units)); cid = pick(cat, n, i, used)
-        s = {"kind": "plain", "src": f"pixabay_video_{cid}.mp4", "from": start(cid, n, i), "dur": 3, "sub": display(u), "zoom": 0.1, "zoomOut": bool(i % 2), "dim": 0.12}
+        s = {"kind": "plain", "src": f"pixabay_video_{cid}.mp4", "from": start(cid, n, i), "dur": 3, "sub": display(u), "zoom": 0.1, "zoomOut": bool(i % 2), "dim": 0.12, **({"cx": CX[cid]} if cid in CX else {})}
         if len(u.split()) >= 9:  # uzun jumla: ikkinchi kadrga o'tish
             c2 = pick(FALLBACK[(n + i) % 4] if cat in ("epic",) else "epic", n, i + 5, used)
-            s["alt"] = {"src": f"pixabay_video_{c2}.mp4", "from": start(c2, n, i + 3), "zoomOut": not s["zoomOut"]}
+            s["alt"] = {"src": f"pixabay_video_{c2}.mp4", "from": start(c2, n, i + 3), "zoomOut": not s["zoomOut"], **({"cx": CX[c2]} if c2 in CX else {})}
         scenes.append(s); voice.append(tts_text(u))
     cid = pick("hope", n, 99, used)
-    scenes.append({"kind": "end", "src": f"pixabay_video_{cid}.mp4", "from": start(cid, n, 99), "dur": 3, "sub": display(say), "nosub": True, "zoom": 0.08, "dim": 0.3})
+    scenes.append({"kind": "end", "src": f"pixabay_video_{cid}.mp4", "from": start(cid, n, 99), "dur": 3, **({"cx": CX[cid]} if cid in CX else {}), "sub": display(say), "nosub": True, "zoom": 0.08, "dim": 0.3})
     voice.append(tts_text(say))
     mus = MUSIC[(n - 1) % len(MUSIC)]
     mfile = next(p for p in (ROOT / "library/music").glob(f"{mus}.*"))

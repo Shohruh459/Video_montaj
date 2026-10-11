@@ -18,7 +18,8 @@
       "sub": "*Dangasalik* — eng yashirin dushman.",
       "zoom": 0.1,
       "zoomOut": false,
-      "dim": 0.12
+      "dim": 0.12,
+      "cx": 0.8
     },
     {
       "kind": "plain",

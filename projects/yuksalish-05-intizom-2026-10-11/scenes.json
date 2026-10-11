@@ -28,7 +28,8 @@
       "sub": "*Intizom* esa qoladi.",
       "zoom": 0.1,
       "zoomOut": true,
-      "dim": 0.12
+      "dim": 0.12,
+      "cx": 0.62
     },
     {
       "kind": "plain",
@@ -39,6 +40,7 @@
       "zoom": 0.1,
       "zoomOut": false,
       "dim": 0.12,
+      "cx": 0.8,
       "alt": {
         "src": "pixabay_video_38971.mp4",
         "from": 0.0,
