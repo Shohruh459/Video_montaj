@@ -5,7 +5,7 @@ import {AbsoluteFill, Sequence, OffthreadVideo, staticFile, useCurrentFrame, use
 const FONT = '"Noto Sans", "DejaVu Sans", Arial, sans-serif';
 const DEFAULT_ACCENT = '#35d6c0';
 const AccentCtx = createContext(DEFAULT_ACCENT);
-const X = 12; // crossfade, kadr (0.4 s)
+const X_DEFAULT = 12; // crossfade, kadr (0.4 s); Montage'da xfadeFrames prop bilan o'zgartiriladi
 
 const useIn = (delay = 0, damping = 18) => {
   const f = useCurrentFrame();
@@ -13,15 +13,15 @@ const useIn = (delay = 0, damping = 18) => {
   return spring({frame: f - delay, fps, config: {damping, stiffness: 110}});
 };
 
-const FadeEdges = ({children, dur}) => {
+const FadeEdges = ({children, dur, x}) => {
   const f = useCurrentFrame();
-  const o = interpolate(f, [0, X, dur - X, dur], [0, 1, 1, 0], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
+  const o = interpolate(f, [0, x, dur - x, dur], [0, 1, 1, 0], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
   return <AbsoluteFill style={{opacity: o}}>{children}</AbsoluteFill>;
 };
 
-const Clip = ({src, from, dur, cx = 0.5, dim = 0, filt}) => {
+const Clip = ({src, from, dur, cx = 0.5, dim = 0, filt, zoom = 0.08, zoomOut = false}) => {
   const f = useCurrentFrame();
-  const scale = interpolate(f, [0, dur], [1.0, 1.08], {easing: Easing.inOut(Easing.quad)});
+  const scale = interpolate(f, [0, dur], zoomOut ? [1 + zoom, 1.0] : [1.0, 1 + zoom], {easing: Easing.inOut(Easing.quad)});
   return (
     <AbsoluteFill style={{overflow: 'hidden', background: '#000'}}>
       <OffthreadVideo src={staticFile(src)} muted startFrom={Math.round(from * 30)}
@@ -78,23 +78,52 @@ const Cta = ({text}) => {
 };
 
 
-// Subtitr: ekran chetidan 10% (192 px) yuqorida, ≤ 2 qator. Qator uzilishlari make_video.py da belgilanadi.
-const Subtitles = ({subs}) => {
+// Subtitr: pastdan subBottom px yuqorida (Reels'da pastki ~20% Instagram interfeysi bilan yopiladi), ≤ 2 qator.
+// karaoke=true: so'zlar ovoz bilan birga ketma-ket ajratib ko'rsatiladi (so'z vaqti harf soniga mutanosib — taxminiy).
+const Subtitles = ({subs, bottom = 200, size = 38, karaoke = false}) => {
+  const ACCENT = useContext(AccentCtx);
   const f = useCurrentFrame();
   const t = f / 30;
   const cur = subs.find((s) => t >= s.from && t <= s.to);
   if (!cur) return null;
-  const k = Math.min(1, (t - cur.from) / 0.15, (cur.to - t) / 0.15);
+  const k = Math.max(0, Math.min(1, (t - cur.from) / 0.12, (cur.to - t) / 0.12));
+  const lines = cur.text.split('\n');
+  const words = lines.flatMap((l, li) => l.split(' ').map((w, wi, arr) => ({w, br: wi === arr.length - 1 && li < lines.length - 1})));
+  const total = words.reduce((a, x) => a + x.w.length + 1, 0);
+  const t0 = cur.from + 0.05, t1 = cur.to - 0.2;
+  let acc = 0;
+  const timed = words.map((x) => { const a0 = t0 + (t1 - t0) * (acc / total); acc += x.w.length + 1; return {...x, a0, a1: t0 + (t1 - t0) * (acc / total)}; });
   return (
-    <AbsoluteFill style={{justifyContent: 'flex-end', alignItems: 'center', paddingBottom: 200}}>
-      <div style={{fontFamily: FONT, fontWeight: 700, fontSize: 38, lineHeight: 1.3, color: '#fff', textAlign: 'center',
-        whiteSpace: 'pre-line', maxWidth: 920, background: 'rgba(0,0,0,.62)', padding: '14px 28px', borderRadius: 18,
-        opacity: Math.max(0, k), transform: `translateY(${(1 - Math.max(0, k)) * 12}px)`}}>{cur.text}</div>
+    <AbsoluteFill style={{justifyContent: 'flex-end', alignItems: 'center', paddingBottom: bottom}}>
+      <div style={{fontFamily: FONT, fontWeight: 800, fontSize: size, lineHeight: 1.3, color: '#fff', textAlign: 'center',
+        maxWidth: 920, background: 'rgba(0,0,0,.55)', padding: '14px 28px', borderRadius: 22,
+        opacity: k, transform: `translateY(${(1 - k) * 14}px)`}}>
+        {karaoke ? timed.map((x, i) => {
+          const on = t >= x.a0 && t < x.a1, done = t >= x.a1;
+          return (<React.Fragment key={i}>
+            <span style={{display: 'inline-block', color: on ? ACCENT : '#fff', opacity: done || on ? 1 : 0.55,
+              transform: `scale(${on ? 1.12 : 1})`, margin: '0 0.14em'}}>{x.w}</span>{x.br ? <br /> : null}
+          </React.Fragment>);
+        }) : <span style={{whiteSpace: 'pre-line'}}>{cur.text}</span>}
+      </div>
     </AbsoluteFill>
   );
 };
 
-export const Montage = ({scenes, brand, cta, subs = [], accent, clipFilter, titlePos}) => {
+// Doimiy joylashuv/belgi chipi (tepada)
+const Badge = ({text, top = 170}) => {
+  const ACCENT = useContext(AccentCtx);
+  const p = useIn(4, 18);
+  return (
+    <AbsoluteFill style={{justifyContent: 'flex-start', alignItems: 'center', paddingTop: top}}>
+      <div style={{fontFamily: FONT, fontWeight: 700, fontSize: 40, color: '#fff', background: 'rgba(0,0,0,.5)', padding: '10px 28px',
+        borderRadius: 40, borderLeft: `10px solid ${ACCENT}`, opacity: p, transform: `translateY(${(1 - p) * -20}px)`}}>{text}</div>
+    </AbsoluteFill>
+  );
+};
+
+export const Montage = ({scenes, brand, cta, subs = [], accent, clipFilter, titlePos, xfadeFrames, subBottom = 200, subSize = 38, karaoke = false, badge}) => {
+  const X = xfadeFrames ?? X_DEFAULT;
   let start = 0;
   return (
     <AccentCtx.Provider value={accent || DEFAULT_ACCENT}>
@@ -105,8 +134,8 @@ export const Montage = ({scenes, brand, cta, subs = [], accent, clipFilter, titl
         start += dur - (i < scenes.length - 1 ? X : 0);
         return (
           <Sequence key={i} from={at} durationInFrames={dur}>
-            <FadeEdges dur={dur}>
-              <Clip src={s.src} from={s.from} dur={dur} cx={s.cx} dim={s.dim !== undefined ? s.dim : (s.kind === 'lower' ? 0 : 0.4)} filt={s.filter || clipFilter} />
+            <FadeEdges dur={dur} x={X}>
+              <Clip src={s.src} from={s.from} dur={dur} cx={s.cx} dim={s.dim !== undefined ? s.dim : ((s.kind === 'title' || s.kind === 'end') ? 0.4 : 0)} filt={s.filter || clipFilter} zoom={s.zoom} zoomOut={s.zoomOut} />
               {s.kind === 'title' && <Title text={brand} top={titlePos === 'top'} />}
               {s.kind === 'lower' && <Lower text={s.text} />}
               {s.kind === 'end' && (<><Title text={brand} top={titlePos === 'top'} /><Cta text={cta} /></>)}
@@ -114,7 +143,8 @@ export const Montage = ({scenes, brand, cta, subs = [], accent, clipFilter, titl
           </Sequence>
         );
       })}
-      <Subtitles subs={subs} />
+      <Subtitles subs={subs} bottom={subBottom} size={subSize} karaoke={karaoke} />
+      {badge ? <Badge text={badge} /> : null}
     </AbsoluteFill>
     </AccentCtx.Provider>
   );

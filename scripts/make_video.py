@@ -98,6 +98,7 @@ for i, s in enumerate(scenes):
         print(f"OGOHLANTIRISH: subtitr qatori {longest} belgi (>42): {txt[:40]}")
     subs.append({"text": txt, "from": round(max(0, starts[i] - 0.1), 3), "to": round(min(total, starts[i] + d[i] + 0.25), 3)})
 res["subs"] = subs
+res["xfadeFrames"] = int(round(xf * 30))
 (out / f"{b['name']}.srt").write_text("\n".join(
     f"{i+1}\n{srt_time(x['from'])} --> {srt_time(x['to'])}\n{x['text']}\n" for i, x in enumerate(subs)), encoding="utf-8")
 (out / "scenes.resolved.json").write_text(json.dumps(res, ensure_ascii=False, indent=2), encoding="utf-8")

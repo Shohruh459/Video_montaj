@@ -9,62 +9,76 @@
     {
       "kind": "title",
       "src": "kittens_source.mp4",
-      "from": 0,
-      "dur": 6,
-      "sub": "Ikkita mushukcha egasini kutyapti.",
-      "dim": 0.12
+      "from": 0.7,
+      "dur": 3,
+      "sub": "Bu ikki mushukchaga uy kerak!",
+      "dim": 0.1,
+      "zoom": 0.1
     },
     {
-      "kind": "lower",
+      "kind": "plain",
       "src": "kittens_source.mp4",
-      "from": 5,
-      "dur": 6,
-      "sub": "Ular Zarafshon shahrida, Navoiy viloyatida.",
-      "text": "Zarafshon, Navoiy",
-      "dim": 0
+      "from": 6.0,
+      "dur": 3,
+      "sub": "Ular juda shirin.",
+      "zoom": 0.1,
+      "zoomOut": true
     },
     {
-      "kind": "lower",
+      "kind": "plain",
       "src": "kittens_source.mp4",
-      "from": 10,
-      "dur": 6,
-      "sub": "Hadiyaga beriladi.",
-      "text": "Hadiyaga beriladi",
-      "dim": 0
+      "from": 10.2,
+      "dur": 3,
+      "sub": "Zarafshon shahrida, Navoiy viloyatida.",
+      "zoom": 0.1
     },
     {
-      "kind": "lower",
+      "kind": "plain",
       "src": "kittens_source.mp4",
-      "from": 14.5,
-      "dur": 6,
-      "sub": "Mehribon va gʻamxoʻr oila izlayapmiz.",
-      "text": "Mehribon oila kerak",
-      "dim": 0
+      "from": 13.3,
+      "dur": 3,
+      "sub": "Hadiyaga beriladi!",
+      "zoom": 0.1,
+      "zoomOut": true
+    },
+    {
+      "kind": "plain",
+      "src": "kittens_source.mp4",
+      "from": 19.6,
+      "dur": 3,
+      "sub": "Mehribon oila izlaymiz.",
+      "zoom": 0.1
     },
     {
       "kind": "end",
       "src": "kittens_source.mp4",
-      "from": 19.5,
-      "dur": 6,
-      "sub": "Bogʻlanish uchun direktga yozing.",
-      "dim": 0.12
+      "from": 22.0,
+      "dur": 3,
+      "sub": "Direktga yozing!",
+      "dim": 0.1,
+      "zoom": 0.1,
+      "zoomOut": true
     }
   ],
   "build": {
-    "name": "mushukchalar-zarafshon",
+    "name": "mushukchalar-v2",
     "format": "vertical",
-    "target_duration": 25,
-    "lead": 0.6,
-    "tail": 2.2,
-    "min_pause": 0.4,
-    "max_pause": 2.0,
-    "speed": 0.9,
+    "target_duration": 14,
+    "lead": 0.3,
+    "tail": 1.3,
+    "min_pause": 0.25,
+    "max_pause": 0.5,
+    "speed": 1.0,
     "voice_lines": "voice/script_lines.txt",
-    "xfade": 0.4,
-    "preroll": 0.4,
+    "xfade": 0.12,
+    "preroll": 0.12,
     "music": "raw/music/cand_32_12.wav",
     "music_start": "auto",
     "music_pause_db": 11.5,
     "music_duck_db": 8
-  }
+  },
+  "badge": "Zarafshon · Navoiy",
+  "karaoke": true,
+  "subBottom": 400,
+  "subSize": 54
 }
