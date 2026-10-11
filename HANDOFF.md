@@ -16,6 +16,14 @@ Pixabay'da Song Plus'ning o'zi ehtimol yo'q → umumiy elektromobil kadrlari; an
 - **Microsoft TTS (edge-tts)**: avvalgi sandbox'da ulanmadi (proksi/sertifikat). Foydalanuvchining serverida/yangi sessiyada qayta sinab ko'r; ishlamasa — boshqa TTS variantini taklif qil. Hali hech bir o'zbekcha ovoz eshittirilmagan.
 - **Pixabay**: `pixabay.com` sayti Cloudflare bot-tekshiruvi beradi (403); rasmiy API (`/api/`, `/api/videos/`) kalit bilan ishlaydi. Kalit muhitda `PIXABAY_API_KEY` nomi bilan (foydalanuvchi qo'shgan; eski sessiyada ko'rinmagan, yangisida ishlagani foydalanuvchi xabari bo'yicha). Skript: `scripts/fetch_broll.py` (qidirish → tanlash → yuklash; `CREDITS.md` ni o'zi yozadi). Yuklash qismi hali haqiqiy tarmoqda sinalmagan.
 
+## Sessiya 2026-10-11 tekshiruvi (Zarafshon Dasturchilari, 5 ta Reels, ayol ovoz)
+- Brif fayli: foydalanuvchi yuklagan `Zarafshon_Dasturchilari_AI_Ssenariylar.html` (5 ssenariy, 15–35 s, ayol ovoz, 9:16 Reels).
+- `.venv` + `requirements.txt` o'rnatildi (edge-tts, pydub, pyloudnorm, soundfile). ffmpeg 6.1 bor. Shrift: DejaVu bor, Noto Sans yo'q (apt tarmog'i tekshirilmagan).
+- **edge-tts ISHLAMAYDI**: `speech.platform.bing.com` DNS/proksi bloklangan (tarmoq siyosati). Environment sozlamalarida shu domen ruxsat etilishi kerak.
+- Pixabay API (rasm/video) ishlaydi, `cdn.pixabay.com` dan video yuklash ishlaydi (200). Pixabay **musiqa** uchun rasmiy API yo'q, `pixabay.com` sayti 403.
+- Bloklangan: api.elevenlabs.io, freesound.org, incompetech.com. Ochiq: huggingface.co, pypi.org, npm, archive.org.
+- Zaxira TTS: HuggingFace `facebook/mms-tts-uzb-script_cyrillic` (kirill yozuv kerak, sifat past).
+
 ## Qoidalar eslatmasi
 - Kalitlarni hech qachon chatga chiqarma (faqat nomini tekshir).
 - Kadrlarni yuklagach ko'zdan kechir, brend logotipli boshqa mashina kadrlarini olma, 4–6 ta eng yaxshisini ko'rsat.
