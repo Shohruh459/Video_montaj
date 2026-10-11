@@ -92,6 +92,8 @@ def srt_time(x):
 
 subs = []
 for i, s in enumerate(scenes):
+    if s.get("nosub"):
+        continue  # bu sahnada subtitr yo'q (ekran yozuvi o'zi yetarli)
     txt = split_lines(s.get("sub") or lines[i])
     longest = max(len(l) for l in txt.split("\n"))
     if longest > 42:

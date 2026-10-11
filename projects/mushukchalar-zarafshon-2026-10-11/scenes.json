@@ -27,7 +27,7 @@
     {
       "kind": "plain",
       "src": "kittens_source.mp4",
-      "from": 10.2,
+      "from": 11.0,
       "dur": 3,
       "sub": "Zarafshon shahrida, Navoiy viloyatida.",
       "zoom": 0.1
@@ -35,7 +35,7 @@
     {
       "kind": "plain",
       "src": "kittens_source.mp4",
-      "from": 13.3,
+      "from": 13.8,
       "dur": 3,
       "sub": "Hadiyaga beriladi!",
       "zoom": 0.1,
@@ -57,7 +57,8 @@
       "sub": "Direktga yozing!",
       "dim": 0.1,
       "zoom": 0.1,
-      "zoomOut": true
+      "zoomOut": true,
+      "nosub": true
     }
   ],
   "build": {
