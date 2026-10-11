@@ -19,28 +19,28 @@ const FadeEdges = ({children, dur}) => {
   return <AbsoluteFill style={{opacity: o}}>{children}</AbsoluteFill>;
 };
 
-const Clip = ({src, from, dur, cx = 0.5, dim = 0}) => {
+const Clip = ({src, from, dur, cx = 0.5, dim = 0, filt}) => {
   const f = useCurrentFrame();
   const scale = interpolate(f, [0, dur], [1.0, 1.08], {easing: Easing.inOut(Easing.quad)});
   return (
     <AbsoluteFill style={{overflow: 'hidden', background: '#000'}}>
       <OffthreadVideo src={staticFile(src)} muted startFrom={Math.round(from * 30)}
         style={{width: '100%', height: '100%', objectFit: 'cover', objectPosition: `${cx * 100}% 50%`,
-          transform: `scale(${scale})`, transformOrigin: `${cx * 100}% 50%`}} />
+          transform: `scale(${scale})`, transformOrigin: `${cx * 100}% 50%`, filter: filt || undefined}} />
       <AbsoluteFill style={{background: `rgba(0,0,0,${dim})`}} />
       <AbsoluteFill style={{background: 'linear-gradient(180deg, rgba(0,0,0,.35) 0%, rgba(0,0,0,0) 28%, rgba(0,0,0,0) 55%, rgba(0,0,0,.65) 100%)'}} />
     </AbsoluteFill>
   );
 };
 
-const Title = ({text, sub}) => {
+const Title = ({text, sub, top = false}) => {
   const ACCENT = useContext(AccentCtx);
   const p = useIn(6, 16);
   const line = useIn(14, 22);
   const sp = interpolate(p, [0, 1], [40, 6]);
   return (
-    <AbsoluteFill style={{justifyContent: 'center', alignItems: 'center'}}>
-      <div style={{fontFamily: FONT, fontWeight: 800, fontSize: Math.min(96, Math.floor((860 / text.length - 6) / 0.85)), color: '#fff', textAlign: 'center',
+    <AbsoluteFill style={{justifyContent: top ? 'flex-start' : 'center', alignItems: 'center', paddingTop: top ? 240 : 0}}>
+      <div style={{fontFamily: FONT, fontWeight: 800, whiteSpace: 'pre-line', lineHeight: 1.15, fontSize: Math.min(96, Math.floor((860 / Math.max(...text.split('\n').map((l) => l.length)) - 6) / 0.85)), color: '#fff', textAlign: 'center',
         letterSpacing: sp, opacity: p, transform: `translateY(${(1 - p) * 30}px)`,
         textShadow: '0 6px 30px rgba(0,0,0,.6)'}}>{text}</div>
       <div style={{height: 6, width: 420 * line, background: ACCENT, marginTop: 28, borderRadius: 3}} />
@@ -94,7 +94,7 @@ const Subtitles = ({subs}) => {
   );
 };
 
-export const Montage = ({scenes, brand, cta, subs = [], accent}) => {
+export const Montage = ({scenes, brand, cta, subs = [], accent, clipFilter, titlePos}) => {
   let start = 0;
   return (
     <AccentCtx.Provider value={accent || DEFAULT_ACCENT}>
@@ -106,10 +106,10 @@ export const Montage = ({scenes, brand, cta, subs = [], accent}) => {
         return (
           <Sequence key={i} from={at} durationInFrames={dur}>
             <FadeEdges dur={dur}>
-              <Clip src={s.src} from={s.from} dur={dur} cx={s.cx} dim={s.kind === 'lower' ? 0 : 0.4} />
-              {s.kind === 'title' && <Title text={brand} />}
+              <Clip src={s.src} from={s.from} dur={dur} cx={s.cx} dim={s.dim !== undefined ? s.dim : (s.kind === 'lower' ? 0 : 0.4)} filt={s.filter || clipFilter} />
+              {s.kind === 'title' && <Title text={brand} top={titlePos === 'top'} />}
               {s.kind === 'lower' && <Lower text={s.text} />}
-              {s.kind === 'end' && (<><Title text={brand} /><Cta text={cta} /></>)}
+              {s.kind === 'end' && (<><Title text={brand} top={titlePos === 'top'} /><Cta text={cta} /></>)}
             </FadeEdges>
           </Sequence>
         );

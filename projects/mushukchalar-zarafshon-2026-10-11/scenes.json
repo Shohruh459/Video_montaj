@@ -1,0 +1,70 @@
+{
+  "publicDir": "broll",
+  "brand": "MUSHUKCHALAR\nHADIYAGA",
+  "cta": "Direktga yozing",
+  "accent": "#ffb067",
+  "titlePos": "top",
+  "clipFilter": "brightness(1.18) contrast(1.05) saturate(1.12)",
+  "scenes": [
+    {
+      "kind": "title",
+      "src": "kittens_source.mp4",
+      "from": 0,
+      "dur": 6,
+      "sub": "Ikkita mushukcha egasini kutyapti.",
+      "dim": 0.12
+    },
+    {
+      "kind": "lower",
+      "src": "kittens_source.mp4",
+      "from": 5,
+      "dur": 6,
+      "sub": "Ular Zarafshon shahrida, Navoiy viloyatida.",
+      "text": "Zarafshon, Navoiy",
+      "dim": 0
+    },
+    {
+      "kind": "lower",
+      "src": "kittens_source.mp4",
+      "from": 10,
+      "dur": 6,
+      "sub": "Hadiyaga beriladi.",
+      "text": "Hadiyaga beriladi",
+      "dim": 0
+    },
+    {
+      "kind": "lower",
+      "src": "kittens_source.mp4",
+      "from": 14.5,
+      "dur": 6,
+      "sub": "Mehribon va gʻamxoʻr oila izlayapmiz.",
+      "text": "Mehribon oila kerak",
+      "dim": 0
+    },
+    {
+      "kind": "end",
+      "src": "kittens_source.mp4",
+      "from": 19.5,
+      "dur": 6,
+      "sub": "Bogʻlanish uchun direktga yozing.",
+      "dim": 0.12
+    }
+  ],
+  "build": {
+    "name": "mushukchalar-zarafshon",
+    "format": "vertical",
+    "target_duration": 25,
+    "lead": 0.6,
+    "tail": 2.2,
+    "min_pause": 0.4,
+    "max_pause": 2.0,
+    "speed": 0.9,
+    "voice_lines": "voice/script_lines.txt",
+    "xfade": 0.4,
+    "preroll": 0.4,
+    "music": "raw/music/cand_32_12.wav",
+    "music_start": "auto",
+    "music_pause_db": 11.5,
+    "music_duck_db": 8
+  }
+}
