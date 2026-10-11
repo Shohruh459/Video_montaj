@@ -8,7 +8,7 @@
   "subMode": "fade",
   "subBox": false,
   "subBottom": 760,
-  "subSize": 76,
+  "subSize": 68,
   "scenes": [
     {
       "kind": "plain",
@@ -22,8 +22,8 @@
     },
     {
       "kind": "plain",
-      "src": "pixabay_video_148204.mp4",
-      "from": 1.5,
+      "src": "pixabay_video_135162.mp4",
+      "from": 2.3,
       "dur": 3,
       "sub": "*Intizom* esa qoladi.",
       "zoom": 0.1,
@@ -47,8 +47,8 @@
     },
     {
       "kind": "plain",
-      "src": "pixabay_video_135162.mp4",
-      "from": 3.5,
+      "src": "pixabay_video_202743.mp4",
+      "from": 19.1,
       "dur": 3,
       "sub": "Kayfiyating yoʻqligida ham ishni bajar.",
       "zoom": 0.1,
@@ -57,8 +57,8 @@
     },
     {
       "kind": "plain",
-      "src": "pixabay_video_202743.mp4",
-      "from": 22.4,
+      "src": "pixabay_video_223578.mp4",
+      "from": 19.7,
       "dur": 3,
       "sub": "Shu payt haqiqiy kuch paydo boʻladi.",
       "zoom": 0.1,
@@ -93,6 +93,9 @@
     "music_comp": true,
     "music_pause_db": 11.5,
     "music_duck_db": 8,
-    "also_nomusic": true
+    "also_nomusic": true,
+    "sub_per_line": 24,
+    "sub_wrap": 22,
+    "sub_max_lines": 4
   }
 }

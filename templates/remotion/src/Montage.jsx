@@ -103,7 +103,7 @@ const Subtitles = ({subs, bottom = 200, size = 38, karaoke = false, mode = 'colo
   return (
     <AbsoluteFill style={{justifyContent: 'flex-end', alignItems: 'center', paddingBottom: bottom}}>
       <div style={{fontFamily: FONT, fontWeight: 800, fontSize: size, lineHeight: 1.25, color: '#fff', textAlign: 'center',
-        maxWidth: 940, opacity: k, transform: `translateY(${(1 - k) * 14}px)`, ...boxStyle}}>
+        maxWidth: 960, opacity: k, transform: `translateY(${(1 - k) * 14}px)`, ...boxStyle}}>
         {karaoke ? timed.map((x, i) => {
           const on = t >= x.a0 && t < x.a1, done = t >= x.a1;
           const spoken = done || on;

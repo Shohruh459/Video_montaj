@@ -15,12 +15,12 @@ CAT = {
     "sea": [138588, 135658, 233867, 23014],
     "city": [212404, 231994, 233983, 28860],
     "time": [131994, 61621, 34499, 190332, 3019, 16346],
-    "phone": [169445, 64594, 736],
+    "phone": [169445, 736],
     "morning": [16346, 7127, 139365, 328740],
     "crowd": [3614, 3630, 3627, 1694],
     "write": [34258, 43869, 130645],
     "read": [84006, 122232, 846, 185092],
-    "gym": [135162, 148204, 200657],
+    "gym": [135162, 200657],
     "lonely": [78804, 23678, 170258, 189290, 189189, 11722, 28860],
     "hope": [173028, 7127, 328740, 59291],
 }
@@ -116,17 +116,20 @@ for n, slug, target, cta_key, units in SCRIPTS:
     mfile = next(p for p in (ROOT / "library/music").glob(f"{mus}.*"))
     # broll: faqat kerakli klip(lar)ga qattiq havola
     need = {s["src"] for s in scenes} | {s["alt"]["src"] for s in scenes if "alt" in s}
+    for old in (proj / "broll").glob("*.mp4"):
+        if old.name not in need:
+            old.unlink()  # ishlatilmaydigan klip havolalari (Remotion butun papkani nusxalaydi)
     for fn in need:
         dst = proj / "broll" / fn
         if not dst.exists():
             os.link(LIB / fn, dst)
     cfg = {"publicDir": "broll", "brand": "@yuksalish713", "cta": display(pill), "accent": "#f5c542",
            "clipFilter": "brightness(0.8) contrast(1.12) saturate(0.92)", "karaoke": True, "subMode": "fade", "subBox": False,
-           "subBottom": 760, "subSize": 76, "scenes": scenes,
+           "subBottom": 760, "subSize": 68, "scenes": scenes,
            "build": {"name": f"yuksalish-{n:02d}", "format": "vertical", "target_duration": target, "lead": 0.4, "tail": 1.8, "min_pause": 0.45,
                      "max_pause": 0.95, "speed": 0.92, "voice_lines": "voice/script_lines.txt", "xfade": 0.2, "preroll": 0.2,
                      "music": os.path.relpath(mfile, proj), "music_start": "auto", "music_comp": True, "music_pause_db": 11.5,
-                     "music_duck_db": 8, "also_nomusic": True}}
+                     "music_duck_db": 8, "also_nomusic": True, "sub_per_line": 24, "sub_wrap": 22, "sub_max_lines": 4}}
     (proj / "scenes.json").write_text(json.dumps(cfg, ensure_ascii=False, indent=2), encoding="utf-8")
     (proj / "voice/script_lines.txt").write_text("\n".join(voice) + "\n", encoding="utf-8")
     ids = sorted({int(re.findall(r"\d+", f)[0]) for f in need})

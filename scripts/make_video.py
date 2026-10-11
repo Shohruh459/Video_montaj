@@ -76,11 +76,11 @@ res["publicDir"] = str((proj / cfg.get("publicDir", "broll")).resolve())
 for i, s in enumerate(res["scenes"]):
     s["dur"] = round((t0[i + 1] - t0[i] + xf) if i < len(scenes) - 1 else (total - t0[i]), 3)
 # Subtitr: matn sahnadagi "sub" (bo'lmasa ovoz qatori); vaqt = ovoz qatori oralig'i. Qator: gap bo'yicha, uzun bo'lsa wrap, ≤ 2 qator
-def split_lines(text, per_line=36):
+def split_lines(text, per_line=36, wrap=30, max_lines=2):
     lines = []
     for sent in re.split(r"(?<=[.!?])\s+", text.strip()):
-        lines += [sent] if len(sent) <= per_line else textwrap.wrap(sent, 30)
-    if len(lines) > 2:
+        lines += [sent] if len(sent) <= per_line else textwrap.wrap(sent, wrap)
+    if len(lines) > max_lines:
         print(f"OGOHLANTIRISH: subtitr {len(lines)} qator: {text[:40]}")
     return "\n".join(lines)
 
@@ -94,7 +94,7 @@ subs = []
 for i, s in enumerate(scenes):
     if s.get("nosub"):
         continue  # bu sahnada subtitr yo'q (ekran yozuvi o'zi yetarli)
-    txt = split_lines(s.get("sub") or lines[i])
+    txt = split_lines(s.get("sub") or lines[i], b.get("sub_per_line", 36), b.get("sub_wrap", 30), b.get("sub_max_lines", 2))
     longest = max(len(l) for l in txt.split("\n"))
     if longest > 42:
         print(f"OGOHLANTIRISH: subtitr qatori {longest} belgi (>42): {txt[:40]}")
