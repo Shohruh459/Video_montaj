@@ -45,20 +45,25 @@
       "src": "pixabay_video_139365.mp4",
       "from": 7.1,
       "dur": 3,
-      "sub": "Qachonki nima uchun harakat qilayotganingni bilsang — charchoq ham yengil tuyuladi.",
+      "sub": "Qachonki nima uchun harakat qilayotganingni bilsang —",
       "zoom": 0.1,
       "zoomOut": true,
-      "dim": 0.12,
-      "alt": {
-        "src": "pixabay_video_328740.mp4",
-        "from": 39.7,
-        "zoomOut": false
-      }
+      "dim": 0.12
+    },
+    {
+      "kind": "plain",
+      "src": "pixabay_video_223038.mp4",
+      "from": 12.9,
+      "dur": 3,
+      "sub": "charchoq ham yengil tuyuladi.",
+      "zoom": 0.1,
+      "zoomOut": false,
+      "dim": 0.12
     },
     {
       "kind": "end",
-      "src": "pixabay_video_59291.mp4",
-      "from": 0.8,
+      "src": "pixabay_video_328740.mp4",
+      "from": 2.5,
       "dur": 3,
       "sub": "Yuksalishga obuna boʻl.",
       "nosub": true,

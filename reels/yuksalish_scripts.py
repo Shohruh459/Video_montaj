@@ -54,14 +54,14 @@ SCRIPTS = [
    "Chunki *jasorat* — qo'rquvsizlik emas.", "Qo'rqib turib ham harakat qilish."]),
  (15, "odatlar", 23, "obuna", [
    "Hayotingni o'zgartirmoqchi bo'lsang — katta maqsad qo'yma.", "Kichik *odatni* o'zgartir.",
-   "Ertalab 10 daqiqa o'qish, kechqurun telefonni ertaroq qo'yish, har kuni 20 daqiqa yurish.",   # asl: "ertalabroq" (kechqurun bilan zid) -> "ertaroq"
+   "Ertalab 10 daqiqa o'qish, kechqurun telefonni ertaroq qo'yish,", "har kuni 20 daqiqa yurish.",   # asl: "ertalabroq" (kechqurun bilan zid) -> "ertaroq"
    "Kichik odatlar katta hayotni quradi."]),
  (16, "solishtirish", 21, "ulash", [
    "O'zingni boshqalar bilan solishtirishni to'xtat.", "Ularning yo'li — ularniki.", "Sening yo'ling — seniki.",
    "Faqat *kechagi* o'zing bilan solishtir.", "Shunda haqiqiy o'sishni ko'rasan."]),
  (17, "charchoq", 24, "obuna", [
    "Ba'zida charchaganini his qilasan.", "Lekin bu charchoq emas.", "Bu — *yo'nalishsizlik*.",
-   "Qachonki nima uchun harakat qilayotganingni bilsang — charchoq ham yengil tuyuladi."]),
+   "Qachonki nima uchun harakat qilayotganingni bilsang —", "charchoq ham yengil tuyuladi."]),
  (18, "kutish", 20, "saqla", [
    "Yaxshi kunlarni kutma.", "Yaxshi kunlarni *o'zing* yarat.", "Kutib o'tirgan odam umrining katta qismini kutish bilan o'tkazadi.",
    "Harakat qilgan odam esa natijani ko'radi."]),

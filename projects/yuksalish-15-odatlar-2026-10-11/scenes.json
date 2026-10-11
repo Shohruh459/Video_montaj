@@ -35,24 +35,29 @@
       "src": "pixabay_video_736.mp4",
       "from": 2.8,
       "dur": 3,
-      "sub": "Ertalab 10 daqiqa oʻqish, kechqurun telefonni ertaroq qoʻyish, har kuni 20 daqiqa yurish.",
+      "sub": "Ertalab 10 daqiqa oʻqish, kechqurun telefonni ertaroq qoʻyish,",
       "zoom": 0.1,
       "zoomOut": false,
-      "dim": 0.12,
-      "alt": {
-        "src": "pixabay_video_328740.mp4",
-        "from": 28.6,
-        "zoomOut": true
-      }
+      "dim": 0.12
     },
     {
       "kind": "plain",
       "src": "pixabay_video_282995.mp4",
       "from": 3.8,
       "dur": 3,
-      "sub": "Kichik odatlar katta hayotni quradi.",
+      "sub": "har kuni 20 daqiqa yurish.",
       "zoom": 0.1,
       "zoomOut": true,
+      "dim": 0.12
+    },
+    {
+      "kind": "plain",
+      "src": "pixabay_video_95113.mp4",
+      "from": 7.1,
+      "dur": 3,
+      "sub": "Kichik odatlar katta hayotni quradi.",
+      "zoom": 0.1,
+      "zoomOut": false,
       "dim": 0.12
     },
     {
