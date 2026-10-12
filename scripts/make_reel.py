@@ -381,12 +381,25 @@ def tempo(w, r):
     return np.frombuffer(pr.stdout, "float32").copy()
 
 
+ENGINE = os.environ.get("VOICE_ENGINE", "vs")  # vs = VoiceStudio/OmniVoice (asosiy), mms = zaxira
+
+
+def synth_vs(say):
+    import io, tts_vs
+    global _pid
+    if "_pid" not in globals(): _pid = tts_vs.ensure_profile()
+    sr, w = wf.read(io.BytesIO(tts_vs.synth_line(_pid, say, tts_vs.CFG["seed"], float(os.environ.get("VOICE_SPEED", tts_vs.CFG["speed"])))))
+    w = w.astype("float32") / (32768.0 if w.dtype == np.int16 else 1.0)
+    return w, sr
+
+
 def voice_track(sc, cache):
-    from tts_mms import synth
+    from tts_mms import synth as synth_mms
+    synth = synth_vs if ENGINE == "vs" else synth_mms
     items = [(g["say"], g) for g in sc["segs"]] + [(sc["cta_say"], None)]
     clips = []
     for i, (say, _) in enumerate(items):
-        fp = cache / f"{sc['id']}_{i:02d}.wav"
+        fp = cache / f"{ENGINE}_{sc['id']}_{i:02d}.wav"
         if fp.exists(): sr, w = wf.read(fp); w = w.astype("float32")
         else:
             w, sr = synth(say); wf.write(fp, sr, w.astype("float32"))
