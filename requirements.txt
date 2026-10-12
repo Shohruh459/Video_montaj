@@ -3,3 +3,7 @@ pydub>=0.25.1
 pyloudnorm>=0.1.1
 soundfile>=0.12
 numpy
+pillow>=10
+torch
+transformers
+scipy

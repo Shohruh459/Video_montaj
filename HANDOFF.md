@@ -24,6 +24,12 @@ Pixabay'da Song Plus'ning o'zi ehtimol yo'q → umumiy elektromobil kadrlari; an
 - Bloklangan: api.elevenlabs.io, freesound.org, incompetech.com. Ochiq: huggingface.co, pypi.org, npm, archive.org.
 - Zaxira TTS: HuggingFace `facebook/mms-tts-uzb-script_cyrillic` (kirill yozuv kerak, sifat past).
 
+### 2026-10-12 — 5 ta draft tayyor (`projects/zarafshon-2026-10-11/`)
+- Pipeline: `python scripts/make_reel.py N [--final] [--shots]` (N=1..5). Ovoz `scripts/tts_mms.py` (lotin→kirill + MMS, ayol modeli), musiqa sintez, vizual PIL, subtitr xavfsiz zonada. Draftlar 540x960; QC: −14 LUFS, qora kadr/jimlik yo'q.
+- **Ovoz sifati MUAMMO**: MMS ovozi robotroq, talaffuz xato bo'lishi mumkin (ASR o'xshashligi ~0.6). Hali hech kim eshitib tasdiqlamagan. MMS asosi CC-BY-NC → tijoriy ishda litsenziya tekshirilsin. Yaxshiroq yo'l: edge-tts domeni (`speech.platform.bing.com`) ruxsati yoki Google Cloud TTS (`texttospeech.googleapis.com` ochiq, API kalit kerak) yoki jonli diktor.
+- Brend logotiplari (Cursor/Claude/ChatGPT) ishlatilmadi — faqat matn kartalari. Musiqa original sintez (aslida oddiy; yaxshi trek bersa almashtiramiz).
+- Reel 2 (32.5 s) va 3 (34.8 s) mijoz taxminidan uzunroq.
+
 ## Qoidalar eslatmasi
 - Kalitlarni hech qachon chatga chiqarma (faqat nomini tekshir).
 - Kadrlarni yuklagach ko'zdan kechir, brend logotipli boshqa mashina kadrlarini olma, 4–6 ta eng yaxshisini ko'rsat.
