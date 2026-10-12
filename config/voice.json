@@ -1,0 +1,13 @@
+{
+  "_izoh": "Asosiy ovoz = foydalanuvchi tanlagan 2-raqamli namuna (vtest_2_ayol_past: ayol, o'rta yosh, past). Namuna config/voice_ref/ da; tts_vs.py profilni backendda o'zi yaratadi. Sun'iy ovoz (haqiqiy shaxs emas). LITSENZIYA: OmniVoice CC-BY-NC — faqat demo/sinov.",
+  "engine": "voicestudio-omnivoice",
+  "api": "http://localhost:3900/v1/audio/speech",
+  "model": "omnivoice",
+  "language": "uz",
+  "profile_name": "ASOSIY-ayol-past",
+  "ref_audio": "config/voice_ref/asosiy_ayol_past.wav",
+  "ref_text_file": "config/voice_ref/asosiy_ayol_past.txt",
+  "seed": 42,
+  "response_format": "wav",
+  "speed": 1.0
+}
