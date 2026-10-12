@@ -249,12 +249,30 @@ def S_timeline(cv, lt, sc, tot):
         put(cv, text_layer(what, 54 if act else 40, TXT if act else MUTED, bold=False, align="left", maxw=700), x + 72, y + 24, a * min(1, p))
 
 
-TOOLS = [("Cursor", "Kod yozish va tahrirlash", CYAN), ("Claude", "Uzun va murakkab mantiq", VIOLET), ("ChatGPT", "Tez g‘oya va tushuntirish", GREEN)]
+TOOLS = [("Cursor", "Kod yozish va tahrirlash", CYAN, "cursor.jpg"), ("Claude", "Uzun va murakkab mantiq", VIOLET, "claude.png"), ("ChatGPT", "Tez g‘oya va tushuntirish", GREEN, "chatgpt.png")]
+_logo = {}
+
+
+def logo_tile(fn, sz=170):
+    """Mijoz logotipi o'zgartirilmaydi: faqat bo'sh chekkasi kesiladi va plitka ustiga joylanadi."""
+    if fn in _logo: return _logo[fn]
+    im = Image.open(ROOT / "assets/logos" / fn).convert("RGBA")
+    if fn == "chatgpt.png":
+        bb = Image.eval(im.convert("L"), lambda v: 255 - v).getbbox(); im = im.crop(bb); bg = (255, 255, 255)
+    elif fn == "claude.png": bg = (30, 41, 59)
+    else: bg = None
+    inner = sz if bg is None else int(sz * 0.74)
+    im = im.resize((inner, int(inner * im.height / im.width)) if im.width >= im.height else (int(inner * im.width / im.height), inner), Image.LANCZOS)
+    tile = Image.new("RGBA", (sz, sz), (0, 0, 0, 0)); m = Image.new("L", (sz, sz), 0)
+    ImageDraw.Draw(m).rounded_rectangle((0, 0, sz - 1, sz - 1), 36, fill=255)
+    if bg: ImageDraw.Draw(tile).rounded_rectangle((0, 0, sz - 1, sz - 1), 36, fill=bg + (255,))
+    tile.alpha_composite(im, ((sz - im.width) // 2, (sz - im.height) // 2))
+    tile.putalpha(Image.composite(tile.getchannel("A"), Image.new("L", (sz, sz), 0), m)); _logo[fn] = tile; return tile
 
 
 def S_tools(cv, lt, sc, tot):
     st = sc["step"]
-    for i, (nm, what, col) in enumerate(TOOLS):
+    for i, (nm, what, col, lg) in enumerate(TOOLS):
         y = 300 + i * 330; vis = ease(prog(lt, 0.12 * i, 0.5)) if st == -1 else 1.0
         act = (st == i); allp = st == 3
         a = vis * (1.0 if (act or allp) else (0.45 if st >= 0 else 0.9))
@@ -262,8 +280,9 @@ def S_tools(cv, lt, sc, tot):
         im, pad = card(940, 270, fill=(30, 41, 59) if not (act or allp) else (26, 36, 66), outline=col if (act or allp) else BORDER, r=40, glow=col if (act or allp) else None, ow=4 if act else 3)
         put_c(cv, im, W / 2 + (1 - vis) * -120, y + 135, a, sc_)
         ox = (1 - vis) * -120
-        put(cv, text_layer(nm, 78, col if (act or allp) else TXT, align="left"), 130 + ox, y + 40, a)
-        put(cv, text_layer(what, 40, TXT if act else MUTED, bold=False, align="left", maxw=800), 132 + ox, y + 150, a)
+        put_c(cv, logo_tile(lg), 215 + ox, y + 135, a, sc_)
+        put(cv, text_layer(nm, 78, col if (act or allp) else TXT, align="left"), 340 + ox, y + 40, a)
+        put(cv, text_layer(what, 40, TXT if act else MUTED, bold=False, align="left", maxw=560), 342 + ox, y + 150, a)
         if allp:
             draw_check(cv, 930, y + 70, 28, GREEN, ease(prog(lt, 0.2 + 0.2 * i, 0.4)), 8)
 
