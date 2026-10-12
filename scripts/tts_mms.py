@@ -5,6 +5,7 @@ Lotin matnni kirillga o'giradi va VITS modeli bilan ovozlaydi.
 Kutubxonadan: from tts_mms import synth"""
 import re, sys, argparse
 
+SPEAK_RATE = 1.08
 MODEL = "MuzaffarSharofitdinov/mms-tts-uzbek-girl-voice_cyrillic"
 _APOS = "ʻʼ‘’'`´"
 VOW = set("aeiouоуэаиеёюя")
@@ -45,6 +46,7 @@ def synth(latin: str, model: str = MODEL):
         _cache[model] = (VitsModel.from_pretrained(model).eval(), AutoTokenizer.from_pretrained(model))
     m, tok = _cache[model]
     torch.manual_seed(7)  # bir xil ovoz/ohang har safar
+    m.speaking_rate = SPEAK_RATE  # model ichida tezlashtirish (DSP artefaktisiz)
     m.noise_scale = 0.4  # kamroq tebranish = barqarorroq talaffuz
     with torch.no_grad():
         w = m(**tok(translit(latin), return_tensors="pt")).waveform[0].numpy()

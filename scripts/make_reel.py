@@ -352,7 +352,7 @@ def trim(x, thr_db=-42):
     return x[max(0, idx[0] - int(0.02 * SR)): idx[-1] + int(0.05 * SR)]
 
 
-TEMPO = 1.08  # nutq tezligi (1.0 = asl); balandligi o'zgarmaydi
+TEMPO = 1.0  # nutq tezligi (1.0 = asl); balandligi o'zgarmaydi
 
 
 def tempo(w, r):
@@ -396,7 +396,7 @@ def synth_music(style, bpm, key, dur):
         notes = [root - 12 + i for i in CH[MIN[(b // 2) % 4]]] + [root + i + 12 for i in CH[MIN[(b // 2) % 4]]]
         for k, m in enumerate(notes):
             f = mtof(m)
-            for det, pan in ((0.997, 0.35), (1.003, 0.65)):
+            for det, pan in ((1.0, 0.35), (1.0, 0.65)):
                 sig = (np.sin(2 * np.pi * f * det * tt) + 0.4 * np.sin(4 * np.pi * f * det * tt) + 0.15 * np.sin(6 * np.pi * f * det * tt)) * env * (0.045 if style != "ambient" else 0.06)
                 L[s0:s1] += (sig * (1 - pan)).astype("float32"); R[s0:s1] += (sig * pan).astype("float32")
         bs = np.sin(2 * np.pi * mtof(root - 24) * tt) * env * 0.16  # bas
