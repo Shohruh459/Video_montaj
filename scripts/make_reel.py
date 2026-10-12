@@ -3,7 +3,7 @@
   python scripts/make_reel.py <ssenariy-id-yoki-raqam> [--final] [--shots]
 Chiqish: projects/zarafshon-2026-10-11/out/<id>_{draft|final}.mp4
 Hammasi dasturiy -> litsenziya muammosi yo'q (musiqa ham shu yerda sintez qilinadi)."""
-import sys, os, re, math, argparse, subprocess, random, pathlib
+import hashlib, sys, os, re, math, argparse, subprocess, random, pathlib
 import numpy as np
 from PIL import Image, ImageDraw, ImageFont, ImageFilter
 import scipy.io.wavfile as wf, scipy.signal as sg
@@ -49,7 +49,10 @@ def alpha_img(im, a):
 
 def put(cv, im, x, y, a=1.0):
     if a <= 0.003: return
-    im = alpha_img(im, a); cv.paste(im, (int(x), int(y)), im)
+    im = alpha_img(im, a); x, y = int(x), int(y)
+    x0, y0, x1, y1 = max(0, x), max(0, y), min(cv.width, x + im.width), min(cv.height, y + im.height)
+    if x1 <= x0 or y1 <= y0: return
+    reg = cv.crop((x0, y0, x1, y1)); reg.alpha_composite(im.crop((x0 - x, y0 - y, x1 - x, y1 - y))); cv.paste(reg, (x0, y0))
 
 
 def put_c(cv, im, cx, cy, a=1.0, scale=1.0):
@@ -333,7 +336,21 @@ def S_cta(cv, lt, sc, tot):
     put_c(cv, text_layer(scenarios.BRAND, 56, CYAN), W / 2, 560 + h + 140, ease(prog(lt, 0.5, 0.6)))
 
 
-SCENES = dict(word=S_word, chat=S_chat, compare=S_compare, timeline=S_timeline, tools=S_tools, typing=S_typing, warn=S_warn, check=S_check, cta=S_cta)
+def S_kw(cv, lt, sc, tot):
+    """Fon videosi ustida katta kalit so'z(lar): 0-kadrdan ko'rinadi (hook uchun), urg'u qatori rangda."""
+    col = ACC[sc.get("accent", "yellow")]; lines = norm(sc["text"]).split("\n"); hl = sc.get("hl", len(lines) - 1)
+    f = font(150); size = 150
+    while max(font(size).getlength(l) for l in lines) > 940 and size > 60: size -= 4
+    p = back(prog(lt, 0, 0.35)); a = 0.35 + 0.65 * ease(prog(lt, 0, 0.2)); lh = int(size * 1.12)
+    y0 = 760 - lh * len(lines) / 2
+    for i, l in enumerate(lines):
+        lay = text_layer(l, size, col if i == hl else (255, 255, 255), stroke=10, spacing=1.0)
+        put_c(cv, lay, W / 2, y0 + lh * (i + 0.5) + (1 - ease(prog(lt, 0.08 * i, 0.3))) * 40, a, 0.9 + 0.1 * p)
+    bw = int(280 * ease(prog(lt, 0.25, 0.5)))
+    ImageDraw.Draw(cv).rounded_rectangle((W / 2 - bw, y0 + lh * len(lines) + 12, W / 2 + bw, y0 + lh * len(lines) + 24), 6, fill=col)
+
+
+SCENES = dict(kw=S_kw, word=S_word, chat=S_chat, compare=S_compare, timeline=S_timeline, tools=S_tools, typing=S_typing, warn=S_warn, check=S_check, cta=S_cta)
 
 # ---------------------------------------------------------------- subtitr
 SUBW, SUBF = 920, 56
@@ -399,7 +416,7 @@ def voice_track(sc, cache):
     items = [(g["say"], g) for g in sc["segs"]] + [(sc["cta_say"], None)]
     clips = []
     for i, (say, _) in enumerate(items):
-        fp = cache / f"{ENGINE}_{sc['id']}_{i:02d}.wav"
+        fp = cache / f"{ENGINE}_{hashlib.md5(say.encode()).hexdigest()[:12]}.wav"
         if fp.exists(): sr, w = wf.read(fp); w = w.astype("float32")
         else:
             w, sr = synth(say); wf.write(fp, sr, w.astype("float32"))
@@ -469,7 +486,7 @@ def synth_music(style, bpm, key, dur):
 
 
 def build_audio(sc, cache):
-    clips = voice_track(sc, cache); lead, gap, tail = 0.5, 0.28, 1.5
+    clips = voice_track(sc, cache); lead, gap, tail = sc.get('lead', 0.5), sc.get('gap', 0.28), 1.5
     starts, t = [], lead
     for i, c in enumerate(clips):
         if i == len(clips) - 1: t += 0.25
@@ -518,11 +535,12 @@ def build_tl(sc, starts, durs, total):
 
 
 TL_ = None
+BGMODE = False
 
 
 def render_frame(fi):
     t = fi / FPS; tl = TL_
-    cv = background(t, tl.total)
+    cv = Image.new("RGBA", (W, H), (0, 0, 0, 0)) if BGMODE else background(t, tl.total)
     seg = next((s for s in tl.segs if s["vis0"] <= t < s["vis1"]), tl.segs[-1])
     lt = max(0.0, t - seg["vis0"])
     sc = seg["scene"]
@@ -530,7 +548,7 @@ def render_frame(fi):
     fo = clamp((seg["vis1"] - t) / 0.18) if seg is not tl.segs[-1] else 1.0
     layer = Image.new("RGBA", (W, H), (0, 0, 0, 0))
     SCENES[sc["t"]](layer, lt, sc, tl.total)
-    cv.paste(layer if fo >= 0.999 else alpha_img(layer, 0.25 + 0.75 * fo), (0, 0), layer if fo >= 0.999 else alpha_img(layer, 0.25 + 0.75 * fo))
+    cv.alpha_composite(layer if fo >= 0.999 else alpha_img(layer, 0.25 + 0.75 * fo))
     # sarlavha chipi
     put_c(cv, text_layer(scenarios.BRAND.upper(), 28, MUTED, bold=True), W / 2, 150, 0.9)
     ImageDraw.Draw(cv).ellipse((W / 2 - 250, 143, W / 2 - 238, 155), fill=CYAN)
@@ -541,14 +559,32 @@ def render_frame(fi):
             put(cv, lay, (W - lay.width) / 2, 1560 - lay.height + (1 - p) * 22, p)
     # progress
     ImageDraw.Draw(cv).rectangle((0, H - 10, int(W * t / tl.total), H), fill=CYAN)
-    return cv.convert("RGB")
+    return cv if BGMODE else cv.convert("RGB")
 
 
 def render_bytes(fi): return render_frame(fi).tobytes()
 
 
+def build_bg(sc, tl, out):
+    """Har sahna uchun fon klipini 1080x1920 ga kesib (sekin siljish), qoraytirib, ketma-ket ulaydi."""
+    bd = PROJ / "broll"; tmp = out / "_bg"; tmp.mkdir(exist_ok=True); parts = []
+    g = np.zeros((H, W, 4), "uint8"); ramp = np.clip((np.arange(H) - 850) / 850, 0, 1) ** 1.3 * 190  # past tomonga silliq qoraytirish (subtitr uchun)
+    g[..., 3] = ramp[:, None].astype("uint8"); grad = tmp / "grad.png"; Image.fromarray(g, "RGBA").save(grad)
+    for i, sg_ in enumerate(tl.segs):
+        src = sc["segs"][i].get("bg") if i < len(sc["segs"]) else sc.get("cta_bg")
+        d = sg_["vis1"] - sg_["vis0"]; fn, ss = src
+        vf = (f"scale=-2:2000:flags=lanczos,crop=1080:1920:x='(iw-1080)*(0.25+0.5*t/{d:.3f})':y='(ih-1920)/2',fps=30,"
+              "eq=brightness=-0.2:contrast=1.1:saturation=0.9,format=yuv420p")
+        f = tmp / f"s{i}.mp4"
+        subprocess.run(["ffmpeg", "-y", "-v", "error", "-stream_loop", "-1", "-ss", str(ss), "-i", str(bd / fn), "-i", str(grad), "-t", f"{d:.3f}",
+                        "-filter_complex", f"[0:v]{vf.replace(',format=yuv420p', '')}[a];[a][1:v]overlay=0:0,format=yuv420p[o]", "-map", "[o]", "-an",
+                        "-c:v", "libx264", "-crf", "16", "-preset", "veryfast", str(f)], check=True); parts.append(f)
+    lst = tmp / "list.txt"; lst.write_text("".join(f"file '{p}'\n" for p in parts)); o = tmp / "bg.mp4"
+    subprocess.run(["ffmpeg", "-y", "-v", "error", "-f", "concat", "-safe", "0", "-i", str(lst), "-c", "copy", str(o)], check=True); return o
+
+
 def main():
-    global TL_
+    global TL_, BGMODE
     ap = argparse.ArgumentParser(); ap.add_argument("which"); ap.add_argument("--final", action="store_true"); ap.add_argument("--shots", action="store_true")
     a = ap.parse_args()
     sc = scenarios.S[int(a.which) - 1] if a.which.isdigit() else next(s for s in scenarios.S if s["id"].startswith(a.which))
@@ -562,8 +598,16 @@ def main():
     vf = ["-vf", "scale=540:960:flags=lanczos"] if not a.final else []
     enc = ["-c:v", "libx264", "-preset", "slow", "-crf", "17"] if a.final else ["-c:v", "libx264", "-preset", "veryfast", "-crf", "24"]
     af = "alimiter=limit=0.89:level=disabled:attack=3:release=60"
-    cmd = ["ffmpeg", "-y", "-v", "error", "-f", "rawvideo", "-pix_fmt", "rgb24", "-s", f"{W}x{H}", "-r", str(FPS), "-i", "-", "-i", str(wav)] + vf + enc + \
-          ["-profile:v", "high", "-pix_fmt", "yuv420p", "-af", af, "-c:a", "aac", "-b:a", "256k", "-ar", "48000", "-movflags", "+faststart", "-shortest", str(mp4)]
+    BGMODE = bool(sc["segs"][0].get("bg"))
+    if BGMODE:
+        bgv = build_bg(sc, TL_, out)
+        sc_f = "scale=540:960:flags=lanczos," if not a.final else ""
+        cmd = ["ffmpeg", "-y", "-v", "error", "-i", str(bgv), "-f", "rawvideo", "-pix_fmt", "rgba", "-s", f"{W}x{H}", "-r", str(FPS), "-i", "-", "-i", str(wav),
+               "-filter_complex", f"[0:v][1:v]overlay=0:0:format=auto,{sc_f}format=yuv420p[v]", "-map", "[v]", "-map", "2:a"] + enc + \
+              ["-profile:v", "high", "-af", af, "-c:a", "aac", "-b:a", "256k", "-ar", "48000", "-movflags", "+faststart", "-shortest", str(mp4)]
+    else:
+        cmd = ["ffmpeg", "-y", "-v", "error", "-f", "rawvideo", "-pix_fmt", "rgb24", "-s", f"{W}x{H}", "-r", str(FPS), "-i", "-", "-i", str(wav)] + vf + enc + \
+              ["-profile:v", "high", "-pix_fmt", "yuv420p", "-af", af, "-c:a", "aac", "-b:a", "256k", "-ar", "48000", "-movflags", "+faststart", "-shortest", str(mp4)]
     if a.shots:
         for lbl, tt in (("start", 0.9), ("mid", total * 0.5), ("end", total - 0.4)):
             render_frame(int(tt * FPS)).save(out / f"{sc['id']}_{lbl}.png")

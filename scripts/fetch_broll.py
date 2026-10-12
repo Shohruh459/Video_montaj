@@ -23,7 +23,8 @@ def key():
 
 def call(kind, **params):
     q = urllib.parse.urlencode({"key": key(), **params})
-    with urllib.request.urlopen(f"{API[kind]}?{q}", timeout=30) as r:
+    req = urllib.request.Request(f"{API[kind]}?{q}", headers={"User-Agent": "video-montaj/1.0"})
+    with urllib.request.urlopen(req, timeout=30) as r:
         return json.load(r)
 
 
@@ -64,9 +65,29 @@ def cmd_get(a):
             print(f"{i}: yuklash havolasi yo'q"); continue
         ext = pathlib.Path(urllib.parse.urlparse(url).path).suffix or (".mp4" if a.type == "video" else ".jpg")
         dest = out / f"pixabay_{a.type}_{i}{ext}"
-        req = urllib.request.Request(url, headers={"User-Agent": "video-montaj/1.0"})
-        with urllib.request.urlopen(req, timeout=120) as r, open(dest, "wb") as f:
-            f.write(r.read())
+        # Barqaror yuklash: oqim bilan, 3 marta qayta urinish; to'liq kelmasa keyingi pastroq sifatga o'tadi
+        ok = False
+        for attempt, qq in enumerate([a.quality] * 2 + [x for x in QUALITIES[QUALITIES.index(a.quality) + 1:]][:2]):
+            u2, q2 = pick_url(h, a.type, qq) if attempt else (url, q)
+            if not u2:
+                continue
+            try:
+                req = urllib.request.Request(u2, headers={"User-Agent": "video-montaj/1.0"})
+                with urllib.request.urlopen(req, timeout=120) as r, open(dest, "wb") as f:
+                    expected = int(r.headers.get("Content-Length") or 0)
+                    while True:
+                        chunk = r.read(1 << 20)
+                        if not chunk:
+                            break
+                        f.write(chunk)
+                if expected and dest.stat().st_size != expected:
+                    raise IOError(f"to'liq emas ({dest.stat().st_size}/{expected})")
+                q = q2; ok = True
+                break
+            except Exception as e:
+                print(f"{i}: urinish {attempt + 1} muvaffaqiyatsiz ({str(e)[:60]}), qayta urinaman")
+        if not ok:
+            print(f"{i}: YUKLANMADI"); dest.unlink(missing_ok=True); continue
         with open(credits, "a", encoding="utf-8") as f:
             if credits.stat().st_size == 0:
                 f.write("# CREDITS\n\n")

@@ -3,3 +3,11 @@
 - Ovoz: HuggingFace `MuzaffarSharofitdinov/mms-tts-uzbek-girl-voice_cyrillic` (MMS/VITS asosida; litsenziyasini yakuniy ishdan oldin model sahifasida tekshirish kerak — MMS asosi CC-BY-NC 4.0, **tijoriy ishlatish cheklangan bo'lishi mumkin**).
 - Musiqa: `scripts/make_reel.py` ichida dasturiy sintez qilingan (original, uchinchi tomon materiali yo'q).
 - Shrift: DejaVu Sans (Bitstream Vera/ochiq litsenziya). Vizual: PIL bilan chizilgan, brend logotiplari ishlatilmagan.
+- pixabay_video_4733.mp4 — Pixabay #4733, muallif: Coverr-Free-Footage, https://pixabay.com/videos/id-4733/, litsenziya: Pixabay Content License (https://pixabay.com/service/license-summary/), yuklandi: 2026-10-12
+- pixabay_video_1625.mp4 — Pixabay #1625, muallif: Coverr-Free-Footage, https://pixabay.com/videos/id-1625/, litsenziya: Pixabay Content License (https://pixabay.com/service/license-summary/), yuklandi: 2026-10-12
+- pixabay_video_32767.mp4 — Pixabay #32767, muallif: choschos, https://pixabay.com/videos/id-32767/, litsenziya: Pixabay Content License (https://pixabay.com/service/license-summary/), yuklandi: 2026-10-12
+- pixabay_video_215500.mp4 — Pixabay #215500, muallif: riaz-baloch, https://pixabay.com/videos/id-215500/, litsenziya: Pixabay Content License (https://pixabay.com/service/license-summary/), yuklandi: 2026-10-12
+- pixabay_video_41263.mp4 — Pixabay #41263, muallif: viarami, https://pixabay.com/videos/id-41263/, litsenziya: Pixabay Content License (https://pixabay.com/service/license-summary/), yuklandi: 2026-10-12
+- pixabay_video_168485.mp4 — Pixabay #168485, muallif: riaz-baloch, https://pixabay.com/videos/id-168485/, litsenziya: Pixabay Content License (https://pixabay.com/service/license-summary/), yuklandi: 2026-10-12
+- pixabay_video_3188.mp4 — Pixabay #3188, muallif: Coverr-Free-Footage, https://pixabay.com/videos/id-3188/, litsenziya: Pixabay Content License (https://pixabay.com/service/license-summary/), yuklandi: 2026-10-12
+- pixabay_video_183108.mp4 — Pixabay #183108, muallif: riaz-baloch, https://pixabay.com/videos/id-183108/, litsenziya: Pixabay Content License (https://pixabay.com/service/license-summary/), yuklandi: 2026-10-12

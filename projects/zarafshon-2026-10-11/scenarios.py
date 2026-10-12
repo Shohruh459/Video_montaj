@@ -63,3 +63,17 @@ S.append(dict(id="05-oziingizni-aldamang", title="AI ishlatayotganda oʻzingizni
   dict(say="Tushunmaguncha keyingi qadamga o‘tmang.", sub="Tushunmaguncha keyingi qadamga o‘tmang.", hl=["Tushunmaguncha"], scene=dict(t="warn", text="Tushunmaguncha\no‘tma")),
   dict(say="Shunda siz haqiqiy dasturchi bo‘lasiz.", sub="Shunda siz haqiqiy dasturchi bo‘lasiz.", hl=["haqiqiy", "dasturchi"], scene=dict(t="check", text="Haqiqiy dasturchi")),
 ]))
+
+
+# ---- v2: retention uchun qayta qurilgan 1-reel (Instagram: 3 soniyada 80% ketgan) ----
+S.append(dict(id="01v2-ai-ga-ishonmang", title="AI sizni dasturchi qilmaydi (v2)", style="tech", bpm=100, key=57, lead=0.12, gap=0.2,
+  cta="Siz ham shunday xato qilganmisiz?\nIzohlarda yozing", cta_say="Siz ham shunday xato qilganmisiz? Izohlarda yozing.", cta_bg=("pixabay_video_215500.mp4", 7),
+  segs=[
+  dict(say="Ey-ay sizni dasturchi qilmaydi.", sub="AI sizni dasturchi qilmaydi.", hl=["dasturchi", "qilmaydi."], bg=("pixabay_video_215500.mp4", 1), scene=dict(t="kw", text="AI sizni\ndasturchi\nqilmaydi", accent="yellow")),
+  dict(say="Ko‘p dasturchi ey-ay ga, to‘liq loyiha yasab ber, deb yozadi.", sub="Ko‘p dasturchi AI’ga “to‘liq loyiha yasab ber” deb yozadi...", hl=["AI’ga"], bg=("pixabay_video_3188.mp4", 2), scene=dict(t="kw", text="“To‘liq loyiha\nyasab ber”", accent="cyan")),
+  dict(say="Va natijadan norozi bo‘ladi.", sub="va natijadan norozi bo‘ladi.", hl=["norozi"], bg=("pixabay_video_32767.mp4", 5), scene=dict(t="kw", text="Natija:\nchalkash", accent="red")),
+  dict(say="Ey-ay, yordamchi. U sizning o‘rningizga o‘ylamaydi.", sub="AI — yordamchi. U sizning o‘rningizga o‘ylamaydi.", hl=["yordamchi."], bg=("pixabay_video_183108.mp4", 3), scene=dict(t="kw", text="AI =\nyordamchi", accent="cyan")),
+  dict(say="To‘g‘ri yo‘l: kichik qismlarga bo‘lib so‘rang.", sub="To‘g‘ri yo‘l: kichik qismlarga bo‘lib so‘rang.", hl=["kichik", "qismlarga"], bg=("pixabay_video_1625.mp4", 3), scene=dict(t="kw", text="Kichik\nqadamlar", accent="green")),
+  dict(say="Har bir qadamni o‘zingiz tushuning.", sub="Har bir qadamni o‘zingiz tushuning.", hl=["tushuning."], bg=("pixabay_video_1625.mp4", 9), scene=dict(t="kw", text="Tushunib\nyozing", accent="green")),
+  dict(say="Aks holda siz dasturchi emas, shunchaki, prompt yozuvchi bo‘lib qolasiz.", sub="Aks holda siz dasturchi emas, shunchaki “prompt yozuvchi” bo‘lib qolasiz.", hl=["“prompt", "yozuvchi”"], bg=("pixabay_video_168485.mp4", 3), scene=dict(t="kw", text="prompt\nyozuvchi?", accent="yellow")),
+]))
