@@ -30,6 +30,12 @@ Pixabay'da Song Plus'ning o'zi ehtimol yo'q → umumiy elektromobil kadrlari; an
 - Brend logotiplari (Cursor/Claude/ChatGPT) ishlatilmadi — faqat matn kartalari. Musiqa original sintez (aslida oddiy; yaxshi trek bersa almashtiramiz).
 - Reel 2 (32.5 s) va 3 (34.8 s) mijoz taxminidan uzunroq.
 
+### 2026-10-13 — v2 uslub (retention) va natija kuzatuvi
+- Instagram (1-reel eski versiya): 250 ko'rish, o'rtacha 3 s, 3-soniyada ~80% ketgan, layk/izoh 0 → muammo birinchi 3 s. Yechim: hook birinchi, haqiqiy fon kadrlari (Pixabay, `broll/`), kinetik matn, tez kesish.
+- v2 ssenariylar: `01v2`…`05v2` (`scenarios.py`), `python scripts/make_reel.py 05v2`. Ovoz: OmniVoice (asosiy ayol, litsenziya qabul qilingan, faqat demo), keshi matn xeshi bo'yicha `voice/vs_<md5>.wav`. Backend: `bash scripts/start_voice.sh` (har sessiyada qayta; VoiceStudio klon `/home/user/debpalash/voicestudio`, o'rnatish ~5 GB + model 3 GB — yangi sessiyada qayta kerak).
+- Kutilmoqda: foydalanuvchi reellarni joylab, odamlar reaksiyasini (3-soniya ushlab turish, layk, izoh) aytadi → shunga qarab uslubni tanlaymiz. Keyin: 1080x1920 `--final`, 4K fon, SFX, musiqa manbasi.
+- Ma'lum kamchiliklar: fon 1080p yumshoq; ba'zi kadrlar qorong'i; 3v2 "7-kun" sahnasida kalendar yozuvi ("Sat") matn bilan ustma-ust; reel 4 boshida fon qorong'i.
+
 ## Qoidalar eslatmasi
 - Kalitlarni hech qachon chatga chiqarma (faqat nomini tekshir).
 - Kadrlarni yuklagach ko'zdan kechir, brend logotipli boshqa mashina kadrlarini olma, 4–6 ta eng yaxshisini ko'rsat.
