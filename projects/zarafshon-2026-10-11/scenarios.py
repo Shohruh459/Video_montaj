@@ -48,8 +48,8 @@ S.append(dict(id="04-cursor-claude-chatgpt", title="Cursor, Claude yoki ChatGPT 
   dict(say="Kursor, kod yozish va tahrirlash uchun eng qulay.", sub="Cursor — kod yozish va tahrirlash uchun eng qulay.", hl=["Cursor"], scene=dict(t="tools", step=0)),
   dict(say="Klod, uzun va murakkab mantiqni tushunishda kuchli.", sub="Claude — uzun va murakkab mantiqni tushunishda kuchli.", hl=["Claude"], scene=dict(t="tools", step=1)),
   dict(say="Chat jipiti, tez g‘oya va tushuntirish uchun yaxshi.", sub="ChatGPT — tez g‘oya va tushuntirish uchun yaxshi.", hl=["ChatGPT"], scene=dict(t="tools", step=2)),
-  dict(say="To‘g‘ri asbobni to‘g‘ri vazifaga ishlatsangiz, vaqtni ikki-uch barobar tejaysiz.", sub="To‘g‘ri asbobni to‘g‘ri vazifaga ishlatsangiz — vaqtni 2–3 barobar tejaysiz.", hl=["2–3", "barobar"], scene=dict(t="tools", step=3)),
-  dict(say="Asbobni tanlash ham skill.", sub="Asbobni tanlash ham skill.", hl=["skill."], scene=dict(t="word", text="To‘g‘ri asbob\n= tez natija", accent="violet")),
+  dict(say="To‘g‘ri vositani to‘g‘ri vazifaga ishlatsangiz, vaqtni ikki-uch barobar tejaysiz.", sub="To‘g‘ri vositani to‘g‘ri vazifaga ishlatsangiz — vaqtni 2–3 barobar tejaysiz.", hl=["2–3", "barobar"], scene=dict(t="tools", step=3)),
+  dict(say="Vositani tanlash ham skill.", sub="Vositani tanlash ham skill.", hl=["skill."], scene=dict(t="word", text="To‘g‘ri vosita\n= tez natija", accent="violet")),
 ]))
 
 S.append(dict(id="05-oziingizni-aldamang", title="AI ishlatayotganda oʻzingizni aldamaslik", style="ambient", bpm=68, key=55,
@@ -114,8 +114,8 @@ S.append(dict(id="04v2-cursor-claude-chatgpt", title="Cursor, Claude yoki ChatGP
   dict(say="Kursor, kod yozish va tahrirlash uchun eng qulay.", sub="Cursor — kod yozish va tahrirlash uchun eng qulay.", hl=["Cursor"], bg=_b(200675, 3), scene=dict(t="tool", idx=0)),
   dict(say="Klod, uzun va murakkab mantiqni tushunishda kuchli.", sub="Claude — uzun va murakkab mantiqni tushunishda kuchli.", hl=["Claude"], bg=_b(258439, 2), scene=dict(t="tool", idx=1)),
   dict(say="Chat jipiti, tez g‘oya va tushuntirish uchun yaxshi.", sub="ChatGPT — tez g‘oya va tushuntirish uchun yaxshi.", hl=["ChatGPT"], bg=_b(279625, 2), scene=dict(t="tool", idx=2)),
-  dict(say="To‘g‘ri asbobni to‘g‘ri vazifaga ishlatsangiz, vaqtni ikki-uch barobar tejaysiz.", sub="To‘g‘ri asbobni to‘g‘ri vazifaga ishlatsangiz — vaqtni 2–3 barobar tejaysiz.", hl=["2–3", "barobar"], bg=_b(3160, 4), scene=dict(t="kw", text="Vaqtni 2–3\nbarobar tejang", accent="green")),
-  dict(say="Asbobni tanlash ham skill.", sub="Asbobni tanlash ham skill.", hl=["skill."], bg=_b(277096, 8), scene=dict(t="kw", text="Asbob tanlash\n= skill", accent="violet")),
+  dict(say="To‘g‘ri vositani to‘g‘ri vazifaga ishlatsangiz, vaqtni ikki-uch barobar tejaysiz.", sub="To‘g‘ri vositani to‘g‘ri vazifaga ishlatsangiz — vaqtni 2–3 barobar tejaysiz.", hl=["2–3", "barobar"], bg=_b(3160, 4), scene=dict(t="kw", text="Vaqtni 2–3\nbarobar tejang", accent="green")),
+  dict(say="Vositani tanlash ham skill.", sub="Vositani tanlash ham skill.", hl=["skill."], bg=_b(277096, 8), scene=dict(t="kw", text="Vosita tanlash\n= skill", accent="violet")),
 ]))
 
 S.append(dict(id="05v2-oziingizni-aldamang", title="AI ishlatayotganda oʻzingizni aldamaslik (v2)", style="ambient", bpm=72, key=55, lead=0.12, gap=0.22,

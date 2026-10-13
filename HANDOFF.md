@@ -36,6 +36,9 @@ Pixabay'da Song Plus'ning o'zi ehtimol yo'q → umumiy elektromobil kadrlari; an
 - Kutilmoqda: foydalanuvchi reellarni joylab, odamlar reaksiyasini (3-soniya ushlab turish, layk, izoh) aytadi → shunga qarab uslubni tanlaymiz. Keyin: 1080x1920 `--final`, 4K fon, SFX, musiqa manbasi.
 - Ma'lum kamchiliklar: fon 1080p yumshoq; ba'zi kadrlar qorong'i; 3v2 "7-kun" sahnasida kalendar yozuvi ("Sat") matn bilan ustma-ust; reel 4 boshida fon qorong'i.
 
+### So'z tanlash qoidasi (foydalanuvchi aytdi)
+- "asbob" so'zi ba'zi o'zbek auditoriyasida noto'g'ri (nojo'ya) ma'no beradi → **ishlatma**, o'rniga "vosita". `scenarios.py` da almashtirilgan, 04v2 qayta yig'ilgan. Yangi matnlarda ham shunday ikki ma'noli so'zlarni tekshir; shubha bo'lsa foydalanuvchidan so'ra.
+
 ## Qoidalar eslatmasi
 - Kalitlarni hech qachon chatga chiqarma (faqat nomini tekshir).
 - Kadrlarni yuklagach ko'zdan kechir, brend logotipli boshqa mashina kadrlarini olma, 4–6 ta eng yaxshisini ko'rsat.
