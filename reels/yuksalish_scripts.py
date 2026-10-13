@@ -17,7 +17,7 @@ SCRIPTS = [
    "Har kuni 2 soat yo'qotish — 1 yilda *730* *soat*.", "Bu degani — 30 kunlik hayot.",
    "Vaqtingni qaytarib ol.", "Yoki uni yo'qotishda davom et."]),
  (3, "ozingni-aldamaslik", 24, "obuna", [
-   "Eng katta yolg'on — o'zingga aytganing yolg'on.", "«Ertaga boshlayman», «Hozir vaqtim yo'q», «Keyinroq qilaman».",
+   "Eng katta yolg'on — o'zingga aytgan *yolg'oning*.", "«Ertaga boshlayman», «Hozir vaqtim yo'q», «Keyinroq qilaman».",
    "Bu gaplar seni yildan-yilga orqaga suradi.", "*Bugun* boshla.", "Hatto kichik bo'lsa ham."]),
  (4, "yolgizlik", 26.5, "ulash", [
    "Yolg'iz qolishdan qo'rqma.", "Ba'zida eng katta o'sish *yolg'izlikda* bo'ladi.",

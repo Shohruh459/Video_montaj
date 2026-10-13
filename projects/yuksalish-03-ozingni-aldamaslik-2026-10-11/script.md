@@ -3,7 +3,7 @@
 Profil: @yuksalish713 · Format 9:16 · maqsad ~24 s · CTA: Yuksalishga obuna bo'l
 
 ## Diktor matni (TTS) / ekran matni
-1. Eng katta yolg'on, o'zingga aytganing yolg'on.  →  ekran: Eng katta yolgʻon — oʻzingga aytganing yolgʻon.
+1. Eng katta yolg'on, o'zingga aytgan yolg'oning.  →  ekran: Eng katta yolgʻon — oʻzingga aytgan *yolgʻoning*.
 2. Ertaga boshlayman, Hozir vaqtim yo'q, Keyinroq qilaman.  →  ekran: «Ertaga boshlayman», «Hozir vaqtim yoʻq», «Keyinroq qilaman».
 3. Bu gaplar seni yildan-yilga orqaga suradi.  →  ekran: Bu gaplar seni yildan-yilga orqaga suradi.
 4. Bugun boshla.  →  ekran: *Bugun* boshla.
