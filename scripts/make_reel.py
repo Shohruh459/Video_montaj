@@ -258,19 +258,20 @@ _logo = {}
 
 def logo_tile(fn, sz=170):
     """Mijoz logotipi o'zgartirilmaydi: faqat bo'sh chekkasi kesiladi va plitka ustiga joylanadi."""
-    if fn in _logo: return _logo[fn]
+    if (fn, sz) in _logo: return _logo[(fn, sz)]
     im = Image.open(ROOT / "assets/logos" / fn).convert("RGBA")
     if fn == "chatgpt.png":
         bb = Image.eval(im.convert("L"), lambda v: 255 - v).getbbox(); im = im.crop(bb); bg = (255, 255, 255)
     elif fn == "claude.png": bg = (30, 41, 59)
     else: bg = None
     inner = sz if bg is None else int(sz * 0.74)
+    rr = int(sz * 0.21)
     im = im.resize((inner, int(inner * im.height / im.width)) if im.width >= im.height else (int(inner * im.width / im.height), inner), Image.LANCZOS)
     tile = Image.new("RGBA", (sz, sz), (0, 0, 0, 0)); m = Image.new("L", (sz, sz), 0)
-    ImageDraw.Draw(m).rounded_rectangle((0, 0, sz - 1, sz - 1), 36, fill=255)
-    if bg: ImageDraw.Draw(tile).rounded_rectangle((0, 0, sz - 1, sz - 1), 36, fill=bg + (255,))
+    ImageDraw.Draw(m).rounded_rectangle((0, 0, sz - 1, sz - 1), rr, fill=255)
+    if bg: ImageDraw.Draw(tile).rounded_rectangle((0, 0, sz - 1, sz - 1), rr, fill=bg + (255,))
     tile.alpha_composite(im, ((sz - im.width) // 2, (sz - im.height) // 2))
-    tile.putalpha(Image.composite(tile.getchannel("A"), Image.new("L", (sz, sz), 0), m)); _logo[fn] = tile; return tile
+    tile.putalpha(Image.composite(tile.getchannel("A"), Image.new("L", (sz, sz), 0), m)); _logo[(fn, sz)] = tile; return tile
 
 
 def S_tools(cv, lt, sc, tot):
@@ -339,18 +340,27 @@ def S_cta(cv, lt, sc, tot):
 def S_kw(cv, lt, sc, tot):
     """Fon videosi ustida katta kalit so'z(lar): 0-kadrdan ko'rinadi (hook uchun), urg'u qatori rangda."""
     col = ACC[sc.get("accent", "yellow")]; lines = norm(sc["text"]).split("\n"); hl = sc.get("hl", len(lines) - 1)
-    f = font(150); size = 150
-    while max(font(size).getlength(l) for l in lines) > 940 and size > 60: size -= 4
-    p = back(prog(lt, 0, 0.35)); a = 0.35 + 0.65 * ease(prog(lt, 0, 0.2)); lh = int(size * 1.12)
-    y0 = 760 - lh * len(lines) / 2
-    for i, l in enumerate(lines):
-        lay = text_layer(l, size, col if i == hl else (255, 255, 255), stroke=10, spacing=1.0)
-        put_c(cv, lay, W / 2, y0 + lh * (i + 0.5) + (1 - ease(prog(lt, 0.08 * i, 0.3))) * 40, a, 0.9 + 0.1 * p)
+    rat = sc.get("sizes", [1.0] * len(lines)); size = 150
+    while max(font(int(size * r)).getlength(l) for l, r in zip(lines, rat)) > 940 and size > 50: size -= 4
+    p = back(prog(lt, 0, 0.35)); a = 0.35 + 0.65 * ease(prog(lt, 0, 0.2)); lhs = [int(size * r * 1.12) for r in rat]
+    y = 760 - sum(lhs) / 2; y_start = y
+    for i, (l, r) in enumerate(zip(lines, rat)):
+        lay = text_layer(l, int(size * r), col if i == hl else (255, 255, 255), stroke=10, spacing=1.0)
+        put_c(cv, lay, W / 2, y + lhs[i] / 2 + (1 - ease(prog(lt, 0.08 * i, 0.3))) * 40, a, 0.9 + 0.1 * p); y += lhs[i]
     bw = int(280 * ease(prog(lt, 0.25, 0.5)))
-    ImageDraw.Draw(cv).rounded_rectangle((W / 2 - bw, y0 + lh * len(lines) + 12, W / 2 + bw, y0 + lh * len(lines) + 24), 6, fill=col)
+    ImageDraw.Draw(cv).rounded_rectangle((W / 2 - bw, y + 12, W / 2 + bw, y + 24), 6, fill=col)
 
 
-SCENES = dict(kw=S_kw, word=S_word, chat=S_chat, compare=S_compare, timeline=S_timeline, tools=S_tools, typing=S_typing, warn=S_warn, check=S_check, cta=S_cta)
+def S_tool(cv, lt, sc, tot):
+    """Katta logotip + nom + qisqa izoh, fon videosi ustida."""
+    nm, what, col, lg = TOOLS[sc["idx"]]; p = back(prog(lt, 0, 0.4)); a = 0.3 + 0.7 * ease(prog(lt, 0, 0.2))
+    put_c(cv, logo_tile(lg, 380), W / 2, 560 + (1 - ease(prog(lt, 0, 0.35))) * 50, a, 0.85 + 0.15 * p)
+    put_c(cv, text_layer(nm, 120, col, stroke=9), W / 2, 850, a * ease(prog(lt, 0.1, 0.3)))
+    put_c(cv, text_layer(what, 52, (255, 255, 255), bold=True, stroke=7, maxw=900), W / 2, 990, a * ease(prog(lt, 0.2, 0.3)))
+    bw = int(260 * ease(prog(lt, 0.25, 0.5))); ImageDraw.Draw(cv).rounded_rectangle((W / 2 - bw, 1060, W / 2 + bw, 1072), 6, fill=col)
+
+
+SCENES = dict(tool=S_tool, kw=S_kw, word=S_word, chat=S_chat, compare=S_compare, timeline=S_timeline, tools=S_tools, typing=S_typing, warn=S_warn, check=S_check, cta=S_cta)
 
 # ---------------------------------------------------------------- subtitr
 SUBW, SUBF = 920, 56

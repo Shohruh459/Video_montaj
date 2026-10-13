@@ -11,3 +11,14 @@
 - pixabay_video_168485.mp4 — Pixabay #168485, muallif: riaz-baloch, https://pixabay.com/videos/id-168485/, litsenziya: Pixabay Content License (https://pixabay.com/service/license-summary/), yuklandi: 2026-10-12
 - pixabay_video_3188.mp4 — Pixabay #3188, muallif: Coverr-Free-Footage, https://pixabay.com/videos/id-3188/, litsenziya: Pixabay Content License (https://pixabay.com/service/license-summary/), yuklandi: 2026-10-12
 - pixabay_video_183108.mp4 — Pixabay #183108, muallif: riaz-baloch, https://pixabay.com/videos/id-183108/, litsenziya: Pixabay Content License (https://pixabay.com/service/license-summary/), yuklandi: 2026-10-12
+- pixabay_video_14214.mp4 — Pixabay #14214, muallif: voltamax, https://pixabay.com/videos/id-14214/, litsenziya: Pixabay Content License (https://pixabay.com/service/license-summary/), yuklandi: 2026-10-13
+- pixabay_video_200675.mp4 — Pixabay #200675, muallif: dhonig, https://pixabay.com/videos/id-200675/, litsenziya: Pixabay Content License (https://pixabay.com/service/license-summary/), yuklandi: 2026-10-13
+- pixabay_video_19454.mp4 — Pixabay #19454, muallif: andrepazleal, https://pixabay.com/videos/id-19454/, litsenziya: Pixabay Content License (https://pixabay.com/service/license-summary/), yuklandi: 2026-10-13
+- pixabay_video_31392.mp4 — Pixabay #31392, muallif: HolgersFotografie, https://pixabay.com/videos/id-31392/, litsenziya: Pixabay Content License (https://pixabay.com/service/license-summary/), yuklandi: 2026-10-13
+- pixabay_video_149986.mp4 — Pixabay #149986, muallif: chandorobray, https://pixabay.com/videos/id-149986/, litsenziya: Pixabay Content License (https://pixabay.com/service/license-summary/), yuklandi: 2026-10-13
+- pixabay_video_145864.mp4 — Pixabay #145864, muallif: julientromeur, https://pixabay.com/videos/id-145864/, litsenziya: Pixabay Content License (https://pixabay.com/service/license-summary/), yuklandi: 2026-10-13
+- pixabay_video_279625.mp4 — Pixabay #279625, muallif: fspik_now, https://pixabay.com/videos/id-279625/, litsenziya: Pixabay Content License (https://pixabay.com/service/license-summary/), yuklandi: 2026-10-13
+- pixabay_video_277096.mp4 — Pixabay #277096, muallif: fspik, https://pixabay.com/videos/id-277096/, litsenziya: Pixabay Content License (https://pixabay.com/service/license-summary/), yuklandi: 2026-10-13
+- pixabay_video_258439.mp4 — Pixabay #258439, muallif: Luis_Humanoide, https://pixabay.com/videos/id-258439/, litsenziya: Pixabay Content License (https://pixabay.com/service/license-summary/), yuklandi: 2026-10-13
+- pixabay_video_30038.mp4 — Pixabay #30038, muallif: Luis_Humanoide, https://pixabay.com/videos/id-30038/, litsenziya: Pixabay Content License (https://pixabay.com/service/license-summary/), yuklandi: 2026-10-13
+- pixabay_video_3160.mp4 — Pixabay #3160, muallif: Coverr-Free-Footage, https://pixabay.com/videos/id-3160/, litsenziya: Pixabay Content License (https://pixabay.com/service/license-summary/), yuklandi: 2026-10-13
