@@ -500,11 +500,12 @@ def synth_music(style, bpm, key, dur):
 
 def get_intro(sc, final):
     """3D ruletka-hook: stems (ovoz, sfx, video) kesh papkasida; yo'q bo'lsa templates/tape/build_hook.py bilan yasaydi."""
-    it = sc["intro"]; key = hashlib.md5((it["say"] + json.dumps(it["card"]) + str(final)).encode()).hexdigest()[:10]
+    it = sc["intro"]; kind = it.get("kind", "tape"); extra = ["--kind", kind, "--n-pages", str(it.get("n_pages", 7))] + (["--blocks", json.dumps(it["blocks"])] if it.get("blocks") else [])
+    key = hashlib.md5((it["say"] + json.dumps(it["card"]) + str(final) + kind + json.dumps(extra)).encode()).hexdigest()[:10]
     d = PROJ / "hook" / key
     if not (d / "info.json").exists():
         cj = d.parent / f"{key}.card.json"; cj.parent.mkdir(exist_ok=True); cj.write_text(json.dumps(it["card"]))
-        subprocess.run([sys.executable, str(ROOT / "templates/tape/build_hook.py"), "--stems", str(d), "--say", it["say"], "--card-json", str(cj), "--scale", "2" if final else "1"], check=True)
+        subprocess.run([sys.executable, str(ROOT / "templates/tape/build_hook.py"), "--stems", str(d), "--say", it["say"], "--card-json", str(cj), "--scale", "2" if final else "1"] + extra, check=True)
     info = json.loads((d / "info.json").read_text()); return dict(dir=d, dur=info["dur"], video=d / "hook_video.mp4")
 
 
@@ -610,7 +611,7 @@ def build_bg(sc, tl, out):
         j = i - off; src = sc["segs"][j].get("bg") if j < len(sc["segs"]) else sc.get("cta_bg")
         fn, ss = src
         vf = (f"scale=-2:2000:flags=lanczos,crop=1080:1920:x='(iw-1080)*(0.25+0.5*t/{d:.3f})':y='(ih-1920)/2',fps=30,"
-              "eq=brightness=-0.2:contrast=1.1:saturation=0.9,format=yuv420p")
+              f"eq=brightness={-0.02 if (j < len(sc['segs']) and sc['segs'][j].get('braw')) else -0.2}:contrast=1.1:saturation=0.9,format=yuv420p")
         subprocess.run(["ffmpeg", "-y", "-v", "error", "-stream_loop", "-1", "-ss", str(ss), "-i", str(bd / fn), "-i", str(grad), "-t", f"{d:.3f}",
                         "-filter_complex", f"[0:v]{vf.replace(',format=yuv420p', '')}[a];[a][1:v]overlay=0:0,format=yuv420p[o]", "-map", "[o]", "-an",
                         "-c:v", "libx264", "-crf", "16", "-preset", "veryfast", str(f)], check=True); parts.append(f)

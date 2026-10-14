@@ -1,0 +1,37 @@
+<!doctype html><meta charset="utf-8"><body style="margin:0;background:#000"><canvas id="out"></canvas>
+<script type="importmap">{"imports":{"three":"./node_modules/three/build/three.module.js","three/addons/":"./node_modules/three/examples/jsm/"}}</script>
+<script type="module">
+import { T, makeStage, textTex, cardTexture, ec, link } from './common.js';
+import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js';
+const P = JSON.parse(decodeURIComponent(location.hash.slice(1))); const { S, cam, frame } = makeStage(P);
+const gold = new T.MeshStandardMaterial({ color: 0xe0a91a, metalness: 1, roughness: 0.28 }), dark = new T.MeshStandardMaterial({ color: 0x1c2436, metalness: 0.4, roughness: 0.45 });
+const PY = 1.45, BL = 1.75, HANG = 1.9;
+const base = new T.Mesh(new T.CylinderGeometry(1.5, 1.8, 0.3, 48), dark); base.position.y = -2.55; base.castShadow = base.receiveShadow = true; S.add(base);
+const pillar = new T.Mesh(new T.CylinderGeometry(0.15, 0.2, 3.9, 32), gold); pillar.position.y = -0.5; pillar.castShadow = true; S.add(pillar);
+const cap = new T.Mesh(new T.SphereGeometry(0.3, 32, 16), gold); cap.position.y = PY; S.add(cap);
+const beam = new T.Group(); beam.position.y = PY; S.add(beam); const bm = new T.Mesh(new RoundedBoxGeometry(BL * 2 + 0.3, 0.16, 0.22, 4, 0.06), gold); bm.castShadow = true; beam.add(bm);
+const mkPan = () => { const g = new T.Group(); const p = new T.Mesh(new T.CylinderGeometry(0.95, 0.8, 0.1, 48), gold); p.castShadow = true; g.add(p); S.add(g); return g; };
+const panL = mkPan(), panR = mkPan(); const strMat = new T.MeshStandardMaterial({ color: 0xb08a1e, metalness: 1, roughness: 0.4 });
+const strs = [0, 1, 2, 3].map(() => { const m = new T.Mesh(new T.CylinderGeometry(0.018, 0.018, 1, 6), strMat); S.add(m); return m; });
+const mkBlock = (b) => { const tex = textTex(256, 256, (x, w, h) => { x.fillStyle = b.bg; x.fillRect(0, 0, w, h); x.strokeStyle = 'rgba(255,255,255,.35)'; x.lineWidth = 8; x.strokeRect(10, 10, w - 20, h - 20); x.fillStyle = b.fg; x.font = `bold ${b.t.length > 3 ? 70 : 120}px DejaVu Sans`; x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillText(b.t, w / 2, h / 2 + 6); });
+  const m = new T.Mesh(new RoundedBoxGeometry(1.0, 1.0, 1.0, 4, 0.08), new T.MeshStandardMaterial({ map: tex, roughness: 0.5 })); m.castShadow = true; S.add(m); return m; };
+const [bL, bR] = P.blocks.map(mkBlock);
+const CW = 3.3, CH = 2.09; const post = new T.Mesh(new T.BoxGeometry(0.12, 1.6, 0.05), gold); post.position.set(0, PY + 0.8 + 0.2, -0.03); S.add(post);
+const card = new T.Mesh(new T.PlaneGeometry(CW, CH), new T.MeshStandardMaterial({ map: cardTexture(P), roughness: 0.8 })); card.position.set(0, PY + 1.9 + CH / 2 - 0.1, 0.02); card.castShadow = true; S.add(card);
+const G = 140, HDROP = 7, FALL = Math.sqrt(2 * HDROP / G), A0 = 0.30;
+function beamAngle(t) { const { T1, T2 } = P; if (t < T1) return 0; const aT2 = A0 * (1 - Math.exp(-7 * (T2 - T1)) * Math.cos(15 * (T2 - T1)));
+  if (t < T2) { const u = t - T1; return A0 * (1 - Math.exp(-7 * u) * Math.cos(15 * u)); } const u = t - T2; return aT2 * Math.exp(-5 * u) * Math.cos(11 * u); }
+function drop(t, ti, rest) { const u = t - (ti - FALL); if (u < 0) return rest + HDROP; if (t < ti) return rest + Math.max(0, HDROP - 0.5 * G * u * u); const tau = t - ti; return rest + Math.abs(Math.sin(tau * 20)) * Math.exp(-tau * 10) * 0.22; }
+function pose(t) {
+  const a = beamAngle(t); beam.rotation.z = a;
+  const eL = new T.Vector3(-BL * Math.cos(a), PY - BL * Math.sin(a), 0), eR = new T.Vector3(BL * Math.cos(a), PY + BL * Math.sin(a), 0);
+  panL.position.set(eL.x, eL.y - HANG, 0); panR.position.set(eR.x, eR.y - HANG, 0);
+  [[eL, panL, 0, 1], [eR, panR, 2, 3]].forEach(([e, p, i, j]) => { link(e, new T.Vector3(p.position.x - 0.8, p.position.y, 0), strs[i]); link(e, new T.Vector3(p.position.x + 0.8, p.position.y, 0), strs[j]); });
+  bL.position.set(panL.position.x, drop(t, P.T1, panL.position.y + 0.55), 0); bR.position.set(panR.position.x, drop(t, P.T2, panR.position.y + 0.55), 0);
+  bL.rotation.y = 0.12; bR.rotation.y = -0.12; if (t < P.T1) bL.visible = t > P.T1 - FALL - 0.02; if (t < P.T2) bR.visible = t > P.T2 - FALL - 0.02; if (t >= P.T1) bL.visible = true; if (t >= P.T2) bR.visible = true;
+  const e = ec((t - P.dolly) / P.dolly_dur); const sh = (t > P.dolly + P.dolly_dur ? Math.exp(-(t - P.dolly - P.dolly_dur) * 9) : 0) * 0.08;
+  const A = [0, 1.3, 12.0], B = [0, PY + 1.9 + CH / 2 - 0.1, 6.7]; cam.position.set(A[0] + (B[0] - A[0]) * e + (Math.random() - 0.5) * sh, A[1] + (B[1] - A[1]) * e + (Math.random() - 0.5) * sh, A[2] + (B[2] - A[2]) * e);
+  cam.lookAt(0, A[1] + (B[1] - A[1]) * e, 0);
+}
+window.setT = (t, n = 1, sh = 1 / 40) => frame(pose, t, n, sh); window.ready = true;
+</script>

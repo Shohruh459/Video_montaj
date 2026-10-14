@@ -144,3 +144,75 @@ S.append(dict(id="N1-ai-ishsiz-qiladimi", title="AI meni ishsiz qiladimi?", styl
   dict(say="Ey-ay, tez va sifatli ishlash uchun vosita.", sub="AI — tez va sifatli ishlash uchun vosita.", hl=["vosita."], bg=_b(277096, 5), scene=dict(t="kw", text="AI = vosita", accent="green")),
   dict(say="Uni ushlagan odam esa hali ham kerak.", sub="Uni ushlagan odam esa hali ham kerak.", hl=["odam", "kerak."], bg=_b(279625, 3), scene=dict(t="kw", text="Odam hali\nham kerak", accent="cyan", hl=1)),
 ]))
+
+
+def _own(f, ss=0): return (f, ss)
+NONE = dict(t="none")
+CARDC = lambda L: [{"t": t, "size": z, "color": c} for t, z, c in L]
+INK, RED = "#0f172a", "#e11d48"
+
+S.append(dict(id="N2-bir-kunda-pul", title="AI bilan bir kunda pul topish mumkinmi?", style="progressive", bpm=106, key=60, gap=0.2,
+  intro=dict(kind="calendar", n_pages=1, say="Ey-ay yordamida bir kunda pul topish mumkinmi?",
+             card=CARDC([("Bir kunda", 150, INK), ("AI bilan pul", 130, INK), ("topish", 130, INK), ("mumkinmi?", 150, RED)])),
+  cta="Siz AI bilan qanday\nish qilyapsiz?", cta_say="Siz ey-ay bilan qanday ish qilyapsiz?", cta_bg=_b(3019, 5),
+  segs=[
+  dict(say="Ko‘p odam aytadi: ey-ay bilan tezda pul topish mumkin.", sub="Ko‘p odam aytadi: AI bilan tezda pul topish mumkin.", hl=["tezda", "pul"], bg=_b(59139, 1), scene=dict(t="kw", text="“Tez pul”", accent="yellow")),
+  dict(say="Rostmi?", sub="Rostmi?", hl=["Rostmi?"], bg=_b(3019, 2), scene=dict(t="kw", text="Rostmi?", accent="red")),
+  dict(say="Kichik frilans vazifalarni ey-ay yordamida tezroq bajarish mumkin.", sub="Kichik frilans vazifalarni AI yordamida tezroq bajarish mumkin.", hl=["frilans", "tezroq"], bg=_own("own_chat.mp4", 0.2), braw=True, scene=NONE),
+  dict(say="Lekin, bir kunda katta pul, degan gap, ko‘pincha reklama.", sub="Lekin “bir kunda katta pul” degan gap — ko‘pincha reklama.", hl=["ko‘pincha", "reklama."], bg=_b(90332, 3), scene=dict(t="kw", text="“Katta pul”\n= reklama", accent="red", hl=1)),
+  dict(say="Haqiqiy natija: ey-ay vaqtni tejaydi.", sub="Haqiqiy natija: AI vaqtni tejaydi.", hl=["vaqtni", "tejaydi."], bg=_b(34499, 1), scene=dict(t="kw", text="AI vaqtni\ntejaydi", accent="green")),
+  dict(say="Vaqtni tejagan odam esa ko‘proq ish qila oladi.", sub="Vaqtni tejagan odam esa ko‘proq ish qila oladi.", hl=["ko‘proq", "ish"], bg=_b(130331, 2), scene=dict(t="kw", text="Ko‘proq ish\nqilasiz", accent="green", hl=1)),
+]))
+
+S.append(dict(id="N3-kod-bilmasdan-ai", title="Kod yozishni bilmasam ham AI bilan ishlay olamanmi?", style="clean", bpm=98, key=62, gap=0.2,
+  intro=dict(kind="traffic", say="Kod yozishni bilmasam ham, ey-ay bilan ishlay olamanmi?",
+             card=CARDC([("Kod yozishni", 120, INK), ("bilmasam ham", 120, INK), ("AI bilan ishlay", 112, INK), ("olamanmi?", 140, RED)])),
+  cta="Kod yozishni bilmasangiz ham\nAI ishlatasizmi?", cta_say="Kod yozishni bilmasangiz ham, ey-ay ishlatasizmi?", cta_bg=_b(30033, 4),
+  segs=[
+  dict(say="Kod yozishni bilmasangiz ham ey-ay dan foydalana olasiz.", sub="Kod yozishni bilmasangiz ham AI’dan foydalana olasiz.", hl=["foydalana", "olasiz."], bg=_b(122, 1), scene=dict(t="kw", text="Ha,\nmumkin", accent="green")),
+  dict(say="Lekin bir shart bilan.", sub="Lekin bir shart bilan.", hl=["shart"], bg=_b(130331, 4), scene=dict(t="kw", text="Bitta shart", accent="yellow")),
+  dict(say="Nima xohlayotganingizni aniq tushuntira olishingiz kerak.", sub="Nima xohlayotganingizni aniq tushuntira olishingiz kerak.", hl=["aniq", "tushuntira"], bg=_own("own_chat.mp4", 0.2), braw=True, scene=NONE),
+  dict(say="Ey-ay sizning fikringizni o‘qimaydi.", sub="AI sizning fikringizni o‘qimaydi.", hl=["fikringizni", "o‘qimaydi."], bg=_b(88219, 3), scene=dict(t="kw", text="AI fikringizni\no‘qimaydi", accent="red", hl=1)),
+  dict(say="U faqat siz yozgan narsani bajaradi.", sub="U faqat siz yozgan narsani bajaradi.", hl=["faqat", "bajaradi."], bg=_own("own_code.mp4", 1.0), braw=True, scene=NONE),
+  dict(say="Shuning uchun eng muhim skill, aniq so‘rash.", sub="Shuning uchun eng muhim skill — aniq so‘rash.", hl=["skill", "aniq", "so‘rash."], bg=_b(30033, 3), scene=dict(t="kw", text="Aniq so‘rash\n= skill", accent="violet", hl=1)),
+]))
+
+S.append(dict(id="N4-uch-xato", title="Eng ko‘p qilinadigan 3 ta AI xatosi", style="tech", bpm=104, key=57, gap=0.2,
+  intro=dict(kind="scale", say="Ko‘pchilik qiladigan uchta ey-ay xatosi.", blocks=[{"t": "XATO", "bg": "#dc2626", "fg": "#ffffff"}, {"t": "TO‘G‘RI", "bg": "#16a34a", "fg": "#ffffff"}],
+             card=CARDC([("Ko‘pchilik", 130, INK), ("qiladigan", 130, INK), ("3 ta AI xatosi", 112, RED)])),
+  cta="Qaysi xatoni\no‘zingizda ko‘ryapsiz?", cta_say="Qaysi xatoni o‘zingizda ko‘ryapsiz?", cta_bg=_b(200675, 3),
+  segs=[
+  dict(say="Birinchi xato: to‘liq loyiha yasab ber, deb yozish.", sub="Birinchi xato: “To‘liq loyiha yasab ber” deb yozish.", hl=["Birinchi", "xato:"], bg=_b(72712, 2), scene=dict(t="kw", text="1-xato\n“To‘liq loyiha”", accent="red", hl=0, sizes=[1.0, 0.5])),
+  dict(say="Ikkinchi xato: chiqqan kodni umuman o‘qimaslik.", sub="Ikkinchi xato: chiqqan kodni umuman o‘qimaslik.", hl=["Ikkinchi", "xato:"], bg=_own("own_term_fail.mp4", 0.6), braw=True, scene=NONE),
+  dict(say="Uchinchi xato: ey-ay ga haddan tashqari ishonib, o‘zi o‘ylashni to‘xtatish.", sub="Uchinchi xato: AI’ga haddan tashqari ishonib, o‘zi o‘ylashni to‘xtatish.", hl=["Uchinchi", "xato:"], bg=_b(88219, 6), scene=dict(t="kw", text="3-xato\nO‘ylamaslik", accent="red", hl=0, sizes=[1.0, 0.6])),
+  dict(say="Ey-ay yordamchi.", sub="AI — yordamchi.", hl=["yordamchi."], bg=_b(277096, 4), scene=dict(t="kw", text="AI =\nyordamchi", accent="cyan")),
+  dict(say="Lekin boshqaruv hali ham sizda qolishi kerak.", sub="Lekin boshqaruv hali ham sizda qolishi kerak.", hl=["boshqaruv", "sizda"], bg=_b(19459, 2), scene=dict(t="kw", text="Boshqaruv\nsizda", accent="green", hl=1)),
+]))
+
+S.append(dict(id="N5-yetti-kunda-ai", title="7 kunda AI bilan nima qilish mumkin?", style="ambient", bpm=84, key=55, gap=0.2,
+  intro=dict(kind="calendar", n_pages=7, say="Yetti kunda ey-ay ni to‘liq o‘rganish mumkinmi?",
+             card=CARDC([("7 kunda", 170, INK), ("AI’ni to‘liq", 130, INK), ("o‘rganish", 130, INK), ("mumkinmi?", 150, RED)])),
+  cta="Siz AI’ni qancha vaqtdan\nberi o‘rganyapsiz?", cta_say="Siz ey-ay ni qancha vaqtdan beri o‘rganyapsiz?", cta_bg=_b(3019, 6),
+  segs=[
+  dict(say="Ko‘p odam aytadi: yetti kunda ey-ay ni o‘rganib bo‘ladi.", sub="Ko‘p odam aytadi: 7 kunda AI’ni o‘rganib bo‘ladi.", hl=["7", "kunda"], bg=_b(34499, 1), scene=dict(t="kw", text="“7 kunda\no‘rganasiz”", accent="yellow", hl=1)),
+  dict(say="Haqiqat boshqacha.", sub="Haqiqat boshqacha.", hl=["boshqacha."], bg=_b(90332, 6), scene=dict(t="kw", text="Haqiqat\nboshqacha", accent="red", hl=1)),
+  dict(say="Yetti kunda oddiy vazifalarni bajarishni,", sub="7 kunda oddiy vazifalarni bajarishni,", hl=["oddiy", "vazifalarni"], bg=_b(200675, 4), scene=dict(t="kw", text="7 kunda\nmumkin:", accent="green", hl=0)),
+  dict(say="prompt yozishni va asosiy vositalarni ishlatishni o‘rganish mumkin.", sub="prompt yozishni va asosiy vositalarni ishlatishni o‘rganish mumkin.", hl=["prompt", "vositalarni"], bg=_own("own_chat.mp4", 0.2), braw=True, scene=NONE),
+  dict(say="Lekin chuqur tushunish, murakkab loyihalar va tajriba,", sub="Lekin chuqur tushunish, murakkab loyihalar va tajriba...", hl=["chuqur", "tajriba"], bg=_b(3160, 3), scene=dict(t="kw", text="Chuqur\ntushunish", accent="yellow")),
+  dict(say="bu oylar masalasi.", sub="bu oylar masalasi.", hl=["oylar"], bg=_b(30033, 3), scene=dict(t="kw", text="Oylar\nmasalasi", accent="red", hl=1)),
+  dict(say="Tez boshlash mumkin.", sub="Tez boshlash mumkin.", hl=["Tez", "boshlash"], bg=_b(277096, 2), scene=dict(t="kw", text="Tez boshlash\nmumkin", accent="green")),
+  dict(say="Lekin, hammasini o‘rgandim, deb o‘ylash xato.", sub="Lekin “hammasini o‘rgandim” deb o‘ylash xato.", hl=["xato."], bg=_b(3019, 6), scene=dict(t="kw", text="“Hammasini\no‘rgandim”?", accent="red", hl=1)),
+]))
+
+S.append(dict(id="N6-qorqishmi", title="Dasturchilar AI’dan qo‘rqishi kerakmi?", style="clean", bpm=92, key=60, gap=0.2,
+  intro=dict(kind="scale", say="Dasturchilar ey-ay dan qo‘rqishi kerakmi?", blocks=[{"t": "AI", "bg": "#2563eb", "fg": "#ffffff"}, {"t": "ODAM", "bg": "#facc15", "fg": "#111111"}],
+             card=CARDC([("Dasturchilar", 120, INK), ("AI’dan qo‘rqishi", 112, INK), ("kerakmi?", 150, RED)])),
+  cta="Siz qaysi tomondasiz?", cta_say="Siz qaysi tomondasiz?", cta_bg=_b(200675, 1),
+  segs=[
+  dict(say="Ba’zi dasturchilar ey-ay dan qo‘rqadi.", sub="Ba’zi dasturchilar AI’dan qo‘rqadi.", hl=["qo‘rqadi."], bg=_b(88219, 1), scene=dict(t="kw", text="Qo‘rqadi", accent="red")),
+  dict(say="Ba’zilari esa uni e’tiborsiz qoldiradi.", sub="Ba’zilari esa uni e’tiborsiz qoldiradi.", hl=["e’tiborsiz"], bg=_b(130331, 3), scene=dict(t="kw", text="E’tiborsiz", accent="yellow")),
+  dict(say="Ikkalasi ham xato.", sub="Ikkalasi ham xato.", hl=["xato."], bg=_b(19459, 0), scene=dict(t="kw", text="Ikkalasi\nham xato", accent="red", hl=1)),
+  dict(say="Ey-ay ni inkor qilgan odam orqada qoladi.", sub="AI’ni inkor qilgan odam orqada qoladi.", hl=["inkor", "orqada"], bg=_b(90332, 4), scene=dict(t="kw", text="Inkor =\norqada qolish", accent="cyan", hl=1)),
+  dict(say="Ey-ay ga haddan tashqari ishongan odam esa sayoz bo‘lib qoladi.", sub="AI’ga haddan tashqari ishongan odam esa sayoz bo‘lib qoladi.", hl=["ishongan", "sayoz"], bg=_b(30033, 6), scene=dict(t="kw", text="Ortiqcha ishonch\n= sayoz bilim", accent="yellow", hl=1)),
+  dict(say="Eng to‘g‘ri yo‘l, ey-ay ni o‘rganib, uni o‘z foydangizga ishlatish.", sub="Eng to‘g‘ri yo‘l — AI’ni o‘rganib, uni o‘z foydangizga ishlatish.", hl=["o‘rganib,", "foydangizga"], bg=_b(200675, 2), scene=dict(t="kw", text="O‘rganing va\nfoydalaning", accent="green", hl=1)),
+]))

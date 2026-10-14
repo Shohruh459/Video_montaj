@@ -1,0 +1,27 @@
+<!doctype html><meta charset="utf-8"><body style="margin:0;background:#000"><canvas id="out"></canvas>
+<script type="importmap">{"imports":{"three":"./node_modules/three/build/three.module.js","three/addons/":"./node_modules/three/examples/jsm/"}}</script>
+<script type="module">
+import { T, makeStage, textTex, ec } from './common.js';
+import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js';
+const P = JSON.parse(decodeURIComponent(location.hash.slice(1))); const { S, cam, frame } = makeStage({ ...P, ground_y: -3.4 });
+const PW = 3.4, PH = 4.5, N = P.n;
+const board = new T.Mesh(new RoundedBoxGeometry(PW + 0.4, PH + 0.9, 0.2, 4, 0.12), new T.MeshStandardMaterial({ color: 0x23304a, roughness: 0.6 })); board.position.set(0, -0.25, -0.35); board.castShadow = true; S.add(board);
+for (let i = 0; i < 9; i++) { const r = new T.Mesh(new T.TorusGeometry(0.13, 0.035, 12, 24), new T.MeshStandardMaterial({ color: 0xd9dde5, metalness: 1, roughness: 0.25 })); r.position.set(-PW / 2 + 0.2 + i * (PW - 0.4) / 8, PH / 2 + 0.02, 0.0); S.add(r); }
+function pageTex(label, big) { return textTex(1100, 1450, (x, w, h) => { x.fillStyle = '#fffdf6'; x.fillRect(0, 0, w, h); x.fillStyle = '#d62839'; x.fillRect(0, 0, w, 230);
+  x.fillStyle = '#fff'; x.font = 'bold 120px DejaVu Sans'; x.textAlign = 'center'; x.fillText(label, w / 2, 160); x.fillStyle = '#111827'; x.font = 'bold 640px DejaVu Sans'; x.textBaseline = 'middle'; x.fillText(big, w / 2, h / 2 + 150);
+  x.strokeStyle = '#e5e1d3'; x.lineWidth = 6; x.strokeRect(14, 14, w - 28, h - 28); }); }
+function hookTex() { return textTex(1100, 1450, (x, w, h) => { x.fillStyle = '#fff7df'; x.fillRect(0, 0, w, h); x.fillStyle = '#d62839'; x.fillRect(0, 0, w, 150);
+  x.fillStyle = '#fff'; x.font = 'bold 46px DejaVu Sans'; x.textAlign = 'center'; x.fillText((P.brand || '').toUpperCase(), w / 2, 92);
+  const L = P.card; const tot = L.reduce((a, l) => a + l.size * 1.12, 0); let y = 150 + (h - 150 - tot) / 2 - 20; for (const l of L) { x.font = `bold ${l.size}px DejaVu Sans`; x.fillStyle = l.color; y += l.size; x.fillText(l.t, w / 2, y); y += l.size * 0.12; }
+  x.strokeStyle = '#e7c76a'; x.lineWidth = 12; x.strokeRect(20, 160, w - 40, h - 180); }); }
+const pages = [];
+for (let k = 0; k <= N; k++) { const g = new T.Group(); const m = new T.Mesh(new T.PlaneGeometry(PW, PH), new T.MeshStandardMaterial({ map: k < N ? pageTex(P.label, String(k + 1)) : hookTex(), roughness: 0.85, side: T.DoubleSide })); m.position.y = -PH / 2; m.castShadow = true; g.add(m);
+  g.position.set(0, PH / 2, -0.02 * k + 0.0); S.add(g); pages.push(g); }
+function pose(t) {
+  for (let k = 0; k < N; k++) { const u = (t - (P.t0 + k * P.dt)) / P.fdur; const g = pages[k]; if (u <= 0) { g.rotation.x = 0; g.visible = true; g.position.z = -0.02 * k + 0.0; continue; }
+    const p = Math.min(1, u); const e = p * p * (3 - 2 * p); g.rotation.x = -Math.PI * e * 1.02; g.position.z = -0.02 * k + Math.sin(Math.PI * p) * 1.6; g.position.y = PH / 2 + Math.sin(Math.PI * p) * 0.4; g.visible = u < 1.35; }
+  const e = ec((t - P.dolly) / P.dolly_dur); const sh = (t > P.dolly + P.dolly_dur ? Math.exp(-(t - P.dolly - P.dolly_dur) * 9) : 0) * 0.06;
+  const d = 9.6 + (6.55 - 9.6) * e; cam.position.set((Math.random() - 0.5) * sh, 0.2 + (Math.random() - 0.5) * sh, d); cam.lookAt(0, 0.1, 0);
+}
+window.setT = (t, n = 1, sh = 1 / 40) => frame(pose, t, n, sh); window.ready = true;
+</script>
