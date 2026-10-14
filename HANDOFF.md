@@ -25,3 +25,10 @@ Pixabay'da Song Plus'ning o'zi ehtimol yo'q → umumiy elektromobil kadrlari; an
 1. Brifni to'ldir (yuqoridagi so'rovlar) — kerak bo'lsa foydalanuvchiga qisqa so'ra.
 2. `python scripts/fetch_broll.py search "electric car" --type video` → tanla → `get` bilan `projects/byd-2026-10-10/broll` ga yukla.
 3. O'zbekcha matn (raqamlar so'z bilan) → ovoz namunasi → Kinocut bilan montaj → `export.sh` → `qc.sh` → foydalanuvchiga yubor.
+
+## 2026-10-14 — Yuksalish (@yuksalish713) Reels
+- Remotion shablon: `templates/kinetic` (data: `src/data/ssenariy1.json`; render: `npx remotion render src/index.ts Reel out.mp4 --scale=0.5`). Chrome: `chromium_headless_shell-1194` (remotion.config.ts). Font: DejaVu Sans Bold (oʻ/gʻ to'g'ri).
+- Ssenariy 1 draft (ovozsiz) tayyor: `projects/yuksalish-2026-10-14/out/` (gitda yo'q).
+- BLOK: `speech.platform.bing.com` tarmoq siyosati bilan bloklangan → edge-tts ishlamaydi. Foydalanuvchi hostni Allowed domains ga qo'shishi yoki o'z ovoz yozuvini berishi kerak.
+- Draft pix_fmt yuvj420p chiqdi — yakuniy renderda `--pixel-format=yuv420p` + export.sh orqali yuv420p ga o'tkaz.
+- Ssenariy 1 faktini tuzatdim: 730 soat ≈ 3 oylik ish kuni (asl matnda "1 oylik"). Mijoz tasdig'i kerak.

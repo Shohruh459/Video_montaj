@@ -1,0 +1,20 @@
+{
+  "durationSec": 31,
+  "handle": "@yuksalish713",
+  "ctaText": "Yuksalishga obuna boʻl",
+  "scenes": [
+    {"start": 0.0, "dur": 3.2, "lines": [
+      {"t": "Vaqtingni behuda"}, {"t": "oʻtkazayotganingni"}, {"t": "bilasan."}]},
+    {"start": 3.2, "dur": 3.2, "lines": [
+      {"t": "Lekin baribir"}, {"t": "telefonni"}, {"t": "qoʻyolmayapsan.", "a": true}]},
+    {"start": 6.4, "dur": 4.6, "label": "HAQIQAT", "lines": [
+      {"t": "Koʻpchilik kuniga"}, {"t": "3–4 soatni", "a": true, "big": true}, {"t": "hech narsa qilmasdan"}, {"t": "yoʻqotadi."}]},
+    {"start": 11.0, "dur": 8.0, "label": "ILM", "lines": [
+      {"t": "Har kuni atigi"}, {"t": "2 soatni", "a": true, "big": true}, {"t": "chalgʻitmasdan"}, {"t": "ishlatsang —"}, {"t": "1 yilda", "gap": true}, {"t": "730 soat", "a": true, "big": true}, {"t": "boʻladi."}]},
+    {"start": 19.0, "dur": 3.6, "label": "ILM", "lines": [
+      {"t": "Bu — deyarli"}, {"t": "3 oylik", "a": true, "big": true}, {"t": "toʻliq ish kuni."}]},
+    {"start": 22.6, "dur": 4.4, "lines": [
+      {"t": "Vaqtingni"}, {"t": "qaytarib ol.", "a": true, "big": true}, {"t": "Bugundan 2 soatni", "gap": true}, {"t": "himoya qil."}]},
+    {"start": 27.0, "dur": 4.0, "cta": true, "lines": []}
+  ]
+}
