@@ -1,0 +1,112 @@
+[
+ {
+  "kod": "M1",
+  "fayl": "M1.mp3",
+  "tavsif": "piano + torlar, melanxolik, sekin",
+  "manba": "s0_r0_piano-torlar-melanxolik.wav",
+  "dataset_qator": "0:0",
+  "caption": "Melancholic instrumental piece with a slow tempo featuring piano and strings.",
+  "trek_uzunligi_s": 138,
+  "parcha_boshi_s": 28,
+  "sukut_bolaklari": 0
+ },
+ {
+  "kod": "M2",
+  "fayl": "M2.mp3",
+  "tavsif": "skripka + ambient, sirli, sokin",
+  "manba": "s0_r10_skripka-ambient-sokin.wav",
+  "dataset_qator": "0:10",
+  "caption": "A slow-paced, ambient piece in B minor with a tempo of 75 BPM featuring a haunting violin melody and sparse chords.",
+  "trek_uzunligi_s": 211,
+  "parcha_boshi_s": 42,
+  "sukut_bolaklari": 0
+ },
+ {
+  "kod": "M3",
+  "fayl": "M3.mp3",
+  "tavsif": "piano + torlar, o‘ychan, aks etuvchi",
+  "manba": "s14_r10_piano-torlar-aks.wav",
+  "dataset_qator": "14:10",
+  "caption": "Melancholic instrumental music featuring piano and strings with an emotional, reflective mood.",
+  "trek_uzunligi_s": 326,
+  "parcha_boshi_s": 65,
+  "sukut_bolaklari": 0
+ },
+ {
+  "kod": "M4",
+  "fayl": "M4.mp3",
+  "tavsif": "elektron ambient, sirli, minimal",
+  "manba": "s14_r7_elektron-sirli.wav",
+  "dataset_qator": "14:7",
+  "caption": "A haunting, electronic track with ambient synthesizers and a slow tempo.",
+  "trek_uzunligi_s": 652,
+  "parcha_boshi_s": 130,
+  "sukut_bolaklari": 0
+ },
+ {
+  "kod": "M5",
+  "fayl": "M5.mp3",
+  "tavsif": "kino torlar + piano, hissiy, reverb",
+  "manba": "s1_r9_kino-torlar-hissiy.wav",
+  "dataset_qator": "1:9",
+  "caption": "An emotional, reverb-heavy track with cinematic strings, simple piano and guitar, and synth patterns.",
+  "trek_uzunligi_s": 132,
+  "parcha_boshi_s": 26,
+  "sukut_bolaklari": 0
+ },
+ {
+  "kod": "M6",
+  "fayl": "M6.mp3",
+  "tavsif": "nay + torlar, umidli, sekin",
+  "manba": "s28_r12_umidli-nay-torlar.wav",
+  "dataset_qator": "28:12",
+  "caption": "A hopeful, slow-paced classical piece featuring a flute and strings.",
+  "trek_uzunligi_s": 213,
+  "parcha_boshi_s": 43,
+  "sukut_bolaklari": 0
+ },
+ {
+  "kod": "M7",
+  "fayl": "M7.mp3",
+  "tavsif": "dramatik orkestr, kuchayib boradi",
+  "manba": "s31_r15_dramatik-orkestr.wav",
+  "dataset_qator": "31:15",
+  "caption": "A tense, dramatic classical orchestral instrumental that begins with a few string instruments and builds up to a grand climax.",
+  "trek_uzunligi_s": 46,
+  "parcha_boshi_s": 9,
+  "sukut_bolaklari": 0
+ },
+ {
+  "kod": "M8",
+  "fayl": "M8.mp3",
+  "tavsif": "ilhomli orkestr, arfa + piano, aks etuvchi",
+  "manba": "s44_r13_ilhomli-orkestr-aks.wav",
+  "dataset_qator": "44:13",
+  "caption": "Inspirational, dreamy orchestral music featuring lush strings, harp, and piano creating an uplifting yet reflective mood.",
+  "trek_uzunligi_s": 1024,
+  "parcha_boshi_s": 205,
+  "sukut_bolaklari": 0
+ },
+ {
+  "kod": "M9",
+  "fayl": "M9.mp3",
+  "tavsif": "kino sirli torlar, qorong‘i",
+  "manba": "s50_r1_kino-sirli-torlar.wav",
+  "dataset_qator": "50:1",
+  "caption": "A haunting cinematic track featuring eerie strings and dissonant harmonies.",
+  "trek_uzunligi_s": 244,
+  "parcha_boshi_s": 49,
+  "sukut_bolaklari": 0
+ },
+ {
+  "kod": "M10",
+  "fayl": "M10.mp3",
+  "tavsif": "yakka piano, nostalgik",
+  "manba": "s54_r1_solo-piano-nostalgik.wav",
+  "dataset_qator": "54:1",
+  "caption": "A nostalgic, slow-paced solo piano piece evoking deep emotional feelings.",
+  "trek_uzunligi_s": 191,
+  "parcha_boshi_s": 38,
+  "sukut_bolaklari": 0
+ }
+]
