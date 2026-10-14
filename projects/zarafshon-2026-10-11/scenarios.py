@@ -133,7 +133,7 @@ S.append(dict(id="05v2-oziingizni-aldamang", title="AI ishlatayotganda oʻzingiz
 
 # ================= Yangi ssenariylar (2026-10-14), ruletka-hook bilan =================
 S.append(dict(id="N1-ai-ishsiz-qiladimi", title="AI meni ishsiz qiladimi?", style="tech", bpm=100, key=57, gap=0.2,
-  intro=dict(say="Ey-ay keldi. Endi dasturchilar kerak emasmi?",
+  intro=dict(seed=7, say="Ey-ay keldi. Endi dasturchilar kerak emasmi?",
              card=[{"t": "AI keldi.", "size": 170, "color": "#0f172a"}, {"t": "Endi dasturchilar", "size": 112, "color": "#0f172a"}, {"t": "kerak emasmi?", "size": 128, "color": "#e11d48"}]),
   cta="Sizchi, AI’dan qo‘rqasizmi\nyoki foydalanasizmi?", cta_say="Sizchi, ey-ay dan qo‘rqasizmi yoki foydalanasizmi?", cta_bg=_b(200675, 6),
   segs=[
@@ -205,7 +205,7 @@ S.append(dict(id="N5-yetti-kunda-ai", title="7 kunda AI bilan nima qilish mumkin
 ]))
 
 S.append(dict(id="N6-qorqishmi", title="Dasturchilar AI’dan qo‘rqishi kerakmi?", style="clean", bpm=92, key=60, gap=0.2,
-  intro=dict(kind="scale", say="Dasturchilar ey-ay dan qo‘rqishi kerakmi?", blocks=[{"t": "AI", "bg": "#2563eb", "fg": "#ffffff"}, {"t": "ODAM", "bg": "#facc15", "fg": "#111111"}],
+  intro=dict(kind="scale", seed=7, say="Dasturchilar ey-ay dan qo‘rqishi kerakmi?", blocks=[{"t": "AI", "bg": "#2563eb", "fg": "#ffffff"}, {"t": "ODAM", "bg": "#facc15", "fg": "#111111"}],
              card=CARDC([("Dasturchilar", 120, INK), ("AI’dan qo‘rqishi", 112, INK), ("kerakmi?", 150, RED)])),
   cta="Siz qaysi tomondasiz?", cta_say="Siz qaysi tomondasiz?", cta_bg=_b(200675, 1),
   segs=[
