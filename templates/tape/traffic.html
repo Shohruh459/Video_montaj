@@ -1,0 +1,25 @@
+<!doctype html><meta charset="utf-8"><body style="margin:0;background:#000"><canvas id="out"></canvas>
+<script type="importmap">{"imports":{"three":"./node_modules/three/build/three.module.js","three/addons/":"./node_modules/three/examples/jsm/"}}</script>
+<script type="module">
+import { T, makeStage, cardTexture, ec } from './common.js';
+import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js';
+const P = JSON.parse(decodeURIComponent(location.hash.slice(1))); const { S, cam, frame } = makeStage({ ...P, ground_y: -2.7 });
+const darkM = new T.MeshStandardMaterial({ color: 0x1b2130, roughness: 0.5, metalness: 0.3 });
+const pole = new T.Mesh(new T.CylinderGeometry(0.17, 0.2, 3.2, 24), darkM); pole.position.y = -1.1; pole.castShadow = true; S.add(pole);
+const house = new T.Mesh(new RoundedBoxGeometry(1.9, 4.6, 1.3, 6, 0.28), darkM); house.position.y = 1.9; house.castShadow = true; S.add(house);
+const base = new T.Mesh(new T.CylinderGeometry(0.7, 0.9, 0.25, 32), darkM); base.position.y = -2.58; S.add(base);
+const cols = [0xff2d2d, 0xffc21a, 0x2dff6a]; const ys = [3.35, 1.9, 0.45]; const lamps = [], lights = [];
+cols.forEach((c, i) => { const vis = new T.Mesh(new T.CylinderGeometry(0.72, 0.8, 0.45, 40, 1, true, -Math.PI * 0.9, Math.PI * 1.8), darkM); vis.rotation.x = Math.PI / 2; vis.position.set(0, ys[i] + 0.12, 0.8); S.add(vis);
+  const m = new T.Mesh(new T.CylinderGeometry(0.55, 0.55, 0.22, 40), new T.MeshStandardMaterial({ color: new T.Color(c).multiplyScalar(0.25), emissive: c, emissiveIntensity: 0.05, roughness: 0.6 })); m.rotation.x = Math.PI / 2; m.position.set(0, ys[i], 0.62); S.add(m); lamps.push(m);
+  const L = new T.PointLight(c, 0, 12, 1.5); L.position.set(0, ys[i], 2.2); S.add(L); lights.push(L); });
+const CW = 3.3, CH = 2.09; const post = new T.Mesh(new T.BoxGeometry(0.12, 1.1, 0.05), darkM); post.position.set(0, 4.75, -0.03); S.add(post);
+const card = new T.Mesh(new T.PlaneGeometry(CW, CH), new T.MeshStandardMaterial({ map: cardTexture(P), roughness: 0.8 })); card.position.set(0, 5.3 + CH / 2, 0.02); card.castShadow = true; S.add(card);
+function pose(t) {
+  const st = t >= P.tg ? 2 : t >= P.ty ? 1 : 0; const order = [0, 1, 2];
+  lamps.forEach((m, i) => { const on = i === (st === 0 ? 0 : st === 1 ? 1 : 2); m.material.emissiveIntensity = on ? 3.2 : 0.03; m.material.color.set(on ? 0xffffff : cols[i]).multiplyScalar(on ? 1 : 0.2); lights[i].intensity = on ? 45 : 0; });
+  const e = ec((t - P.dolly) / P.dolly_dur); const sh = (t > P.dolly + P.dolly_dur ? Math.exp(-(t - P.dolly - P.dolly_dur) * 9) : 0) * 0.06;
+  const CY = 5.3 + CH / 2; const A = [0, 1.5, 13.5], B = [0, CY, 6.7]; cam.position.set(A[0] + (B[0] - A[0]) * e + (Math.random() - 0.5) * sh, A[1] + (B[1] - A[1]) * e + (Math.random() - 0.5) * sh, A[2] + (B[2] - A[2]) * e);
+  cam.lookAt(0, A[1] + (B[1] - A[1]) * e, 0);
+}
+window.setT = (t, n = 1, sh = 1 / 40) => frame(pose, t, n, sh); window.ready = true;
+</script>

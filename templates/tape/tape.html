@@ -1,0 +1,93 @@
+<!doctype html><meta charset="utf-8"><body style="margin:0;background:#000">
+<canvas id="out"></canvas>
+<script type="importmap">{"imports":{"three":"./node_modules/three/build/three.module.js","three/addons/":"./node_modules/three/examples/jsm/"}}</script>
+<script type="module">
+import * as T from 'three';
+import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js';
+import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
+
+const P = JSON.parse(decodeURIComponent(location.hash.slice(1)));          // {w,h,card:[...],t_click,t_snap,snap_dur,...}
+const W = P.w, H = P.h;
+const out = document.getElementById('out'); out.width = W; out.height = H; const o2 = out.getContext('2d');
+const gl = document.createElement('canvas'); gl.width = W; gl.height = H;
+const R = new T.WebGLRenderer({ canvas: gl, antialias: true, preserveDrawingBuffer: true });
+R.setSize(W, H, false); R.shadowMap.enabled = true; R.shadowMap.type = T.PCFSoftShadowMap;
+R.toneMapping = T.ACESFilmicToneMapping; R.toneMappingExposure = 1.05; R.outputColorSpace = T.SRGBColorSpace;
+const S = new T.Scene();
+const pm = new T.PMREMGenerator(R); S.environment = pm.fromScene(new RoomEnvironment(), 0.04).texture;
+
+// fon: yumshoq gradient
+{ const c = document.createElement('canvas'); c.width = 8; c.height = 512; const x = c.getContext('2d'); const g = x.createLinearGradient(0, 0, 0, 512);
+  g.addColorStop(0, '#22304a'); g.addColorStop(0.55, '#111a2e'); g.addColorStop(1, '#080d19'); x.fillStyle = g; x.fillRect(0, 0, 8, 512);
+  const tx = new T.CanvasTexture(c); tx.colorSpace = T.SRGBColorSpace; S.background = tx; }
+
+const cam = new T.PerspectiveCamera(50, W / H, 0.1, 200);
+const key = new T.DirectionalLight(0xffffff, 2.6); key.position.set(-4, 9, 8); key.castShadow = true; key.shadow.mapSize.set(2048, 2048);
+Object.assign(key.shadow.camera, { left: -8, right: 8, top: 14, bottom: -14, near: 1, far: 40 }); key.shadow.bias = -0.0005; S.add(key);
+const rim = new T.DirectionalLight(0x6fb6ff, 1.4); rim.position.set(5, 3, -6); S.add(rim);
+S.add(new T.AmbientLight(0xffffff, 0.25));
+
+// yer: faqat soya
+const ground = new T.Mesh(new T.PlaneGeometry(80, 80), new T.ShadowMaterial({ opacity: 0.45 })); ground.rotation.x = -Math.PI / 2; ground.position.y = -2.62; ground.receiveShadow = true; S.add(ground);
+
+// --- ruletka korpusi
+const yellow = new T.MeshPhysicalMaterial({ color: 0xffc20a, roughness: 0.38, clearcoat: 0.6, clearcoatRoughness: 0.25 });
+const black = new T.MeshStandardMaterial({ color: 0x15171c, roughness: 0.7 });
+const caseG = new T.Group(); S.add(caseG); caseG.position.set(0, -1.63, 3.46); caseG.scale.setScalar(0.8);
+const body = new T.Mesh(new RoundedBoxGeometry(1.5, 2.4, 2.4, 6, 0.38), yellow); body.castShadow = true; caseG.add(body);
+for (const sx of [-1, 1]) { const d = new T.Mesh(new T.CylinderGeometry(0.88, 0.88, 0.03, 48), black); d.rotation.z = Math.PI / 2; d.position.x = sx * 0.76; caseG.add(d);
+  const cap = new T.Mesh(new T.CylinderGeometry(0.28, 0.28, 0.05, 32), new T.MeshStandardMaterial({ color: 0xbfc5cc, metalness: 1, roughness: 0.3 })); cap.rotation.z = Math.PI / 2; cap.position.x = sx * 0.77; caseG.add(cap); }
+const grip = new T.Mesh(new RoundedBoxGeometry(1.56, 0.5, 2.0, 4, 0.12), black); grip.position.set(0, -0.78, 0.15); caseG.add(grip);
+const btn = new T.Mesh(new RoundedBoxGeometry(0.62, 0.2, 0.5, 3, 0.07), new T.MeshStandardMaterial({ color: 0xe5242b, roughness: 0.4, emissive: 0x330000 })); btn.position.set(0, 1.28, 0.7); caseG.add(btn);
+const mouth = new T.Mesh(new T.BoxGeometry(1.1, 0.12, 0.2), black); mouth.position.set(0, -1.0, -1.2); caseG.add(mouth);
+
+// --- lenta
+function tapeTex() { const c = document.createElement('canvas'); c.width = 256; c.height = 2048; const x = c.getContext('2d');
+  x.fillStyle = '#ffd21f'; x.fillRect(0, 0, 256, 2048); x.fillStyle = '#111'; x.fillRect(0, 0, 8, 2048); x.fillRect(248, 0, 8, 2048);
+  for (let i = 0; i <= 80; i++) { const y = i * (2048 / 80); const L = i % 10 === 0 ? 120 : i % 5 === 0 ? 80 : 44; x.fillRect(8, y, L, i % 10 === 0 ? 5 : 3); }
+  x.font = 'bold 54px DejaVu Sans'; x.textAlign = 'left'; for (let i = 0; i < 8; i++) { x.save(); x.translate(150, i * 256 + 120); x.rotate(Math.PI / 2); x.fillText(String(i + 1), 0, 0); x.restore(); }
+  const t = new T.CanvasTexture(c); t.wrapS = t.wrapT = T.RepeatWrapping; t.colorSpace = T.SRGBColorSpace; t.anisotropy = 8; return t; }
+const tex = tapeTex();
+const tapeM = new T.Mesh(new T.BoxGeometry(1.0, 0.035, 1), new T.MeshStandardMaterial({ map: tex, roughness: 0.45, metalness: 0.2 })); tapeM.castShadow = true; tapeM.receiveShadow = true; S.add(tapeM);
+const tip = new T.Group(); S.add(tip);
+const hook = new T.Mesh(new T.BoxGeometry(1.08, 1.0, 0.06), new T.MeshStandardMaterial({ color: 0xc9ced6, metalness: 1, roughness: 0.28 })); hook.position.set(0, 0.5, 0.03); hook.castShadow = true; tip.add(hook);
+
+// --- karta
+function cardTex() { const c = document.createElement('canvas'); c.width = 1500; c.height = 950; const x = c.getContext('2d');
+  x.fillStyle = '#fff7df'; x.fillRect(0, 0, 1500, 950); x.strokeStyle = '#e7c76a'; x.lineWidth = 14; x.strokeRect(26, 26, 1448, 898);
+  x.fillStyle = '#7a869a'; x.font = 'bold 38px DejaVu Sans'; x.textAlign = 'center'; x.fillText((P.brand || '').toUpperCase(), 750, 112);
+  const lines = P.card; const total = lines.reduce((a, l) => a + l.size * 1.12, 0); let y = 150 + (950 - 150 - 60 - total) / 2;
+  for (const l of lines) { x.font = `bold ${l.size}px DejaVu Sans`; x.fillStyle = l.color; y += l.size * 1.0; x.fillText(l.t, 750, y); y += l.size * 0.12; }
+  const t = new T.CanvasTexture(c); t.colorSpace = T.SRGBColorSpace; t.anisotropy = 8; return t; }
+const CW = 3.3, CH = 2.09;
+const card = new T.Mesh(new T.PlaneGeometry(CW, CH), new T.MeshStandardMaterial({ map: cardTex(), roughness: 0.8 })); card.castShadow = true;
+const cg = new T.Group(); cg.position.set(0, 0.55, -0.03); cg.rotation.x = -0.52; tip.add(cg); card.position.set(0, CH / 2, 0); cg.add(card);
+
+// --- animatsiya parametrlari
+const Z0 = 2.5, L_FAR = P.l_far || 17, L_NEAR = P.l_near || 1.2;
+const ec = x => 1 - Math.pow(1 - Math.min(1, Math.max(0, x)), 3);
+function state(t) {
+  const { t_click, t_snap, snap_dur } = P; let L = L_FAR, press = 0, shake = 0, bounce = 0;
+  if (t > t_click - 0.03) press = t < t_click + 0.14 ? Math.min(1, (t - t_click + 0.03) / 0.05) : Math.max(0, 1 - (t - t_click - 0.14) / 0.1);
+  if (t >= t_snap) { const p = Math.min(1, (t - t_snap) / snap_dur); L = L_NEAR + (L_FAR - L_NEAR) * (1 - Math.pow(p, 2.4)); }
+  if (t >= t_snap + snap_dur) { const tau = t - t_snap - snap_dur; bounce = Math.exp(-tau * 7) * Math.cos(tau * 26) * 0.55; shake = Math.exp(-tau * 9); }
+  return { L: L - bounce, press, shake, snapP: Math.min(1, Math.max(0, (t - t_snap) / snap_dur)) };
+}
+function pose(t) {
+  const s = state(t); const sway = Math.sin(t * 2.1) * 0.05, sway2 = Math.cos(t * 1.7) * 0.03;
+  const L = s.L; tapeM.scale.z = L; tapeM.position.set(0, -2.43 + sway2 * 0.2, Z0 - L / 2); tex.repeat.set(1, L / 4);
+  tip.position.set(0, -2.43, Z0 - L); tip.rotation.y = sway * 0.4;
+  btn.position.y = 1.28 - s.press * 0.1; caseG.rotation.z = sway * 0.12 - s.press * 0.01; caseG.position.y = -1.63 - s.press * 0.03 + (s.snapP > 0.9 ? 0.04 * s.shake : 0);
+  // kamera: uzoq kadrdan kartaga
+  const e = ec(s.snapP); const cx = (Math.random() - 0.5) * 0.12 * s.shake, cy = (Math.random() - 0.5) * 0.12 * s.shake;
+  const A = [0, 5.0, 10.0], B = [0, 3.7, 5.7], LA = [0, -1.6, -3], LB = [0, -0.35, Z0 - L_NEAR + 0.2];
+  cam.position.set(sway * 0.5 + cx + A[0] + (B[0] - A[0]) * e, A[1] + (B[1] - A[1]) * e + cy, A[2] + (B[2] - A[2]) * e);
+  cam.lookAt(LA[0] + (LB[0] - LA[0]) * e, LA[1] + (LB[1] - LA[1]) * e, LA[2] + (LB[2] - LA[2]) * e);
+}
+window.setT = (t, samples = 1, shutter = 1 / 40) => {
+  o2.globalAlpha = 1; o2.clearRect(0, 0, W, H);
+  for (let k = 0; k < samples; k++) { pose(t - shutter * (samples > 1 ? k / (samples - 1) : 0)); R.render(S, cam); o2.globalAlpha = 1 / (k + 1); o2.drawImage(gl, 0, 0); }
+  return out.toDataURL('image/png');
+};
+window.ready = true;
+</script>
