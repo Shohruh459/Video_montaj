@@ -11,6 +11,9 @@ har bir ibora (`lines[]`) = matn so'zlari + vaqt (ovozdan) + fon klip + teg. Ovo
 | `neon` | Neon cyan/magenta, glitch, skanlayn, REC HUD | Energik, yoshlar auditoriyasi, texnologiya |
 | `minimal-oq` | Och fon, yumaloq video karta, amber chiziq | Tinch, o'qishga qulay, kunduzgi/ta'limiy ohang |
 | `afisha` | Ulkan bosh harfli matn, duoton fon, oltin blok | Kuchli hook, qisqa urg'uli gaplar, 1-3 soniya e'tibor |
+| `terminal` | Yozuv mashinkasi: harfma-harf terminal oynasi, yashil/oltin, oldingi qatorlar xiralashadi | Texnik, "qoida/algoritm", qadamli bilim (masalan, 2 daqiqalik qoida) |
+| `shisha` | Muzlagan shisha karta (blur), gradient urg'u so'z, yorug'lik chizig'i | Zamonaviy, premium, iOS uslubi, tinch motivatsiya |
+| `daftar` | Qog'oz daftar, yopishtirilgan foto, qo'lda chizilgan qizil doira | Maslahat, "yozib qo'y", odat/reja mavzulari |
 
 ## Ishlatish
 ```bash

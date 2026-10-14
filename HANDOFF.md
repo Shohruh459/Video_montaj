@@ -81,3 +81,4 @@ Pixabay'da Song Plus'ning o'zi ehtimol yo'q → umumiy elektromobil kadrlari; an
 - tts_vs.clean_audio endi faylga yozadi (pipe WAV sarlavhasi uzunlikni 'noma'lum' qoldirardi).
 - Foydalanuvchi uslubni tanlashi kutilmoqda.
 - **Uslub kutubxonasi (6 nom):** `templates/kinetic/STYLES.md` — kino-oltin, split-oyna, jurnal, neon, minimal-oq, afisha. Chaqirish: `bash templates/kinetic/render.sh <nom> out.mp4 [scale] [props.json]`. Skill qilish: foydalanuvchi tanlagan uslub(lar) asosida qoidalarni yoz.
+- Uslublar 9 ta: + `terminal`, `shisha`, `daftar` (STYLES.md). Xato tuzatildi: sample.json 3-ibora urg'usi endi "3–4 soatni" (avval indeks xato edi: "soatni hech"). Eslatma: ma'lumot tayyorlashda urg'u indekslarini so'zlar ro'yxatiga qarab tekshir.

@@ -3,7 +3,7 @@ import {AbsoluteFill, Audio, Easing, Img, OffthreadVideo, Sequence, interpolate,
 
 type W = {t: string; a?: boolean};
 export type LineT = {words: W[]; start: number; dur: number; clip: string; pos?: string; tag?: string};
-export const STYLES = ['kino-oltin', 'split-oyna', 'jurnal', 'neon', 'minimal-oq', 'afisha'] as const;
+export const STYLES = ['kino-oltin', 'split-oyna', 'jurnal', 'neon', 'minimal-oq', 'afisha', 'terminal', 'shisha', 'daftar'] as const;
 export type StyleName = typeof STYLES[number];
 export type SampleProps = {style: StyleName; totalSec: number; audio: string; lines: LineT[]};
 const LEGACY: Record<string, StyleName> = {gold: 'kino-oltin', split: 'split-oyna', editorial: 'jurnal'};
@@ -17,6 +17,7 @@ const useFonts = () => {
     Promise.all([
       new FontFace('YB', `url(${staticFile('font-bold.ttf')})`, {weight: '700'}).load(),
       new FontFace('YS', `url(${staticFile('font-serif-bold.ttf')})`, {weight: '700'}).load(),
+      new FontFace('YM', `url(${staticFile('font-mono-bold.ttf')})`, {weight: '700'}).load(),
     ]).then((fs) => { fs.forEach((f) => document.fonts.add(f)); continueRender(h); }).catch(() => continueRender(h));
   }, [h]);
 };
@@ -432,6 +433,180 @@ const AfishaRows: React.FC<{l: LineT; frames: number}> = ({l, frames}) => {
   );
 };
 
+
+// ───────────────── G: Terminal ─────────────────
+const T_GREEN = '#4ADE80';
+const Terminal: React.FC<{lines: LineT[]; fps: number}> = ({lines, fps}) => {
+  const f = useCurrentFrame();
+  const cur = Math.max(0, lines.findIndex((l) => f < (l.start + l.dur) * fps + 4));
+  const shown = lines.map((l, i) => ({l, i})).filter(({i}) => i <= cur && i >= cur - 2);
+  return (
+    <AbsoluteFill style={{background: '#050805'}}>
+      {lines.map((l, i) => {
+        const fr = Math.round(l.dur * fps);
+        return (
+          <Sequence key={i} from={Math.round(l.start * fps)} durationInFrames={fr + 8}>
+            <FadeWrap frames={fr + 8}>
+              <Clip src={l.clip} pos={l.pos} frames={fr + 8} zoomFrom={1.05} zoomTo={1.15} filter="grayscale(1) brightness(0.32) contrast(1.2) sepia(0.6) hue-rotate(60deg) saturate(1.8)" />
+            </FadeWrap>
+          </Sequence>
+        );
+      })}
+      <AbsoluteFill style={{backgroundImage: 'repeating-linear-gradient(0deg, rgba(0,0,0,0.25) 0px, rgba(0,0,0,0.25) 2px, transparent 2px, transparent 4px)'}} />
+      <div style={{position: 'absolute', left: 80, right: 80, top: 330, height: 1050, borderRadius: 30, background: 'rgba(6,12,8,0.82)', border: '2px solid rgba(74,222,128,0.55)', boxShadow: '0 0 60px rgba(74,222,128,0.18)', overflow: 'hidden'}}>
+        <div style={{height: 84, background: 'rgba(74,222,128,0.12)', borderBottom: '2px solid rgba(74,222,128,0.35)', display: 'flex', alignItems: 'center', padding: '0 30px', gap: 14}}>
+          {['#ff5f56', '#ffbd2e', '#27c93f'].map((c) => <div key={c} style={{width: 22, height: 22, borderRadius: 11, background: c}} />)}
+          <div style={{marginLeft: 20, fontFamily: 'YM', fontWeight: 700, fontSize: 28, color: 'rgba(200,255,215,0.75)'}}>yuksalish713 ~ haqiqat.sh</div>
+        </div>
+        <div style={{padding: '44px 44px'}}>
+          {shown.map(({l, i}) => <TermLine key={i} l={l} idx={i} active={i === cur} fps={fps} />)}
+        </div>
+      </div>
+      <div style={{position: 'absolute', left: 80, right: 80, top: 1440, fontFamily: 'YM', fontWeight: 700, fontSize: 30, color: T_GREEN, display: 'flex', justifyContent: 'space-between'}}>
+        <span>[{String(cur + 1).padStart(2, '0')}/{String(lines.length).padStart(2, '0')}]</span>
+        <span>{'█'.repeat(cur + 1)}{'░'.repeat(lines.length - cur - 1)}</span>
+        <span>@yuksalish713</span>
+      </div>
+      <Grain opacity={0.12} blend="overlay" />
+    </AbsoluteFill>
+  );
+};
+
+const TermLine: React.FC<{l: LineT; idx: number; active: boolean; fps: number}> = ({l, idx, active, fps}) => {
+  const f = useCurrentFrame();
+  const total = l.words.reduce((a, w) => a + w.t.length + 1, 0);
+  const prog = interpolate(f, [l.start * fps, (l.start + l.dur * 0.86) * fps], [0, 1], clamp);
+  let left = Math.ceil(prog * total);
+  const blink = Math.floor(f / 12) % 2 === 0;
+  return (
+    <div style={{fontFamily: 'YM', fontWeight: 700, fontSize: 56, lineHeight: 1.34, marginBottom: 38, opacity: active ? 1 : 0.42, color: '#d7ffe0', wordBreak: 'break-word'}}>
+      <span style={{color: T_GREEN}}>$ </span>
+      {l.words.map((w, i) => {
+        const take = Math.max(0, Math.min(w.t.length + 1, left)); left -= w.t.length + 1;
+        const txt = (w.t + ' ').slice(0, take);
+        return <span key={i} style={{color: w.a ? '#F2B84B' : '#d7ffe0', background: w.a && take > 0 ? 'rgba(242,184,75,0.16)' : undefined}}>{txt}</span>;
+      })}
+      {active && <span style={{display: 'inline-block', width: 26, height: 46, background: T_GREEN, verticalAlign: 'middle', marginLeft: 4, opacity: blink ? 1 : 0}} />}
+    </div>
+  );
+};
+
+// ───────────────── H: Shisha (glassmorphism) ─────────────────
+const Shisha: React.FC<{lines: LineT[]; fps: number}> = ({lines, fps}) => {
+  const f = useCurrentFrame();
+  return (
+    <AbsoluteFill style={{background: '#0a0a12'}}>
+      {lines.map((l, i) => {
+        const fr = Math.round(l.dur * fps);
+        return (
+          <Sequence key={i} from={Math.round(l.start * fps)} durationInFrames={fr + 10}>
+            <FadeWrap frames={fr + 10}>
+              <Clip src={l.clip} pos={l.pos} frames={fr + 10} zoomFrom={1.04} zoomTo={1.2} filter="saturate(1.25) contrast(1.05) brightness(0.9)" />
+            </FadeWrap>
+          </Sequence>
+        );
+      })}
+      <AbsoluteFill style={{background: 'linear-gradient(180deg, rgba(10,8,30,0.35) 0%, rgba(10,8,30,0) 35%, rgba(10,8,30,0.35) 100%)'}} />
+      <div style={{position: 'absolute', left: '50%', top: 120, transform: 'translateX(-50%)', padding: '14px 40px', borderRadius: 999, background: 'rgba(255,255,255,0.14)', backdropFilter: 'blur(24px) saturate(1.5)', border: '1.5px solid rgba(255,255,255,0.38)', color: '#fff', fontFamily: 'YB', fontWeight: 700, fontSize: 32, letterSpacing: 2}}>@yuksalish713</div>
+      {lines.map((l, i) => {
+        const fr = Math.round(l.dur * fps);
+        return (
+          <Sequence key={`t${i}`} from={Math.round(l.start * fps)} durationInFrames={fr + 8}>
+            <GlassCard l={l} frames={fr + 8} />
+          </Sequence>
+        );
+      })}
+      <Grain opacity={0.1} blend="overlay" />
+    </AbsoluteFill>
+  );
+};
+
+const GlassCard: React.FC<{l: LineT; frames: number}> = ({l, frames}) => {
+  const f = useCurrentFrame();
+  const p = interpolate(f, [0, 16], [0, 1], {...clamp, easing: Easing.out(Easing.cubic)});
+  const o = interpolate(f, [frames - 8, frames], [1, 0], clamp);
+  const sweep = interpolate(f, [6, 40], [-30, 130], clamp);
+  const times = wordTimes(l.words, frames - 8);
+  const size = Math.min(76, Math.floor(770 / (Math.max(...l.words.map((w) => w.t.length)) * 0.63)));
+  return (
+    <div style={{position: 'absolute', left: 90, right: 90, top: 1010, minHeight: 520, borderRadius: 60, padding: '70px 60px 60px', overflow: 'hidden', opacity: o * p, transform: `translateY(${(1 - p) * 90}px)`, background: 'rgba(255,255,255,0.15)', backdropFilter: 'blur(34px) saturate(1.6)', border: '2px solid rgba(255,255,255,0.4)', boxShadow: '0 30px 80px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.5)'}}>
+      <div style={{position: 'absolute', top: 0, bottom: 0, left: `${sweep}%`, width: '22%', background: 'linear-gradient(100deg, transparent, rgba(255,255,255,0.28), transparent)', transform: 'skewX(-18deg)'}} />
+      <div style={{position: 'absolute', left: 60, top: 24, fontFamily: 'YB', fontWeight: 700, fontSize: 24, letterSpacing: 6, color: 'rgba(255,255,255,0.85)'}}>{l.tag}</div>
+      <div style={{position: 'relative', display: 'flex', flexWrap: 'wrap', gap: `0 ${size * 0.26}px`, fontFamily: 'YB', fontWeight: 700, fontSize: size, lineHeight: 1.22, color: '#fff', textShadow: '0 3px 24px rgba(0,0,0,0.35)'}}>
+        {l.words.map((w, i) => {
+          const wp = interpolate(f - times[i], [0, 12], [0, 1], {...clamp, easing: Easing.out(Easing.cubic)});
+          return <span key={i} style={{display: 'inline-block', opacity: wp, transform: `translateY(${(1 - wp) * 26}px)`, filter: `blur(${(1 - wp) * 7}px)`, ...(w.a ? {background: 'linear-gradient(90deg,#FFD36B,#FF7AC8)', WebkitBackgroundClip: 'text', backgroundClip: 'text', color: 'transparent', textShadow: 'none'} : {})}}>{w.t}</span>;
+        })}
+      </div>
+    </div>
+  );
+};
+
+// ───────────────── I: Daftar (qo'lda chizilgan) ─────────────────
+const INK = '#1b2a4a', PEN = '#D62828';
+const Daftar: React.FC<{lines: LineT[]; fps: number}> = ({lines, fps}) => {
+  const f = useCurrentFrame();
+  return (
+    <AbsoluteFill style={{background: '#F3EBDA'}}>
+      <AbsoluteFill style={{backgroundImage: 'repeating-linear-gradient(180deg, transparent 0px, transparent 78px, rgba(60,110,190,0.28) 78px, rgba(60,110,190,0.28) 81px)', backgroundPosition: '0 40px'}} />
+      <div style={{position: 'absolute', left: 120, top: 0, bottom: 0, width: 4, background: 'rgba(214,40,40,0.5)'}} />
+      {Array.from({length: 4}, (_, i) => <div key={i} style={{position: 'absolute', left: 30, top: 260 + i * 460, width: 44, height: 44, borderRadius: 22, background: '#cfc4ad', boxShadow: 'inset 0 3px 8px rgba(0,0,0,0.35)'}} />)}
+      <div style={{position: 'absolute', left: 170, top: 100, fontFamily: 'YS', fontWeight: 700, fontSize: 34, color: INK, letterSpacing: 3}}>yuksalish713</div>
+      {lines.map((l, i) => {
+        const fr = Math.round(l.dur * fps);
+        return (
+          <Sequence key={i} from={Math.round(l.start * fps)} durationInFrames={fr + 8}>
+            <FadeWrap frames={fr + 8}>
+              <div style={{position: 'absolute', left: 190, top: 200, width: 720, height: 700, transform: `rotate(${i % 2 ? 2.4 : -2.2}deg)`, background: '#fff', padding: 18, boxShadow: '0 22px 50px rgba(60,40,10,0.35)'}}>
+                <div style={{width: '100%', height: '100%', position: 'relative', overflow: 'hidden'}}>
+                  <Clip src={l.clip} pos={l.pos} frames={fr + 8} zoomFrom={1.05} zoomTo={1.15} filter="contrast(1.05) saturate(0.95)" />
+                </div>
+                <div style={{position: 'absolute', left: '34%', top: -26, width: 200, height: 52, background: 'rgba(250,204,21,0.78)', transform: 'rotate(-2deg)'}} />
+              </div>
+            </FadeWrap>
+          </Sequence>
+        );
+      })}
+      {lines.map((l, i) => {
+        const fr = Math.round(l.dur * fps);
+        return (
+          <Sequence key={`t${i}`} from={Math.round(l.start * fps)} durationInFrames={fr}>
+            <DaftarText l={l} frames={fr} />
+          </Sequence>
+        );
+      })}
+      <Grain opacity={0.2} blend="multiply" />
+    </AbsoluteFill>
+  );
+};
+
+const DaftarText: React.FC<{l: LineT; frames: number}> = ({l, frames}) => {
+  const f = useCurrentFrame();
+  const times = wordTimes(l.words, frames);
+  const out = interpolate(f, [frames - 8, frames], [1, 0], clamp);
+  const size = 70;
+  return (
+    <div style={{position: 'absolute', left: 190, right: 110, top: 1010, opacity: out}}>
+      <div style={{display: 'flex', flexWrap: 'wrap', gap: `6px ${size * 0.28}px`, fontFamily: 'YS', fontWeight: 700, fontSize: size, lineHeight: 1.3, color: INK}}>
+        {l.words.map((w, i) => {
+          const p = interpolate(f - times[i], [0, 10], [0, 1], {...clamp, easing: Easing.out(Easing.cubic)});
+          const d = interpolate(f - times[i] - 6, [0, 16], [1, 0], {...clamp, easing: Easing.out(Easing.cubic)});
+          return (
+            <span key={i} style={{position: 'relative', display: 'inline-block', opacity: p, transform: `translateY(${(1 - p) * 18}px) rotate(${(1 - p) * -2}deg)`}}>
+              {w.t}
+              {w.a && (
+                <svg viewBox="0 0 200 100" preserveAspectRatio="none" style={{position: 'absolute', left: '-14%', top: '-22%', width: '128%', height: '144%', overflow: 'visible', pointerEvents: 'none'}}>
+                  <path d="M 30 55 C 20 15, 150 -5, 180 40 C 205 85, 60 100, 25 62 C 10 40, 60 18, 120 18" fill="none" stroke={PEN} strokeWidth={5} strokeLinecap="round" pathLength={1} strokeDasharray={1} strokeDashoffset={d} />
+                </svg>
+              )}
+            </span>
+          );
+        })}
+      </div>
+    </div>
+  );
+};
+
 export const Sample: React.FC<SampleProps> = ({style, lines, audio, totalSec}) => {
   useFonts();
   const {fps} = useVideoConfig();
@@ -444,6 +619,9 @@ export const Sample: React.FC<SampleProps> = ({style, lines, audio, totalSec}) =
       {st === 'neon' && <Neon lines={lines} fps={fps} />}
       {st === 'minimal-oq' && <Minimal lines={lines} fps={fps} />}
       {st === 'afisha' && <Afisha lines={lines} fps={fps} />}
+      {st === 'terminal' && <Terminal lines={lines} fps={fps} />}
+      {st === 'shisha' && <Shisha lines={lines} fps={fps} />}
+      {st === 'daftar' && <Daftar lines={lines} fps={fps} />}
       <Audio src={staticFile(audio)} />
     </AbsoluteFill>
   );

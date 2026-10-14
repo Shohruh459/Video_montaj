@@ -61,15 +61,15 @@
      "t": "kuniga"
     },
     {
-     "t": "3–4"
+     "t": "3–4",
+     "a": true
     },
     {
      "t": "soatni",
      "a": true
     },
     {
-     "t": "hech",
-     "a": true
+     "t": "hech"
     },
     {
      "t": "narsa"
