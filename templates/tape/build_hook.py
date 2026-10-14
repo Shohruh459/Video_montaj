@@ -7,7 +7,7 @@ import numpy as np, scipy.io.wavfile as wf, scipy.signal as sg
 HERE = pathlib.Path(__file__).resolve().parent; ROOT = HERE.parent.parent
 sys.path.insert(0, str(ROOT / "scripts"))
 SR = 48000
-ap = argparse.ArgumentParser(); ap.add_argument("out")
+ap = argparse.ArgumentParser(); ap.add_argument("out", nargs="?"); ap.add_argument("--stems", default=None, help="papka: voice.wav, sfx.wav, hook_video.mp4, info.json yozadi (reelga ulash uchun)")
 ap.add_argument("--say", default="Ey-ay keldi. Endi dasturchilar kerak emasmi?")
 ap.add_argument("--card-json", default=None); ap.add_argument("--scale", type=float, default=1.0)
 ap.add_argument("--t-voice", type=float, default=0.72)
@@ -42,12 +42,17 @@ mix = (vox * 1.0 + sfx * 0.55)[:, None].repeat(2, 1)
 import pyloudnorm as pln
 mix *= 10 ** ((-14 - pln.Meter(SR).integrated_loudness(mix)) / 20)
 tmp = pathlib.Path(tempfile.mkdtemp()); wav = tmp / "a.wav"; wf.write(wav, SR, mix.astype("float32"))
+if a.stems:
+    sd = pathlib.Path(a.stems); sd.mkdir(parents=True, exist_ok=True); wf.write(sd / "voice.wav", SR, vox.astype("float32")); wf.write(sd / "sfx.wav", SR, sfx.astype("float32"))
 
 # 3) 3D kadrlar
 W, H = int(540 * a.scale), int(960 * a.scale)
 P = dict(w=W, h=H, fps=30, duration=dur, t_click=T_CLICK, t_snap=T_SNAP, snap_dur=SNAP, brand="Zarafshon Dasturchilari", card=card, l_far=12)
 pj = tmp / "p.json"; pj.write_text(json.dumps(P)); fr = tmp / "f"
 subprocess.run(["node", str(HERE / "render.mjs"), str(pj), str(fr)], check=True)
+if a.stems:
+    subprocess.run(["ffmpeg", "-y", "-v", "error", "-framerate", "30", "-i", str(fr / "f%04d.png"), "-c:v", "libx264", "-crf", "14", "-preset", "medium", "-pix_fmt", "yuv420p", str(sd / "hook_video.mp4")], check=True)
+    (sd / "info.json").write_text(json.dumps({"dur": dur})); print("STEMS", sd, f"{dur:.2f}s"); sys.exit(0)
 subprocess.run(["ffmpeg", "-y", "-v", "error", "-framerate", "30", "-i", str(fr / "f%04d.png"), "-i", str(wav), "-c:v", "libx264", "-crf", "17", "-preset", "medium",
                 "-pix_fmt", "yuv420p", "-profile:v", "high", "-af", "alimiter=limit=0.89:level=disabled", "-c:a", "aac", "-b:a", "256k", "-ar", "48000", "-movflags", "+faststart",
                 "-shortest", a.out], check=True)

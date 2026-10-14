@@ -3,7 +3,7 @@
   python scripts/make_reel.py <ssenariy-id-yoki-raqam> [--final] [--shots]
 Chiqish: projects/zarafshon-2026-10-11/out/<id>_{draft|final}.mp4
 Hammasi dasturiy -> litsenziya muammosi yo'q (musiqa ham shu yerda sintez qilinadi)."""
-import hashlib, sys, os, re, math, argparse, subprocess, random, pathlib
+import hashlib, json, sys, os, re, math, argparse, subprocess, random, pathlib
 import numpy as np
 from PIL import Image, ImageDraw, ImageFont, ImageFilter
 import scipy.io.wavfile as wf, scipy.signal as sg
@@ -360,7 +360,10 @@ def S_tool(cv, lt, sc, tot):
     bw = int(260 * ease(prog(lt, 0.25, 0.5))); ImageDraw.Draw(cv).rounded_rectangle((W / 2 - bw, 1060, W / 2 + bw, 1072), 6, fill=col)
 
 
-SCENES = dict(tool=S_tool, kw=S_kw, word=S_word, chat=S_chat, compare=S_compare, timeline=S_timeline, tools=S_tools, typing=S_typing, warn=S_warn, check=S_check, cta=S_cta)
+def S_none(cv, lt, sc, tot): pass
+
+
+SCENES = dict(none=S_none, tool=S_tool, kw=S_kw, word=S_word, chat=S_chat, compare=S_compare, timeline=S_timeline, tools=S_tools, typing=S_typing, warn=S_warn, check=S_check, cta=S_cta)
 
 # ---------------------------------------------------------------- subtitr
 SUBW, SUBF = 920, 56
@@ -495,8 +498,20 @@ def synth_music(style, bpm, key, dur):
     return st.astype("float32")
 
 
+def get_intro(sc, final):
+    """3D ruletka-hook: stems (ovoz, sfx, video) kesh papkasida; yo'q bo'lsa templates/tape/build_hook.py bilan yasaydi."""
+    it = sc["intro"]; key = hashlib.md5((it["say"] + json.dumps(it["card"]) + str(final)).encode()).hexdigest()[:10]
+    d = PROJ / "hook" / key
+    if not (d / "info.json").exists():
+        cj = d.parent / f"{key}.card.json"; cj.parent.mkdir(exist_ok=True); cj.write_text(json.dumps(it["card"]))
+        subprocess.run([sys.executable, str(ROOT / "templates/tape/build_hook.py"), "--stems", str(d), "--say", it["say"], "--card-json", str(cj), "--scale", "2" if final else "1"], check=True)
+    info = json.loads((d / "info.json").read_text()); return dict(dir=d, dur=info["dur"], video=d / "hook_video.mp4")
+
+
 def build_audio(sc, cache):
     clips = voice_track(sc, cache); lead, gap, tail = sc.get('lead', 0.5), sc.get('gap', 0.28), 1.5
+    intro = sc.get("_intro")
+    if intro: lead = intro["dur"] + 0.05
     starts, t = [], lead
     for i, c in enumerate(clips):
         if i == len(clips) - 1: t += 0.25
@@ -504,6 +519,9 @@ def build_audio(sc, cache):
     total = starts[-1] + len(clips[-1]) / SR + tail
     vox = np.zeros(int(total * SR) + SR, "float32")
     for s, c in zip(starts, clips): vox[int(s * SR): int(s * SR) + len(c)] += c
+    sfx_stem = None
+    if intro:
+        _, hv = wf.read(intro["dir"] / "voice.wav"); _, hs = wf.read(intro["dir"] / "sfx.wav"); vox[: len(hv)] += hv.astype("float32"); sfx_stem = hs.astype("float32")
     music = synth_music(sc["style"], sc["bpm"], sc["key"], total + 1)
     # ducking: ovoz envelope
     env = sg.lfilter(*sg.butter(1, 6 / (SR / 2)), np.abs(vox)); env = np.clip(env / (0.12), 0, 1)
@@ -517,6 +535,7 @@ def build_audio(sc, cache):
     fade = np.clip((total - np.arange(len(vox)) / SR) / 1.2, 0, 1)
     mus = music[: len(vox)] * (gain * fade)[:, None]
     mix = np.stack([vox, vox], 1) * 1.0 + mus
+    if sfx_stem is not None: mix[: len(sfx_stem)] += (sfx_stem * 0.55)[:, None]
     mix = mix[: int(total * SR)]
     import pyloudnorm as pln
     m = pln.Meter(SR); loud = m.integrated_loudness(mix); mix = mix * 10 ** ((-14 - loud) / 20)
@@ -532,11 +551,12 @@ class Timeline:
 
 def build_tl(sc, starts, durs, total):
     tl = Timeline(); tl.segs = []; n = len(sc["segs"])
+    if sc.get("_intro"): tl.segs.append(dict(scene=dict(t="none"), vis0=0.0, s0=0.0, d=sc["_intro"]["dur"], chunks=[], hcol=CYAN, intro=True))
     for i, g in enumerate(sc["segs"]):
         s0, d = starts[i], durs[i]; chunks = sub_chunks(g["sub"], g["hl"]); w = [sum(len(w) for ln in ch for w, _ in ln) + 1 for ch in chunks]
         cum, ct = 0, []
         for ch, ww in zip(chunks, w): ct.append((s0 + d * cum / sum(w), s0 + d * (cum + ww) / sum(w), ch)); cum += ww
-        vis0 = 0.0 if i == 0 else s0 - 0.12
+        vis0 = (sc["_intro"]["dur"] if sc.get("_intro") else 0.0) if i == 0 else s0 - 0.12
         tl.segs.append(dict(scene=g["scene"], vis0=vis0, s0=s0, d=d, chunks=ct, hcol=[CYAN, YELLOW][i % 2]))
     cta_s = starts[-1]
     tl.segs.append(dict(scene=dict(t="cta", text=norm(sc["cta"])), vis0=cta_s - 0.15, s0=cta_s, d=durs[-1], chunks=[], hcol=CYAN))
@@ -556,6 +576,7 @@ def render_frame(fi):
     sc = seg["scene"]
     # chiqishda yumshoq yo'qolish
     fo = clamp((seg["vis1"] - t) / 0.18) if seg is not tl.segs[-1] else 1.0
+    if seg.get("intro"): return cv
     layer = Image.new("RGBA", (W, H), (0, 0, 0, 0))
     SCENES[sc["t"]](layer, lt, sc, tl.total)
     cv.alpha_composite(layer if fo >= 0.999 else alpha_img(layer, 0.25 + 0.75 * fo))
@@ -580,12 +601,16 @@ def build_bg(sc, tl, out):
     bd = PROJ / "broll"; tmp = out / "_bg"; tmp.mkdir(exist_ok=True); parts = []
     g = np.zeros((H, W, 4), "uint8"); ramp = np.clip((np.arange(H) - 850) / 850, 0, 1) ** 1.3 * 190  # past tomonga silliq qoraytirish (subtitr uchun)
     g[..., 3] = ramp[:, None].astype("uint8"); grad = tmp / "grad.png"; Image.fromarray(g, "RGBA").save(grad)
+    off = 1 if sc.get("_intro") else 0
     for i, sg_ in enumerate(tl.segs):
-        src = sc["segs"][i].get("bg") if i < len(sc["segs"]) else sc.get("cta_bg")
-        d = sg_["vis1"] - sg_["vis0"]; fn, ss = src
+        d = sg_["vis1"] - sg_["vis0"]; f = tmp / f"s{i}.mp4"
+        if sg_.get("intro"):
+            subprocess.run(["ffmpeg", "-y", "-v", "error", "-i", str(sc["_intro"]["video"]), "-t", f"{d:.3f}", "-vf", f"scale={W}:{H}:flags=lanczos,fps=30,format=yuv420p", "-an",
+                            "-c:v", "libx264", "-crf", "14", "-preset", "veryfast", str(f)], check=True); parts.append(f); continue
+        j = i - off; src = sc["segs"][j].get("bg") if j < len(sc["segs"]) else sc.get("cta_bg")
+        fn, ss = src
         vf = (f"scale=-2:2000:flags=lanczos,crop=1080:1920:x='(iw-1080)*(0.25+0.5*t/{d:.3f})':y='(ih-1920)/2',fps=30,"
               "eq=brightness=-0.2:contrast=1.1:saturation=0.9,format=yuv420p")
-        f = tmp / f"s{i}.mp4"
         subprocess.run(["ffmpeg", "-y", "-v", "error", "-stream_loop", "-1", "-ss", str(ss), "-i", str(bd / fn), "-i", str(grad), "-t", f"{d:.3f}",
                         "-filter_complex", f"[0:v]{vf.replace(',format=yuv420p', '')}[a];[a][1:v]overlay=0:0,format=yuv420p[o]", "-map", "[o]", "-an",
                         "-c:v", "libx264", "-crf", "16", "-preset", "veryfast", str(f)], check=True); parts.append(f)
@@ -600,6 +625,7 @@ def main():
     sc = scenarios.S[int(a.which) - 1] if a.which.isdigit() else next(s for s in scenarios.S if s["id"].startswith(a.which))
     out = PROJ / "out"; out.mkdir(exist_ok=True); cache = PROJ / "voice"; cache.mkdir(exist_ok=True)
     init_assets()
+    if sc.get("intro"): sc["_intro"] = get_intro(sc, a.final)
     mix, starts, durs, total = build_audio(sc, cache)
     wav = out / f"{sc['id']}_audio.wav"; wf.write(wav, SR, mix)
     TL_ = build_tl(sc, starts, durs, total)
