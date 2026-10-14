@@ -2,7 +2,7 @@ import React from 'react';
 import {AbsoluteFill, Audio, Easing, Img, OffthreadVideo, Sequence, interpolate, random, staticFile, useCurrentFrame, useVideoConfig, continueRender, delayRender} from 'remotion';
 
 type W = {t: string; a?: boolean};
-export type LineT = {words: W[]; start: number; dur: number; clip: string; pos?: string; tag?: string};
+export type LineT = {words: W[]; start: number; dur: number; clip: string; pos?: string; tag?: string; style?: StyleName};
 export const STYLES = ['kino-oltin', 'split-oyna', 'jurnal', 'neon', 'minimal-oq', 'afisha', 'terminal', 'shisha', 'daftar'] as const;
 export type StyleName = typeof STYLES[number];
 export type SampleProps = {style: StyleName; totalSec: number; audio: string; lines: LineT[]};
@@ -607,22 +607,58 @@ const DaftarText: React.FC<{l: LineT; frames: number}> = ({l, frames}) => {
   );
 };
 
+const OVERLAP = 6; // aralash uslub: segmentlar orasidagi crossfade (kadr)
+
+const StyleView: React.FC<{st: StyleName; lines: LineT[]; fps: number; total: number}> = ({st, lines, fps, total}) => (
+  <>
+    {st === 'kino-oltin' && <Gold lines={lines} fps={fps} />}
+    {st === 'split-oyna' && <Split lines={lines} fps={fps} total={total} />}
+    {st === 'jurnal' && <Editorial lines={lines} fps={fps} />}
+    {st === 'neon' && <Neon lines={lines} fps={fps} />}
+    {st === 'minimal-oq' && <Minimal lines={lines} fps={fps} />}
+    {st === 'afisha' && <Afisha lines={lines} fps={fps} />}
+    {st === 'terminal' && <Terminal lines={lines} fps={fps} />}
+    {st === 'shisha' && <Shisha lines={lines} fps={fps} />}
+    {st === 'daftar' && <Daftar lines={lines} fps={fps} />}
+  </>
+);
+
 export const Sample: React.FC<SampleProps> = ({style, lines, audio, totalSec}) => {
   useFonts();
   const {fps} = useVideoConfig();
-  const st = (LEGACY[style as string] ?? style) as StyleName;
+  const norm = (x?: string) => (LEGACY[x as string] ?? x) as StyleName;
+  const base = norm(style);
+  // Ketma-ket bir xil uslubdagi iboralar bitta segment bo'ladi (har iboraning "style" maydoni bo'lmasa, hammasi `style`da)
+  const segs: {st: StyleName; ls: LineT[]}[] = [];
+  lines.forEach((l) => {
+    const st = norm(l.style) ?? base;
+    const last = segs[segs.length - 1];
+    if (last && last.st === st) last.ls.push(l); else segs.push({st, ls: [l]});
+  });
+  const total = Math.round(totalSec * fps);
   return (
     <AbsoluteFill>
-      {st === 'kino-oltin' && <Gold lines={lines} fps={fps} />}
-      {st === 'split-oyna' && <Split lines={lines} fps={fps} total={totalSec} />}
-      {st === 'jurnal' && <Editorial lines={lines} fps={fps} />}
-      {st === 'neon' && <Neon lines={lines} fps={fps} />}
-      {st === 'minimal-oq' && <Minimal lines={lines} fps={fps} />}
-      {st === 'afisha' && <Afisha lines={lines} fps={fps} />}
-      {st === 'terminal' && <Terminal lines={lines} fps={fps} />}
-      {st === 'shisha' && <Shisha lines={lines} fps={fps} />}
-      {st === 'daftar' && <Daftar lines={lines} fps={fps} />}
+      {segs.map((sg, i) => {
+        const t0 = i === 0 ? 0 : Math.round(sg.ls[0].start * fps) - OVERLAP;
+        const next = segs[i + 1];
+        const t1 = next ? Math.round(next.ls[0].start * fps) : total;
+        const off = t0 / fps;
+        const local = sg.ls.map((l) => ({...l, start: l.start - off}));
+        return (
+          <Sequence key={i} from={t0} durationInFrames={Math.max(1, t1 - t0)}>
+            <SegFade first={i === 0}>
+              <StyleView st={sg.st} lines={local} fps={fps} total={totalSec} />
+            </SegFade>
+          </Sequence>
+        );
+      })}
       <Audio src={staticFile(audio)} />
     </AbsoluteFill>
   );
+};
+
+const SegFade: React.FC<{first: boolean; children: React.ReactNode}> = ({first, children}) => {
+  const f = useCurrentFrame();
+  const o = first ? 1 : interpolate(f, [0, OVERLAP], [0, 1], clamp);
+  return <AbsoluteFill style={{opacity: o}}>{children}</AbsoluteFill>;
 };

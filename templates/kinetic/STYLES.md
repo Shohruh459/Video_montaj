@@ -33,6 +33,10 @@ bash templates/kinetic/render.sh <nom> out.mp4 [scale=0.5] [props.json]
 - `clip` va `audio` fayllari `public/` da (media gitga kirmaydi).
 - So'zlar ovozga belgi uzunligi bo'yicha taxminan sinxron chiqadi.
 
+## Aralash uslub (bir videoda bir necha uslub)
+Har bir iboraga `"style":"afisha"` kabi maydon bering; ketma-ket bir xil uslublar bitta segment bo'ladi, segmentlar orasida 6 kadrlik crossfade.
+`render.sh` ga birinchi argument — fon (umumiy) uslub, iboradagi `style` uni ustidan bosadi. Qoidalar: `.claude/skills/reels-uslub/SKILL.md`.
+
 ## Yangi uslub qo'shish
 `src/Sample.tsx`: komponent yoz → `STYLES` ro'yxatiga nom qo'sh → `Sample` ichidagi tanlovga ulang.
 Qoidalar: matn yon tomondan ≥ 8% (≈ 85 px), eng uzun so'zni shrift o'lchamiga moslashtir (`maxW`), 

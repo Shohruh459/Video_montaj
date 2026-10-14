@@ -60,3 +60,6 @@ Tartib: **matnni tayyorla → ovoz tanla → namuna eshittir → tasdiq → to'l
 - [ ] Litsenziyalar `CREDITS.md` da
 
 Eslatma: tekshirmagan narsani "tayyor" deb aytma. Muammo bo'lsa — ochiq ayt va yechim taklif qil.
+
+## 7. Reels uslub qoidasi (Yuksalish)
+Uslub har bir videoga qarab tanlanadi; bir videoda 2–3 uslub aralashishi mumkin (iboraga `style`); mavzuga mos tayyor uslub bo'lmasa yangisini yasab, 12–15 s namuna bilan sinaymiz va tasdiq olamiz. To'liq qoida: `.claude/skills/reels-uslub/SKILL.md`, uslublar: `templates/kinetic/STYLES.md`.
