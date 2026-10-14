@@ -83,3 +83,8 @@ Pixabay'da Song Plus'ning o'zi ehtimol yo'q → umumiy elektromobil kadrlari; an
 - **Uslub kutubxonasi (6 nom):** `templates/kinetic/STYLES.md` — kino-oltin, split-oyna, jurnal, neon, minimal-oq, afisha. Chaqirish: `bash templates/kinetic/render.sh <nom> out.mp4 [scale] [props.json]`. Skill qilish: foydalanuvchi tanlagan uslub(lar) asosida qoidalarni yoz.
 - Uslublar 9 ta: + `terminal`, `shisha`, `daftar` (STYLES.md). Xato tuzatildi: sample.json 3-ibora urg'usi endi "3–4 soatni" (avval indeks xato edi: "soatni hech"). Eslatma: ma'lumot tayyorlashda urg'u indekslarini so'zlar ro'yxatiga qarab tekshir.
 - **QOIDA (foydalanuvchi tasdiqladi):** uslub videoga qarab tanlanadi, aralash uslub mumkin (iboraga `style`), mavzuga yangi uslub kerak bo'lsa yasab namuna bilan sinaymiz. `.claude/skills/reels-uslub/SKILL.md` + CLAUDE.md §7. Aralash demo: afisha→kino-oltin→shisha ishladi (qora kadr yo'q).
+
+### 2026-10-14 (kech) — YANGI 12 ssenariy (v2) va fon musiqa
+- Eski "Vaqt va 2 soat" bekor. Yangi: `projects/yuksalish-2026-10-14/script.md` (12 "Siz" ssenariysi v2: hook/mikro-qadam/sezgir mavzularga qo'shimcha gap tahrirlangan; foydalanuvchi tasdig'i kutilmoqda). Boshlash: #1.
+- Fon musiqa: `scripts/music_cc0_scan.py` + `music_cc0_get.py` (HF CC0 dataset, kayfiyat bo'yicha). 10 ta variant `projects/.../music/preview/M1..M10.mp3` (32 s, -18 LUFS) + `preview_meta.json`. Foydalanuvchi tanlashi kutilmoqda; tanlangach CREDITS.md ga trek yozilsin.
+- Aralash uslub (iboraga `style`) ishlaydi; qoida: `.claude/skills/reels-uslub/SKILL.md`.
