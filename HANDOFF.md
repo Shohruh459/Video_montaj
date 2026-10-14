@@ -39,6 +39,13 @@ Pixabay'da Song Plus'ning o'zi ehtimol yo'q → umumiy elektromobil kadrlari; an
 ### So'z tanlash qoidasi (foydalanuvchi aytdi)
 - "asbob" so'zi ba'zi o'zbek auditoriyasida noto'g'ri (nojo'ya) ma'no beradi → **ishlatma**, o'rniga "vosita". `scenarios.py` da almashtirilgan, 04v2 qayta yig'ilgan. Yangi matnlarda ham shunday ikki ma'noli so'zlarni tekshir; shubha bo'lsa foydalanuvchidan so'ra.
 
+### 2026-10-14/15 — 3D hooklar va yangi ssenariylar (N1–N6)
+- Ssenariylar `scenarios.py` oxirida: N1 (ruletka hook), N2 (kalendar, 1 kun), N3 (svetofor), N4 (tarozi), N5 (kalendar, 7 kun), N6 (tarozi). Ishga tushirish: `python scripts/make_reel.py N3` (`--final` = 1080x1920). `intro=dict(kind=tape|scale|calendar|traffic, say, card, n_pages, blocks)`.
+- 3D hooklar: `templates/tape/` (`common.js`, `tape.html`, `scale.html`, `calendar.html`, `traffic.html`, `render.mjs`, `build_hook.py`) — three.js, headless Chromium (SwiftShader, GPU kerak emas), SFX dasturiy sintez. Stems keshi: `projects/.../hook/<xesh>/`.
+- Ekran kadrlari (o'zimiz yasagan): `templates/screens/` (`screens.html`, `render_page.mjs`) → `broll/own_{code,chat,term_fail,term_ok}.mp4`. Ssenariyda `bg=("own_chat.mp4", ss), braw=True, scene=NONE` (ekran ustiga matn qo'ymaymiz).
+- Pixabay: tez-tez 429 (CDN) beradi — kichik partiyalar bilan yukla. Mavzu bo'yicha kadrlar `broll/` da (media gitga kirmaydi; yangi sessiyada `fetch_broll.py get <id>` bilan qayta yukla).
+- Hali eshitilmagan: hooklarning SFX balansi. Final (1080x1920) renderlar qilinmagan.
+
 ## Qoidalar eslatmasi
 - Kalitlarni hech qachon chatga chiqarma (faqat nomini tekshir).
 - Kadrlarni yuklagach ko'zdan kechir, brend logotipli boshqa mashina kadrlarini olma, 4–6 ta eng yaxshisini ko'rsat.
