@@ -158,7 +158,7 @@ S.append(dict(id="N2-bir-kunda-pul", title="AI bilan bir kunda pul topish mumkin
   segs=[
   dict(say="Ko‘p odam aytadi: ey-ay bilan tezda pul topish mumkin.", sub="Ko‘p odam aytadi: AI bilan tezda pul topish mumkin.", hl=["tezda", "pul"], bg=_b(59139, 1), scene=dict(t="kw", text="“Tez pul”", accent="yellow")),
   dict(say="Rostmi?", sub="Rostmi?", hl=["Rostmi?"], bg=_b(3019, 2), scene=dict(t="kw", text="Rostmi?", accent="red")),
-  dict(say="Kichik frilans vazifalarni ey-ay yordamida tezroq bajarish mumkin.", sub="Kichik frilans vazifalarni AI yordamida tezroq bajarish mumkin.", hl=["frilans", "tezroq"], bg=_own("own_chat.mp4", 0.2), braw=True, scene=NONE),
+  dict(say="Kichik frilans vazifalarni ey-ay yordamida tezroq bajarish mumkin.", sub="Kichik frilans vazifalarni AI yordamida tezroq bajarish mumkin.", hl=["frilans", "tezroq"], bg=_own("own_chat.mp4", 3.0), braw=True, scene=NONE),
   dict(say="Lekin, bir kunda katta pul, degan gap, ko‘pincha reklama.", sub="Lekin “bir kunda katta pul” degan gap — ko‘pincha reklama.", hl=["ko‘pincha", "reklama."], bg=_b(90332, 3), scene=dict(t="kw", text="“Katta pul”\n= reklama", accent="red", hl=1)),
   dict(say="Haqiqiy natija: ey-ay vaqtni tejaydi.", sub="Haqiqiy natija: AI vaqtni tejaydi.", hl=["vaqtni", "tejaydi."], bg=_b(34499, 1), scene=dict(t="kw", text="AI vaqtni\ntejaydi", accent="green")),
   dict(say="Vaqtni tejagan odam esa ko‘proq ish qila oladi.", sub="Vaqtni tejagan odam esa ko‘proq ish qila oladi.", hl=["ko‘proq", "ish"], bg=_b(130331, 2), scene=dict(t="kw", text="Ko‘proq ish\nqilasiz", accent="green", hl=1)),
@@ -171,9 +171,9 @@ S.append(dict(id="N3-kod-bilmasdan-ai", title="Kod yozishni bilmasam ham AI bila
   segs=[
   dict(say="Kod yozishni bilmasangiz ham ey-ay dan foydalana olasiz.", sub="Kod yozishni bilmasangiz ham AI’dan foydalana olasiz.", hl=["foydalana", "olasiz."], bg=_b(122, 1), scene=dict(t="kw", text="Ha,\nmumkin", accent="green")),
   dict(say="Lekin bir shart bilan.", sub="Lekin bir shart bilan.", hl=["shart"], bg=_b(130331, 4), scene=dict(t="kw", text="Bitta shart", accent="yellow")),
-  dict(say="Nima xohlayotganingizni aniq tushuntira olishingiz kerak.", sub="Nima xohlayotganingizni aniq tushuntira olishingiz kerak.", hl=["aniq", "tushuntira"], bg=_own("own_chat.mp4", 0.2), braw=True, scene=NONE),
+  dict(say="Nima xohlayotganingizni aniq tushuntira olishingiz kerak.", sub="Nima xohlayotganingizni aniq tushuntira olishingiz kerak.", hl=["aniq", "tushuntira"], bg=_own("own_chat.mp4", 3.0), braw=True, scene=NONE),
   dict(say="Ey-ay sizning fikringizni o‘qimaydi.", sub="AI sizning fikringizni o‘qimaydi.", hl=["fikringizni", "o‘qimaydi."], bg=_b(88219, 3), scene=dict(t="kw", text="AI fikringizni\no‘qimaydi", accent="red", hl=1)),
-  dict(say="U faqat siz yozgan narsani bajaradi.", sub="U faqat siz yozgan narsani bajaradi.", hl=["faqat", "bajaradi."], bg=_own("own_code.mp4", 1.0), braw=True, scene=NONE),
+  dict(say="U faqat siz yozgan narsani bajaradi.", sub="U faqat siz yozgan narsani bajaradi.", hl=["faqat", "bajaradi."], bg=_own("own_code.mp4", 4.5), braw=True, scene=NONE),
   dict(say="Shuning uchun eng muhim skill, aniq so‘rash.", sub="Shuning uchun eng muhim skill — aniq so‘rash.", hl=["skill", "aniq", "so‘rash."], bg=_b(30033, 3), scene=dict(t="kw", text="Aniq so‘rash\n= skill", accent="violet", hl=1)),
 ]))
 
@@ -183,7 +183,7 @@ S.append(dict(id="N4-uch-xato", title="Eng ko‘p qilinadigan 3 ta AI xatosi", s
   cta="Qaysi xatoni\no‘zingizda ko‘ryapsiz?", cta_say="Qaysi xatoni o‘zingizda ko‘ryapsiz?", cta_bg=_b(200675, 3),
   segs=[
   dict(say="Birinchi xato: to‘liq loyiha yasab ber, deb yozish.", sub="Birinchi xato: “To‘liq loyiha yasab ber” deb yozish.", hl=["Birinchi", "xato:"], bg=_b(72712, 2), scene=dict(t="kw", text="1-xato\n“To‘liq loyiha”", accent="red", hl=0, sizes=[1.0, 0.5])),
-  dict(say="Ikkinchi xato: chiqqan kodni umuman o‘qimaslik.", sub="Ikkinchi xato: chiqqan kodni umuman o‘qimaslik.", hl=["Ikkinchi", "xato:"], bg=_own("own_term_fail.mp4", 0.6), braw=True, scene=NONE),
+  dict(say="Ikkinchi xato: chiqqan kodni umuman o‘qimaslik.", sub="Ikkinchi xato: chiqqan kodni umuman o‘qimaslik.", hl=["Ikkinchi", "xato:"], bg=_own("own_term_fail.mp4", 2.0), braw=True, scene=NONE),
   dict(say="Uchinchi xato: ey-ay ga haddan tashqari ishonib, o‘zi o‘ylashni to‘xtatish.", sub="Uchinchi xato: AI’ga haddan tashqari ishonib, o‘zi o‘ylashni to‘xtatish.", hl=["Uchinchi", "xato:"], bg=_b(88219, 6), scene=dict(t="kw", text="3-xato\nO‘ylamaslik", accent="red", hl=0, sizes=[1.0, 0.6])),
   dict(say="Ey-ay yordamchi.", sub="AI — yordamchi.", hl=["yordamchi."], bg=_b(277096, 4), scene=dict(t="kw", text="AI =\nyordamchi", accent="cyan")),
   dict(say="Lekin boshqaruv hali ham sizda qolishi kerak.", sub="Lekin boshqaruv hali ham sizda qolishi kerak.", hl=["boshqaruv", "sizda"], bg=_b(19459, 2), scene=dict(t="kw", text="Boshqaruv\nsizda", accent="green", hl=1)),
@@ -197,7 +197,7 @@ S.append(dict(id="N5-yetti-kunda-ai", title="7 kunda AI bilan nima qilish mumkin
   dict(say="Ko‘p odam aytadi: yetti kunda ey-ay ni o‘rganib bo‘ladi.", sub="Ko‘p odam aytadi: 7 kunda AI’ni o‘rganib bo‘ladi.", hl=["7", "kunda"], bg=_b(34499, 1), scene=dict(t="kw", text="“7 kunda\no‘rganasiz”", accent="yellow", hl=1)),
   dict(say="Haqiqat boshqacha.", sub="Haqiqat boshqacha.", hl=["boshqacha."], bg=_b(90332, 6), scene=dict(t="kw", text="Haqiqat\nboshqacha", accent="red", hl=1)),
   dict(say="Yetti kunda oddiy vazifalarni bajarishni,", sub="7 kunda oddiy vazifalarni bajarishni,", hl=["oddiy", "vazifalarni"], bg=_b(200675, 4), scene=dict(t="kw", text="7 kunda\nmumkin:", accent="green", hl=0)),
-  dict(say="prompt yozishni va asosiy vositalarni ishlatishni o‘rganish mumkin.", sub="prompt yozishni va asosiy vositalarni ishlatishni o‘rganish mumkin.", hl=["prompt", "vositalarni"], bg=_own("own_chat.mp4", 0.2), braw=True, scene=NONE),
+  dict(say="prompt yozishni va asosiy vositalarni ishlatishni o‘rganish mumkin.", sub="prompt yozishni va asosiy vositalarni ishlatishni o‘rganish mumkin.", hl=["prompt", "vositalarni"], bg=_own("own_chat.mp4", 3.0), braw=True, scene=NONE),
   dict(say="Lekin chuqur tushunish, murakkab loyihalar va tajriba,", sub="Lekin chuqur tushunish, murakkab loyihalar va tajriba...", hl=["chuqur", "tajriba"], bg=_b(3160, 3), scene=dict(t="kw", text="Chuqur\ntushunish", accent="yellow")),
   dict(say="bu oylar masalasi.", sub="bu oylar masalasi.", hl=["oylar"], bg=_b(30033, 3), scene=dict(t="kw", text="Oylar\nmasalasi", accent="red", hl=1)),
   dict(say="Tez boshlash mumkin.", sub="Tez boshlash mumkin.", hl=["Tez", "boshlash"], bg=_b(277096, 2), scene=dict(t="kw", text="Tez boshlash\nmumkin", accent="green")),
