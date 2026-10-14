@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node scripts/setup-api.mjs:*)",
+      "Bash(bash scripts/start_voice.sh:*)",
+      "Bash(python3 scripts/tts_vs.py:*)"
+    ]
+  }
+}

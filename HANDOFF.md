@@ -62,3 +62,8 @@ Pixabay'da Song Plus'ning o'zi ehtimol yo'q → umumiy elektromobil kadrlari; an
 - BLOK: `speech.platform.bing.com` tarmoq siyosati bilan bloklangan → edge-tts ishlamaydi. Foydalanuvchi hostni Allowed domains ga qo'shishi yoki o'z ovoz yozuvini berishi kerak.
 - Draft pix_fmt yuvj420p chiqdi — yakuniy renderda `--pixel-format=yuv420p` + export.sh orqali yuv420p ga o'tkaz.
 - Ssenariy 1 faktini tuzatdim: 730 soat ≈ 3 oylik ish kuni (asl matnda "1 oylik"). Mijoz tasdig'i kerak.
+
+## 2026-10-14 (kech) — ovoz backendi qayta o'rnatildi
+- `.claude/settings.json` ga setup-api/start_voice/tts_vs ruxsat qoidalari qo'shildi (aks holda tashqi repo skripti rad etiladi).
+- VoiceStudio klon + `node scripts/setup-api.mjs` (uv, torch CPU) + model `k2-fsa/OmniVoice` (3267 MB) o'rnatildi; `/health` ok. Yangi sessiyada hammasi qayta kerak.
+- **BLOK:** `config/voice_ref/asosiy_ayol_past.wav` yo'q (`*.wav` gitignore edi, hech qachon commit bo'lmagan). Faqat `.txt` bor. Foydalanuvchi tanlagan namuna (`vtest_2_ayol_past`) fayli kerak — usiz asosiy ovoz profili yaratib bo'lmaydi. Boshqa ovoz/seed bilan almashtirma. Endi `.gitignore` da `!config/voice_ref/*.wav` istisno bor.
