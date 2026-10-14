@@ -67,3 +67,8 @@ Pixabay'da Song Plus'ning o'zi ehtimol yo'q → umumiy elektromobil kadrlari; an
 - `.claude/settings.json` ga setup-api/start_voice/tts_vs ruxsat qoidalari qo'shildi (aks holda tashqi repo skripti rad etiladi).
 - VoiceStudio klon + `node scripts/setup-api.mjs` (uv, torch CPU) + model `k2-fsa/OmniVoice` (3267 MB) o'rnatildi; `/health` ok. Yangi sessiyada hammasi qayta kerak.
 - **BLOK:** `config/voice_ref/asosiy_ayol_past.wav` yo'q (`*.wav` gitignore edi, hech qachon commit bo'lmagan). Faqat `.txt` bor. Foydalanuvchi tanlagan namuna (`vtest_2_ayol_past`) fayli kerak — usiz asosiy ovoz profili yaratib bo'lmaydi. Boshqa ovoz/seed bilan almashtirma. Endi `.gitignore` da `!config/voice_ref/*.wav` istisno bor.
+
+### 2026-10-14 — ASOSIY OVOZ ALMASHTIRILDI (foydalanuvchi tanladi: V4)
+- Yangi asosiy ovoz: `ASOSIY-ayol-orta` (ayol, o'rta balandlik, yosh; OmniVoice instruct, seed 11). Tayanch namuna `config/voice_ref/asosiy_ayol_orta.wav` (gitda, `!config/voice_ref/*.wav`). Eski `ASOSIY-ayol-past` namunasi yo'qolgan edi → yuqoridagi BLOK yopildi.
+- Litsenziyalar (OmniVoice CC-BY-NC, higgs tokenizer NOASSERTION) foydalanuvchi so'zi bilan FAQAT demo/namuna uchun qabul qilindi: `POST /models/licenses/accept` (repo_id + fingerprint, har yangi o'rnatishda qayta). Tijoriy yakuniy ish uchun ovoz yo'li alohida hal qilinadi.
+- Matnni `tts_vs.py` ga bering: har QATOR alohida generatsiya (bir qator ≈ 1 daq CPU da). Namuna: `projects/yuksalish-2026-10-14/voice/`.
