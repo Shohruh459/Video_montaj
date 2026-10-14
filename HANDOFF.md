@@ -80,3 +80,4 @@ Pixabay'da Song Plus'ning o'zi ehtimol yo'q → umumiy elektromobil kadrlari; an
 - Pixabay "medium" = 720p (ba'zilari 1440p) — yakuniy 1080x1920 uchun `--quality large` yuklab ol, aks holda yumshoq.
 - tts_vs.clean_audio endi faylga yozadi (pipe WAV sarlavhasi uzunlikni 'noma'lum' qoldirardi).
 - Foydalanuvchi uslubni tanlashi kutilmoqda.
+- **Uslub kutubxonasi (6 nom):** `templates/kinetic/STYLES.md` — kino-oltin, split-oyna, jurnal, neon, minimal-oq, afisha. Chaqirish: `bash templates/kinetic/render.sh <nom> out.mp4 [scale] [props.json]`. Skill qilish: foydalanuvchi tanlagan uslub(lar) asosida qoidalarni yoz.
