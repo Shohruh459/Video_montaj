@@ -135,12 +135,12 @@ S.append(dict(id="05v2-oziingizni-aldamang", title="AI ishlatayotganda oʻzingiz
 S.append(dict(id="N1-ai-ishsiz-qiladimi", title="AI meni ishsiz qiladimi?", style="tech", bpm=100, key=57, gap=0.2,
   intro=dict(say="Ey-ay keldi. Endi dasturchilar kerak emasmi?",
              card=[{"t": "AI keldi.", "size": 170, "color": "#0f172a"}, {"t": "Endi dasturchilar", "size": 112, "color": "#0f172a"}, {"t": "kerak emasmi?", "size": 128, "color": "#e11d48"}]),
-  cta="Sizchi, AI’dan qo‘rqasizmi\\nyoki foydalanasizmi?", cta_say="Sizchi, ey-ay dan qo‘rqasizmi yoki foydalanasizmi?", cta_bg=_b(200675, 6),
+  cta="Sizchi, AI’dan qo‘rqasizmi\nyoki foydalanasizmi?", cta_say="Sizchi, ey-ay dan qo‘rqasizmi yoki foydalanasizmi?", cta_bg=_b(200675, 6),
   segs=[
   dict(say="Yo‘q.", sub="Yo‘q.", hl=["Yo‘q."], bg=_b(258439, 2), scene=dict(t="kw", text="Yo‘q.", accent="red")),
-  dict(say="Ey-ay oddiy ishlarni osonlashtirdi.", sub="AI oddiy ishlarni osonlashtirdi.", hl=["oddiy", "osonlashtirdi."], bg=_b(3160, 2), scene=dict(t="kw", text="Oddiy ishlar\\nosonlashdi", accent="cyan")),
-  dict(say="Lekin murakkab muammolarni yechish, tizim qurish...", sub="Lekin murakkab muammolarni yechish, tizim qurish...", hl=["murakkab", "tizim"], bg=_b(200675, 3), scene=dict(t="kw", text="Murakkab\\nmuammolar", accent="yellow")),
-  dict(say="va mas’uliyat olish hali ham odamga bog‘liq.", sub="va mas’uliyat olish hali ham odamga bog‘liq.", hl=["mas’uliyat", "odamga"], bg=_b(149986, 3), scene=dict(t="kw", text="Mas’uliyat —\\nodamda", accent="yellow", hl=1)),
+  dict(say="Ey-ay oddiy ishlarni osonlashtirdi.", sub="AI oddiy ishlarni osonlashtirdi.", hl=["oddiy", "osonlashtirdi."], bg=_b(3160, 2), scene=dict(t="kw", text="Oddiy ishlar\nosonlashdi", accent="cyan")),
+  dict(say="Lekin murakkab muammolarni yechish, tizim qurish...", sub="Lekin murakkab muammolarni yechish, tizim qurish...", hl=["murakkab", "tizim"], bg=_b(200675, 3), scene=dict(t="kw", text="Murakkab\nmuammolar", accent="yellow")),
+  dict(say="va mas’uliyat olish hali ham odamga bog‘liq.", sub="va mas’uliyat olish hali ham odamga bog‘liq.", hl=["mas’uliyat", "odamga"], bg=_b(3160, 6), scene=dict(t="kw", text="Mas’uliyat —\nodamda", accent="yellow", hl=1)),
   dict(say="Ey-ay, tez va sifatli ishlash uchun vosita.", sub="AI — tez va sifatli ishlash uchun vosita.", hl=["vosita."], bg=_b(277096, 5), scene=dict(t="kw", text="AI = vosita", accent="green")),
-  dict(say="Uni ushlagan odam esa hali ham kerak.", sub="Uni ushlagan odam esa hali ham kerak.", hl=["odam", "kerak."], bg=_b(279625, 3), scene=dict(t="kw", text="Odam hali\\nham kerak", accent="cyan", hl=1)),
+  dict(say="Uni ushlagan odam esa hali ham kerak.", sub="Uni ushlagan odam esa hali ham kerak.", hl=["odam", "kerak."], bg=_b(279625, 3), scene=dict(t="kw", text="Odam hali\nham kerak", accent="cyan", hl=1)),
 ]))
