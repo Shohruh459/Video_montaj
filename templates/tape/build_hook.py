@@ -11,7 +11,7 @@ ap = argparse.ArgumentParser(); ap.add_argument("out", nargs="?"); ap.add_argume
 ap.add_argument("--say", default="Ey-ay keldi. Endi dasturchilar kerak emasmi?")
 ap.add_argument("--card-json", default=None); ap.add_argument("--scale", type=float, default=1.0)
 ap.add_argument("--t-voice", type=float, default=None); ap.add_argument("--kind", default="tape", choices=["tape", "scale", "calendar", "traffic"])
-ap.add_argument("--n-pages", type=int, default=7); ap.add_argument("--blocks", default=None, help='JSON: [{"t":"AI","bg":"#2563eb","fg":"#fff"},{...}]')
+ap.add_argument("--n-pages", type=int, default=7); ap.add_argument("--seed", type=int, default=None); ap.add_argument("--blocks", default=None, help='JSON: [{"t":"AI","bg":"#2563eb","fg":"#fff"},{...}]')
 a = ap.parse_args()
 KIND = a.kind
 TV = {'tape': 0.72, 'scale': 0.75, 'calendar': None, 'traffic': 0.95}
@@ -23,7 +23,7 @@ card = json.load(open(a.card_json)) if a.card_json else [
 # 1) ovoz (asosiy ayol ovoz)
 import tts_vs
 tts_vs.check_backend(); pid = tts_vs.ensure_profile()
-sr, v = wf.read(io.BytesIO(tts_vs.synth_line(pid, a.say, tts_vs.CFG["seed"], tts_vs.CFG["speed"])))
+sr, v = wf.read(io.BytesIO(tts_vs.synth_line(pid, a.say, a.seed or tts_vs.CFG["seed"], tts_vs.CFG["speed"])))
 v = v.astype("float32") / (32768.0 if v.dtype == np.int16 else 1.0); v = sg.resample_poly(v, SR, sr).astype("float32")
 idx = np.where(np.abs(v) > 0.02 * np.abs(v).max())[0]; v = v[max(0, idx[0] - 600): idx[-1] + 1200]; v = v / np.abs(v).max() * 0.7
 T_CLICK, T_SNAP, SNAP = 0.42, 0.56, 0.30
@@ -70,7 +70,7 @@ if a.stems:
 
 # 3) 3D kadrlar
 W, H = int(540 * a.scale), int(960 * a.scale)
-P = dict(w=W, h=H, fps=30, duration=dur, brand="Zarafshon Dasturchilari", card=card); P.update(EV)
+P = dict(w=W, h=H, fps=30, duration=dur, brand="", card=card); P.update(EV)
 pj = tmp / "p.json"; pj.write_text(json.dumps(P)); fr = tmp / "f"
 subprocess.run(["node", str(HERE / "render.mjs"), str(pj), str(fr)], check=True)
 if a.stems:

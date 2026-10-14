@@ -501,11 +501,11 @@ def synth_music(style, bpm, key, dur):
 def get_intro(sc, final):
     """3D ruletka-hook: stems (ovoz, sfx, video) kesh papkasida; yo'q bo'lsa templates/tape/build_hook.py bilan yasaydi."""
     it = sc["intro"]; kind = it.get("kind", "tape"); extra = ["--kind", kind, "--n-pages", str(it.get("n_pages", 7))] + (["--blocks", json.dumps(it["blocks"])] if it.get("blocks") else [])
-    key = hashlib.md5((it["say"] + json.dumps(it["card"]) + str(final) + kind + json.dumps(extra)).encode()).hexdigest()[:10]
+    key = hashlib.md5((it["say"] + json.dumps(it["card"]) + str(final) + kind + json.dumps(extra) + "v3-nobrand" + str(it.get("seed", ""))).encode()).hexdigest()[:10]
     d = PROJ / "hook" / key
     if not (d / "info.json").exists():
         cj = d.parent / f"{key}.card.json"; cj.parent.mkdir(exist_ok=True); cj.write_text(json.dumps(it["card"]))
-        subprocess.run([sys.executable, str(ROOT / "templates/tape/build_hook.py"), "--stems", str(d), "--say", it["say"], "--card-json", str(cj), "--scale", "2" if final else "1"] + extra, check=True)
+        subprocess.run([sys.executable, str(ROOT / "templates/tape/build_hook.py"), "--stems", str(d), "--say", it["say"], "--card-json", str(cj), "--scale", "2" if final else "1"] + extra + (["--seed", str(it["seed"])] if it.get("seed") else []), check=True)
     info = json.loads((d / "info.json").read_text()); return dict(dir=d, dur=info["dur"], video=d / "hook_video.mp4")
 
 
@@ -581,9 +581,7 @@ def render_frame(fi):
     layer = Image.new("RGBA", (W, H), (0, 0, 0, 0))
     SCENES[sc["t"]](layer, lt, sc, tl.total)
     cv.alpha_composite(layer if fo >= 0.999 else alpha_img(layer, 0.25 + 0.75 * fo))
-    # sarlavha chipi
-    put_c(cv, text_layer(scenarios.BRAND.upper(), 28, MUTED, bold=True), W / 2, 150, 0.9)
-    ImageDraw.Draw(cv).ellipse((W / 2 - 250, 143, W / 2 - 238, 155), fill=CYAN)
+    # (tepadagi brend chipi olib tashlandi: kadr mazmuni ustiga tushib qolardi; brend faqat oxirgi CTA sahnasida)
     # subtitr
     for (a, b, ch) in seg["chunks"]:
         if a - 0.02 <= t < b + (0.12 if ch is seg["chunks"][-1][2] else 0):
