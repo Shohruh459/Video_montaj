@@ -5,7 +5,7 @@ Matn faylidagi har bir QATOR alohida generatsiya qilinadi, qatorlar orasiga --pa
 Modul sifatida: make_video.py dan import qilinadi (synth_line, ensure_profile).
 Backend ishlamasa: bash scripts/start_voice.sh
 LITSENZIYA: model CC-BY-NC — faqat demo/sinov, mijozning tijoriy ishi uchun emas."""
-import argparse, json, pathlib, subprocess, sys, tempfile, urllib.request
+import argparse, json, os, pathlib, subprocess, sys, tempfile, urllib.request
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 CFG = json.loads((ROOT / "config/voice.json").read_text(encoding="utf-8"))
@@ -33,11 +33,27 @@ def ensure_profile():
     return json.loads(out)["id"]
 
 
+# Neyron ovoz artefakti ("g'in" hushtagi): 8 kHz, 9.77 kHz, 6.9 kHz da barqaror tor chastotalar.
+# Foydalanuvchi tasdiqlagan filtr A (2026-10-14). O'chirish: voice.json da "postfilter": "" yoki VOICE_POSTFILTER=0.
+POSTFILTER = ("highpass=f=70,bandreject=f=8000:width_type=q:w=12,"
+              "bandreject=f=9770:width_type=q:w=12,bandreject=f=6900:width_type=q:w=12")
+
+
+def clean_audio(wav_bytes):
+    """WAV baytlarini tasdiqlangan filtr A dan o'tkazadi (formati o'zgarmaydi: wav, mono, 24 kHz, 16 bit)."""
+    flt = CFG.get("postfilter", POSTFILTER)
+    if not flt or os.environ.get("VOICE_POSTFILTER") == "0":
+        return wav_bytes
+    r = subprocess.run(["ffmpeg", "-v", "error", "-f", "wav", "-i", "pipe:0", "-af", flt,
+                        "-c:a", "pcm_s16le", "-f", "wav", "pipe:1"], input=wav_bytes, capture_output=True, check=True)
+    return r.stdout
+
+
 def synth_line(profile_id, line, seed, speed):
     body = {k: CFG[k] for k in ("model", "language", "response_format")}
     body.update(voice=profile_id, input=line, seed=seed, speed=speed)
     req = urllib.request.Request(CFG["api"], json.dumps(body).encode(), {"Content-Type": "application/json"})
-    return urllib.request.urlopen(req, timeout=900).read()
+    return clean_audio(urllib.request.urlopen(req, timeout=900).read())
 
 
 def concat_with_pauses(parts, pause, out, lead=0.0):
