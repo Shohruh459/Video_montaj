@@ -44,9 +44,12 @@ def clean_audio(wav_bytes):
     flt = CFG.get("postfilter", POSTFILTER)
     if not flt or os.environ.get("VOICE_POSTFILTER") == "0":
         return wav_bytes
-    r = subprocess.run(["ffmpeg", "-v", "error", "-f", "wav", "-i", "pipe:0", "-af", flt,
-                        "-c:a", "pcm_s16le", "-f", "wav", "pipe:1"], input=wav_bytes, capture_output=True, check=True)
-    return r.stdout
+    # Faylga yozamiz (pipe emas): pipe WAV sarlavhasida uzunlik "noma'lum" bo'lib qoladi va ba'zi kutubxonalar adashadi.
+    with tempfile.TemporaryDirectory() as d:
+        src, dst = pathlib.Path(d) / "in.wav", pathlib.Path(d) / "out.wav"
+        src.write_bytes(wav_bytes)
+        subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", str(src), "-af", flt, "-c:a", "pcm_s16le", str(dst)], check=True)
+        return dst.read_bytes()
 
 
 def synth_line(profile_id, line, seed, speed):

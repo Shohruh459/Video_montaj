@@ -1,0 +1,91 @@
+{
+ "style": "gold",
+ "totalSec": 12.81,
+ "audio": "sample_mix.wav",
+ "lines": [
+  {
+   "words": [
+    {
+     "t": "Vaqtingni"
+    },
+    {
+     "t": "behuda"
+    },
+    {
+     "t": "oʻtkazayotganingni"
+    },
+    {
+     "t": "bilasan."
+    }
+   ],
+   "start": 0.5,
+   "dur": 3.08,
+   "clip": "c_watch.mp4",
+   "pos": "50% 50%",
+   "tag": "VAQT"
+  },
+  {
+   "words": [
+    {
+     "t": "Lekin"
+    },
+    {
+     "t": "baribir"
+    },
+    {
+     "t": "telefonni"
+    },
+    {
+     "t": "qoʻyolmayapsan.",
+     "a": true
+    }
+   ],
+   "start": 3.78,
+   "dur": 2.85,
+   "clip": "c_phone.mp4",
+   "pos": "14% 50%",
+   "tag": "TELEFON"
+  },
+  {
+   "words": [
+    {
+     "t": "Haqiqat"
+    },
+    {
+     "t": "shuki:"
+    },
+    {
+     "t": "koʻpchilik"
+    },
+    {
+     "t": "kuniga"
+    },
+    {
+     "t": "3–4"
+    },
+    {
+     "t": "soatni",
+     "a": true
+    },
+    {
+     "t": "hech",
+     "a": true
+    },
+    {
+     "t": "narsa"
+    },
+    {
+     "t": "qilmasdan"
+    },
+    {
+     "t": "yoʻqotadi."
+    }
+   ],
+   "start": 6.83,
+   "dur": 5.23,
+   "clip": "c_rain.mp4",
+   "pos": "50% 50%",
+   "tag": "HAQIQAT"
+  }
+ ]
+}

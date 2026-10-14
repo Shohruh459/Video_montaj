@@ -13,3 +13,5 @@ projects/*/out/*
 !projects/*/*/.gitkeep
 node_modules/
 !config/voice_ref/*.wav
+templates/kinetic/public/c_*.mp4
+templates/kinetic/public/sample_mix.wav

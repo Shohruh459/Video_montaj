@@ -73,3 +73,10 @@ Pixabay'da Song Plus'ning o'zi ehtimol yo'q → umumiy elektromobil kadrlari; an
 - Litsenziyalar (OmniVoice CC-BY-NC, higgs tokenizer NOASSERTION) foydalanuvchi so'zi bilan FAQAT demo/namuna uchun qabul qilindi: `POST /models/licenses/accept` (repo_id + fingerprint, har yangi o'rnatishda qayta). Tijoriy yakuniy ish uchun ovoz yo'li alohida hal qilinadi.
 - Matnni `tts_vs.py` ga bering: har QATOR alohida generatsiya (bir qator ≈ 1 daq CPU da). Namuna: `projects/yuksalish-2026-10-14/voice/`.
 - **Ovoz postfiltri (A) STANDART** (foydalanuvchi tanladi, "g'in" hushtagi yo'qoldi): `scripts/tts_vs.py` -> `clean_audio()` har `synth_line()` natijasiga qo'llanadi (highpass 70 Hz + bandreject 8000/9770/6900 Hz, Q=12). Sabab: sintezator artefakti 8 kHz da. O'chirish: `VOICE_POSTFILTER=0` yoki voice.json `"postfilter": ""`. Eslatma: `make_reel.py` keshi (`voice/vs_<md5>.wav`) eski, FILTRSIZ fayllarni saqlaydi — eski kesh bo'lsa o'chirib qayta generatsiya qil.
+
+### 2026-10-14 — Uslub namunalari (Yuksalish, 1-ssenariy 3 gap)
+- `templates/kinetic/src/Sample.tsx`: 3 uslub (`style`: gold | split | editorial), ma'lumot `src/data/sample.json` (vaqtlar ovoz uzunligidan). Yig'ish skripti loyiha ichida emas: ovoz (har qator alohida `tts_vs.synth_line`) -> voice_full.wav + sintez pad (sidechain) -> loudnorm -14 LUFS -> `public/sample_mix.wav`; kliplar `public/c_*.mp4` (gitda yo'q).
+- Render: `npx remotion render src/index.ts Sample out.mp4 --props=<json> --scale=0.5`; chiqish yuvj420p -> ffmpeg bilan `scale=in_range=pc:out_range=tv,format=yuv420p` qayta kodla.
+- Pixabay "medium" = 720p (ba'zilari 1440p) — yakuniy 1080x1920 uchun `--quality large` yuklab ol, aks holda yumshoq.
+- tts_vs.clean_audio endi faylga yozadi (pipe WAV sarlavhasi uzunlikni 'noma'lum' qoldirardi).
+- Foydalanuvchi uslubni tanlashi kutilmoqda.
