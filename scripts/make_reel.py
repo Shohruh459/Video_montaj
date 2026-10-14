@@ -502,10 +502,13 @@ def get_intro(sc, final):
     """3D ruletka-hook: stems (ovoz, sfx, video) kesh papkasida; yo'q bo'lsa templates/tape/build_hook.py bilan yasaydi."""
     it = sc["intro"]; kind = it.get("kind", "tape"); extra = ["--kind", kind, "--n-pages", str(it.get("n_pages", 7))] + (["--blocks", json.dumps(it["blocks"])] if it.get("blocks") else [])
     key = hashlib.md5((it["say"] + json.dumps(it["card"]) + str(final) + kind + json.dumps(extra) + "v3-nobrand" + str(it.get("seed", ""))).encode()).hexdigest()[:10]
-    d = PROJ / "hook" / key
+    d = PROJ / "hook" / key; reuse = []
+    if final:  # tasdiqlangan draft ovoz/SFX ni aynan qayta ishlatamiz
+        dk = hashlib.md5((it["say"] + json.dumps(it["card"]) + str(False) + kind + json.dumps(extra) + "v3-nobrand" + str(it.get("seed", ""))).encode()).hexdigest()[:10]
+        if (PROJ / "hook" / dk / "info.json").exists(): reuse = ["--reuse-audio", str(PROJ / "hook" / dk)]
     if not (d / "info.json").exists():
         cj = d.parent / f"{key}.card.json"; cj.parent.mkdir(exist_ok=True); cj.write_text(json.dumps(it["card"]))
-        subprocess.run([sys.executable, str(ROOT / "templates/tape/build_hook.py"), "--stems", str(d), "--say", it["say"], "--card-json", str(cj), "--scale", "2" if final else "1"] + extra + (["--seed", str(it["seed"])] if it.get("seed") else []), check=True)
+        subprocess.run([sys.executable, str(ROOT / "templates/tape/build_hook.py"), "--stems", str(d), "--say", it["say"], "--card-json", str(cj), "--scale", "2" if final else "1"] + extra + reuse + (["--seed", str(it["seed"])] if it.get("seed") else []), check=True)
     info = json.loads((d / "info.json").read_text()); return dict(dir=d, dur=info["dur"], video=d / "hook_video.mp4")
 
 
@@ -632,7 +635,7 @@ def main():
     mp4 = out / f"{sc['id']}_{'final' if a.final else 'draft'}.mp4"
     vf = ["-vf", "scale=540:960:flags=lanczos"] if not a.final else []
     enc = ["-c:v", "libx264", "-preset", "slow", "-crf", "17"] if a.final else ["-c:v", "libx264", "-preset", "veryfast", "-crf", "24"]
-    af = "alimiter=limit=0.89:level=disabled:attack=3:release=60"
+    af = ("alimiter=limit=0.85:level=disabled:attack=3:release=60" if a.final else "alimiter=limit=0.89:level=disabled:attack=3:release=60")
     BGMODE = bool(sc["segs"][0].get("bg"))
     if BGMODE:
         bgv = build_bg(sc, TL_, out)

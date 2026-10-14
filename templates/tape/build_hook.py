@@ -11,7 +11,7 @@ ap = argparse.ArgumentParser(); ap.add_argument("out", nargs="?"); ap.add_argume
 ap.add_argument("--say", default="Ey-ay keldi. Endi dasturchilar kerak emasmi?")
 ap.add_argument("--card-json", default=None); ap.add_argument("--scale", type=float, default=1.0)
 ap.add_argument("--t-voice", type=float, default=None); ap.add_argument("--kind", default="tape", choices=["tape", "scale", "calendar", "traffic"])
-ap.add_argument("--n-pages", type=int, default=7); ap.add_argument("--seed", type=int, default=None); ap.add_argument("--blocks", default=None, help='JSON: [{"t":"AI","bg":"#2563eb","fg":"#fff"},{...}]')
+ap.add_argument("--n-pages", type=int, default=7); ap.add_argument("--reuse-audio", default=None, help="tasdiqlangan draft stems papkasi: ovoz/SFX qayta yasalmaydi"); ap.add_argument("--seed", type=int, default=None); ap.add_argument("--blocks", default=None, help='JSON: [{"t":"AI","bg":"#2563eb","fg":"#fff"},{...}]')
 a = ap.parse_args()
 KIND = a.kind
 TV = {'tape': 0.72, 'scale': 0.75, 'calendar': None, 'traffic': 0.95}
@@ -21,13 +21,17 @@ card = json.load(open(a.card_json)) if a.card_json else [
     {"t": "AI keldi.", "size": 170, "color": "#0f172a"}, {"t": "Endi dasturchilar", "size": 112, "color": "#0f172a"}, {"t": "kerak emasmi?", "size": 128, "color": "#e11d48"}]
 
 # 1) ovoz (asosiy ayol ovoz)
-import tts_vs
-tts_vs.check_backend(); pid = tts_vs.ensure_profile()
-sr, v = wf.read(io.BytesIO(tts_vs.synth_line(pid, a.say, a.seed or tts_vs.CFG["seed"], tts_vs.CFG["speed"])))
-v = v.astype("float32") / (32768.0 if v.dtype == np.int16 else 1.0); v = sg.resample_poly(v, SR, sr).astype("float32")
-idx = np.where(np.abs(v) > 0.02 * np.abs(v).max())[0]; v = v[max(0, idx[0] - 600): idx[-1] + 1200]; v = v / np.abs(v).max() * 0.7
+REUSE = pathlib.Path(a.reuse_audio) if a.reuse_audio else None
+if REUSE:
+    v = np.zeros(1, "float32"); dur = json.loads((REUSE / "info.json").read_text())["dur"]
+else:
+    import tts_vs
+    tts_vs.check_backend(); pid = tts_vs.ensure_profile()
+    sr, v = wf.read(io.BytesIO(tts_vs.synth_line(pid, a.say, a.seed or tts_vs.CFG["seed"], tts_vs.CFG["speed"])))
+    v = v.astype("float32") / (32768.0 if v.dtype == np.int16 else 1.0); v = sg.resample_poly(v, SR, sr).astype("float32")
+    idx = np.where(np.abs(v) > 0.02 * np.abs(v).max())[0]; v = v[max(0, idx[0] - 600): idx[-1] + 1200]; v = v / np.abs(v).max() * 0.7
 T_CLICK, T_SNAP, SNAP = 0.42, 0.56, 0.30
-dur = max(3.6, a.t_voice + len(v) / SR + 0.55)
+if not REUSE: dur = max(3.6, a.t_voice + len(v) / SR + 0.55)
 
 # 2) SFX (dasturiy sintez; litsenziya muammosi yo'q)
 n = int(dur * SR); sfx = np.zeros(n, "float32"); rnd = np.random.default_rng(5)
@@ -61,6 +65,8 @@ elif KIND == "traffic":
     EV = dict(page="traffic.html", ty=TY, tg=TG, dolly=DOL, dolly_dur=0.45, fast=[DOL - 0.05, DOL + 0.65])
 sfx *= 0.9 / max(1e-6, np.abs(sfx).max())
 vox = np.zeros(n, "float32"); i = int(a.t_voice * SR); vox[i:i + len(v)] = v[: n - i]
+if REUSE:  # tasdiqlangan ovoz va SFX aynan shu holda qoladi
+    _, vv = wf.read(REUSE / "voice.wav"); _, ss = wf.read(REUSE / "sfx.wav"); vox[:] = 0; vox[: min(n, len(vv))] = vv[:n]; sfx[:] = 0; sfx[: min(n, len(ss))] = ss[:n]
 mix = (vox * 1.0 + sfx * 0.55)[:, None].repeat(2, 1)
 import pyloudnorm as pln
 mix *= 10 ** ((-14 - pln.Meter(SR).integrated_loudness(mix)) / 20)
