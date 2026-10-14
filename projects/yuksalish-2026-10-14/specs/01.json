@@ -1,0 +1,136 @@
+{
+ "id": "01",
+ "title": "O‘zini aldayotgan odam",
+ "base_style": "kino-oltin",
+ "handle": "@yuksalish713",
+ "music": {
+  "src": "/tmp/music/raw/s1_r9_kino-torlar-hissiy.wav",
+  "ss": 26,
+  "db": -19,
+  "note": "M5 · dataset 1:9"
+ },
+ "phrases": [
+  {
+   "say": "Siz ham shunday qilasiz.",
+   "show": "Siz ham shunday qilasiz.",
+   "acc": [
+    0
+   ],
+   "style": "afisha",
+   "clip": "pixabay_video_126560.mp4",
+   "pause": 0.6,
+   "ss": 0,
+   "pos": "30% 50%",
+   "vpos": "bottom"
+  },
+  {
+   "say": "Ertaga boshlayman, deysiz.",
+   "show": "“Ertaga boshlayman” deysiz.",
+   "acc": [
+    0
+   ],
+   "style": "afisha",
+   "clip": "pixabay_video_34855.mp4",
+   "pause": 0.35,
+   "ss": 0,
+   "pos": "50% 50%"
+  },
+  {
+   "say": "Hozir vaqtim yoʻq, deysiz.",
+   "show": "“Hozir vaqtim yoʻq” deysiz.",
+   "acc": [
+    0
+   ],
+   "style": "afisha",
+   "clip": "pixabay_video_34855.mp4",
+   "pause": 0.35,
+   "ss": 3.5,
+   "pos": "50% 50%"
+  },
+  {
+   "say": "Keyinroq qilaman, deysiz.",
+   "show": "“Keyinroq qilaman” deysiz.",
+   "acc": [
+    0
+   ],
+   "style": "afisha",
+   "clip": "pixabay_video_736.mp4",
+   "pause": 0.75,
+   "ss": 0,
+   "pos": "14% 50%"
+  },
+  {
+   "say": "Lekin ichingizda bilasiz. Bu yolgʻon.",
+   "show": "Lekin ichingizda bilasiz — bu yolgʻon.",
+   "acc": [
+    5
+   ],
+   "style": "kino-oltin",
+   "clip": "pixabay_video_11722.mp4",
+   "pause": 0.6,
+   "ss": 0,
+   "pos": "50% 50%"
+  },
+  {
+   "say": "Har safar oʻzingizni aldaganingizda, biroz orqaga ketasiz.",
+   "show": "Har safar oʻzingizni aldaganingizda biroz orqaga ketasiz.",
+   "acc": [
+    5
+   ],
+   "style": "kino-oltin",
+   "clip": "pixabay_video_11722.mp4",
+   "pause": 0.8,
+   "ss": 9,
+   "pos": "50% 50%"
+  },
+  {
+   "say": "Bugun toʻxtang.",
+   "show": "Bugun toʻxtang.",
+   "acc": [
+    1
+   ],
+   "style": "kino-oltin",
+   "clip": "pixabay_video_107243.mp4",
+   "pause": 0.5,
+   "ss": 4.5,
+   "pos": "47% 50%"
+  },
+  {
+   "say": "Bitta ishni yozing, soatini belgilang.",
+   "show": "Bitta ishni yozing, soatini belgilang.",
+   "acc": [
+    3,
+    4
+   ],
+   "style": "kino-oltin",
+   "clip": "pixabay_video_107240.mp4",
+   "pause": 0.45,
+   "ss": 2,
+   "pos": "78% 50%"
+  },
+  {
+   "say": "Oʻzingizga rost gapiring. Hatto ogʻir boʻlsa ham.",
+   "show": "Oʻzingizga rost gapiring. Hatto ogʻir boʻlsa ham.",
+   "acc": [
+    1
+   ],
+   "style": "kino-oltin",
+   "clip": "pixabay_video_202753.mp4",
+   "pause": 0.8,
+   "ss": 0,
+   "pos": "50% 50%"
+  },
+  {
+   "say": "Oʻzingizga rost gapira olasizmi?",
+   "show": "Oʻzingizga rost gapira olasizmi?",
+   "acc": [
+    1
+   ],
+   "style": "kino-oltin",
+   "clip": "pixabay_video_202753.mp4",
+   "pause": 0.0,
+   "ss": 9,
+   "pos": "50% 50%"
+  }
+ ]
+}

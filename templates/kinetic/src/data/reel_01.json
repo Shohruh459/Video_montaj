@@ -1,0 +1,264 @@
+{
+ "style": "kino-oltin",
+ "totalSec": 29.02,
+ "audio": "reel01_mix.wav",
+ "lines": [
+  {
+   "words": [
+    {
+     "t": "Siz",
+     "a": true
+    },
+    {
+     "t": "ham"
+    },
+    {
+     "t": "shunday"
+    },
+    {
+     "t": "qilasiz."
+    }
+   ],
+   "start": 0,
+   "dur": 2.18,
+   "clip": "c_126560.mp4",
+   "pos": "30% 50%",
+   "ss": 0,
+   "tag": "",
+   "vpos": "bottom",
+   "style": "afisha"
+  },
+  {
+   "words": [
+    {
+     "t": "“Ertaga",
+     "a": true
+    },
+    {
+     "t": "boshlayman”"
+    },
+    {
+     "t": "deysiz."
+    }
+   ],
+   "start": 2.63,
+   "dur": 1.89,
+   "clip": "c_34855.mp4",
+   "pos": "50% 50%",
+   "ss": 0,
+   "tag": "",
+   "style": "afisha"
+  },
+  {
+   "words": [
+    {
+     "t": "“Hozir",
+     "a": true
+    },
+    {
+     "t": "vaqtim"
+    },
+    {
+     "t": "yoʻq”"
+    },
+    {
+     "t": "deysiz."
+    }
+   ],
+   "start": 4.72,
+   "dur": 2.08,
+   "clip": "c_34855.mp4",
+   "pos": "50% 50%",
+   "ss": 3.5,
+   "tag": "",
+   "style": "afisha"
+  },
+  {
+   "words": [
+    {
+     "t": "“Keyinroq",
+     "a": true
+    },
+    {
+     "t": "qilaman”"
+    },
+    {
+     "t": "deysiz."
+    }
+   ],
+   "start": 7.0,
+   "dur": 2.05,
+   "clip": "c_736.mp4",
+   "pos": "14% 50%",
+   "ss": 0,
+   "tag": "",
+   "style": "afisha"
+  },
+  {
+   "words": [
+    {
+     "t": "Lekin"
+    },
+    {
+     "t": "ichingizda"
+    },
+    {
+     "t": "bilasiz"
+    },
+    {
+     "t": "—"
+    },
+    {
+     "t": "bu"
+    },
+    {
+     "t": "yolgʻon.",
+     "a": true
+    }
+   ],
+   "start": 9.65,
+   "dur": 2.42,
+   "clip": "c_11722.mp4",
+   "pos": "50% 50%",
+   "ss": 0,
+   "tag": "",
+   "style": "kino-oltin"
+  },
+  {
+   "words": [
+    {
+     "t": "Har"
+    },
+    {
+     "t": "safar"
+    },
+    {
+     "t": "oʻzingizni"
+    },
+    {
+     "t": "aldaganingizda"
+    },
+    {
+     "t": "biroz"
+    },
+    {
+     "t": "orqaga",
+     "a": true
+    },
+    {
+     "t": "ketasiz."
+    }
+   ],
+   "start": 12.52,
+   "dur": 3.74,
+   "clip": "c_11722.mp4",
+   "pos": "50% 50%",
+   "ss": 9,
+   "tag": "",
+   "style": "kino-oltin"
+  },
+  {
+   "words": [
+    {
+     "t": "Bugun"
+    },
+    {
+     "t": "toʻxtang.",
+     "a": true
+    }
+   ],
+   "start": 16.91,
+   "dur": 1.59,
+   "clip": "c_107243.mp4",
+   "pos": "47% 50%",
+   "ss": 4.5,
+   "tag": "",
+   "style": "kino-oltin"
+  },
+  {
+   "words": [
+    {
+     "t": "Bitta"
+    },
+    {
+     "t": "ishni"
+    },
+    {
+     "t": "yozing,"
+    },
+    {
+     "t": "soatini",
+     "a": true
+    },
+    {
+     "t": "belgilang.",
+     "a": true
+    }
+   ],
+   "start": 18.85,
+   "dur": 2.58,
+   "clip": "c_107240.mp4",
+   "pos": "78% 50%",
+   "ss": 2,
+   "tag": "",
+   "style": "kino-oltin"
+  },
+  {
+   "words": [
+    {
+     "t": "Oʻzingizga"
+    },
+    {
+     "t": "rost",
+     "a": true
+    },
+    {
+     "t": "gapiring."
+    },
+    {
+     "t": "Hatto"
+    },
+    {
+     "t": "ogʻir"
+    },
+    {
+     "t": "boʻlsa"
+    },
+    {
+     "t": "ham."
+    }
+   ],
+   "start": 21.73,
+   "dur": 3.09,
+   "clip": "c_202753.mp4",
+   "pos": "50% 50%",
+   "ss": 0,
+   "tag": "",
+   "style": "kino-oltin"
+  },
+  {
+   "words": [
+    {
+     "t": "Oʻzingizga"
+    },
+    {
+     "t": "rost",
+     "a": true
+    },
+    {
+     "t": "gapira"
+    },
+    {
+     "t": "olasizmi?"
+    }
+   ],
+   "start": 25.47,
+   "dur": 2.3,
+   "clip": "c_202753.mp4",
+   "pos": "50% 50%",
+   "ss": 9,
+   "tag": "",
+   "style": "kino-oltin"
+  }
+ ]
+}

@@ -9,7 +9,8 @@ const FPS = 30;
 export const Root: React.FC = () => (
   <>
   <Composition id="Sample" component={Sample as React.FC<any>} width={1080} height={1920} fps={FPS}
-    durationInFrames={Math.round(sample.totalSec * FPS)} defaultProps={sample as SampleProps} />
+    durationInFrames={Math.round(sample.totalSec * FPS)} defaultProps={sample as SampleProps}
+    calculateMetadata={({props}: {props: any}) => ({durationInFrames: Math.round(props.totalSec * FPS)})} />
   <Composition
     id="Reel"
     component={Reel as React.FC<any>}

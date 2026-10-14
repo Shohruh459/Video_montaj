@@ -88,3 +88,9 @@ Pixabay'da Song Plus'ning o'zi ehtimol yo'q → umumiy elektromobil kadrlari; an
 - Eski "Vaqt va 2 soat" bekor. Yangi: `projects/yuksalish-2026-10-14/script.md` (12 "Siz" ssenariysi v2: hook/mikro-qadam/sezgir mavzularga qo'shimcha gap tahrirlangan; foydalanuvchi tasdig'i kutilmoqda). Boshlash: #1.
 - Fon musiqa: `scripts/music_cc0_scan.py` + `music_cc0_get.py` (HF CC0 dataset, kayfiyat bo'yicha). 10 ta variant `projects/.../music/preview/M1..M10.mp3` (32 s, -18 LUFS) + `preview_meta.json`. Foydalanuvchi tanlashi kutilmoqda; tanlangach CREDITS.md ga trek yozilsin.
 - Aralash uslub (iboraga `style`) ishlaydi; qoida: `.claude/skills/reels-uslub/SKILL.md`.
+
+### 2026-10-14 (kech) — #01 draft tayyor
+- Spec: `projects/yuksalish-2026-10-14/specs/01.json` -> `python3 scripts/build_reel_k.py <spec> [--scale 1]` (ovoz kesh + miks + render; `scripts/reel_voice.py` faqat ovoz). Draft: `out/reel_01_draft.mp4` (29.1 s, afisha->kino-oltin, musiqa M5). QC toza (-13.8 LUFS, qora kadr yo'q).
+- Foydalanuvchi M2 va M9 dan boshqa musiqani menga qoldirdi (M5 tanlandi). Draft ovoz/talaffuzi foydalanuvchi tomonidan eshitilishi kutilmoqda; keyin `--scale 1` yakuniy.
+- Tuzatilgan xatolar: birinchi 0.5 s qora (endi 0-kadrdan klip), 6-ibora urg'usi, qora budilnik klipi/inglizcha kalendar/ayiqchali klip rad etildi. QOIDA: har klipni kadr bilan tekshir; builder urg'u so'zlarini [qavs] bilan chop etadi — tekshir.
+- Backend har sessiyada o'chadi: `bash scripts/start_voice.sh`; model idle bo'lsa qayta yuklanadi (~1-2 daq).

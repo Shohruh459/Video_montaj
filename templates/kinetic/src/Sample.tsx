@@ -1,8 +1,8 @@
 import React from 'react';
-import {AbsoluteFill, Audio, Easing, Img, OffthreadVideo, Sequence, interpolate, random, staticFile, useCurrentFrame, useVideoConfig, continueRender, delayRender} from 'remotion';
+import {AbsoluteFill, Audio, Internals, Easing, Img, OffthreadVideo, Sequence, interpolate, random, staticFile, useCurrentFrame, useVideoConfig, continueRender, delayRender} from 'remotion';
 
 type W = {t: string; a?: boolean};
-export type LineT = {words: W[]; start: number; dur: number; clip: string; pos?: string; tag?: string; style?: StyleName};
+export type LineT = {words: W[]; start: number; dur: number; clip: string; pos?: string; tag?: string; style?: StyleName; ss?: number; vpos?: 'bottom'};
 export const STYLES = ['kino-oltin', 'split-oyna', 'jurnal', 'neon', 'minimal-oq', 'afisha', 'terminal', 'shisha', 'daftar'] as const;
 export type StyleName = typeof STYLES[number];
 export type SampleProps = {style: StyleName; totalSec: number; audio: string; lines: LineT[]};
@@ -40,11 +40,12 @@ const Grain: React.FC<{opacity: number; blend: string}> = ({opacity, blend}) => 
   </AbsoluteFill>;
 };
 
-const Clip: React.FC<{src: string; pos?: string; zoomFrom?: number; zoomTo?: number; filter?: string; frames: number}> = ({src, pos, zoomFrom = 1.05, zoomTo = 1.18, filter, frames}) => {
+const Clip: React.FC<{src: string; pos?: string; zoomFrom?: number; zoomTo?: number; filter?: string; frames: number; ss?: number}> = ({src, pos, zoomFrom = 1.05, zoomTo = 1.18, filter, frames, ss}) => {
   const f = useCurrentFrame();
+  const {fps} = useVideoConfig();
   const z = interpolate(f, [0, frames], [zoomFrom, zoomTo], clamp);
   return <AbsoluteFill style={{overflow: 'hidden'}}>
-    <OffthreadVideo src={staticFile(src)} muted style={{width: '100%', height: '100%', objectFit: 'cover', objectPosition: pos ?? '50% 50%', transform: `scale(${z})`, filter}} />
+    <OffthreadVideo src={staticFile(src)} muted startFrom={Math.round((ss ?? 0) * fps)} style={{width: '100%', height: '100%', objectFit: 'cover', objectPosition: pos ?? '50% 50%', transform: `scale(${z})`, filter}} />
   </AbsoluteFill>;
 };
 
@@ -79,7 +80,7 @@ const Gold: React.FC<{lines: LineT[]; fps: number}> = ({lines, fps}) => {
         return (
           <Sequence key={i} from={Math.round(l.start * fps)} durationInFrames={fr + 10}>
             <FadeWrap frames={fr + 10}>
-              <Clip src={l.clip} pos={l.pos} frames={fr + 10} filter="brightness(0.62) contrast(1.15) saturate(0.85) sepia(0.28)" />
+              <Clip src={l.clip} pos={l.pos} ss={l.ss} frames={fr + 10} filter="brightness(0.62) contrast(1.15) saturate(0.85) sepia(0.28)" />
             </FadeWrap>
           </Sequence>
         );
@@ -99,6 +100,7 @@ const Gold: React.FC<{lines: LineT[]; fps: number}> = ({lines, fps}) => {
         );
       })}
       <Letterbox />
+      <div style={{position: 'absolute', left: 0, right: 0, bottom: 38, textAlign: 'center', fontFamily: 'YB', fontWeight: 700, fontSize: 30, letterSpacing: 4, color: GOLD, opacity: 0.9}}>@yuksalish713</div>
       <Grain opacity={0.2} blend="overlay" />
     </AbsoluteFill>
   );
@@ -106,7 +108,10 @@ const Gold: React.FC<{lines: LineT[]; fps: number}> = ({lines, fps}) => {
 
 const FadeWrap: React.FC<{frames: number; children: React.ReactNode}> = ({frames, children}) => {
   const f = useCurrentFrame();
-  const o = interpolate(f, [0, 8, frames - 8, frames], [0, 1, 1, 0], clamp);
+  // videoning eng birinchi kadri qora bo'lmasin: 0-kadrdan boshlanadigan klipda fade-in yo'q
+  const seq = React.useContext(Internals.SequenceContext as any) as any;
+  const first = ((seq?.cumulatedFrom ?? 0) + (seq?.relativeFrom ?? 0)) === 0;
+  const o = first ? interpolate(f, [frames - 8, frames], [1, 0], clamp) : interpolate(f, [0, 8, frames - 8, frames], [0, 1, 1, 0], clamp);
   return <AbsoluteFill style={{opacity: o}}>{children}</AbsoluteFill>;
 };
 
@@ -139,7 +144,7 @@ const Split: React.FC<{lines: LineT[]; fps: number; total: number}> = ({lines, f
           return (
             <Sequence key={i} from={st} durationInFrames={fr + 30}>
               <AbsoluteFill style={{clipPath: i === 0 ? undefined : `inset(${wipe}% 0 0 0)`}}>
-                <Clip src={l.clip} pos={l.pos} frames={fr + 30} zoomFrom={1.04} zoomTo={1.14} filter="contrast(1.08) saturate(0.95)" />
+                <Clip src={l.clip} pos={l.pos} ss={l.ss} frames={fr + 30} zoomFrom={1.04} zoomTo={1.14} filter="contrast(1.08) saturate(0.95)" />
               </AbsoluteFill>
             </Sequence>
           );
@@ -192,7 +197,7 @@ const Editorial: React.FC<{lines: LineT[]; fps: number}> = ({lines, fps}) => {
         return (
           <Sequence key={i} from={st} durationInFrames={fr + 8}>
             <FadeWrap frames={fr + 8}>
-              <PhotoCard clip={l.clip} pos={l.pos} frames={fr + 8} rot={rot} />
+              <PhotoCard clip={l.clip} pos={l.pos} ss={l.ss} frames={fr + 8} rot={rot} />
             </FadeWrap>
           </Sequence>
         );
@@ -215,13 +220,13 @@ const Editorial: React.FC<{lines: LineT[]; fps: number}> = ({lines, fps}) => {
   );
 };
 
-const PhotoCard: React.FC<{clip: string; pos?: string; frames: number; rot: number}> = ({clip, pos, frames, rot}) => {
+const PhotoCard: React.FC<{clip: string; pos?: string; frames: number; rot: number; ss?: number}> = ({clip, pos, frames, rot, ss}) => {
   const f = useCurrentFrame();
   const pop = interpolate(f, [0, 14], [0, 1], {...clamp, easing: Easing.out(Easing.back(1.4))});
   return (
     <div style={{position: 'absolute', left: 130, top: 230, width: 820, height: 800, transform: `rotate(${rot * pop}deg) scale(${0.92 + 0.08 * pop})`, background: '#f3ead8', padding: 16, boxShadow: '0 30px 70px rgba(0,0,0,0.7)'}}>
       <div style={{position: 'relative', width: '100%', height: '100%', overflow: 'hidden'}}>
-        <Clip src={clip} pos={pos} frames={frames} zoomFrom={1.05} zoomTo={1.16} filter="grayscale(1) contrast(1.25) brightness(0.9) sepia(0.12)" />
+        <Clip src={clip} pos={pos} ss={ss} frames={frames} zoomFrom={1.05} zoomTo={1.16} filter="grayscale(1) contrast(1.25) brightness(0.9) sepia(0.12)" />
       </div>
       <div style={{position: 'absolute', left: '38%', top: -22, width: 190, height: 46, background: 'rgba(232,85,61,0.82)', transform: 'rotate(-3deg)', opacity: 0.9}} />
     </div>
@@ -241,7 +246,7 @@ const Neon: React.FC<{lines: LineT[]; fps: number}> = ({lines, fps}) => {
         return (
           <Sequence key={i} from={Math.round(l.start * fps)} durationInFrames={fr + 8}>
             <FadeWrap frames={fr + 8}>
-              <Clip src={l.clip} pos={l.pos} frames={fr + 8} zoomFrom={1.04} zoomTo={1.2} filter="grayscale(0.7) contrast(1.35) brightness(0.55)" />
+              <Clip src={l.clip} pos={l.pos} ss={l.ss} frames={fr + 8} zoomFrom={1.04} zoomTo={1.2} filter="grayscale(0.7) contrast(1.35) brightness(0.55)" />
             </FadeWrap>
           </Sequence>
         );
@@ -342,7 +347,7 @@ const MinCard: React.FC<{l: LineT; frames: number}> = ({l, frames}) => {
   const o = interpolate(f, [frames - 8, frames], [1, 0], clamp);
   return (
     <div style={{position: 'absolute', left: 70, top: 190, width: 940, height: 880, borderRadius: 52, overflow: 'hidden', opacity: o * p, transform: `translateY(${(1 - p) * 60}px) scale(${0.96 + 0.04 * p})`, boxShadow: '0 40px 80px rgba(60,40,10,0.28)'}}>
-      <Clip src={l.clip} pos={l.pos} frames={frames} zoomFrom={1.05} zoomTo={1.15} filter="saturate(0.9) contrast(1.05) brightness(1.02)" />
+      <Clip src={l.clip} pos={l.pos} ss={l.ss} frames={frames} zoomFrom={1.05} zoomTo={1.15} filter="saturate(0.9) contrast(1.05) brightness(1.02)" />
     </div>
   );
 };
@@ -378,7 +383,7 @@ const Afisha: React.FC<{lines: LineT[]; fps: number}> = ({lines, fps}) => {
         return (
           <Sequence key={i} from={Math.round(l.start * fps)} durationInFrames={fr + 8}>
             <FadeWrap frames={fr + 8}>
-              <Clip src={l.clip} pos={l.pos} frames={fr + 8} zoomFrom={1.08} zoomTo={1.22} filter="grayscale(1) contrast(1.3) brightness(0.55)" />
+              <Clip src={l.clip} pos={l.pos} ss={l.ss} frames={fr + 8} zoomFrom={1.08} zoomTo={1.22} filter="grayscale(1) contrast(1.3) brightness(0.55)" />
             </FadeWrap>
           </Sequence>
         );
@@ -411,7 +416,7 @@ const AfishaRows: React.FC<{l: LineT; frames: number}> = ({l, frames}) => {
   if (cur.length) rows.push(cur);
   const out = interpolate(f, [frames - 7, frames], [1, 0], clamp);
   return (
-    <AbsoluteFill style={{justifyContent: 'center', padding: '0 80px', opacity: out}}>
+    <AbsoluteFill style={{justifyContent: l.vpos === 'bottom' ? 'flex-end' : 'center', padding: l.vpos === 'bottom' ? '0 80px 300px' : '0 80px', opacity: out}}>
       {rows.map((r, ri) => {
         const chars = r.reduce((a, x) => a + x.w.t.length + 1, 0) - 1;
         const size = Math.min(170, Math.floor(920 / (chars * 0.7)));
@@ -447,7 +452,7 @@ const Terminal: React.FC<{lines: LineT[]; fps: number}> = ({lines, fps}) => {
         return (
           <Sequence key={i} from={Math.round(l.start * fps)} durationInFrames={fr + 8}>
             <FadeWrap frames={fr + 8}>
-              <Clip src={l.clip} pos={l.pos} frames={fr + 8} zoomFrom={1.05} zoomTo={1.15} filter="grayscale(1) brightness(0.32) contrast(1.2) sepia(0.6) hue-rotate(60deg) saturate(1.8)" />
+              <Clip src={l.clip} pos={l.pos} ss={l.ss} frames={fr + 8} zoomFrom={1.05} zoomTo={1.15} filter="grayscale(1) brightness(0.32) contrast(1.2) sepia(0.6) hue-rotate(60deg) saturate(1.8)" />
             </FadeWrap>
           </Sequence>
         );
@@ -501,7 +506,7 @@ const Shisha: React.FC<{lines: LineT[]; fps: number}> = ({lines, fps}) => {
         return (
           <Sequence key={i} from={Math.round(l.start * fps)} durationInFrames={fr + 10}>
             <FadeWrap frames={fr + 10}>
-              <Clip src={l.clip} pos={l.pos} frames={fr + 10} zoomFrom={1.04} zoomTo={1.2} filter="saturate(1.25) contrast(1.05) brightness(0.9)" />
+              <Clip src={l.clip} pos={l.pos} ss={l.ss} frames={fr + 10} zoomFrom={1.04} zoomTo={1.2} filter="saturate(1.25) contrast(1.05) brightness(0.9)" />
             </FadeWrap>
           </Sequence>
         );
@@ -559,7 +564,7 @@ const Daftar: React.FC<{lines: LineT[]; fps: number}> = ({lines, fps}) => {
             <FadeWrap frames={fr + 8}>
               <div style={{position: 'absolute', left: 190, top: 200, width: 720, height: 700, transform: `rotate(${i % 2 ? 2.4 : -2.2}deg)`, background: '#fff', padding: 18, boxShadow: '0 22px 50px rgba(60,40,10,0.35)'}}>
                 <div style={{width: '100%', height: '100%', position: 'relative', overflow: 'hidden'}}>
-                  <Clip src={l.clip} pos={l.pos} frames={fr + 8} zoomFrom={1.05} zoomTo={1.15} filter="contrast(1.05) saturate(0.95)" />
+                  <Clip src={l.clip} pos={l.pos} ss={l.ss} frames={fr + 8} zoomFrom={1.05} zoomTo={1.15} filter="contrast(1.05) saturate(0.95)" />
                 </div>
                 <div style={{position: 'absolute', left: '34%', top: -26, width: 200, height: 52, background: 'rgba(250,204,21,0.78)', transform: 'rotate(-2deg)'}} />
               </div>
