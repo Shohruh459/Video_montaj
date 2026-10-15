@@ -1,0 +1,229 @@
+{
+ "id": "06",
+ "title": "Charchoqni bahona qilish",
+ "base_style": "harakat",
+ "handle": "@yuksalish713",
+ "music": {
+  "src": "/tmp/music/raw/s14_r10_piano-torlar-aks.wav",
+  "ss": 20,
+  "rel_db": -20,
+  "note": "HF mrfakename/cc0-music-captioned 14:10 (piano+torlar, o'ychan; M3)"
+ },
+ "phrases": [
+  {
+   "say": "Charchadingiz.",
+   "show": "Charchadingiz.",
+   "acc": [
+    0
+   ],
+   "pause": 0.5,
+   "style": "harakat",
+   "clip": "",
+   "ss": 0,
+   "pos": "50% 50%"
+  },
+  {
+   "say": "Haqiqatan ham charchadingiz.",
+   "show": "Haqiqatan ham charchadingiz.",
+   "acc": [
+    2
+   ],
+   "pause": 0.75,
+   "style": "harakat",
+   "clip": "",
+   "ss": 0,
+   "pos": "50% 50%"
+  },
+  {
+   "say": "Lekin baʼzan charchoq dam olish emas,",
+   "show": "Lekin baʼzan charchoq dam olish emas,",
+   "acc": [
+    3,
+    4
+   ],
+   "pause": 0.35,
+   "style": "harakat",
+   "clip": "",
+   "ss": 0,
+   "pos": "50% 50%"
+  },
+  {
+   "say": "toʻxtab qolish uchun bahona boʻladi.",
+   "show": "toʻxtab qolish uchun bahona boʻladi.",
+   "acc": [
+    3
+   ],
+   "pause": 0.8,
+   "style": "harakat",
+   "clip": "",
+   "ss": 0,
+   "pos": "50% 50%"
+  },
+  {
+   "say": "Savol shu: dam olayapsizmi, yoki qochayapsizmi?",
+   "show": "Savol shu: dam olayapsizmi, yoki qochayapsizmi?",
+   "acc": [
+    3,
+    5
+   ],
+   "pause": 0.7,
+   "style": "harakat",
+   "clip": "",
+   "ss": 0,
+   "pos": "50% 50%"
+  },
+  {
+   "say": "Agar qochayotgan boʻlsangiz, kichik harakat qiling.",
+   "show": "Agar qochayotgan boʻlsangiz — kichik harakat qiling.",
+   "acc": [
+    4,
+    5
+   ],
+   "pause": 0.4,
+   "style": "harakat",
+   "clip": "",
+   "ss": 0,
+   "pos": "50% 50%"
+  },
+  {
+   "say": "Hatto oʻn daqiqa boʻlsa ham.",
+   "show": "Hatto oʻn daqiqa boʻlsa ham.",
+   "acc": [
+    1,
+    2
+   ],
+   "pause": 0.6,
+   "style": "harakat",
+   "clip": "",
+   "ss": 0,
+   "pos": "50% 50%"
+  },
+  {
+   "say": "Charchoqni inkor qilmang, unga taslim ham boʻlmang.",
+   "show": "Charchoqni inkor qilmang, unga taslim ham boʻlmang.",
+   "acc": [
+    1,
+    4
+   ],
+   "pause": 0.6,
+   "style": "harakat",
+   "clip": "",
+   "ss": 0,
+   "pos": "50% 50%"
+  },
+  {
+   "say": "Agar u haftalab davom etsa, mutaxassisga koʻrining.",
+   "show": "Agar u haftalab davom etsa — mutaxassisga koʻrining.",
+   "acc": [
+    2,
+    6
+   ],
+   "pause": 0.7,
+   "style": "harakat",
+   "clip": "",
+   "ss": 0,
+   "pos": "50% 50%"
+  },
+  {
+   "say": "Hozir dam olyapsizmi yoki qochyapsizmi?",
+   "show": "Hozir dam olyapsizmi yoki qochyapsizmi?",
+   "acc": [
+    2,
+    4
+   ],
+   "pause": 0.0,
+   "style": "harakat",
+   "clip": "",
+   "ss": 0,
+   "pos": "50% 50%"
+  }
+ ],
+ "scenes": [
+  {
+   "kind": "battery",
+   "from_p": 0,
+   "to_p": 1,
+   "to_extra": 0.3
+  },
+  {
+   "kind": "flip",
+   "from_p": 2,
+   "to_p": 3,
+   "to_extra": 0.3,
+   "flipAt": {
+    "p": 3,
+    "dt": 0.3
+   }
+  },
+  {
+   "kind": "choice",
+   "from_p": 4,
+   "to_p": 4,
+   "to_extra": 0.4,
+   "calm": {
+    "p": 4,
+    "frac": 0.5
+   },
+   "run": {
+    "p": 4,
+    "frac": 0.85
+   }
+  },
+  {
+   "kind": "timer",
+   "from_p": 5,
+   "to_p": 6,
+   "to_extra": 0.4,
+   "start": {
+    "p": 5,
+    "dt": 0.8
+   }
+  },
+  {
+   "kind": "middle",
+   "from_p": 7,
+   "to_p": 7,
+   "to_extra": 0.4
+  },
+  {
+   "kind": "week",
+   "from_p": 8,
+   "to_p": 8,
+   "to_extra": 0.4,
+   "start": {
+    "p": 8,
+    "dt": 0.55
+   },
+   "cross": {
+    "p": 8,
+    "frac": 0.7
+   }
+  },
+  {
+   "kind": "panorama",
+   "from_p": 9,
+   "hi": 5,
+   "titles": [
+    "OʻZINI ALDASH",
+    "AFSUSLANISH",
+    "YIQILISH",
+    "MAQTOV",
+    "YOLGʻIZLIK",
+    "CHARCHOQ",
+    "TANQID",
+    "TAYYOR EMAS",
+    "NATIJA",
+    "VAʼDALAR",
+    "SOLISHTIRISH",
+    "BILISH ≠ HARAKAT"
+   ]
+  }
+ ],
+ "sfx": [
+  {
+   "t": 0.1,
+   "k": "thud",
+   "db": -3
+  }
+ ]
+}

@@ -5,7 +5,7 @@ type W = {t: string; a?: boolean};
 export type LineT = {words: W[]; start: number; dur: number; clip: string; pos?: string; tag?: string; style?: StyleName; ss?: number; vpos?: 'bottom'};
 export const STYLES = ['kino-oltin', 'split-oyna', 'jurnal', 'neon', 'minimal-oq', 'afisha', 'terminal', 'shisha', 'daftar', 'harakat'] as const;
 export type StyleName = typeof STYLES[number];
-export type SceneT = {kind: 'days' | 'back' | 'stop' | 'task' | 'panorama' | 'fall' | 'plan' | 'zero' | 'fork' | 'bounce' | 'wave'; start: number; dur: number; p?: any};
+export type SceneT = {kind: 'days' | 'back' | 'stop' | 'task' | 'panorama' | 'fall' | 'plan' | 'zero' | 'fork' | 'bounce' | 'wave' | 'battery' | 'flip' | 'choice' | 'timer' | 'middle' | 'week'; start: number; dur: number; p?: any};
 export type SampleProps = {style: StyleName; totalSec: number; audio: string; lines: LineT[]; scenes?: SceneT[]};
 const LEGACY: Record<string, StyleName> = {gold: 'kino-oltin', split: 'split-oyna', editorial: 'jurnal'};
 
@@ -619,6 +619,7 @@ const RED2 = '#FF4D4D';
 const c01 = (x: number) => Math.max(0, Math.min(1, x));
 const eIO = (x: number) => (x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2);
 const eO = (x: number) => 1 - Math.pow(1 - x, 3);
+const bnc = (x: number) => (x <= 0 ? 0 : x >= 1 ? 1 : 1 - Math.pow(1 - x, 3) * Math.cos(x * Math.PI * 3.2));
 
 const Harakat: React.FC<{lines: LineT[]; fps: number}> = ({lines, fps}) => {
   const f = useCurrentFrame();
@@ -678,6 +679,12 @@ const SceneLayer: React.FC<{scenes: SceneT[]; fps: number}> = ({scenes, fps}) =>
             {sc.kind === 'fork' && <ForkScene p={sc.p} />}
             {sc.kind === 'bounce' && <BounceScene p={sc.p} />}
             {sc.kind === 'wave' && <WaveScene p={sc.p} />}
+            {sc.kind === 'battery' && <BatteryScene p={sc.p} />}
+            {sc.kind === 'flip' && <FlipScene p={sc.p} />}
+            {sc.kind === 'choice' && <ChoiceScene p={sc.p} />}
+            {sc.kind === 'timer' && <TimerScene p={sc.p} />}
+            {sc.kind === 'middle' && <MiddleScene />}
+            {sc.kind === 'week' && <WeekScene p={sc.p} />}
           </SceneFade>
         </Sequence>
       );
@@ -948,6 +955,118 @@ const WaveScene: React.FC<{p: {quote: string; talkFrom: number; talkTo: number}}
         {Array.from({length: 33}, (_, i) => { const env = talking ? 0.25 + 0.75 * Math.abs(Math.sin(t * 9 + i * 0.7)) * (0.5 + 0.5 * random(`w${Math.floor(f / 2)}_${i}`)) : 0.06; const mid = 1 - Math.abs(i - 16) / 18; return <div key={i} style={{width: 14, height: 210 * env * (0.35 + 0.65 * mid), borderRadius: 7, background: talking ? GOLD : 'rgba(255,255,255,0.4)'}} />; })}
       </div>
       <div style={{position: 'absolute', left: 90, right: 90, top: 930, textAlign: 'center', fontFamily: 'YB', fontWeight: 700, fontSize: 78, color: '#fff', lineHeight: 1.15, textShadow: '0 4px 20px rgba(0,0,0,0.6)'}}>“{p.quote.slice(0, nChars)}<span style={{opacity: 0.35}}>{p.quote.slice(nChars)}</span>”</div>
+    </AbsoluteFill>
+  );
+};
+
+
+// ───────────────── #06 sahnalari: batareya / aylanuvchi kartochka / tanlov / taymer / muvozanat / hafta ─────────────────
+const BatteryScene: React.FC<{p: {dur: number}}> = ({p}) => {
+  const f = useCurrentFrame(); const {fps} = useVideoConfig(); const t = f / fps; const a = eO(c01(t / 0.4));
+  const pct = 100 - 92 * eIO(c01(t / (p.dur * 0.85))); const low = pct < 22; const col = pct > 45 ? GOLD : pct > 22 ? '#FF9F43' : RED2;
+  const flick = low ? (Math.floor(t * 8) % 2 ? 1 : 0.55) : 1; const shake = low ? Math.sin(t * 40) * 3 : 0;
+  return (
+    <AbsoluteFill style={{opacity: a}}>
+      <div style={{position: 'absolute', left: 0, right: 0, top: 260, textAlign: 'center', fontFamily: 'YB', fontWeight: 700, fontSize: 36, letterSpacing: 12, color: 'rgba(255,255,255,0.6)'}}>ENERGIYA</div>
+      <div style={{position: 'absolute', left: 540 - 290 + shake, top: 440, width: 560, height: 280, borderRadius: 48, boxSizing: 'border-box', border: `14px solid ${low ? RED2 : '#fff'}`, boxShadow: low ? `0 0 ${60 * flick}px rgba(255,77,77,0.6)` : 'none', padding: 16}}>
+        <div style={{width: `${Math.max(4, pct)}%`, height: '100%', borderRadius: 24, background: col, opacity: flick, boxShadow: `0 0 40px ${col}`}} />
+      </div>
+      <div style={{position: 'absolute', left: 540 + 290 + shake, top: 520, width: 44, height: 120, borderRadius: '0 22px 22px 0', background: low ? RED2 : '#fff'}} />
+      <div style={{position: 'absolute', left: 0, right: 0, top: 790, textAlign: 'center', fontFamily: 'YB', fontWeight: 700, fontSize: 190, color: col, opacity: flick, textShadow: `0 0 50px ${col}`}}>{Math.round(pct)}%</div>
+    </AbsoluteFill>
+  );
+};
+
+const FlipScene: React.FC<{p: {flipAt: number}}> = ({p}) => {
+  const f = useCurrentFrame(); const {fps} = useVideoConfig(); const t = f / fps; const a = eO(c01(t / 0.4));
+  const k = eIO(c01((t - p.flipAt) / 0.55)); const rot = 180 * k; const lift = Math.sin(Math.PI * k) * 110;
+  const face = (bg: string, bd: string): React.CSSProperties => ({position: 'absolute', inset: 0, borderRadius: 48, background: bg, border: `8px solid ${bd}`, backfaceVisibility: 'hidden', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', boxShadow: `0 0 70px ${bd}55`});
+  return (
+    <AbsoluteFill style={{opacity: a, perspective: 1600}}>
+      <div style={{position: 'absolute', left: 170, top: 430, width: 740, height: 560, transformStyle: 'preserve-3d', transform: `translateZ(${lift}px) rotateY(${rot}deg)`}}>
+        <div style={face('linear-gradient(160deg, rgba(40,55,90,0.85), rgba(20,25,45,0.9))', GOLD)}>
+          <div style={{fontFamily: 'YB', fontWeight: 700, fontSize: 200, color: GOLD, lineHeight: 1}}>☾</div>
+          <div style={{fontFamily: 'YB', fontWeight: 700, fontSize: 84, color: '#fff', letterSpacing: 4, marginTop: 10}}>DAM OLISH</div>
+        </div>
+        <div style={{...face('linear-gradient(160deg, rgba(90,25,25,0.9), rgba(40,10,10,0.92))', RED2), transform: 'rotateY(180deg)'}}>
+          <div style={{fontFamily: 'YB', fontWeight: 700, fontSize: 190, color: RED2, lineHeight: 1}}>⚠</div>
+          <div style={{fontFamily: 'YB', fontWeight: 700, fontSize: 96, color: '#fff', letterSpacing: 4, marginTop: 10}}>BAHONA</div>
+        </div>
+      </div>
+    </AbsoluteFill>
+  );
+};
+
+const ChoiceScene: React.FC<{p: {calm: number; run: number}}> = ({p}) => {
+  const f = useCurrentFrame(); const {fps} = useVideoConfig(); const t = f / fps; const a = eO(c01(t / 0.4));
+  const lc = t >= p.calm && t < p.run ? 1 : 0, rc = t >= p.run ? 1 : 0;
+  const card = (x: number, on: number, col: string, icon: string, label: string, dx: number) => (
+    <div style={{position: 'absolute', left: x, top: 480, width: 430, height: 520, borderRadius: 44, boxSizing: 'border-box', border: `8px solid ${on ? col : 'rgba(255,255,255,0.25)'}`, background: on ? `${col}26` : 'rgba(255,255,255,0.06)', boxShadow: on ? `0 0 80px ${col}88` : 'none', transform: `scale(${on ? 1.06 : 0.97}) translateX(${dx}px)`, opacity: on ? 1 : 0.6, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 26}}>
+      <div style={{fontFamily: 'YB', fontWeight: 700, fontSize: 190, color: col, lineHeight: 1}}>{icon}</div>
+      <div style={{fontFamily: 'YB', fontWeight: 700, fontSize: 52, color: '#fff', letterSpacing: 2, textAlign: 'center'}}>{label}</div>
+    </div>
+  );
+  return (
+    <AbsoluteFill style={{opacity: a}}>
+      <div style={{position: 'absolute', left: 0, right: 0, top: 250, textAlign: 'center', fontFamily: 'YB', fontWeight: 700, fontSize: 170, color: GOLD, transform: `scale(${1 + 0.06 * Math.sin(t * 5)})`, textShadow: '0 0 50px rgba(242,184,75,0.6)'}}>?</div>
+      {card(70, lc, GOLD, '☾', 'DAM OLYAPMAN', 0)}
+      {card(580, rc, RED2, '➜', 'QOCHYAPMAN', rc ? Math.sin(t * 30) * 4 : 0)}
+    </AbsoluteFill>
+  );
+};
+
+const TimerScene: React.FC<{p: {start: number}}> = ({p}) => {
+  const f = useCurrentFrame(); const {fps} = useVideoConfig(); const t = f / fps; const a = eO(c01(t / 0.4));
+  const k = eIO(c01((t - p.start) / 2.2)); const R = 250, C = 2 * Math.PI * R; const secs = 600 - Math.floor(k * 60); const done = k >= 1;
+  const mm = String(Math.floor(secs / 60)).padStart(2, '0'), ss = String(secs % 60).padStart(2, '0');
+  return (
+    <AbsoluteFill style={{opacity: a}}>
+      <svg width="700" height="700" viewBox="0 0 700 700" style={{position: 'absolute', left: 190, top: 330}}>
+        <circle cx="350" cy="350" r={R} fill="none" stroke="rgba(255,255,255,0.14)" strokeWidth="26" />
+        <circle cx="350" cy="350" r={R} fill="none" stroke={done ? '#4ADE80' : GOLD} strokeWidth="26" strokeLinecap="round" strokeDasharray={C} strokeDashoffset={C * (1 - k)} transform="rotate(-90 350 350)" style={{filter: `drop-shadow(0 0 22px ${done ? '#4ADE80' : GOLD})`}} />
+      </svg>
+      <div style={{position: 'absolute', left: 190, top: 330, width: 700, height: 700, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
+        <div style={{fontFamily: 'YM', fontWeight: 700, fontSize: 150, color: done ? '#4ADE80' : '#fff', lineHeight: 1}}>{mm}:{ss}</div>
+        <div style={{fontFamily: 'YB', fontWeight: 700, fontSize: 38, letterSpacing: 8, color: 'rgba(255,255,255,0.6)', marginTop: 22}}>{done ? 'BOSHLADINGIZ' : '10 DAQIQA'}</div>
+      </div>
+    </AbsoluteFill>
+  );
+};
+
+const MiddleScene: React.FC = () => {
+  const f = useCurrentFrame(); const {fps} = useVideoConfig(); const t = f / fps; const a = eO(c01(t / 0.4)); const sway = Math.sin(t * 2.4) * 70;
+  const wall = (x: number, label: string, side: number) => (
+    <>
+      <div style={{position: 'absolute', left: x, top: 470, width: 30, height: 460, borderRadius: 15, background: RED2, boxShadow: `0 0 ${30 + 14 * Math.sin(t * 6 + side)}px ${RED2}`}} />
+      <div style={{position: 'absolute', left: x - 120 + 15, top: 390, width: 260, textAlign: 'center', fontFamily: 'YB', fontWeight: 700, fontSize: 52, color: RED2, letterSpacing: 4}}>{label}</div>
+    </>
+  );
+  return (
+    <AbsoluteFill style={{opacity: a}}>
+      {wall(140, 'INKOR', 0)}{wall(910, 'TASLIM', 3)}
+      <div style={{position: 'absolute', left: 190, top: 698, width: 700, height: 6, borderRadius: 3, background: 'rgba(255,255,255,0.18)'}} />
+      <Ball x={540 + sway} y={700} r={52} />
+      <div style={{position: 'absolute', left: 540 + sway - 60, top: 800, width: 120, textAlign: 'center', fontFamily: 'YB', fontWeight: 700, fontSize: 36, letterSpacing: 6, color: '#fff'}}>SIZ</div>
+    </AbsoluteFill>
+  );
+};
+
+const WeekScene: React.FC<{p: {start: number; cross: number}}> = ({p}) => {
+  const f = useCurrentFrame(); const {fps} = useVideoConfig(); const t = f / fps; const a = eO(c01(t / 0.4));
+  const D = ['D', 'S', 'CH', 'P', 'J', 'SH', 'Y']; const cr = bnc(c01((t - p.cross) / 0.5));
+  return (
+    <AbsoluteFill style={{opacity: a}}>
+      <div style={{position: 'absolute', left: 0, right: 0, top: 290, textAlign: 'center', fontFamily: 'YB', fontWeight: 700, fontSize: 38, letterSpacing: 10, color: 'rgba(255,255,255,0.6)'}}>BIR HAFTA</div>
+      <div style={{position: 'absolute', left: 50, right: 50, top: 400, display: 'flex', justifyContent: 'space-between'}}>
+        {D.map((d, i) => { const on = c01((t - (p.start + i * 0.17)) / 0.2); return <div key={i} style={{width: 124, height: 124, borderRadius: 62, boxSizing: 'border-box', border: `6px solid ${on > 0 ? RED2 : 'rgba(255,255,255,0.3)'}`, background: on > 0 ? `rgba(255,77,77,${0.25 + 0.25 * on})` : 'transparent', boxShadow: on > 0 ? '0 0 30px rgba(255,77,77,0.6)' : 'none', color: on > 0 ? '#fff' : 'rgba(255,255,255,0.6)', fontFamily: 'YB', fontWeight: 700, fontSize: d.length > 1 ? 40 : 52, display: 'flex', alignItems: 'center', justifyContent: 'center', transform: `scale(${1 + 0.15 * Math.sin(Math.PI * on)})`}}>{d}</div>; })}
+      </div>
+      <div style={{position: 'absolute', left: 540 - 150, top: 640, width: 300, height: 300, borderRadius: 150, background: 'rgba(255,255,255,0.08)', border: `8px solid ${GOLD}`, boxShadow: `0 0 ${70 * cr}px rgba(242,184,75,0.7)`, transform: `scale(${cr})`, opacity: c01(cr * 2), display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+        <div style={{position: 'relative', width: 160, height: 160}}>
+          <div style={{position: 'absolute', left: 56, top: 0, width: 48, height: 160, borderRadius: 14, background: GOLD}} />
+          <div style={{position: 'absolute', left: 0, top: 56, width: 160, height: 48, borderRadius: 14, background: GOLD}} />
+        </div>
+      </div>
+      <div style={{position: 'absolute', left: 0, right: 0, top: 970, textAlign: 'center', fontFamily: 'YB', fontWeight: 700, fontSize: 44, letterSpacing: 8, color: GOLD, opacity: c01(cr * 2)}}>MUTAXASSIS</div>
     </AbsoluteFill>
   );
 };

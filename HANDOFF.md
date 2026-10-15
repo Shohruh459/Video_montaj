@@ -115,3 +115,8 @@ Pixabay'da Song Plus'ning o'zi ehtimol yo'q → umumiy elektromobil kadrlari; an
 ### 2026-10-15 — #03 tasdiqlandi va yakuniy chiqarildi
 - #03: `out/reel_03_final.mp4` (1080x1920, 32.2 s, -13.7 LUFS, TP -1.5, QC toza). Foydalanuvchi: "tushunarli, yetib boradigan, ajoyib". #01 va #03 izohlari `captions/01.md`, `captions/03.md`.
 - Foydalanuvchi #01 va #03 ni Instagramga yuklaydi, keyin montajni davom ettiramiz. Navbat: #06, #10, #12, #08 (mavzuga mos yangi sahnalar, avval namuna).
+
+### 2026-10-15 — #06 draft
+- #06 `specs/06.json` -> `out/reel_06_draft.mp4` (31.7 s, QC toza). Yangi sahnalar: battery, flip (3D aylanuvchi kartochka), choice, timer, middle, week. Izoh `captions/06.md`. Musiqa M3 (piano+torlar). Tasdiq kutilmoqda; tekshirilmagan: "baʼzan" (tutuq ʼ) talaffuzi ovozda.
+- Ovoz serveri paytida 400/429 berishi mumkin (model qayta yuklanayotganda yoki parallel so'rovlar). `bash scripts/voice_retry.sh <spec>` avtomatik qayta urinadi. Hech qachon backendga qo'lda parallel test so'rov yuborma (navbat to'lib 429 beradi).
+- Navbat: #10, #12, #08, #02, #07, #11, #04, #09, #05.

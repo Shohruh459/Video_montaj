@@ -1,0 +1,365 @@
+{
+ "style": "harakat",
+ "totalSec": 31.65,
+ "audio": "reel06_mix.wav",
+ "lines": [
+  {
+   "words": [
+    {
+     "t": "Charchadingiz.",
+     "a": true
+    }
+   ],
+   "start": 0,
+   "dur": 1.7,
+   "clip": "",
+   "pos": "50% 50%",
+   "ss": 0,
+   "tag": "",
+   "style": "harakat"
+  },
+  {
+   "words": [
+    {
+     "t": "Haqiqatan"
+    },
+    {
+     "t": "ham"
+    },
+    {
+     "t": "charchadingiz.",
+     "a": true
+    }
+   ],
+   "start": 2.05,
+   "dur": 2.12,
+   "clip": "",
+   "pos": "50% 50%",
+   "ss": 0,
+   "tag": "",
+   "style": "harakat"
+  },
+  {
+   "words": [
+    {
+     "t": "Lekin"
+    },
+    {
+     "t": "baʼzan"
+    },
+    {
+     "t": "charchoq"
+    },
+    {
+     "t": "dam",
+     "a": true
+    },
+    {
+     "t": "olish",
+     "a": true
+    },
+    {
+     "t": "emas,"
+    }
+   ],
+   "start": 4.77,
+   "dur": 2.47,
+   "clip": "",
+   "pos": "50% 50%",
+   "ss": 0,
+   "tag": "",
+   "style": "harakat"
+  },
+  {
+   "words": [
+    {
+     "t": "toʻxtab"
+    },
+    {
+     "t": "qolish"
+    },
+    {
+     "t": "uchun"
+    },
+    {
+     "t": "bahona",
+     "a": true
+    },
+    {
+     "t": "boʻladi."
+    }
+   ],
+   "start": 7.44,
+   "dur": 2.44,
+   "clip": "",
+   "pos": "50% 50%",
+   "ss": 0,
+   "tag": "",
+   "style": "harakat"
+  },
+  {
+   "words": [
+    {
+     "t": "Savol"
+    },
+    {
+     "t": "shu:"
+    },
+    {
+     "t": "dam"
+    },
+    {
+     "t": "olayapsizmi,",
+     "a": true
+    },
+    {
+     "t": "yoki"
+    },
+    {
+     "t": "qochayapsizmi?",
+     "a": true
+    }
+   ],
+   "start": 10.53,
+   "dur": 2.95,
+   "clip": "",
+   "pos": "50% 50%",
+   "ss": 0,
+   "tag": "",
+   "style": "harakat"
+  },
+  {
+   "words": [
+    {
+     "t": "Agar"
+    },
+    {
+     "t": "qochayotgan"
+    },
+    {
+     "t": "boʻlsangiz"
+    },
+    {
+     "t": "—"
+    },
+    {
+     "t": "kichik",
+     "a": true
+    },
+    {
+     "t": "harakat",
+     "a": true
+    },
+    {
+     "t": "qiling."
+    }
+   ],
+   "start": 14.03,
+   "dur": 3.29,
+   "clip": "",
+   "pos": "50% 50%",
+   "ss": 0,
+   "tag": "",
+   "style": "harakat"
+  },
+  {
+   "words": [
+    {
+     "t": "Hatto"
+    },
+    {
+     "t": "oʻn",
+     "a": true
+    },
+    {
+     "t": "daqiqa",
+     "a": true
+    },
+    {
+     "t": "boʻlsa"
+    },
+    {
+     "t": "ham."
+    }
+   ],
+   "start": 17.57,
+   "dur": 2.19,
+   "clip": "",
+   "pos": "50% 50%",
+   "ss": 0,
+   "tag": "",
+   "style": "harakat"
+  },
+  {
+   "words": [
+    {
+     "t": "Charchoqni"
+    },
+    {
+     "t": "inkor",
+     "a": true
+    },
+    {
+     "t": "qilmang,"
+    },
+    {
+     "t": "unga"
+    },
+    {
+     "t": "taslim",
+     "a": true
+    },
+    {
+     "t": "ham"
+    },
+    {
+     "t": "boʻlmang."
+    }
+   ],
+   "start": 20.21,
+   "dur": 3.27,
+   "clip": "",
+   "pos": "50% 50%",
+   "ss": 0,
+   "tag": "",
+   "style": "harakat"
+  },
+  {
+   "words": [
+    {
+     "t": "Agar"
+    },
+    {
+     "t": "u"
+    },
+    {
+     "t": "haftalab",
+     "a": true
+    },
+    {
+     "t": "davom"
+    },
+    {
+     "t": "etsa"
+    },
+    {
+     "t": "—"
+    },
+    {
+     "t": "mutaxassisga",
+     "a": true
+    },
+    {
+     "t": "koʻrining."
+    }
+   ],
+   "start": 23.93,
+   "dur": 3.29,
+   "clip": "",
+   "pos": "50% 50%",
+   "ss": 0,
+   "tag": "",
+   "style": "harakat"
+  },
+  {
+   "words": [
+    {
+     "t": "Hozir"
+    },
+    {
+     "t": "dam"
+    },
+    {
+     "t": "olyapsizmi",
+     "a": true
+    },
+    {
+     "t": "yoki"
+    },
+    {
+     "t": "qochyapsizmi?",
+     "a": true
+    }
+   ],
+   "start": 27.77,
+   "dur": 2.63,
+   "clip": "",
+   "pos": "50% 50%",
+   "ss": 0,
+   "tag": "",
+   "style": "harakat"
+  }
+ ],
+ "scenes": [
+  {
+   "kind": "battery",
+   "start": 0,
+   "dur": 4.32,
+   "p": {
+    "dur": 4.32
+   }
+  },
+  {
+   "kind": "flip",
+   "start": 4.62,
+   "dur": 5.41,
+   "p": {
+    "flipAt": 3.12
+   }
+  },
+  {
+   "kind": "choice",
+   "start": 10.38,
+   "dur": 3.35,
+   "p": {
+    "calm": 1.55,
+    "run": 2.53
+   }
+  },
+  {
+   "kind": "timer",
+   "start": 13.88,
+   "dur": 6.13,
+   "p": {
+    "start": 0.95
+   }
+  },
+  {
+   "kind": "middle",
+   "start": 20.06,
+   "dur": 3.67,
+   "p": {}
+  },
+  {
+   "kind": "week",
+   "start": 23.78,
+   "dur": 3.69,
+   "p": {
+    "start": 0.7,
+    "cross": 2.348
+   }
+  },
+  {
+   "kind": "panorama",
+   "start": 27.62,
+   "dur": 4.03,
+   "p": {
+    "titles": [
+     "OʻZINI ALDASH",
+     "AFSUSLANISH",
+     "YIQILISH",
+     "MAQTOV",
+     "YOLGʻIZLIK",
+     "CHARCHOQ",
+     "TANQID",
+     "TAYYOR EMAS",
+     "NATIJA",
+     "VAʼDALAR",
+     "SOLISHTIRISH",
+     "BILISH ≠ HARAKAT"
+    ],
+    "hi": 5
+   }
+  }
+ ]
+}

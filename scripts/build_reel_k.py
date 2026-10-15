@@ -109,6 +109,19 @@ for sc in spec.get("scenes", []):
     elif sc["kind"] == "wave":
         tf, tt = T(sc["talkFrom"]), T(sc["talkTo"]); P = {"quote": sc["quote"], "talkFrom": round(tf - s0, 3), "talkTo": round(tt - s0, 3)}
         events += [{"t": tf - 0.05, "k": "tick"}, {"t": tt + 0.1, "k": "chime", "db": -4}]
+    elif sc["kind"] == "battery":
+        P = {"dur": round(s1 - s0, 3)}; d = s1 - s0
+        events += [{"t": s0 + d * 0.5, "k": "tick", "db": 3}, {"t": s0 + d * 0.5 + 0.22, "k": "tick", "db": 3}, {"t": s0 + d * 0.5 + 0.44, "k": "tick", "db": 3}, {"t": s0 + d * 0.88, "k": "thud", "db": -3}]
+    elif sc["kind"] == "flip":
+        fa = T(sc["flipAt"]); P = {"flipAt": round(fa - s0, 3)}; events += [{"t": fa - 0.05, "k": "whoosh"}, {"t": fa + 0.55, "k": "thud", "db": -3}]
+    elif sc["kind"] == "choice":
+        ca, ru = T(sc["calm"]), T(sc["run"]); P = {"calm": round(ca - s0, 3), "run": round(ru - s0, 3)}; events += [{"t": ca, "k": "chime", "db": -3}, {"t": ru, "k": "whoosh"}, {"t": ru + 0.1, "k": "tick", "db": 3}]
+    elif sc["kind"] == "timer":
+        st = T(sc["start"]); P = {"start": round(st - s0, 3)}; events += [{"t": st + 0.3 * i, "k": "tick", "db": -2} for i in range(7)] + [{"t": st + 2.2, "k": "ding"}, {"t": st + 2.25, "k": "sparkle", "db": -4}]
+    elif sc["kind"] == "middle":
+        events += [{"t": s0 + 0.1, "k": "whoosh", "db": -6}, {"t": s0 + 0.9, "k": "thud", "db": -8}, {"t": s0 + 2.1, "k": "thud", "db": -8}]
+    elif sc["kind"] == "week":
+        st, cr = T(sc["start"]), T(sc["cross"]); P = {"start": round(st - s0, 3), "cross": round(cr - s0, 3)}; events += [{"t": st + 0.17 * i, "k": "tick", "db": 1} for i in range(7)] + [{"t": cr, "k": "ding"}, {"t": cr + 0.05, "k": "sparkle", "db": -3}]
     elif sc["kind"] == "panorama":
         P = {"titles": sc["titles"], "hi": sc.get("hi", 0)}; events += [{"t": s0 + 0.2, "k": "whoosh"}]
     scenes.append({"kind": sc["kind"], "start": round(s0, 3), "dur": round(s1 - s0, 3), "p": P})
