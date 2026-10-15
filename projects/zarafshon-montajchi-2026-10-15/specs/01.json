@@ -1,0 +1,16 @@
+{
+ "id": "01",
+ "video_src": "projects/zarafshon-montajchi-2026-10-15/raw/real.mp4",
+ "brand": "ZARAFSHON DASTURCHILARI",
+ "introDur": 2.6, "annDur": 1.9, "ctaGap": 0.4, "tail": 1.6,
+ "cta": {"wav": "projects/zarafshon-montajchi-2026-10-15/voice/cta.wav"},
+ "ctaLines": ["Videongizni shunday,", "yoki siz xohlagan", "uslubda —", "AI yordamida tez va", "sifatli montaj qilamiz"],
+ "segs": [
+  {"style": "kino-oltin", "name": "Kino-oltin", "src0": 4.0, "dur": 10, "punch": 2.6},
+  {"style": "neon", "name": "Neon", "src0": 20.4, "dur": 10, "punch": 2.2},
+  {"style": "jurnal", "name": "Jurnal", "src0": 31.0, "dur": 10, "punch": 2.8}
+ ],
+ "shots": [{"t":0,"p":0.46},{"t":12.6,"p":0.2},{"t":20.43,"p":0.33},{"t":23.9,"p":0.46},{"t":34.87,"p":0.28},{"t":41.87,"p":0.46},{"t":47.07,"p":0.2},{"t":51.87,"p":0.33},{"t":57.33,"p":0.46}],
+ "music": {"src": "/tmp/music/raw/s14_r7_elektron-sirli.wav", "ss": 0, "lufs": -30, "note": "HF mrfakename/cc0-music-captioned 14:7 (electronic, mysterious), CC0"},
+ "orig_lufs": -16
+}
