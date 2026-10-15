@@ -126,3 +126,6 @@ Pixabay'da Song Plus'ning o'zi ehtimol yo'q → umumiy elektromobil kadrlari; an
 - QOIDA: (1) uzun/qo'shimchali so'zli gaplarni bo'lak-bo'lak sintez qil, orasiga pauza qo'y; (2) foydalanuvchi eshitgan variantni qayta sintez qilma — model har safar biroz boshqacha chiqaradi (seed bir xil bo'lsa ham); tasdiqlangan faylni kesib ishlat (voice/cache/v_<md5>.wav ga qo'yiladi); (3) `scripts/asr_check.py` (Whisper-small) bilan nisbiy tushunarlilikni tekshir (so'z chegaralari ham); (4) ovozni to'liq yig'ishdan oldin foydalanuvchiga eshittir.
 - #06 draft: `out/reel_06_draft.mp4` (32.5 s, QC toza). Builder: spec `tail` parametri qo'shildi.
 - Foydalanuvchidan so'ralgan: #01/#03 da ham tushunarsiz joy bormi? (javob kutilmoqda)
+
+### 2026-10-15 — #06 yakuniy
+- `out/reel_06_final.mp4` (1080x1920, 32.6 s, -14.4 LUFS, TP -1.5, QC toza). Izoh `captions/06.md`. Navbat: #10, #12, #08, #02, #07, #11, #04, #09, #05. Yangi video uchun: ovozni IBORA-IBORA eshittirib tasdiq olib, keyin yig'.
