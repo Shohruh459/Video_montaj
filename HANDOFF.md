@@ -111,3 +111,7 @@ Pixabay'da Song Plus'ning o'zi ehtimol yo'q → umumiy elektromobil kadrlari; an
 - #03 draft: `specs/03.json` -> `out/reel_03_draft.mp4` (32.2 s). Yangi sahnalar: fall, plan, zero, fork (3D Y-yo'l), bounce(up/stay), wave. `captions/03.md`. Musiqa: dramatik orkestr (31:15). Tasdiq kutilmoqda; keyin `--scale 1`.
 - Navbat: #06, #10, #12, #08, #02, #07, #11, #04, #09, #05 (script.md). Har biri uchun mavzuga mos YANGI sahna(lar) yasash, namuna bilan.
 - Eslatma: reel_voice.py ni ikki marta ishga tushirma (bitta jarayon ishlayotganini pgrep bilan tekshir).
+
+### 2026-10-15 — #03 tasdiqlandi va yakuniy chiqarildi
+- #03: `out/reel_03_final.mp4` (1080x1920, 32.2 s, -13.7 LUFS, TP -1.5, QC toza). Foydalanuvchi: "tushunarli, yetib boradigan, ajoyib". #01 va #03 izohlari `captions/01.md`, `captions/03.md`.
+- Foydalanuvchi #01 va #03 ni Instagramga yuklaydi, keyin montajni davom ettiramiz. Navbat: #06, #10, #12, #08 (mavzuga mos yangi sahnalar, avval namuna).
