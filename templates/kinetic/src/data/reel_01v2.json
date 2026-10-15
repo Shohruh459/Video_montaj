@@ -1,0 +1,330 @@
+{
+ "style": "harakat",
+ "totalSec": 29.02,
+ "audio": "reel01v2_mix.wav",
+ "lines": [
+  {
+   "words": [
+    {
+     "t": "Siz",
+     "a": true
+    },
+    {
+     "t": "ham"
+    },
+    {
+     "t": "shunday"
+    },
+    {
+     "t": "qilasiz."
+    }
+   ],
+   "start": 0,
+   "dur": 2.18,
+   "clip": "c_126560.mp4",
+   "pos": "30% 50%",
+   "ss": 0,
+   "tag": "",
+   "vpos": "bottom",
+   "style": "afisha"
+  },
+  {
+   "words": [
+    {
+     "t": "“Ertaga",
+     "a": true
+    },
+    {
+     "t": "boshlayman”"
+    },
+    {
+     "t": "deysiz."
+    }
+   ],
+   "start": 2.63,
+   "dur": 1.89,
+   "clip": "",
+   "pos": "50% 50%",
+   "ss": 0,
+   "tag": "",
+   "style": "harakat"
+  },
+  {
+   "words": [
+    {
+     "t": "“Hozir",
+     "a": true
+    },
+    {
+     "t": "vaqtim"
+    },
+    {
+     "t": "yoʻq”"
+    },
+    {
+     "t": "deysiz."
+    }
+   ],
+   "start": 4.72,
+   "dur": 2.08,
+   "clip": "",
+   "pos": "50% 50%",
+   "ss": 0,
+   "tag": "",
+   "style": "harakat"
+  },
+  {
+   "words": [
+    {
+     "t": "“Keyinroq",
+     "a": true
+    },
+    {
+     "t": "qilaman”"
+    },
+    {
+     "t": "deysiz."
+    }
+   ],
+   "start": 7.0,
+   "dur": 2.05,
+   "clip": "",
+   "pos": "14% 50%",
+   "ss": 0,
+   "tag": "",
+   "style": "harakat"
+  },
+  {
+   "words": [
+    {
+     "t": "Lekin"
+    },
+    {
+     "t": "ichingizda"
+    },
+    {
+     "t": "bilasiz"
+    },
+    {
+     "t": "—"
+    },
+    {
+     "t": "bu"
+    },
+    {
+     "t": "yolgʻon.",
+     "a": true
+    }
+   ],
+   "start": 9.65,
+   "dur": 2.42,
+   "clip": "c_11722.mp4",
+   "pos": "50% 50%",
+   "ss": 0,
+   "tag": "",
+   "style": "harakat"
+  },
+  {
+   "words": [
+    {
+     "t": "Har"
+    },
+    {
+     "t": "safar"
+    },
+    {
+     "t": "oʻzingizni"
+    },
+    {
+     "t": "aldaganingizda"
+    },
+    {
+     "t": "biroz"
+    },
+    {
+     "t": "orqaga",
+     "a": true
+    },
+    {
+     "t": "ketasiz."
+    }
+   ],
+   "start": 12.52,
+   "dur": 3.74,
+   "clip": "c_11722.mp4",
+   "pos": "50% 50%",
+   "ss": 9,
+   "tag": "",
+   "style": "harakat"
+  },
+  {
+   "words": [
+    {
+     "t": "Bugun"
+    },
+    {
+     "t": "toʻxtang.",
+     "a": true
+    }
+   ],
+   "start": 16.91,
+   "dur": 1.59,
+   "clip": "c_107243.mp4",
+   "pos": "47% 50%",
+   "ss": 4.5,
+   "tag": "",
+   "style": "harakat"
+  },
+  {
+   "words": [
+    {
+     "t": "Bitta"
+    },
+    {
+     "t": "ishni"
+    },
+    {
+     "t": "yozing,"
+    },
+    {
+     "t": "soatini",
+     "a": true
+    },
+    {
+     "t": "belgilang.",
+     "a": true
+    }
+   ],
+   "start": 18.85,
+   "dur": 2.58,
+   "clip": "c_107240.mp4",
+   "pos": "78% 50%",
+   "ss": 2,
+   "tag": "",
+   "style": "harakat"
+  },
+  {
+   "words": [
+    {
+     "t": "Oʻzingizga"
+    },
+    {
+     "t": "rost",
+     "a": true
+    },
+    {
+     "t": "gapiring."
+    },
+    {
+     "t": "Hatto"
+    },
+    {
+     "t": "ogʻir"
+    },
+    {
+     "t": "boʻlsa"
+    },
+    {
+     "t": "ham."
+    }
+   ],
+   "start": 21.73,
+   "dur": 3.09,
+   "clip": "c_202753.mp4",
+   "pos": "50% 50%",
+   "ss": 0,
+   "tag": "",
+   "style": "kino-oltin"
+  },
+  {
+   "words": [
+    {
+     "t": "Oʻzingizga"
+    },
+    {
+     "t": "rost",
+     "a": true
+    },
+    {
+     "t": "gapira"
+    },
+    {
+     "t": "olasizmi?"
+    }
+   ],
+   "start": 25.47,
+   "dur": 2.3,
+   "clip": "",
+   "pos": "50% 50%",
+   "ss": 0,
+   "tag": "",
+   "style": "harakat"
+  }
+ ],
+ "scenes": [
+  {
+   "kind": "days",
+   "start": 2.48,
+   "dur": 7.32,
+   "p": {
+    "hops": [
+     0.4,
+     2.49,
+     4.77,
+     6.42,
+     6.62,
+     6.82
+    ]
+   }
+  },
+  {
+   "kind": "back",
+   "start": 9.5,
+   "dur": 6.91,
+   "p": {
+    "stamp": 1.966,
+    "backs": [
+     4.384,
+     5.677
+    ]
+   }
+  },
+  {
+   "kind": "stop",
+   "start": 16.76,
+   "dur": 1.89,
+   "p": {}
+  },
+  {
+   "kind": "task",
+   "start": 18.7,
+   "dur": 3.08,
+   "p": {
+    "text": "20 daqiqa kitob oʻqish",
+    "time": "19:30"
+   }
+  },
+  {
+   "kind": "panorama",
+   "start": 25.32,
+   "dur": 3.7,
+   "p": {
+    "titles": [
+     "OʻZINI ALDASH",
+     "AFSUSLANISH",
+     "YIQILISH",
+     "MAQTOV",
+     "YOLGʻIZLIK",
+     "CHARCHOQ",
+     "TANQID",
+     "TAYYOR EMAS",
+     "NATIJA",
+     "VAʼDALAR",
+     "SOLISHTIRISH",
+     "BILISH ≠ HARAKAT"
+    ],
+    "hi": 0
+   }
+  }
+ ]
+}

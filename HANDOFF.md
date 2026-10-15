@@ -94,3 +94,9 @@ Pixabay'da Song Plus'ning o'zi ehtimol yo'q → umumiy elektromobil kadrlari; an
 - Foydalanuvchi M2 va M9 dan boshqa musiqani menga qoldirdi (M5 tanlandi). Draft ovoz/talaffuzi foydalanuvchi tomonidan eshitilishi kutilmoqda; keyin `--scale 1` yakuniy.
 - Tuzatilgan xatolar: birinchi 0.5 s qora (endi 0-kadrdan klip), 6-ibora urg'usi, qora budilnik klipi/inglizcha kalendar/ayiqchali klip rad etildi. QOIDA: har klipni kadr bilan tekshir; builder urg'u so'zlarini [qavs] bilan chop etadi — tekshir.
 - Backend har sessiyada o'chadi: `bash scripts/start_voice.sh`; model idle bo'lsa qayta yuklanadi (~1-2 daq).
+
+### 2026-10-15 — "wow" montaj: harakat sahna kutubxonasi (#01v2)
+- Foydalanuvchi #01 draftni eshitdi ("ajoyib"), to'liq ekran, o'zimiz chizgan sahnalar yo'nalishini tanladi. Yangi uslub `harakat` + 5 sahna (days, back, stop, task, panorama) `templates/kinetic/src/Sample.tsx`; spec `specs/01v2.json` -> `out/reel_01v2_draft.mp4` (29 s, QC toza, -13.8 LUFS).
+- builder: `scenes` (ovoz iboralariga bog'langan vaqtlar), `sfx` (numpy bilan sintez: tick/thud/type/chime/whoosh), klipsiz iboralar.
+- Ilhom manbasi: foydalanuvchi ko'rsatgan Reels (alexandro_ai) skrinshotlari — faqat texnika (har fikrga vizual metafora, 3D panorama, yagona dizayn tizimi); mazmun/brend nusxalanmadi.
+- Kutilmoqda: foydalanuvchi fikri (ritm, SFX balansi, sahnalar). Keyin `--scale 1` yakuniy + #03 uchun yangi sahnalar (ikki yo'l, va h.k.).

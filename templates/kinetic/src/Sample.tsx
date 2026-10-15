@@ -3,9 +3,10 @@ import {AbsoluteFill, Audio, Internals, Easing, Img, OffthreadVideo, Sequence, i
 
 type W = {t: string; a?: boolean};
 export type LineT = {words: W[]; start: number; dur: number; clip: string; pos?: string; tag?: string; style?: StyleName; ss?: number; vpos?: 'bottom'};
-export const STYLES = ['kino-oltin', 'split-oyna', 'jurnal', 'neon', 'minimal-oq', 'afisha', 'terminal', 'shisha', 'daftar'] as const;
+export const STYLES = ['kino-oltin', 'split-oyna', 'jurnal', 'neon', 'minimal-oq', 'afisha', 'terminal', 'shisha', 'daftar', 'harakat'] as const;
 export type StyleName = typeof STYLES[number];
-export type SampleProps = {style: StyleName; totalSec: number; audio: string; lines: LineT[]};
+export type SceneT = {kind: 'days' | 'back' | 'stop' | 'task' | 'panorama'; start: number; dur: number; p?: any};
+export type SampleProps = {style: StyleName; totalSec: number; audio: string; lines: LineT[]; scenes?: SceneT[]};
 const LEGACY: Record<string, StyleName> = {gold: 'kino-oltin', split: 'split-oyna', editorial: 'jurnal'};
 
 const GOLD = '#F2B84B';
@@ -612,6 +613,196 @@ const DaftarText: React.FC<{l: LineT; frames: number}> = ({l, frames}) => {
   );
 };
 
+
+// ───────────────── J: Harakat — sahna kutubxonasi (o'zimiz chizgan 3D/UI sahnalar) ─────────────────
+const RED2 = '#FF4D4D';
+const c01 = (x: number) => Math.max(0, Math.min(1, x));
+const eIO = (x: number) => (x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2);
+const eO = (x: number) => 1 - Math.pow(1 - x, 3);
+
+const Harakat: React.FC<{lines: LineT[]; fps: number}> = ({lines, fps}) => {
+  const f = useCurrentFrame();
+  return (
+    <AbsoluteFill style={{background: '#06070c'}}>
+      {lines.map((l, i) => {
+        if (!l.clip) return null;
+        const fr = Math.round(l.dur * fps);
+        return (
+          <Sequence key={i} from={Math.round(l.start * fps)} durationInFrames={fr + 10}>
+            <FadeWrap frames={fr + 10}>
+              <Clip src={l.clip} pos={l.pos} ss={l.ss} frames={fr + 10} zoomFrom={1.06} zoomTo={1.16} filter="brightness(0.36) saturate(0.8) blur(3px)" />
+            </FadeWrap>
+          </Sequence>
+        );
+      })}
+      <AbsoluteFill style={{backgroundImage: 'linear-gradient(rgba(255,255,255,0.045) 2px, transparent 2px), linear-gradient(90deg, rgba(255,255,255,0.045) 2px, transparent 2px)', backgroundSize: '90px 90px', backgroundPosition: `${(f * 0.6) % 90}px ${(f * 0.6) % 90}px`}} />
+      <AbsoluteFill style={{background: 'radial-gradient(ellipse 70% 40% at 50% 32%, rgba(242,184,75,0.16), transparent 70%)'}} />
+      <AbsoluteFill style={{background: 'radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.72) 100%)'}} />
+      {lines.map((l, i) => {
+        const fr = Math.round(l.dur * fps);
+        return (
+          <Sequence key={`t${i}`} from={Math.round(l.start * fps)} durationInFrames={fr}>
+            <div style={{position: 'absolute', left: 120, right: 120, top: 1270, height: 400, display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+              <div style={{width: '100%'}}><Phrase l={l} frames={fr} size={78} font="YB" accent={GOLD} /></div>
+            </div>
+          </Sequence>
+        );
+      })}
+      <div style={{position: 'absolute', left: 0, right: 0, bottom: 90, textAlign: 'center', fontFamily: 'YB', fontWeight: 700, fontSize: 30, letterSpacing: 4, color: GOLD, opacity: 0.9}}>@yuksalish713</div>
+      <Grain opacity={0.12} blend="overlay" />
+    </AbsoluteFill>
+  );
+};
+
+const SceneFade: React.FC<{dur: number; children: React.ReactNode}> = ({dur, children}) => {
+  const f = useCurrentFrame();
+  const o = interpolate(f, [0, 8, dur - 10, dur], [0, 1, 1, 0], clamp);
+  return <AbsoluteFill style={{opacity: o}}>{children}</AbsoluteFill>;
+};
+
+const SceneLayer: React.FC<{scenes: SceneT[]; fps: number}> = ({scenes, fps}) => (
+  <>
+    {scenes.map((sc, i) => {
+      const dur = Math.round(sc.dur * fps);
+      return (
+        <Sequence key={i} from={Math.round(sc.start * fps)} durationInFrames={dur}>
+          <SceneFade dur={sc.kind === 'panorama' ? dur + 20 : dur}>
+            {sc.kind === 'days' && <DaysScene p={sc.p} />}
+            {sc.kind === 'back' && <BackScene p={sc.p} />}
+            {sc.kind === 'stop' && <StopScene />}
+            {sc.kind === 'task' && <TaskScene p={sc.p} />}
+            {sc.kind === 'panorama' && <PanoramaScene p={sc.p} />}
+          </SceneFade>
+        </Sequence>
+      );
+    })}
+  </>
+);
+
+// 1) "Ertaga" yo'li: belgi har safar keyingi kunga sakraydi va uzoqlashib yo'qoladi
+const DAY_ROWS = ['BUGUN', 'ERTAGA', 'KEYINROQ', 'DUSHANBA', 'KELASI OY', 'KELASI YIL', 'HECH QACHON'];
+const DaysScene: React.FC<{p: {hops: number[]}}> = ({p}) => {
+  const f = useCurrentFrame(); const {fps} = useVideoConfig(); const t = f / fps;
+  const HOP = 0.3; let pos = 0; let arc = 0;
+  p.hops.forEach((h) => { const x = c01((t - h) / HOP); pos += eIO(x); if (x > 0 && x < 1) arc = Math.max(arc, Math.sin(Math.PI * x)); });
+  const gap = 160; const rise = c01(t / 0.5);
+  const rotX = 47 - 4 * c01(t / 5);
+  return (
+    <AbsoluteFill style={{perspective: 1800, perspectiveOrigin: '50% 42%'}}>
+      <div style={{position: 'absolute', left: 190, top: 720, width: 700, height: 0, transformStyle: 'preserve-3d', transform: `rotateX(${rotX}deg)`}}>
+        {DAY_ROWS.map((label, i) => {
+          const y = (3 - i) * gap; const passed = c01(pos - i - 0.15); const active = Math.max(0, 1 - Math.abs(pos - i) * 1.7);
+          const last = i === DAY_ROWS.length - 1; const col = last ? RED2 : GOLD;
+          return (
+            <div key={i} style={{position: 'absolute', left: 0, top: y - 45, width: 700, height: 90, borderRadius: 24, boxSizing: 'border-box', border: `3px solid ${last && active > 0.2 ? RED2 : GOLD}`, borderColor: `rgba(${last ? '255,77,77' : '242,184,75'},${0.25 + 0.65 * active})`, background: `rgba(255,255,255,${0.04 + 0.07 * active})`, boxShadow: active > 0.25 ? `0 0 ${46 * active}px rgba(${last ? '255,77,77' : '242,184,75'},${0.55 * active})` : 'none', opacity: (1 - 0.6 * passed) * rise, display: 'flex', alignItems: 'center', padding: '0 36px', fontFamily: 'YB', fontWeight: 700, fontSize: 40, letterSpacing: 4, color: active > 0.3 ? col : '#fff'}}>
+              {label}
+              {passed > 0 && <div style={{position: 'absolute', left: 30, top: '50%', height: 5, width: `${passed * 94}%`, background: RED2, borderRadius: 3}} />}
+            </div>
+          );
+        })}
+        <div style={{position: 'absolute', left: -112, top: (3 - pos) * gap - 40, width: 80, height: 80, transformStyle: 'preserve-3d', transform: `translateZ(${arc * 150}px)`, opacity: rise}}>
+          <div style={{width: 80, height: 80, borderRadius: 40, background: GOLD, boxShadow: `0 0 ${30 + arc * 40}px rgba(242,184,75,0.8)`, color: '#0a0a0a', fontSize: 38, fontFamily: 'YB', fontWeight: 700, display: 'flex', alignItems: 'center', justifyContent: 'center'}}>▶</div>
+        </div>
+      </div>
+      <div style={{position: 'absolute', left: 0, right: 0, top: 170, textAlign: 'center', fontFamily: 'YB', fontWeight: 700, fontSize: 34, letterSpacing: 8, color: 'rgba(255,255,255,0.6)', opacity: rise}}>BOSHLASH VAQTI</div>
+    </AbsoluteFill>
+  );
+};
+
+// 2) Orqaga ketish: to'p maqsad sari yurib, har yolg'ondan keyin orqaga suriladi
+const BackScene: React.FC<{p: {backs: number[]; stamp: number}}> = ({p}) => {
+  const f = useCurrentFrame(); const {fps} = useVideoConfig(); const t = f / fps;
+  let prog = 0.4 + 0.05 * Math.min(t, 3);
+  p.backs.forEach((b) => { prog -= 0.2 * eIO(c01((t - b) / 0.4)); });
+  const X0 = 110, X1 = 970, Y = 640; const bx = X0 + (X1 - X0) * prog;
+  const sx = c01((t - p.stamp) / 0.22); const stampOn = t >= p.stamp;
+  const shake = stampOn && t - p.stamp < 0.35 ? (random(`st${f}`) - 0.5) * 18 : 0;
+  return (
+    <AbsoluteFill>
+      <div style={{position: 'absolute', left: X0, top: Y - 3, width: X1 - X0, height: 6, borderRadius: 3, background: 'rgba(255,255,255,0.18)'}} />
+      {Array.from({length: 21}, (_, i) => <div key={i} style={{position: 'absolute', left: X0 + ((X1 - X0) * i) / 20 - 1, top: Y + 22, width: 2, height: i % 5 === 0 ? 26 : 12, background: 'rgba(255,255,255,0.25)'}} />)}
+      <div style={{position: 'absolute', left: X0, top: Y - 5, width: bx - X0, height: 10, borderRadius: 5, background: `linear-gradient(90deg, rgba(242,184,75,0.1), ${GOLD})`, boxShadow: '0 0 30px rgba(242,184,75,0.7)'}} />
+      <div style={{position: 'absolute', left: X1 - 4, top: Y - 150, width: 6, height: 150, background: '#fff', opacity: 0.8}} />
+      <div style={{position: 'absolute', left: X1 - 4, top: Y - 150, width: 130, height: 70, background: GOLD, clipPath: 'polygon(0 0, 100% 50%, 0 100%)'}} />
+      <div style={{position: 'absolute', left: X1 - 220, top: Y - 215, fontFamily: 'YB', fontWeight: 700, fontSize: 38, letterSpacing: 6, color: GOLD}}>MAQSAD</div>
+      <div style={{position: 'absolute', left: bx - 34, top: Y - 34, width: 68, height: 68, borderRadius: 34, background: '#fff', boxShadow: `0 0 50px rgba(255,255,255,0.8), 0 0 90px ${GOLD}`}} />
+      <div style={{position: 'absolute', left: bx - 40, top: Y - 108, width: 80, textAlign: 'center', fontFamily: 'YB', fontWeight: 700, fontSize: 34, letterSpacing: 4, color: '#fff'}}>SIZ</div>
+      {p.backs.map((b, i) => {
+        const a = c01((t - b) / 0.9); if (a <= 0 || a >= 1) return null;
+        return <div key={i} style={{position: 'absolute', left: bx - 60, top: Y + 70 - 70 * a, width: 120, textAlign: 'center', fontFamily: 'YB', fontWeight: 700, fontSize: 70, color: RED2, opacity: 1 - a, textShadow: '0 0 24px rgba(255,77,77,0.8)'}}>−1</div>;
+      })}
+      {stampOn && (
+        <div style={{position: 'absolute', left: 140, right: 140, top: 250, textAlign: 'center', transform: `rotate(-8deg) scale(${2.4 - 1.4 * eO(sx)}) translate(${shake}px, ${shake}px)`, opacity: sx, fontFamily: 'YB', fontWeight: 700, fontSize: 130, letterSpacing: 6, color: RED2, border: `10px solid ${RED2}`, borderRadius: 18, padding: '10px 0', background: 'rgba(40,0,0,0.35)'}}>YOLGʻON</div>
+      )}
+    </AbsoluteFill>
+  );
+};
+
+// 3) To'xtash
+const StopScene: React.FC = () => {
+  const f = useCurrentFrame(); const {fps} = useVideoConfig(); const t = f / fps;
+  const a = eO(c01(t / 0.35)); const w1 = c01(t / 0.9); const w2 = c01((t - 0.2) / 0.9);
+  return (
+    <AbsoluteFill>
+      {[w1, w2].map((w, i) => <div key={i} style={{position: 'absolute', left: 540 - 280, top: 700 - 280, width: 560, height: 560, borderRadius: 280, border: `6px solid ${GOLD}`, opacity: (1 - w) * 0.7, transform: `scale(${1 + w * 1.4})`}} />)}
+      <div style={{position: 'absolute', left: 540 - 260, top: 700 - 260, width: 520, height: 520, borderRadius: 260, boxSizing: 'border-box', border: `16px solid ${GOLD}`, boxShadow: '0 0 80px rgba(242,184,75,0.6), inset 0 0 60px rgba(242,184,75,0.25)', transform: `scale(${0.2 + 0.8 * a})`, opacity: a, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 46}}>
+        <div style={{width: 46, height: 190, background: '#fff', borderRadius: 10}} />
+        <div style={{width: 46, height: 190, background: '#fff', borderRadius: 10}} />
+      </div>
+    </AbsoluteFill>
+  );
+};
+
+// 4) "Bitta ish + soat" kartochkasi
+const TaskScene: React.FC<{p: {text: string; time: string}}> = ({p}) => {
+  const f = useCurrentFrame(); const {fps} = useVideoConfig(); const t = f / fps;
+  const pop = eO(c01(t / 0.4));
+  const n = Math.floor(c01((t - 0.35) / 1.3) * p.text.length);
+  const rolling = t > 1.7 && t < 2.2; const set = t >= 2.2;
+  let di = 0; const digits = rolling ? p.time.replace(/\d/g, () => String(Math.floor(random(`d${f}_${di++}`) * 10))) : (t >= 1.7 ? p.time : '--:--');
+  const checked = c01((t - 2.65) / 0.25);
+  return (
+    <AbsoluteFill>
+      <div style={{position: 'absolute', left: 90, top: 380, width: 900, height: 640, borderRadius: 40, background: 'rgba(255,255,255,0.07)', border: '2px solid rgba(242,184,75,0.55)', boxShadow: '0 30px 80px rgba(0,0,0,0.5)', backdropFilter: 'blur(14px)', transform: `scale(${0.9 + 0.1 * pop}) translateY(${(1 - pop) * 60}px)`, opacity: pop}}>
+        <div style={{position: 'absolute', left: 54, top: 44, fontFamily: 'YB', fontWeight: 700, fontSize: 28, letterSpacing: 7, color: GOLD}}>BUGUNGI BITTA ISH</div>
+        <div style={{position: 'absolute', left: 54, top: 120, width: 74, height: 74, borderRadius: 20, boxSizing: 'border-box', border: `5px solid ${checked > 0 ? GOLD : 'rgba(255,255,255,0.5)'}`, background: checked > 0 ? GOLD : 'transparent', transform: `scale(${1 + 0.25 * Math.sin(Math.PI * checked)})`, color: '#0a0a0a', fontSize: 52, fontFamily: 'YB', fontWeight: 700, textAlign: 'center', lineHeight: '64px'}}>{checked > 0.5 ? '✓' : ''}</div>
+        <div style={{position: 'absolute', left: 160, top: 112, right: 40, fontFamily: 'YB', fontWeight: 700, fontSize: 56, color: '#fff', lineHeight: 1.2}}>
+          {p.text.slice(0, n)}{n < p.text.length && Math.floor(f / 8) % 2 === 0 ? '▌' : ''}
+        </div>
+        <div style={{position: 'absolute', left: 54, right: 54, top: 300, height: 2, background: 'rgba(255,255,255,0.15)'}} />
+        <div style={{position: 'absolute', left: 54, top: 345, fontFamily: 'YB', fontWeight: 700, fontSize: 28, letterSpacing: 7, color: 'rgba(255,255,255,0.55)'}}>SOAT</div>
+        <div style={{position: 'absolute', left: 54, top: 400, padding: '8px 44px', borderRadius: 28, border: `4px solid ${set ? GOLD : 'rgba(255,255,255,0.3)'}`, boxShadow: set ? '0 0 50px rgba(242,184,75,0.5)' : 'none', fontFamily: 'YM', fontWeight: 700, fontSize: 150, color: set ? GOLD : '#fff'}}>{digits}</div>
+      </div>
+    </AbsoluteFill>
+  );
+};
+
+// 5) 12 ta ssenariy kartochkalarining 3D panoramasi (kamera orqaga tortiladi)
+const PanoramaScene: React.FC<{p: {titles: string[]; hi: number}}> = ({p}) => {
+  const f = useCurrentFrame(); const {fps} = useVideoConfig(); const t = f / fps;
+  const W = 872, H = 888, CW = 200, CH = 280, G = 24;
+  const k = eIO(c01((t - 0.15) / 2.2)); const s = 3.3 - 2.3 * k;
+  const hx = (p.hi % 4) * (CW + G) + CW / 2, hy = Math.floor(p.hi / 4) * (CH + G) + CH / 2;
+  const tx = (W / 2 - hx) * (1 - k), ty = (H / 2 - hy) * (1 - k);
+  return (
+    <AbsoluteFill style={{perspective: 2000, perspectiveOrigin: '50% 45%'}}>
+      <div style={{position: 'absolute', left: 104, top: 215, width: W, height: H, transformStyle: 'preserve-3d', transformOrigin: `${hx}px ${hy}px`, transform: `translate(${tx}px, ${ty}px) scale(${s}) rotateY(${-17 * k}deg) rotateX(${9 * k}deg)`}}>
+        {p.titles.map((title, i) => {
+          const cx = (i % 4) * (CW + G), cy = Math.floor(i / 4) * (CH + G);
+          const hi = i === p.hi; const dist = Math.abs(i - p.hi);
+          const o = hi ? 1 : c01((t - 0.5 - dist * 0.05) / 0.4);
+          return (
+            <div key={i} style={{position: 'absolute', left: cx, top: cy, width: CW, height: CH, borderRadius: 26, boxSizing: 'border-box', border: `3px solid ${hi ? GOLD : 'rgba(255,255,255,0.25)'}`, background: hi ? 'rgba(242,184,75,0.16)' : 'rgba(255,255,255,0.06)', boxShadow: hi ? '0 0 60px rgba(242,184,75,0.55)' : '0 12px 30px rgba(0,0,0,0.4)', opacity: o, transform: `translateZ(${hi ? 40 * k : 0}px)`, padding: 20}}>
+              <div style={{fontFamily: 'YB', fontWeight: 700, fontSize: 92, color: hi ? GOLD : 'rgba(255,255,255,0.35)', lineHeight: 1}}>{String(i + 1).padStart(2, '0')}</div>
+              <div style={{position: 'absolute', left: 20, right: 16, bottom: 22, fontFamily: 'YB', fontWeight: 700, fontSize: 25, lineHeight: 1.15, letterSpacing: 1, color: hi ? '#fff' : 'rgba(255,255,255,0.75)'}}>{title}</div>
+            </div>
+          );
+        })}
+      </div>
+    </AbsoluteFill>
+  );
+};
+
 const OVERLAP = 6; // aralash uslub: segmentlar orasidagi crossfade (kadr)
 
 const StyleView: React.FC<{st: StyleName; lines: LineT[]; fps: number; total: number}> = ({st, lines, fps, total}) => (
@@ -625,10 +816,11 @@ const StyleView: React.FC<{st: StyleName; lines: LineT[]; fps: number; total: nu
     {st === 'terminal' && <Terminal lines={lines} fps={fps} />}
     {st === 'shisha' && <Shisha lines={lines} fps={fps} />}
     {st === 'daftar' && <Daftar lines={lines} fps={fps} />}
+    {st === 'harakat' && <Harakat lines={lines} fps={fps} />}
   </>
 );
 
-export const Sample: React.FC<SampleProps> = ({style, lines, audio, totalSec}) => {
+export const Sample: React.FC<SampleProps> = ({style, lines, audio, totalSec, scenes}) => {
   useFonts();
   const {fps} = useVideoConfig();
   const norm = (x?: string) => (LEGACY[x as string] ?? x) as StyleName;
@@ -657,6 +849,7 @@ export const Sample: React.FC<SampleProps> = ({style, lines, audio, totalSec}) =
           </Sequence>
         );
       })}
+      {scenes && <SceneLayer scenes={scenes} fps={fps} />}
       <Audio src={staticFile(audio)} />
     </AbsoluteFill>
   );

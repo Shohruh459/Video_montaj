@@ -33,6 +33,15 @@ bash templates/kinetic/render.sh <nom> out.mp4 [scale=0.5] [props.json]
 - `clip` va `audio` fayllari `public/` da (media gitga kirmaydi).
 - So'zlar ovozga belgi uzunligi bo'yicha taxminan sinxron chiqadi.
 
+## `harakat` — sahna kutubxonasi (to'liq ekran, o'zimiz chizgan sahnalar)
+Fon: qorong'i panjara (+ ixtiyoriy xira klip), pastda matn; sahnalar tepada (`scenes[]` ro'yxati, mutlaq vaqt bilan). Sahnalar:
+- `days` — 3D "kechiktirish yo'li": belgi har `hops[]` vaqtida keyingi qatorga sakraydi (BUGUN→…→HECH QACHON).
+- `back` — to'p maqsad sari yuradi, `backs[]` da orqaga suriladi (−1), `stamp` vaqtida "YOLGʻON" muhri.
+- `stop` — to'xtash halqasi (pauza belgisi, tarqaluvchi to'lqin).
+- `task` — "bugungi bitta ish" kartochkasi: matn teriladi, soat aylanib o'rnashadi, katak belgilanadi.
+- `panorama` — seriya kartochkalari 3D to'ri, kamera `hi`-kartochkadan orqaga tortiladi.
+Spec orqali: `specs/01v2.json` (`scenes`, `sfx`); `build_reel_k.py` sahna vaqtlarini ovoz iboralariga bog'laydi (`{"p":i,"dt"|"frac"|"end":x}`) va **ovoz effektlarini (SFX)** sintez qilib miksga qo'shadi (tick, thud, type, chime, whoosh).
+
 ## Aralash uslub (bir videoda bir necha uslub)
 Har bir iboraga `"style":"afisha"` kabi maydon bering; ketma-ket bir xil uslublar bitta segment bo'ladi, segmentlar orasida 6 kadrlik crossfade.
 `render.sh` ga birinchi argument — fon (umumiy) uslub, iboradagi `style` uni ustidan bosadi. Qoidalar: `.claude/skills/reels-uslub/SKILL.md`.
