@@ -1,0 +1,389 @@
+{
+ "style": "harakat",
+ "totalSec": 32.19,
+ "audio": "reel03_mix.wav",
+ "lines": [
+  {
+   "words": [
+    {
+     "t": "Yiqildingiz.",
+     "a": true
+    }
+   ],
+   "start": 0,
+   "dur": 1.68,
+   "clip": "c_11722.mp4",
+   "pos": "50% 50%",
+   "ss": 0,
+   "tag": "",
+   "style": "harakat"
+  },
+  {
+   "words": [
+    {
+     "t": "Rejangiz"
+    },
+    {
+     "t": "ishlamadi.",
+     "a": true
+    }
+   ],
+   "start": 2.03,
+   "dur": 1.9,
+   "clip": "c_11722.mp4",
+   "pos": "50% 50%",
+   "ss": 5,
+   "tag": "",
+   "style": "harakat"
+  },
+  {
+   "words": [
+    {
+     "t": "Natija"
+    },
+    {
+     "t": "chiqmadi.",
+     "a": true
+    }
+   ],
+   "start": 4.18,
+   "dur": 1.66,
+   "clip": "c_11722.mp4",
+   "pos": "50% 50%",
+   "ss": 10,
+   "tag": "",
+   "style": "harakat"
+  },
+  {
+   "words": [
+    {
+     "t": "Endi"
+    },
+    {
+     "t": "ikki",
+     "a": true
+    },
+    {
+     "t": "yoʻl",
+     "a": true
+    },
+    {
+     "t": "bor."
+    }
+   ],
+   "start": 6.39,
+   "dur": 1.78,
+   "clip": "",
+   "pos": "50% 50%",
+   "ss": 0,
+   "tag": "",
+   "style": "harakat"
+  },
+  {
+   "words": [
+    {
+     "t": "Biri"
+    },
+    {
+     "t": "—"
+    },
+    {
+     "t": "“Men"
+    },
+    {
+     "t": "yomonman”"
+    },
+    {
+     "t": "deb"
+    },
+    {
+     "t": "oʻzingizni"
+    },
+    {
+     "t": "sindirish.",
+     "a": true
+    }
+   ],
+   "start": 8.57,
+   "dur": 2.96,
+   "clip": "",
+   "pos": "50% 50%",
+   "ss": 0,
+   "tag": "",
+   "style": "harakat"
+  },
+  {
+   "words": [
+    {
+     "t": "Ikkinchisi"
+    },
+    {
+     "t": "—"
+    },
+    {
+     "t": "“Bu"
+    },
+    {
+     "t": "usul"
+    },
+    {
+     "t": "ishlamadi”"
+    },
+    {
+     "t": "deb"
+    },
+    {
+     "t": "oʻrganish.",
+     "a": true
+    }
+   ],
+   "start": 11.83,
+   "dur": 2.99,
+   "clip": "",
+   "pos": "50% 50%",
+   "ss": 0,
+   "tag": "",
+   "style": "harakat"
+  },
+  {
+   "words": [
+    {
+     "t": "Yuksalayotgan"
+    },
+    {
+     "t": "odam"
+    },
+    {
+     "t": "ikkinchisini",
+     "a": true
+    },
+    {
+     "t": "tanlaydi.",
+     "a": true
+    }
+   ],
+   "start": 15.37,
+   "dur": 2.81,
+   "clip": "",
+   "pos": "50% 50%",
+   "ss": 0,
+   "tag": "",
+   "style": "harakat"
+  },
+  {
+   "words": [
+    {
+     "t": "Yiqilish",
+     "a": true
+    },
+    {
+     "t": "sizni"
+    },
+    {
+     "t": "yoʻq"
+    },
+    {
+     "t": "qilmaydi."
+    }
+   ],
+   "start": 18.73,
+   "dur": 2.16,
+   "clip": "",
+   "pos": "50% 50%",
+   "ss": 0,
+   "tag": "",
+   "style": "harakat"
+  },
+  {
+   "words": [
+    {
+     "t": "Yiqilgandan"
+    },
+    {
+     "t": "keyin"
+    },
+    {
+     "t": "turmaslik",
+     "a": true
+    },
+    {
+     "t": "sizni"
+    },
+    {
+     "t": "yoʻq"
+    },
+    {
+     "t": "qiladi."
+    }
+   ],
+   "start": 21.09,
+   "dur": 2.96,
+   "clip": "",
+   "pos": "50% 50%",
+   "ss": 0,
+   "tag": "",
+   "style": "harakat"
+  },
+  {
+   "words": [
+    {
+     "t": "Hozir"
+    },
+    {
+     "t": "ovoz"
+    },
+    {
+     "t": "chiqarib"
+    },
+    {
+     "t": "ayting:"
+    },
+    {
+     "t": "“Bu",
+     "a": true
+    },
+    {
+     "t": "usul",
+     "a": true
+    },
+    {
+     "t": "ishlamadi.”",
+     "a": true
+    }
+   ],
+   "start": 24.5,
+   "dur": 2.98,
+   "clip": "",
+   "pos": "50% 50%",
+   "ss": 0,
+   "tag": "",
+   "style": "harakat"
+  },
+  {
+   "words": [
+    {
+     "t": "Yiqilgandan"
+    },
+    {
+     "t": "keyin"
+    },
+    {
+     "t": "qaysi",
+     "a": true
+    },
+    {
+     "t": "yoʻlni",
+     "a": true
+    },
+    {
+     "t": "tanlaysiz?"
+    }
+   ],
+   "start": 28.23,
+   "dur": 2.71,
+   "clip": "",
+   "pos": "50% 50%",
+   "ss": 0,
+   "tag": "",
+   "style": "harakat"
+  }
+ ],
+ "scenes": [
+  {
+   "kind": "fall",
+   "start": 0,
+   "dur": 2.03,
+   "p": {
+    "fallAt": 0.7
+   }
+  },
+  {
+   "kind": "plan",
+   "start": 1.88,
+   "dur": 2.2,
+   "p": {
+    "strikes": [
+     0.45,
+     0.9,
+     1.35
+    ],
+    "items": [
+     "Ertalab turish",
+     "Mashq qilish",
+     "Kitob oʻqish"
+    ]
+   }
+  },
+  {
+   "kind": "zero",
+   "start": 4.03,
+   "dur": 2.06,
+   "p": {}
+  },
+  {
+   "kind": "fork",
+   "start": 6.24,
+   "dur": 12.29,
+   "p": {
+    "split": 1.535,
+    "left": [
+     2.43,
+     5.04
+    ],
+    "right": [
+     5.69,
+     8.33
+    ],
+    "go": 10.03
+   }
+  },
+  {
+   "kind": "bounce",
+   "start": 18.58,
+   "dur": 2.46,
+   "p": {
+    "mode": "up"
+   }
+  },
+  {
+   "kind": "bounce",
+   "start": 20.94,
+   "dur": 3.26,
+   "p": {
+    "mode": "stay"
+   }
+  },
+  {
+   "kind": "wave",
+   "start": 24.35,
+   "dur": 3.28,
+   "p": {
+    "quote": "Bu usul ishlamadi.",
+    "talkFrom": 1.905,
+    "talkTo": 2.98
+   }
+  },
+  {
+   "kind": "panorama",
+   "start": 28.08,
+   "dur": 4.11,
+   "p": {
+    "titles": [
+     "OʻZINI ALDASH",
+     "AFSUSLANISH",
+     "YIQILISH",
+     "MAQTOV",
+     "YOLGʻIZLIK",
+     "CHARCHOQ",
+     "TANQID",
+     "TAYYOR EMAS",
+     "NATIJA",
+     "VAʼDALAR",
+     "SOLISHTIRISH",
+     "BILISH ≠ HARAKAT"
+    ],
+    "hi": 2
+   }
+  }
+ ]
+}

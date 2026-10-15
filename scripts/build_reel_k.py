@@ -14,6 +14,7 @@ def lufs(p):
     o = subprocess.run(["ffmpeg", "-nostats", "-i", str(p), "-af", "ebur128=peak=true", "-f", "null", "-"], capture_output=True, text=True).stderr
     return float(re.findall(r"I:\s+(-?[\d.]+) LUFS", o)[-1]), float(re.findall(r"Peak:\s+(-?[\d.]+) dBFS", o)[-1])
 import numpy as np, soundfile as sf
+import sfx_synth as SS
 SR = 48000
 def _env(n, a=0.005, d=0.2):
     t = np.arange(n) / SR; return np.minimum(t / max(a, 1e-4), 1) * np.exp(-t / d)
@@ -89,6 +90,25 @@ for sc in spec.get("scenes", []):
     elif sc["kind"] == "task":
         P = {"text": sc["text"], "time": sc["time"]}; ty = s0 + 0.35
         events += [{"t": ty + k * 0.07, "k": "type"} for k in range(len(sc["text"]))] + [{"t": s0 + 1.95, "k": "chime"}, {"t": s0 + 2.65, "k": "tick"}]
+    elif sc["kind"] == "fall":
+        fa = T(sc["fallAt"]); P = {"fallAt": round(fa - s0, 3)}
+        events += [{"t": fa - 0.55, "k": "whoosh", "db": -4}, {"t": fa + 0.49, "k": "thud"}, {"t": fa + 0.95, "k": "tick", "db": -3}]
+    elif sc["kind"] == "plan":
+        sk = [T(x) for x in sc["strikes"]]; P = {"strikes": [round(x - s0, 3) for x in sk], "items": sc["items"]}
+        events += [{"t": x, "k": "tick", "db": 4} for x in sk] + [{"t": sk[-1] + 0.08, "k": "thud", "db": -4}]
+    elif sc["kind"] == "zero":
+        events += [{"t": s0 + 0.6, "k": "thud"}, {"t": s0 + 0.05, "k": "whoosh", "db": -6}]
+    elif sc["kind"] == "fork":
+        sp_ = T(sc["split"]); lw = [T(x) for x in sc["left"]]; rw = [T(x) for x in sc["right"]]; go = T(sc["go"])
+        P = {"split": round(sp_ - s0, 3), "left": [round(x - s0, 3) for x in lw], "right": [round(x - s0, 3) for x in rw], "go": round(go - s0, 3)}
+        events += [{"t": s0 + 0.1, "k": "whoosh"}, {"t": sp_, "k": "ding"}, {"t": lw[0], "k": "thud", "db": -3}, {"t": rw[0], "k": "chime"}, {"t": go, "k": "whoosh"}, {"t": go + 1.3, "k": "sparkle"}, {"t": go + 1.7, "k": "ding"}]
+    elif sc["kind"] == "bounce":
+        P = {"mode": sc["mode"]}
+        if sc["mode"] == "up": events += [{"t": s0 + 0.5, "k": "boing", "db": -4}, {"t": s0 + 1.0, "k": "boing", "db": -2}, {"t": s0 + 1.5, "k": "boing"}, {"t": s0 + 2.0, "k": "sparkle"}]
+        else: events += [{"t": s0 + 0.6, "k": "thud"}]
+    elif sc["kind"] == "wave":
+        tf, tt = T(sc["talkFrom"]), T(sc["talkTo"]); P = {"quote": sc["quote"], "talkFrom": round(tf - s0, 3), "talkTo": round(tt - s0, 3)}
+        events += [{"t": tf - 0.05, "k": "tick"}, {"t": tt + 0.1, "k": "chime", "db": -4}]
     elif sc["kind"] == "panorama":
         P = {"titles": sc["titles"], "hi": sc.get("hi", 0)}; events += [{"t": s0 + 0.2, "k": "whoosh"}]
     scenes.append({"kind": sc["kind"], "start": round(s0, 3), "dur": round(s1 - s0, 3), "p": P})
@@ -97,7 +117,7 @@ for sc in spec.get("scenes", []):
 if events:
     n = int(SR * (total + 1)); tr = np.zeros(n)
     for e in events:
-        w = sfx_wave(e["k"]) * GAIN[e["k"]] * 10 ** (e.get("db", 0) / 20); i0 = int(e["t"] * SR)
+        w = SS.wave(e["k"], e.get("db", 0)); i0 = int(e["t"] * SR)
         if i0 < n: tr[i0:i0 + len(w)] += w[: n - i0]
     tr *= 0.2 / (np.abs(tr).max() + 1e-9); sf.write(W / "sfx.wav", np.stack([tr, tr], 1), SR)
     run("ffmpeg", "-v", "error", "-y", "-i", W / "voice_full.wav", "-i", mus, "-i", W / "sfx.wav", "-filter_complex",
@@ -108,4 +128,6 @@ data = {"style": spec["base_style"], "totalSec": total, "audio": mixname, "lines
 dj = K / "src/data" / f"reel_{spec['id']}.json"; json.dump(data, open(dj, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
 out = proj / "out" / f"reel_{spec['id']}_{'draft' if a.scale != '1' else 'final'}.mp4"; out.parent.mkdir(exist_ok=True)
 run("bash", K / "render.sh", spec["base_style"], out, a.scale, dj)
+# audio: Remotion AAC o'rniga toza miksdan AAC 256k / 48 kHz (standart)
+tmp = out.with_name(out.stem + "_tmp.mp4"); run("ffmpeg", "-v", "error", "-y", "-i", out, "-i", W / "mix.wav", "-map", "0:v", "-map", "1:a", "-c:v", "copy", "-c:a", "aac", "-b:a", "256k", "-ar", 48000, "-shortest", "-movflags", "+faststart", tmp); tmp.replace(out)
 print("TAYYOR:", out, f"{total}s")

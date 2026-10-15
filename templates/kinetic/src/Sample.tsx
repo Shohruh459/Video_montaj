@@ -5,7 +5,7 @@ type W = {t: string; a?: boolean};
 export type LineT = {words: W[]; start: number; dur: number; clip: string; pos?: string; tag?: string; style?: StyleName; ss?: number; vpos?: 'bottom'};
 export const STYLES = ['kino-oltin', 'split-oyna', 'jurnal', 'neon', 'minimal-oq', 'afisha', 'terminal', 'shisha', 'daftar', 'harakat'] as const;
 export type StyleName = typeof STYLES[number];
-export type SceneT = {kind: 'days' | 'back' | 'stop' | 'task' | 'panorama'; start: number; dur: number; p?: any};
+export type SceneT = {kind: 'days' | 'back' | 'stop' | 'task' | 'panorama' | 'fall' | 'plan' | 'zero' | 'fork' | 'bounce' | 'wave'; start: number; dur: number; p?: any};
 export type SampleProps = {style: StyleName; totalSec: number; audio: string; lines: LineT[]; scenes?: SceneT[]};
 const LEGACY: Record<string, StyleName> = {gold: 'kino-oltin', split: 'split-oyna', editorial: 'jurnal'};
 
@@ -672,6 +672,12 @@ const SceneLayer: React.FC<{scenes: SceneT[]; fps: number}> = ({scenes, fps}) =>
             {sc.kind === 'stop' && <StopScene />}
             {sc.kind === 'task' && <TaskScene p={sc.p} />}
             {sc.kind === 'panorama' && <PanoramaScene p={sc.p} />}
+            {sc.kind === 'fall' && <FallScene p={sc.p} />}
+            {sc.kind === 'plan' && <PlanScene p={sc.p} />}
+            {sc.kind === 'zero' && <ZeroScene />}
+            {sc.kind === 'fork' && <ForkScene p={sc.p} />}
+            {sc.kind === 'bounce' && <BounceScene p={sc.p} />}
+            {sc.kind === 'wave' && <WaveScene p={sc.p} />}
           </SceneFade>
         </Sequence>
       );
@@ -799,6 +805,149 @@ const PanoramaScene: React.FC<{p: {titles: string[]; hi: number}}> = ({p}) => {
           );
         })}
       </div>
+    </AbsoluteFill>
+  );
+};
+
+
+// ───────────────── #03 sahnalari: yiqilish / reja / nol / ikki yo'l / sakrash / ovoz ─────────────────
+const Ball: React.FC<{x: number; y: number; r?: number; gray?: number; sx?: number; sy?: number; glow?: number}> = ({x, y, r = 46, gray = 0, sx = 1, sy = 1, glow = 1}) => (
+  <div style={{position: 'absolute', left: x - r, top: y - r, width: r * 2, height: r * 2, borderRadius: r, background: `radial-gradient(circle at 35% 30%, #fff, ${gray ? '#9a9a9a' : GOLD} 55%, ${gray ? '#555' : '#c98a1c'})`, boxShadow: gray ? '0 0 10px rgba(0,0,0,0.4)' : `0 0 ${46 * glow}px rgba(242,184,75,${0.8 * glow})`, transform: `scale(${sx}, ${sy})`, transformOrigin: '50% 100%', filter: gray ? `grayscale(${gray})` : undefined}} />
+);
+
+// 1) Yiqilish: to'p pog'onadan dumalab tushadi, yerga urilib bir necha marta sakraydi
+const FallScene: React.FC<{p: {fallAt: number}}> = ({p}) => {
+  const f = useCurrentFrame(); const {fps} = useVideoConfig(); const t = f / fps;
+  const R = 46, EDGE = 560, TOP = 560, FLOOR = 1060; const rise = c01(t / 0.4);
+  const roll = c01((t - (p.fallAt - 0.7)) / 0.7);        // chetga dumalaydi
+  let x = 300 + (EDGE - 300) * roll * roll, y = TOP - R, sx = 1, sy = 1, landed = 0;
+  const tf = t - p.fallAt;
+  if (tf > 0) {   // erkin tushish
+    const g = 4200; const fallT = Math.sqrt(2 * (FLOOR - TOP) / g); const tt = Math.min(tf, fallT);
+    y = TOP - R + 0.5 * g * tt * tt; x = EDGE + 60 * Math.min(tf, 1.6);
+    if (tf > fallT) { const b = tf - fallT; landed = 1; const hop = (h: number, d: number) => (b >= d && b < d + 0.42 ? h * Math.sin(Math.PI * (b - d) / 0.42) : 0);
+      y = FLOOR - R - hop(150, 0) - hop(52, 0.42); x = EDGE + 60 * Math.min(tf, 1.6) + 110 * Math.min(b, 1.2);
+      if (b < 0.12) { sx = 1.35; sy = 0.65; } }
+  }
+  const shake = landed && tf - Math.sqrt(2 * (FLOOR - TOP) / 4200) < 0.3 ? (random(`fs${f}`) - 0.5) * 14 : 0;
+  const gray = tf > 1.0 ? c01((tf - 1.0) / 0.8) * 0.7 : 0;
+  return (
+    <AbsoluteFill style={{opacity: rise, transform: `translateY(${shake}px)`}}>
+      <div style={{position: 'absolute', left: 90, top: TOP, width: 520, height: 34, borderRadius: 14, background: 'rgba(255,255,255,0.22)', boxShadow: '0 0 30px rgba(242,184,75,0.25)'}} />
+      <div style={{position: 'absolute', left: 90, top: TOP + 34, width: 30, height: FLOOR - TOP - 34, background: 'linear-gradient(rgba(255,255,255,0.18), transparent)'}} />
+      <div style={{position: 'absolute', left: 60, right: 60, top: FLOOR, height: 8, borderRadius: 4, background: 'rgba(255,255,255,0.3)'}} />
+      <div style={{position: 'absolute', left: 300 + 130 * 0, top: TOP - 150, fontFamily: 'YB', fontWeight: 700, fontSize: 30, letterSpacing: 6, color: 'rgba(255,255,255,0.55)', opacity: tf < 0 ? 1 : 0}}>REJA</div>
+      <Ball x={x} y={y} r={R} sx={sx} sy={sy} gray={gray} glow={1 - gray} />
+      {landed === 1 && [0, 1].map((i) => { const a = c01((tf - Math.sqrt(2 * (FLOOR - TOP) / 4200) - i * 0.12) / 0.6); return a > 0 && a < 1 ? <div key={i} style={{position: 'absolute', left: EDGE + 60 - 120 + 0, top: FLOOR - 24, width: 240, height: 48, marginLeft: 0, borderRadius: '50%', border: `4px solid rgba(255,255,255,${0.5 * (1 - a)})`, transform: `scale(${0.4 + a * 1.6})`}} /> : null; })}
+    </AbsoluteFill>
+  );
+};
+
+// 2) Reja kartochkasi: bandlar birin-ketin chizib tashlanadi
+const PlanScene: React.FC<{p: {strikes: number[]; items: string[]}}> = ({p}) => {
+  const f = useCurrentFrame(); const {fps} = useVideoConfig(); const t = f / fps; const pop = eO(c01(t / 0.35));
+  return (
+    <AbsoluteFill>
+      <div style={{position: 'absolute', left: 100, top: 400, width: 880, height: 640, borderRadius: 40, background: 'rgba(255,255,255,0.07)', border: '2px solid rgba(242,184,75,0.5)', boxShadow: '0 30px 80px rgba(0,0,0,0.5)', transform: `scale(${0.92 + 0.08 * pop})`, opacity: pop}}>
+        <div style={{position: 'absolute', left: 54, top: 44, fontFamily: 'YB', fontWeight: 700, fontSize: 30, letterSpacing: 8, color: GOLD}}>MENING REJAM</div>
+        {p.items.map((it, i) => {
+          const sa = c01((t - p.strikes[i]) / 0.22); const y = 140 + i * 150;
+          return (
+            <div key={i} style={{position: 'absolute', left: 54, right: 54, top: y, height: 110}}>
+              <div style={{position: 'absolute', left: 0, top: 18, width: 74, height: 74, borderRadius: 20, boxSizing: 'border-box', border: `5px solid ${sa > 0 ? RED2 : 'rgba(255,255,255,0.5)'}`, color: RED2, fontSize: 52, fontFamily: 'YB', fontWeight: 700, textAlign: 'center', lineHeight: '64px'}}>{sa > 0.6 ? '✗' : ''}</div>
+              <div style={{position: 'absolute', left: 110, top: 8, fontFamily: 'YB', fontWeight: 700, fontSize: 58, color: sa > 0 ? 'rgba(255,255,255,0.45)' : '#fff', lineHeight: '94px', whiteSpace: 'nowrap'}}>{it}</div>
+              <div style={{position: 'absolute', left: 100, top: 54, height: 8, width: `${sa * 88}%`, background: RED2, borderRadius: 4, boxShadow: '0 0 18px rgba(255,77,77,0.8)'}} />
+            </div>
+          );
+        })}
+      </div>
+    </AbsoluteFill>
+  );
+};
+
+// 3) Natija: nol
+const ZeroScene: React.FC = () => {
+  const f = useCurrentFrame(); const {fps} = useVideoConfig(); const t = f / fps; const a = eO(c01(t / 0.4));
+  const flick = t > 0.6 ? 1 + 0.04 * Math.sin(t * 22) : 1;
+  return (
+    <AbsoluteFill style={{opacity: a}}>
+      <div style={{position: 'absolute', left: 0, right: 0, top: 250, textAlign: 'center', fontFamily: 'YB', fontWeight: 700, fontSize: 40, letterSpacing: 12, color: 'rgba(255,255,255,0.6)'}}>NATIJA</div>
+      <div style={{position: 'absolute', left: 540 - 270, top: 380, width: 540, height: 540, borderRadius: 270, boxSizing: 'border-box', border: '18px solid rgba(255,255,255,0.14)', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: `0 0 ${60 * (t > 0.6 ? 1 : 0)}px rgba(255,77,77,0.45)`}}>
+        <div style={{fontFamily: 'YB', fontWeight: 700, fontSize: 330, color: t > 0.6 ? RED2 : '#fff', transform: `scale(${flick})`, textShadow: t > 0.6 ? '0 0 60px rgba(255,77,77,0.7)' : 'none'}}>0</div>
+      </div>
+      <div style={{position: 'absolute', left: 140, right: 140, top: 1040, height: 44, display: 'flex', alignItems: 'flex-end', gap: 22}}>
+        {Array.from({length: 7}, (_, i) => <div key={i} style={{flex: 1, height: 8, borderRadius: 4, background: 'rgba(255,255,255,0.35)'}} />)}
+      </div>
+    </AbsoluteFill>
+  );
+};
+
+// 4) Ikki yo'l (3D): to'p ayriliqqa keladi; chap yo'l — sinish, o'ng yo'l — o'rganish; to'p o'ngga ketadi
+const bz = (P: number[][], u: number) => { const m = 1 - u; return [m * m * m * P[0][0] + 3 * m * m * u * P[1][0] + 3 * m * u * u * P[2][0] + u * u * u * P[3][0], m * m * m * P[0][1] + 3 * m * m * u * P[1][1] + 3 * m * u * u * P[2][1] + u * u * u * P[3][1]]; };
+const LP = [[400, 640], [400, 520], [250, 470], [170, 290]], RP = [[400, 640], [400, 500], [560, 430], [640, 170]];
+const ForkScene: React.FC<{p: {split: number; left: number[]; right: number[]; go: number}}> = ({p}) => {
+  const f = useCurrentFrame(); const {fps} = useVideoConfig(); const t = f / fps; const draw = eO(c01(t / 0.8));
+  const inWin = (w: number[]) => (t >= w[0] && t < w[1] ? 1 : 0);
+  const lh = inWin(p.left), rh = inWin(p.right) || (t >= p.go ? 1 : 0), after = t >= p.go;
+  let bx = 400, by = 1050;
+  const sUp = eIO(c01((t - 0.3) / Math.max(0.2, p.split - 0.3)));
+  if (t < p.go) { by = 1050 - 410 * sUp; } else { const [x, y] = bz(RP, eIO(c01((t - p.go) / 1.5))); bx = x; by = y; }
+  const road = (P: number[][], col: string, op: number, glow: number) => (
+    <path d={`M ${P[0][0]} ${P[0][1]} C ${P[1][0]} ${P[1][1]}, ${P[2][0]} ${P[2][1]}, ${P[3][0]} ${P[3][1]}`} fill="none" stroke={col} strokeWidth={48} strokeLinecap="round" opacity={op} pathLength={1} strokeDasharray={1} strokeDashoffset={1 - draw} style={{filter: glow ? `drop-shadow(0 0 ${28 * glow}px ${col})` : undefined}} />
+  );
+  const lOp = after ? 0.22 : (rh ? 0.3 : 0.9), rOp = lh ? 0.3 : 0.95;
+  const rotX = 50 - 6 * c01(t / 4);
+  return (
+    <AbsoluteFill style={{perspective: 1700, perspectiveOrigin: '50% 40%'}}>
+      <div style={{position: 'absolute', left: 140, top: 130, width: 800, height: 1100, transformStyle: 'preserve-3d', transform: `rotateX(${rotX}deg)`}}>
+        <svg width="800" height="1100" viewBox="0 0 800 1100" style={{position: 'absolute', left: 0, top: 0, overflow: 'visible'}}>
+          <line x1="400" y1="1100" x2="400" y2="640" stroke="rgba(255,255,255,0.25)" strokeWidth={48} strokeLinecap="round" opacity={draw} />
+          {road(LP, RED2, lOp, lh)}
+          {road(RP, GOLD, rOp, rh ? 1 : 0.2)}
+          {after && c01((t - p.go - 1.2) / 0.4) > 0 && [0, 1, 2, 3, 4].map((i) => { const [x, y] = bz(RP, 0.25 + i * 0.18); return <circle key={i} cx={x} cy={y} r={11} fill="#fff" opacity={c01((t - p.go - 1.2) / 0.4)} />; })}
+          <g opacity={draw}><path d="M 150 275 l 40 30 l -30 20 l 38 34" stroke={RED2} strokeWidth={9} fill="none" strokeLinecap="round" /></g>
+        </svg>
+        <div style={{position: 'absolute', left: 0, top: 205, padding: '14px 30px', borderRadius: 44, background: 'rgba(60,0,0,0.78)', border: `5px solid ${RED2}`, color: RED2, fontFamily: 'YB', fontWeight: 700, fontSize: 42, letterSpacing: 1, whiteSpace: 'nowrap', opacity: draw * (after ? 0.5 : 1), transform: 'translateZ(2px)'}}>MEN YOMONMAN</div>
+        <div style={{position: 'absolute', left: 250, top: 40, padding: '14px 30px', borderRadius: 44, background: 'rgba(60,40,0,0.78)', border: `5px solid ${GOLD}`, color: GOLD, fontFamily: 'YB', fontWeight: 700, fontSize: 42, letterSpacing: 1, whiteSpace: 'nowrap', opacity: draw, transform: 'translateZ(2px)'}}>BU USUL ISHLAMADI</div>
+        <div style={{position: 'absolute', left: bx - 40, top: by - 40, width: 80, height: 80, transformStyle: 'preserve-3d', transform: `translateZ(${30 + 18 * Math.sin(t * 6)}px)`}}><Ball x={40} y={40} r={36} glow={1} /></div>
+      </div>
+    </AbsoluteFill>
+  );
+};
+
+// 5) Sakrash: 'up' — har urilishda balandroq (qayta turish); 'stay' — yerda qoladi
+const BounceScene: React.FC<{p: {mode: 'up' | 'stay'}}> = ({p}) => {
+  const f = useCurrentFrame(); const {fps} = useVideoConfig(); const t = f / fps; const rise = c01(t / 0.3);
+  const FLOOR = 980, R = 52; let y = FLOOR - R, sx = 1, sy = 1, gray = 0;
+  if (p.mode === 'up') {
+    const hs = [0, 120, 260, 440]; const dur = 0.5; const i = Math.min(Math.floor(t / dur), 3); const u = (t - i * dur) / dur;
+    y = FLOOR - R - hs[Math.min(i + 1, 3)] * Math.sin(Math.PI * c01(u)); if (t > 2.0) y = FLOOR - R - 440 - 30 * Math.sin((t - 2) * 3);
+    if (u < 0.1 && t < 2.0) { sx = 1.25; sy = 0.75; }
+  } else { const g = 3600; const dt = Math.sqrt(2 * (FLOOR - R - 300) / g); const tt = Math.min(t, dt); y = 300 + 0.5 * g * tt * tt; if (t > dt && t < dt + 0.12) { sx = 1.3; sy = 0.7; } gray = c01((t - dt) / 0.6) * 0.85; }
+  const shadow = 1 - c01((FLOOR - R - y) / 600) * 0.6;
+  return (
+    <AbsoluteFill style={{opacity: rise}}>
+      <div style={{position: 'absolute', left: 60, right: 60, top: FLOOR, height: 8, borderRadius: 4, background: 'rgba(255,255,255,0.3)'}} />
+      <div style={{position: 'absolute', left: 540 - 70 * shadow, top: FLOOR + 14, width: 140 * shadow, height: 22, borderRadius: '50%', background: 'rgba(0,0,0,0.5)', filter: 'blur(4px)'}} />
+      <Ball x={540} y={y} r={R} sx={sx} sy={sy} gray={gray} glow={1 - gray} />
+      {p.mode === 'up' && t > 1.9 && <div style={{position: 'absolute', left: 0, right: 0, top: 360, textAlign: 'center', fontFamily: 'YB', fontWeight: 700, fontSize: 150, color: GOLD, opacity: c01((t - 1.9) / 0.4), textShadow: '0 0 40px rgba(242,184,75,0.7)'}}>↑</div>}
+    </AbsoluteFill>
+  );
+};
+
+// 6) Ovoz chiqarib aytish: mikrofon + to'lqin + iqtibos
+const WaveScene: React.FC<{p: {quote: string; talkFrom: number; talkTo: number}}> = ({p}) => {
+  const f = useCurrentFrame(); const {fps} = useVideoConfig(); const t = f / fps; const a = eO(c01(t / 0.4));
+  const talking = t >= p.talkFrom && t <= p.talkTo; const nChars = Math.floor(c01((t - p.talkFrom) / Math.max(0.3, p.talkTo - p.talkFrom)) * p.quote.length);
+  return (
+    <AbsoluteFill style={{opacity: a}}>
+      <div style={{position: 'absolute', left: 540 - 120, top: 300, width: 240, height: 240, borderRadius: 120, background: talking ? GOLD : 'rgba(255,255,255,0.12)', border: `6px solid ${GOLD}`, boxShadow: talking ? '0 0 80px rgba(242,184,75,0.7)' : 'none', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+        <svg width="120" height="150" viewBox="0 0 24 30"><rect x="8" y="1" width="8" height="16" rx="4" fill={talking ? '#0a0a0a' : '#fff'} /><path d="M3 13a9 9 0 0 0 18 0M12 22v6M7 28h10" stroke={talking ? '#0a0a0a' : '#fff'} strokeWidth="2" fill="none" strokeLinecap="round" /></svg>
+      </div>
+      <div style={{position: 'absolute', left: 90, right: 90, top: 640, height: 220, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10}}>
+        {Array.from({length: 33}, (_, i) => { const env = talking ? 0.25 + 0.75 * Math.abs(Math.sin(t * 9 + i * 0.7)) * (0.5 + 0.5 * random(`w${Math.floor(f / 2)}_${i}`)) : 0.06; const mid = 1 - Math.abs(i - 16) / 18; return <div key={i} style={{width: 14, height: 210 * env * (0.35 + 0.65 * mid), borderRadius: 7, background: talking ? GOLD : 'rgba(255,255,255,0.4)'}} />; })}
+      </div>
+      <div style={{position: 'absolute', left: 90, right: 90, top: 930, textAlign: 'center', fontFamily: 'YB', fontWeight: 700, fontSize: 78, color: '#fff', lineHeight: 1.15, textShadow: '0 4px 20px rgba(0,0,0,0.6)'}}>“{p.quote.slice(0, nChars)}<span style={{opacity: 0.35}}>{p.quote.slice(nChars)}</span>”</div>
     </AbsoluteFill>
   );
 };

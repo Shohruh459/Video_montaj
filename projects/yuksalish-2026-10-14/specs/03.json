@@ -1,0 +1,283 @@
+{
+ "id": "03",
+ "title": "Yiqilganda qanday turish",
+ "base_style": "harakat",
+ "handle": "@yuksalish713",
+ "music": {
+  "src": "/tmp/music/raw/s31_r15_dramatik-orkestr.wav",
+  "ss": 0,
+  "rel_db": -20,
+  "note": "HF mrfakename/cc0-music-captioned 31:15 (dramatik orkestr, kuchayib boradi)"
+ },
+ "phrases": [
+  {
+   "say": "Yiqildingiz.",
+   "show": "Yiqildingiz.",
+   "acc": [
+    0
+   ],
+   "pause": 0.5,
+   "style": "harakat",
+   "clip": "pixabay_video_11722.mp4",
+   "ss": 0,
+   "pos": "50% 50%"
+  },
+  {
+   "say": "Rejangiz ishlamadi.",
+   "show": "Rejangiz ishlamadi.",
+   "acc": [
+    1
+   ],
+   "pause": 0.4,
+   "style": "harakat",
+   "clip": "pixabay_video_11722.mp4",
+   "ss": 5,
+   "pos": "50% 50%"
+  },
+  {
+   "say": "Natija chiqmadi.",
+   "show": "Natija chiqmadi.",
+   "acc": [
+    1
+   ],
+   "pause": 0.7,
+   "style": "harakat",
+   "clip": "pixabay_video_11722.mp4",
+   "ss": 10,
+   "pos": "50% 50%"
+  },
+  {
+   "say": "Endi ikki yoʻl bor.",
+   "show": "Endi ikki yoʻl bor.",
+   "acc": [
+    1,
+    2
+   ],
+   "pause": 0.55,
+   "style": "harakat",
+   "clip": "",
+   "ss": 0,
+   "pos": "50% 50%"
+  },
+  {
+   "say": "Biri, men yomonman, deb oʻzingizni sindirish.",
+   "show": "Biri — “Men yomonman” deb oʻzingizni sindirish.",
+   "acc": [
+    6
+   ],
+   "pause": 0.45,
+   "style": "harakat",
+   "clip": "",
+   "ss": 0,
+   "pos": "50% 50%"
+  },
+  {
+   "say": "Ikkinchisi, bu usul ishlamadi, deb oʻrganish.",
+   "show": "Ikkinchisi — “Bu usul ishlamadi” deb oʻrganish.",
+   "acc": [
+    6
+   ],
+   "pause": 0.7,
+   "style": "harakat",
+   "clip": "",
+   "ss": 0,
+   "pos": "50% 50%"
+  },
+  {
+   "say": "Yuksalayotgan odam ikkinchisini tanlaydi.",
+   "show": "Yuksalayotgan odam ikkinchisini tanlaydi.",
+   "acc": [
+    2,
+    3
+   ],
+   "pause": 0.7,
+   "style": "harakat",
+   "clip": "",
+   "ss": 0,
+   "pos": "50% 50%"
+  },
+  {
+   "say": "Yiqilish sizni yoʻq qilmaydi.",
+   "show": "Yiqilish sizni yoʻq qilmaydi.",
+   "acc": [
+    0
+   ],
+   "pause": 0.35,
+   "style": "harakat",
+   "clip": "",
+   "ss": 0,
+   "pos": "50% 50%"
+  },
+  {
+   "say": "Yiqilgandan keyin turmaslik sizni yoʻq qiladi.",
+   "show": "Yiqilgandan keyin turmaslik sizni yoʻq qiladi.",
+   "acc": [
+    2
+   ],
+   "pause": 0.6,
+   "style": "harakat",
+   "clip": "",
+   "ss": 0,
+   "pos": "50% 50%"
+  },
+  {
+   "say": "Hozir ovoz chiqarib ayting. Bu usul ishlamadi.",
+   "show": "Hozir ovoz chiqarib ayting: “Bu usul ishlamadi.”",
+   "acc": [
+    4,
+    5,
+    6
+   ],
+   "pause": 0.9,
+   "style": "harakat",
+   "clip": "",
+   "ss": 0,
+   "pos": "50% 50%"
+  },
+  {
+   "say": "Yiqilgandan keyin qaysi yoʻlni tanlaysiz?",
+   "show": "Yiqilgandan keyin qaysi yoʻlni tanlaysiz?",
+   "acc": [
+    2,
+    3
+   ],
+   "pause": 0.0,
+   "style": "harakat",
+   "clip": "",
+   "ss": 0,
+   "pos": "50% 50%"
+  }
+ ],
+ "scenes": [
+  {
+   "kind": "fall",
+   "from_p": 0,
+   "to_p": 0,
+   "to_extra": 0.5,
+   "fallAt": {
+    "p": 0,
+    "dt": 0.55
+   }
+  },
+  {
+   "kind": "plan",
+   "from_p": 1,
+   "to_p": 1,
+   "to_extra": 0.3,
+   "items": [
+    "Ertalab turish",
+    "Mashq qilish",
+    "Kitob oʻqish"
+   ],
+   "strikes": [
+    {
+     "p": 1,
+     "dt": 0.3
+    },
+    {
+     "p": 1,
+     "dt": 0.75
+    },
+    {
+     "p": 1,
+     "dt": 1.2
+    }
+   ]
+  },
+  {
+   "kind": "zero",
+   "from_p": 2,
+   "to_p": 2,
+   "to_extra": 0.4
+  },
+  {
+   "kind": "fork",
+   "from_p": 3,
+   "to_p": 6,
+   "to_extra": 0.5,
+   "split": {
+    "p": 3,
+    "frac": 0.85
+   },
+   "left": [
+    {
+     "p": 4,
+     "dt": 0.1
+    },
+    {
+     "p": 4,
+     "end": -0.1
+    }
+   ],
+   "right": [
+    {
+     "p": 5,
+     "dt": 0.1
+    },
+    {
+     "p": 5,
+     "end": -0.1
+    }
+   ],
+   "go": {
+    "p": 6,
+    "dt": 0.9
+   }
+  },
+  {
+   "kind": "bounce",
+   "from_p": 7,
+   "to_p": 7,
+   "to_extra": 0.3,
+   "mode": "up"
+  },
+  {
+   "kind": "bounce",
+   "from_p": 8,
+   "to_p": 8,
+   "to_extra": 0.3,
+   "mode": "stay"
+  },
+  {
+   "kind": "wave",
+   "from_p": 9,
+   "to_p": 9,
+   "to_extra": 0.3,
+   "quote": "Bu usul ishlamadi.",
+   "talkFrom": {
+    "p": 9,
+    "frac": 0.62
+   },
+   "talkTo": {
+    "p": 9,
+    "end": 0.0
+   }
+  },
+  {
+   "kind": "panorama",
+   "from_p": 10,
+   "hi": 2,
+   "titles": [
+    "OʻZINI ALDASH",
+    "AFSUSLANISH",
+    "YIQILISH",
+    "MAQTOV",
+    "YOLGʻIZLIK",
+    "CHARCHOQ",
+    "TANQID",
+    "TAYYOR EMAS",
+    "NATIJA",
+    "VAʼDALAR",
+    "SOLISHTIRISH",
+    "BILISH ≠ HARAKAT"
+   ]
+  }
+ ],
+ "sfx": [
+  {
+   "t": 0.1,
+   "k": "thud",
+   "db": -3
+  }
+ ]
+}

@@ -33,6 +33,7 @@ dj = K / "src/data" / f"mushuk_{spec['id']}.json"; json.dump(data, open(dj, "w",
 out = proj / "out" / f"mushuk_{spec['id']}_{'draft' if a.scale != '1' else 'final'}.mp4"; raw = W / "raw.mp4"
 run("npx", "--prefix", K, "remotion", "render", K / "src/index.ts", "Mushuk", raw, f"--props={dj}", f"--scale={a.scale}", "--crf=18", "--pixel-format=yuv420p") if False else subprocess.run(["npx", "remotion", "render", "src/index.ts", "Mushuk", str(raw), f"--props={dj}", f"--scale={a.scale}", "--crf=18", "--pixel-format=yuv420p"], cwd=K, check=True, stdout=subprocess.DEVNULL)
 run("ffmpeg", "-v", "error", "-y", "-i", raw, "-vf", "scale=in_range=pc:out_range=tv,format=yuv420p", "-c:v", "libx264", "-preset", "medium", "-crf", 18, "-r", 30, "-c:a", "copy", "-movflags", "+faststart", out)
+tmp = out.with_name(out.stem + "_tmp.mp4"); run("ffmpeg", "-v", "error", "-y", "-i", out, "-i", W / "mix.wav", "-map", "0:v", "-map", "1:a", "-c:v", "copy", "-c:a", "aac", "-b:a", "256k", "-ar", 48000, "-shortest", "-movflags", "+faststart", tmp); tmp.replace(out)
 print("TAYYOR:", out)
 if a.alt:
     alt = out.with_name(out.stem + "_musiqaB.mp4"); run("ffmpeg", "-v", "error", "-y", "-i", out, "-i", W / "mix_alt.wav", "-map", "0:v", "-map", "1:a", "-c:v", "copy", "-c:a", "aac", "-b:a", "256k", "-shortest", "-movflags", "+faststart", alt); print("TAYYOR (B musiqa):", alt)

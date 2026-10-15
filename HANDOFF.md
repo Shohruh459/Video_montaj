@@ -105,3 +105,9 @@ Pixabay'da Song Plus'ning o'zi ehtimol yo'q → umumiy elektromobil kadrlari; an
 - Loyiha: `projects/zarafshon-mushuk-2026-10-15/` (spec `specs/01.json`, CREDITS.md). Pipeline: `python3 scripts/build_mushuk.py <spec> [--scale 1] [--alt]` (video 720p->1080x1920 yaxshilash, `scripts/sfx_synth.py` SFX (13 tur: boing/pop/sparkle/heart/ring...), musiqa miksi, Remotion kompozitsiya `Mushuk` (`templates/kinetic/src/Mushuk.tsx`)).
 - Draft 24 s: `out/mushuk_01_draft.mp4` (musiqa A) va `_musiqaB.mp4`. QC toza. Telefon raqami kartada TO'LIQ ko'rinishi tekshirilgan (avval o'ng chetdan kesilgan edi).
 - Kutilmoqda: mijoz fikri; "yana bor" ma'nosi (yana mushukchalar bormi / yana video bormi); ovozli matn kerakmi (V4 demo, CC-BY-NC); musiqa A/B tanlovi; haqiqiy faktlar (yoshi, nechta) — aniqlanmaguncha yozuvga qo'shilmadi.
+
+### 2026-10-15 — #01 yakuniy + #03 draft
+- #01v2 YAKUNIY: `projects/yuksalish-2026-10-14/out/reel_01v2_final.mp4` (1080x1920, 29 s, AAC 256k/48k, -13.8 LUFS). Izoh: `captions/01.md`. Builder endi audioni toza miksdan AAC 256k qilib qayta muxlaydi.
+- #03 draft: `specs/03.json` -> `out/reel_03_draft.mp4` (32.2 s). Yangi sahnalar: fall, plan, zero, fork (3D Y-yo'l), bounce(up/stay), wave. `captions/03.md`. Musiqa: dramatik orkestr (31:15). Tasdiq kutilmoqda; keyin `--scale 1`.
+- Navbat: #06, #10, #12, #08, #02, #07, #11, #04, #09, #05 (script.md). Har biri uchun mavzuga mos YANGI sahna(lar) yasash, namuna bilan.
+- Eslatma: reel_voice.py ni ikki marta ishga tushirma (bitta jarayon ishlayotganini pgrep bilan tekshir).
