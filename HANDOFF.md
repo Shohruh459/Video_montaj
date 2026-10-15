@@ -100,3 +100,8 @@ Pixabay'da Song Plus'ning o'zi ehtimol yo'q → umumiy elektromobil kadrlari; an
 - builder: `scenes` (ovoz iboralariga bog'langan vaqtlar), `sfx` (numpy bilan sintez: tick/thud/type/chime/whoosh), klipsiz iboralar.
 - Ilhom manbasi: foydalanuvchi ko'rsatgan Reels (alexandro_ai) skrinshotlari — faqat texnika (har fikrga vizual metafora, 3D panorama, yagona dizayn tizimi); mazmun/brend nusxalanmadi.
 - Kutilmoqda: foydalanuvchi fikri (ritm, SFX balansi, sahnalar). Keyin `--scale 1` yakuniy + #03 uchun yangi sahnalar (ikki yo'l, va h.k.).
+
+### 2026-10-15 — Zarafshon: mushukchalar hadiyaga (client ish)
+- Loyiha: `projects/zarafshon-mushuk-2026-10-15/` (spec `specs/01.json`, CREDITS.md). Pipeline: `python3 scripts/build_mushuk.py <spec> [--scale 1] [--alt]` (video 720p->1080x1920 yaxshilash, `scripts/sfx_synth.py` SFX (13 tur: boing/pop/sparkle/heart/ring...), musiqa miksi, Remotion kompozitsiya `Mushuk` (`templates/kinetic/src/Mushuk.tsx`)).
+- Draft 24 s: `out/mushuk_01_draft.mp4` (musiqa A) va `_musiqaB.mp4`. QC toza. Telefon raqami kartada TO'LIQ ko'rinishi tekshirilgan (avval o'ng chetdan kesilgan edi).
+- Kutilmoqda: mijoz fikri; "yana bor" ma'nosi (yana mushukchalar bormi / yana video bormi); ovozli matn kerakmi (V4 demo, CC-BY-NC); musiqa A/B tanlovi; haqiqiy faktlar (yoshi, nechta) — aniqlanmaguncha yozuvga qo'shilmadi.

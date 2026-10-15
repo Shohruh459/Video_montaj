@@ -1,0 +1,88 @@
+{
+ "totalSec": 24.0,
+ "zooms": [
+  {
+   "t": 0.15,
+   "to": 1.12
+  },
+  {
+   "t": 3.0,
+   "to": 1.1
+  },
+  {
+   "t": 6.5,
+   "to": 1.12
+  },
+  {
+   "t": 9.6,
+   "to": 1.1
+  },
+  {
+   "t": 14.0,
+   "to": 1.12
+  },
+  {
+   "t": 17.2,
+   "to": 1.1
+  }
+ ],
+ "stickers": [
+  {
+   "kind": "title",
+   "t": 0.0,
+   "dur": 3.0,
+   "text": "HADIYAGA|BERILADI!",
+   "y": 400
+  },
+  {
+   "kind": "place",
+   "t": 3.0,
+   "dur": 3.2,
+   "y": 430
+  },
+  {
+   "kind": "bubble",
+   "t": 6.5,
+   "dur": 2.3,
+   "text": "SALOM!",
+   "y": 300
+  },
+  {
+   "kind": "text",
+   "t": 9.5,
+   "dur": 3.6,
+   "text": "SHIRIN|MUSHUKCHALAR",
+   "y": 1330
+  },
+  {
+   "kind": "hearts",
+   "t": 9.8,
+   "dur": 3.0,
+   "x": 12
+  },
+  {
+   "kind": "bubble",
+   "t": 14.0,
+   "dur": 3.4,
+   "text": "BIZNI UYINGIZGA OLING!",
+   "y": 290,
+   "sub": "78"
+  },
+  {
+   "kind": "hearts",
+   "t": 17.3,
+   "dur": 2.2,
+   "x": 10
+  },
+  {
+   "kind": "end",
+   "t": 19.3,
+   "dur": 4.7
+  }
+ ],
+ "phone": "+998 93 316 97 13",
+ "place": "ZARAFSHON SHAHRI",
+ "endAt": 19.3,
+ "audio": "mushuk_mix.wav",
+ "video": "mushuk_1080.mp4"
+}

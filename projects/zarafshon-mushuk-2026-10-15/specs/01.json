@@ -1,0 +1,234 @@
+{
+ "id": "01",
+ "video_src": "projects/zarafshon-mushuk-2026-10-15/raw/mushuk_src.mp4",
+ "trim_end": 24.0,
+ "totalSec": 24.0,
+ "phone": "+998 93 316 97 13",
+ "place": "ZARAFSHON SHAHRI",
+ "endAt": 19.3,
+ "music": {
+  "src": "/tmp/music/raw/s90_r13_glock-ksilofon.wav",
+  "ss": 0,
+  "lufs": -24,
+  "note": "HF mrfakename/cc0-music-captioned 90:13 (glockenspiel+xylophone)"
+ },
+ "music_alt": {
+  "src": "/tmp/music/raw/s31_r1_ukulele-hushtak.wav",
+  "ss": 8,
+  "lufs": -24,
+  "note": "HF 31:1 (ukulele+whistling)"
+ },
+ "zooms": [
+  {
+   "t": 0.15,
+   "to": 1.12
+  },
+  {
+   "t": 3.0,
+   "to": 1.1
+  },
+  {
+   "t": 6.5,
+   "to": 1.12
+  },
+  {
+   "t": 9.6,
+   "to": 1.1
+  },
+  {
+   "t": 14.0,
+   "to": 1.12
+  },
+  {
+   "t": 17.2,
+   "to": 1.1
+  }
+ ],
+ "stickers": [
+  {
+   "kind": "title",
+   "t": 0.0,
+   "dur": 3.0,
+   "text": "HADIYAGA|BERILADI!",
+   "y": 400
+  },
+  {
+   "kind": "place",
+   "t": 3.0,
+   "dur": 3.2,
+   "y": 430
+  },
+  {
+   "kind": "bubble",
+   "t": 6.5,
+   "dur": 2.3,
+   "text": "SALOM!",
+   "y": 300
+  },
+  {
+   "kind": "text",
+   "t": 9.5,
+   "dur": 3.6,
+   "text": "SHIRIN|MUSHUKCHALAR",
+   "y": 1330
+  },
+  {
+   "kind": "hearts",
+   "t": 9.8,
+   "dur": 3.0,
+   "x": 12
+  },
+  {
+   "kind": "bubble",
+   "t": 14.0,
+   "dur": 3.4,
+   "text": "BIZNI UYINGIZGA OLING!",
+   "y": 290,
+   "sub": "78"
+  },
+  {
+   "kind": "hearts",
+   "t": 17.3,
+   "dur": 2.2,
+   "x": 10
+  },
+  {
+   "kind": "end",
+   "t": 19.3,
+   "dur": 4.7
+  }
+ ],
+ "events": [
+  {
+   "t": 0.08,
+   "k": "whoosh"
+  },
+  {
+   "t": 0.16,
+   "k": "boing"
+  },
+  {
+   "t": 0.22,
+   "k": "confetti"
+  },
+  {
+   "t": 0.55,
+   "k": "sparkle"
+  },
+  {
+   "t": 1.5,
+   "k": "sparkle",
+   "db": -6
+  },
+  {
+   "t": 2.95,
+   "k": "whoosh"
+  },
+  {
+   "t": 3.1,
+   "k": "pop"
+  },
+  {
+   "t": 3.45,
+   "k": "ding"
+  },
+  {
+   "t": 6.45,
+   "k": "squeak"
+  },
+  {
+   "t": 6.55,
+   "k": "pop"
+  },
+  {
+   "t": 7.3,
+   "k": "sparkle",
+   "db": -6
+  },
+  {
+   "t": 9.45,
+   "k": "boing",
+   "db": -3
+  },
+  {
+   "t": 9.8,
+   "k": "heart"
+  },
+  {
+   "t": 10.15,
+   "k": "heart"
+  },
+  {
+   "t": 10.5,
+   "k": "heart"
+  },
+  {
+   "t": 11.0,
+   "k": "pop",
+   "db": -4
+  },
+  {
+   "t": 11.4,
+   "k": "heart",
+   "db": -3
+  },
+  {
+   "t": 13.92,
+   "k": "whoosh"
+  },
+  {
+   "t": 14.05,
+   "k": "boing"
+  },
+  {
+   "t": 14.5,
+   "k": "ding"
+  },
+  {
+   "t": 15.4,
+   "k": "squeak",
+   "db": -4
+  },
+  {
+   "t": 17.3,
+   "k": "heart"
+  },
+  {
+   "t": 17.7,
+   "k": "heart",
+   "db": -3
+  },
+  {
+   "t": 18.1,
+   "k": "sparkle"
+  },
+  {
+   "t": 19.2,
+   "k": "whoosh"
+  },
+  {
+   "t": 19.3,
+   "k": "thud"
+  },
+  {
+   "t": 19.35,
+   "k": "confetti"
+  },
+  {
+   "t": 19.65,
+   "k": "ring"
+  },
+  {
+   "t": 21.35,
+   "k": "ring"
+  },
+  {
+   "t": 23.0,
+   "k": "ding"
+  },
+  {
+   "t": 23.1,
+   "k": "sparkle"
+  }
+ ]
+}
