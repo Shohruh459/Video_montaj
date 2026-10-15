@@ -1,6 +1,6 @@
 {
  "style": "harakat",
- "totalSec": 31.65,
+ "totalSec": 32.53,
  "audio": "reel06_mix.wav",
  "lines": [
   {
@@ -31,7 +31,7 @@
      "a": true
     }
    ],
-   "start": 2.05,
+   "start": 1.95,
    "dur": 2.12,
    "clip": "",
    "pos": "50% 50%",
@@ -62,7 +62,7 @@
      "t": "emas,"
     }
    ],
-   "start": 4.77,
+   "start": 4.47,
    "dur": 2.47,
    "clip": "",
    "pos": "50% 50%",
@@ -89,7 +89,7 @@
      "t": "boʻladi."
     }
    ],
-   "start": 7.44,
+   "start": 7.14,
    "dur": 2.44,
    "clip": "",
    "pos": "50% 50%",
@@ -104,24 +104,35 @@
     },
     {
      "t": "shu:"
+    }
+   ],
+   "start": 10.03,
+   "dur": 1.25,
+   "clip": "",
+   "pos": "50% 50%",
+   "ss": 0,
+   "tag": "",
+   "style": "harakat"
+  },
+  {
+   "words": [
+    {
+     "t": "Dam"
     },
     {
-     "t": "dam"
-    },
-    {
-     "t": "olayapsizmi,",
+     "t": "olyapsizmi,",
      "a": true
     },
     {
      "t": "yoki"
     },
     {
-     "t": "qochayapsizmi?",
+     "t": "qochyapsizmi?",
      "a": true
     }
    ],
-   "start": 10.53,
-   "dur": 2.95,
+   "start": 11.58,
+   "dur": 2.43,
    "clip": "",
    "pos": "50% 50%",
    "ss": 0,
@@ -154,7 +165,7 @@
      "t": "qiling."
     }
    ],
-   "start": 14.03,
+   "start": 14.36,
    "dur": 3.29,
    "clip": "",
    "pos": "50% 50%",
@@ -182,7 +193,7 @@
      "t": "ham."
     }
    ],
-   "start": 17.57,
+   "start": 17.85,
    "dur": 2.19,
    "clip": "",
    "pos": "50% 50%",
@@ -216,7 +227,7 @@
      "t": "boʻlmang."
     }
    ],
-   "start": 20.21,
+   "start": 20.39,
    "dur": 3.27,
    "clip": "",
    "pos": "50% 50%",
@@ -253,7 +264,7 @@
      "t": "koʻrining."
     }
    ],
-   "start": 23.93,
+   "start": 24.11,
    "dur": 3.29,
    "clip": "",
    "pos": "50% 50%",
@@ -264,13 +275,25 @@
   {
    "words": [
     {
-     "t": "Hozir"
+     "t": "Hozir:",
+     "a": true
+    }
+   ],
+   "start": 27.8,
+   "dur": 1.35,
+   "clip": "",
+   "pos": "50% 50%",
+   "ss": 0,
+   "tag": "",
+   "style": "harakat"
+  },
+  {
+   "words": [
+    {
+     "t": "Dam"
     },
     {
-     "t": "dam"
-    },
-    {
-     "t": "olyapsizmi",
+     "t": "olyapsizmi,",
      "a": true
     },
     {
@@ -281,8 +304,8 @@
      "a": true
     }
    ],
-   "start": 27.77,
-   "dur": 2.63,
+   "start": 29.35,
+   "dur": 2.43,
    "clip": "",
    "pos": "50% 50%",
    "ss": 0,
@@ -294,14 +317,14 @@
   {
    "kind": "battery",
    "start": 0,
-   "dur": 4.32,
+   "dur": 4.22,
    "p": {
-    "dur": 4.32
+    "dur": 4.22
    }
   },
   {
    "kind": "flip",
-   "start": 4.62,
+   "start": 4.32,
    "dur": 5.41,
    "p": {
     "flipAt": 3.12
@@ -309,30 +332,30 @@
   },
   {
    "kind": "choice",
-   "start": 10.38,
-   "dur": 3.35,
+   "start": 9.88,
+   "dur": 4.68,
    "p": {
-    "calm": 1.55,
-    "run": 2.53
+    "calm": 2.566,
+    "run": 3.478
    }
   },
   {
    "kind": "timer",
-   "start": 13.88,
-   "dur": 6.13,
+   "start": 14.21,
+   "dur": 6.08,
    "p": {
     "start": 0.95
    }
   },
   {
    "kind": "middle",
-   "start": 20.06,
+   "start": 20.24,
    "dur": 3.67,
    "p": {}
   },
   {
    "kind": "week",
-   "start": 23.78,
+   "start": 23.96,
    "dur": 3.69,
    "p": {
     "start": 0.7,
@@ -341,8 +364,8 @@
   },
   {
    "kind": "panorama",
-   "start": 27.62,
-   "dur": 4.03,
+   "start": 27.65,
+   "dur": 4.88,
    "p": {
     "titles": [
      "OʻZINI ALDASH",

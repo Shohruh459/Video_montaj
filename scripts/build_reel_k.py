@@ -44,7 +44,7 @@ for p in ph:
     key = hashlib.md5(f'{p["say"]}|{tts_vs.CFG["seed"]}|{tts_vs.CFG["speed"]}'.encode()).hexdigest()[:12]; f = cache / f"v_{key}.wav"
     if not f.exists(): f.write_bytes(tts_vs.synth_line(pid, p["say"], tts_vs.CFG["seed"], tts_vs.CFG["speed"]))
     ff = W / (f.stem + "_f.wav"); run("ffmpeg", "-v", "error", "-y", "-i", f, "-c:a", "pcm_s16le", "-ar", 48000, "-ac", 1, ff); files.append(ff)
-LEAD, TAIL = 0.15, 1.4; t = LEAD; starts = []; durs = [dur(f) for f in files]
+LEAD, TAIL = 0.15, spec.get('tail', 1.4); t = LEAD; starts = []; durs = [dur(f) for f in files]
 for p, d in zip(ph, durs): starts.append(round(t, 3)); t += d + p.get("pause", 0.45)
 total = round(starts[-1] + durs[-1] + TAIL, 2)
 # ovoz treki

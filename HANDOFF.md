@@ -120,3 +120,9 @@ Pixabay'da Song Plus'ning o'zi ehtimol yo'q → umumiy elektromobil kadrlari; an
 - #06 `specs/06.json` -> `out/reel_06_draft.mp4` (31.7 s, QC toza). Yangi sahnalar: battery, flip (3D aylanuvchi kartochka), choice, timer, middle, week. Izoh `captions/06.md`. Musiqa M3 (piano+torlar). Tasdiq kutilmoqda; tekshirilmagan: "baʼzan" (tutuq ʼ) talaffuzi ovozda.
 - Ovoz serveri paytida 400/429 berishi mumkin (model qayta yuklanayotganda yoki parallel so'rovlar). `bash scripts/voice_retry.sh <spec>` avtomatik qayta urinadi. Hech qachon backendga qo'lda parallel test so'rov yuborma (navbat to'lib 429 beradi).
 - Navbat: #10, #12, #08, #02, #07, #11, #04, #09, #05.
+
+### 2026-10-15 — #06: tushunarsiz ibora tuzatildi (ovoz sifati darsi)
+- Muammo: "Savol shu: dam olayapsizmi, yoki qochayapsizmi?" tushunarsiz ("dam otaya yo qotaya"): model uzun qo'shimchali so'zlarni tez va uzluksiz aytib yutib yuboradi. Yechim (foydalanuvchi tanladi, variant F): ibora ikkiga bo'lingan: "Savol shu:" + (0.45 s pauza) + "Dam olyapsizmi, yoki qochyapsizmi?"; CTA ham "Hozir:" + shu bo'lak. Qisqa shakl ("olyapsizmi") ekranda ham.
+- QOIDA: (1) uzun/qo'shimchali so'zli gaplarni bo'lak-bo'lak sintez qil, orasiga pauza qo'y; (2) foydalanuvchi eshitgan variantni qayta sintez qilma — model har safar biroz boshqacha chiqaradi (seed bir xil bo'lsa ham); tasdiqlangan faylni kesib ishlat (voice/cache/v_<md5>.wav ga qo'yiladi); (3) `scripts/asr_check.py` (Whisper-small) bilan nisbiy tushunarlilikni tekshir (so'z chegaralari ham); (4) ovozni to'liq yig'ishdan oldin foydalanuvchiga eshittir.
+- #06 draft: `out/reel_06_draft.mp4` (32.5 s, QC toza). Builder: spec `tail` parametri qo'shildi.
+- Foydalanuvchidan so'ralgan: #01/#03 da ham tushunarsiz joy bormi? (javob kutilmoqda)
