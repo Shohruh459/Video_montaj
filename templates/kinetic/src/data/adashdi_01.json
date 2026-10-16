@@ -1,5 +1,5 @@
 {
- "totalSec": 26.0,
+ "totalSec": 28.0,
  "audio": "adashdi_mix.wav",
  "shots": [
   {
@@ -362,7 +362,8 @@
    "AI bilan montaj qilamiz",
    "tez va sifatli!"
   ],
-  "sub": "Videongizni shunday yoki siz xohlagan uslubda",
+  "sub": "Siz xohlagan uslubda",
+  "handle": "@zarafshon_dasturchilari",
   "brand": "ZARAFSHON DASTURCHILARI",
   "phone": "+998 93 316 97 13"
  }

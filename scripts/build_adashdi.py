@@ -5,7 +5,7 @@ import sys, json, pathlib, subprocess, shutil, argparse, re
 import numpy as np, soundfile as sf
 ROOT = pathlib.Path(__file__).resolve().parent.parent; sys.path.insert(0, str(ROOT / "scripts"))
 import sfx_synth as S
-ap = argparse.ArgumentParser(); ap.add_argument("spec"); ap.add_argument("--scale", default="0.5"); ap.add_argument("--frames", default=None); ap.add_argument("--skip-render", action="store_true"); a = ap.parse_args()
+ap = argparse.ArgumentParser(); ap.add_argument("spec"); ap.add_argument("--scale", default="0.5"); ap.add_argument("--frames", default=None); ap.add_argument("--skip-render", action="store_true"); ap.add_argument("--reuse-shots", action="store_true"); a = ap.parse_args()
 sp = pathlib.Path(a.spec).resolve(); spec = json.load(open(sp, encoding="utf-8")); proj = sp.parent.parent; K = ROOT / "templates/kinetic"
 W = proj / "voice" / f"build_{spec['id']}"; W.mkdir(parents=True, exist_ok=True); SH = proj / "broll" / "shots"; SH.mkdir(parents=True, exist_ok=True)
 PUB = K / "public" / "adashdi"; PUB.mkdir(parents=True, exist_ok=True)
@@ -28,6 +28,7 @@ for i, e in enumerate(tl):
     src = ROOT / f"projects/zarafshon-ai-adashdi-2026-10-16/broll/pixabay_video_{e['src']}.mp4"; fx = e.get("focus", 0.5)
     out = SH / f"{i:02d}_{e['name']}.mp4"; files[e["name"]] = out.name
     total = e["dur"] + ext
+    if a.reuse_shots and out.exists(): shutil.copy(out, PUB / out.name); continue
     if e.get("ramp"):
         pieces = [list(p) for p in e["ramp"]]; pieces[-1][1] += ext * pieces[-1][2]; parts = []
         for k, (ss, sd, rate) in enumerate(pieces):
@@ -50,12 +51,20 @@ for e in tl:
     shots.append(d)
 labels = [{"t": round(e["t"] + 0.15, 2), "dur": round(e["dur"] - 0.15, 2), **e["label"]} for e in tl if e.get("label")]
 total = spec["total"]
-# audio
-sr = S.SR; sfx = S.track(spec["sfx"], total + 0.5, peak=0.7); sfx = np.stack([sfx, sfx], 1); sf.write(W / "sfx.wav", sfx, sr)
+# audio: musiqa (ovoz ostida duck) + ovoz + SFX
+sr = S.SR; sfx = S.track(spec["sfx"], total + 0.5, peak=0.5); sfx = np.stack([sfx, sfx], 1); sf.write(W / "sfx.wav", sfx, sr)
+L = int(sr * (total + 0.5)); vo = np.zeros((L, 2))
+for v in spec.get("voice", []):
+    w16 = W / f"vo_{pathlib.Path(v['wav']).stem}.wav"; run("ffmpeg", "-v", "error", "-y", "-i", ROOT / v["wav"], "-ar", sr, "-ac", 2, w16)
+    l0, _ = lufs(w16); g = 10 ** ((spec.get("voice_lufs", -15) - l0) / 20); x, _ = sf.read(w16); i0 = int(v["t"] * sr); n = min(len(x), L - i0); vo[i0:i0 + n] += x[:n] * g
+    print(f"ovoz {pathlib.Path(v['wav']).stem}: {v['t']} s, {len(x)/sr:.2f} s, gain {g:.2f}")
+sf.write(W / "vo.wav", vo, sr)
 m = spec["music"]; mus = W / "music.wav"
 run("ffmpeg", "-v", "error", "-y", "-stream_loop", -1, "-ss", m["ss"], "-t", total + 0.5, "-i", m["src"], "-af", f"afade=t=in:d=0.05,afade=t=out:st={total-1.5:.2f}:d=1.5,loudnorm=I={m['lufs']}:TP=-2:LRA=11", "-ar", sr, "-ac", 2, mus)
 mix = W / "mix.wav"
-run("ffmpeg", "-v", "error", "-y", "-i", mus, "-i", W / "sfx.wav", "-filter_complex", f"[0][1]amix=inputs=2:normalize=0:duration=longest,atrim=0:{total},loudnorm=I=-14:TP=-1.5:LRA=7", "-ar", sr, "-ac", 2, mix)
+run("ffmpeg", "-v", "error", "-y", "-i", mus, "-i", W / "vo.wav", "-i", W / "sfx.wav", "-filter_complex",
+    "[1]asplit=2[vsp][vsc];[0][vsc]sidechaincompress=threshold=0.015:ratio=6:attack=15:release=350[md];"
+    f"[md][vsp][2]amix=inputs=3:normalize=0:duration=longest,atrim=0:{total},loudnorm=I=-14:TP=-1.5:LRA=7", "-ar", sr, "-ac", 2, mix)
 l, p = lufs(mix); print(f"mix: {l} LUFS, peak {p} dBFS"); shutil.copy(mix, K / "public" / "adashdi_mix.wav")
 data = {"totalSec": total, "audio": "adashdi_mix.wav", "shots": shots, "labels": labels, "tags": [{"t": t, "text": x} for t, x in spec["tags"]], "stamps": spec["stamps"], "texts": spec["texts"], "hudEnd": spec["cta"]["t"], "sparkles": spec["sparkles"],
         "cta": {**spec["cta"], "brand": spec["brand"], "phone": spec["phone"]}}

@@ -381,7 +381,7 @@
   {
    "t": 9.05,
    "k": "boing",
-   "db": -2
+   "db": -8
   },
   {
    "t": 10.5,
@@ -645,5 +645,28 @@
   ],
   "sub": "Siz xohlagan uslubda",
   "handle": "@zarafshon_dasturchilari"
- }
+ },
+ "voice": [
+  {
+   "wav": "projects/zarafshon-ai-adashdi-2026-10-16/voice/lines/p1.wav",
+   "t": 0.4
+  },
+  {
+   "wav": "projects/zarafshon-ai-adashdi-2026-10-16/voice/lines/p2.wav",
+   "t": 9.05
+  },
+  {
+   "wav": "projects/zarafshon-ai-adashdi-2026-10-16/voice/lines/p3.wav",
+   "t": 12.0
+  },
+  {
+   "wav": "projects/zarafshon-ai-adashdi-2026-10-16/voice/lines/p4a.wav",
+   "t": 22.3
+  },
+  {
+   "wav": "projects/zarafshon-ai-adashdi-2026-10-16/voice/lines/p4b.wav",
+   "t": 26.0
+  }
+ ],
+ "voice_lufs": -15
 }
