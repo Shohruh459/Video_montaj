@@ -8,10 +8,15 @@ import {Mushuk, MushukProps} from './Mushuk';
 import mushuk from './data/mushuk.json';
 import {Montajchi, MontajchiProps} from './Montajchi';
 import montajchi from './data/montajchi.json';
+import {Ish, IshProps} from './Ish';
+import ish from './data/ish.json';
 
 const FPS = 30;
 export const Root: React.FC = () => (
   <>
+  <Composition id="Ish" component={Ish as React.FC<any>} width={1080} height={1920} fps={FPS}
+    durationInFrames={Math.round(ish.totalSec * FPS)} defaultProps={ish as IshProps}
+    calculateMetadata={({props}: {props: any}) => ({durationInFrames: Math.round(props.totalSec * FPS)})} />
   <Composition id="Montajchi" component={Montajchi as React.FC<any>} width={1080} height={1920} fps={FPS}
     durationInFrames={Math.round(montajchi.totalSec * FPS)} defaultProps={montajchi as MontajchiProps}
     calculateMetadata={({props}: {props: any}) => ({durationInFrames: Math.round(props.totalSec * FPS)})} />
