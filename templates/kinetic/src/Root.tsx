@@ -10,10 +10,15 @@ import {Montajchi, MontajchiProps} from './Montajchi';
 import montajchi from './data/montajchi.json';
 import {Ish, IshProps} from './Ish';
 import ish from './data/ish.json';
+import {Adashdi, AdashdiProps} from './Adashdi';
+import adashdi from './data/adashdi.json';
 
 const FPS = 30;
 export const Root: React.FC = () => (
   <>
+  <Composition id="Adashdi" component={Adashdi as React.FC<any>} width={1080} height={1920} fps={FPS}
+    durationInFrames={Math.round(adashdi.totalSec * FPS)} defaultProps={adashdi as AdashdiProps}
+    calculateMetadata={({props}: {props: any}) => ({durationInFrames: Math.round(props.totalSec * FPS)})} />
   <Composition id="Ish" component={Ish as React.FC<any>} width={1080} height={1920} fps={FPS}
     durationInFrames={Math.round(ish.totalSec * FPS)} defaultProps={ish as IshProps}
     calculateMetadata={({props}: {props: any}) => ({durationInFrames: Math.round(props.totalSec * FPS)})} />

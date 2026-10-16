@@ -1,0 +1,648 @@
+{
+ "id": "01",
+ "total": 26.0,
+ "brand": "ZARAFSHON DASTURCHILARI",
+ "phone": "+998 93 316 97 13",
+ "music": {
+  "src": "/tmp/music/raw/s3_r13_electropop-yorqin.wav",
+  "ss": 0.3,
+  "lufs": -17,
+  "note": "HF mrfakename/cc0-music-captioned 3:13 electro-pop, 120 BPM, CC0"
+ },
+ "tl": [
+  {
+   "name": "h1",
+   "src": 358693,
+   "ss": 6,
+   "t": 0.0,
+   "dur": 0.5,
+   "fin": "flash",
+   "z": [
+    1.05,
+    1.15
+   ],
+   "dim": 0.72
+  },
+  {
+   "name": "h2",
+   "src": 377567,
+   "ss": 3,
+   "t": 0.5,
+   "dur": 0.5,
+   "fin": "flash",
+   "z": [
+    1.05,
+    1.15
+   ],
+   "dim": 0.72
+  },
+  {
+   "name": "h3",
+   "src": 203067,
+   "ss": 2,
+   "t": 1.0,
+   "dur": 0.5,
+   "fin": "flash",
+   "z": [
+    1.05,
+    1.15
+   ],
+   "dim": 0.72
+  },
+  {
+   "name": "h4",
+   "src": 124830,
+   "ss": 1.5,
+   "t": 1.5,
+   "dur": 0.5,
+   "fin": "flash",
+   "z": [
+    1.05,
+    1.15
+   ],
+   "dim": 0.72
+  },
+  {
+   "name": "n1",
+   "src": 246856,
+   "ss": 3,
+   "t": 2.0,
+   "dur": 3.0,
+   "fin": "punch",
+   "z": [
+    1.0,
+    1.12
+   ],
+   "label": {
+    "n": 1,
+    "text": "TABIAT",
+    "color": "#1faa59"
+   }
+  },
+  {
+   "name": "c1",
+   "src": 327855,
+   "ss": 1.0,
+   "t": 5.0,
+   "dur": 3.0,
+   "fin": "whip",
+   "z": [
+    1.0,
+    1.1
+   ],
+   "ramp": [
+    [
+     1.0,
+     1.2,
+     0.6
+    ],
+    [
+     2.2,
+     2.0,
+     2.0
+    ]
+   ],
+   "label": {
+    "n": 2,
+    "text": "MASHINA",
+    "color": "#e03a3a"
+   }
+  },
+  {
+   "name": "g1",
+   "src": 124830,
+   "ss": 0.6,
+   "t": 8.0,
+   "dur": 1.0,
+   "fin": "glitch",
+   "z": [
+    1.0,
+    1.08
+   ]
+  },
+  {
+   "name": "gf",
+   "freeze_of": "g1",
+   "t": 9.0,
+   "dur": 1.5,
+   "shake": true,
+   "tint": "#ff6b6b",
+   "z": [
+    1.08,
+    1.12
+   ]
+  },
+  {
+   "name": "r1",
+   "src": 327855,
+   "ss": 2.7,
+   "t": 10.5,
+   "dur": 1.5,
+   "reverse": true,
+   "vhs": true,
+   "z": [
+    1.0,
+    1.0
+   ]
+  },
+  {
+   "name": "c2",
+   "src": 327855,
+   "ss": 4.2,
+   "t": 12.0,
+   "dur": 1.0,
+   "fin": "flash",
+   "z": [
+    1.0,
+    1.06
+   ]
+  },
+  {
+   "name": "j1",
+   "src": 381114,
+   "ss": 0.5,
+   "t": 13.0,
+   "dur": 2.5,
+   "fin": "whip",
+   "z": [
+    1.0,
+    1.18
+   ],
+   "label": {
+    "n": 3,
+    "text": "TAQINCHOQ",
+    "color": "#a855f7"
+   }
+  },
+  {
+   "name": "f1",
+   "src": 152831,
+   "ss": 3.0,
+   "t": 15.5,
+   "dur": 2.5,
+   "fin": "glitch",
+   "z": [
+    1.0,
+    1.1
+   ],
+   "label": {
+    "n": 4,
+    "text": "TAOM",
+    "color": "#f59e0b"
+   }
+  },
+  {
+   "name": "m1",
+   "src": 371424,
+   "ss": 3,
+   "t": 18.0,
+   "dur": 0.5,
+   "fin": "punch",
+   "z": [
+    1.0,
+    1.08
+   ]
+  },
+  {
+   "name": "m2",
+   "src": 377567,
+   "ss": 5.5,
+   "t": 18.5,
+   "dur": 0.5,
+   "fin": "punch",
+   "z": [
+    1.0,
+    1.08
+   ]
+  },
+  {
+   "name": "m3",
+   "src": 249830,
+   "ss": 2,
+   "t": 19.0,
+   "dur": 0.5,
+   "fin": "punch",
+   "z": [
+    1.0,
+    1.08
+   ]
+  },
+  {
+   "name": "m4",
+   "src": 227128,
+   "ss": 1,
+   "t": 19.5,
+   "dur": 0.5,
+   "fin": "punch",
+   "z": [
+    1.0,
+    1.08
+   ]
+  },
+  {
+   "name": "m5",
+   "src": 358693,
+   "ss": 14,
+   "t": 20.0,
+   "dur": 0.5,
+   "fin": "punch",
+   "z": [
+    1.0,
+    1.08
+   ]
+  },
+  {
+   "name": "m6",
+   "src": 327856,
+   "ss": 3,
+   "t": 20.5,
+   "dur": 0.5,
+   "fin": "punch",
+   "z": [
+    1.0,
+    1.08
+   ]
+  },
+  {
+   "name": "m7",
+   "src": 203067,
+   "ss": 7,
+   "t": 21.0,
+   "dur": 0.5,
+   "fin": "punch",
+   "z": [
+    1.0,
+    1.08
+   ]
+  },
+  {
+   "name": "m8",
+   "src": 124830,
+   "ss": 3,
+   "t": 21.5,
+   "dur": 0.5,
+   "fin": "punch",
+   "z": [
+    1.0,
+    1.08
+   ]
+  },
+  {
+   "name": "cb",
+   "src": 371424,
+   "ss": 8,
+   "t": 22.0,
+   "dur": 4.0,
+   "fin": "flash",
+   "z": [
+    1.0,
+    1.1
+   ],
+   "dim": 0.6,
+   "blur": 10
+  }
+ ],
+ "sfx": [
+  {
+   "t": 0,
+   "k": "tick",
+   "db": -3
+  },
+  {
+   "t": 0.5,
+   "k": "tick",
+   "db": -3
+  },
+  {
+   "t": 1.0,
+   "k": "tick",
+   "db": -3
+  },
+  {
+   "t": 1.5,
+   "k": "tick",
+   "db": -3
+  },
+  {
+   "t": 0.5,
+   "k": "thud",
+   "db": -3
+  },
+  {
+   "t": 1.0,
+   "k": "thud",
+   "db": -3
+  },
+  {
+   "t": 1.5,
+   "k": "pop",
+   "db": 0
+  },
+  {
+   "t": 2.0,
+   "k": "whoosh",
+   "db": -6
+  },
+  {
+   "t": 2.15,
+   "k": "pop",
+   "db": 0
+  },
+  {
+   "t": 4.95,
+   "k": "whoosh",
+   "db": -2
+  },
+  {
+   "t": 5.15,
+   "k": "pop",
+   "db": 0
+  },
+  {
+   "t": 7.0,
+   "k": "whoosh",
+   "db": -6
+  },
+  {
+   "t": 8.0,
+   "k": "scratch",
+   "db": 0
+  },
+  {
+   "t": 8.0,
+   "k": "glitch",
+   "db": -4
+  },
+  {
+   "t": 9.0,
+   "k": "stamp",
+   "db": 0
+  },
+  {
+   "t": 9.05,
+   "k": "boing",
+   "db": -2
+  },
+  {
+   "t": 10.5,
+   "k": "rewind",
+   "db": 0
+  },
+  {
+   "t": 12.0,
+   "k": "chime",
+   "db": 0
+  },
+  {
+   "t": 12.0,
+   "k": "pop",
+   "db": 0
+  },
+  {
+   "t": 12.95,
+   "k": "whoosh",
+   "db": -2
+  },
+  {
+   "t": 13.15,
+   "k": "pop",
+   "db": 0
+  },
+  {
+   "t": 13.35,
+   "k": "sparkle",
+   "db": 0
+  },
+  {
+   "t": 15.5,
+   "k": "glitch",
+   "db": -3
+  },
+  {
+   "t": 15.5,
+   "k": "whoosh",
+   "db": -6
+  },
+  {
+   "t": 15.65,
+   "k": "pop",
+   "db": 0
+  },
+  {
+   "t": 17.0,
+   "k": "riser",
+   "db": 0
+  },
+  {
+   "t": 18.0,
+   "k": "tick",
+   "db": -3
+  },
+  {
+   "t": 18.5,
+   "k": "tick",
+   "db": -3
+  },
+  {
+   "t": 19.0,
+   "k": "tick",
+   "db": -3
+  },
+  {
+   "t": 19.5,
+   "k": "tick",
+   "db": -3
+  },
+  {
+   "t": 20.0,
+   "k": "tick",
+   "db": -3
+  },
+  {
+   "t": 20.5,
+   "k": "tick",
+   "db": -3
+  },
+  {
+   "t": 21.0,
+   "k": "tick",
+   "db": -3
+  },
+  {
+   "t": 21.5,
+   "k": "tick",
+   "db": -3
+  },
+  {
+   "t": 18.0,
+   "k": "thud",
+   "db": 0
+  },
+  {
+   "t": 19.0,
+   "k": "pop",
+   "db": 0
+  },
+  {
+   "t": 19.5,
+   "k": "thud",
+   "db": 0
+  },
+  {
+   "t": 21.0,
+   "k": "pop",
+   "db": 0
+  },
+  {
+   "t": 22.0,
+   "k": "whoosh",
+   "db": -3
+  },
+  {
+   "t": 22.0,
+   "k": "thud",
+   "db": -3
+  },
+  {
+   "t": 22.5,
+   "k": "sparkle",
+   "db": 0
+  },
+  {
+   "t": 23.7,
+   "k": "ding",
+   "db": 0
+  }
+ ],
+ "tags": [
+  [
+   2.1,
+   "KESISH"
+  ],
+  [
+   5.1,
+   "TEZLASHISH"
+  ],
+  [
+   12.1,
+   "TUZATISH"
+  ],
+  [
+   13.1,
+   "RANG + YALTIRASH"
+  ],
+  [
+   15.6,
+   "GLITCH"
+  ],
+  [
+   18.1,
+   "RITMGA KESISH"
+  ]
+ ],
+ "stamps": [
+  {
+   "t": 9.0,
+   "dur": 1.5,
+   "kind": "adashdi",
+   "text": "AI ADASHDI",
+   "sub": "mashina so‘ragan edingiz-ku"
+  },
+  {
+   "t": 12.0,
+   "dur": 1.0,
+   "kind": "togri",
+   "text": "TO‘G‘RILANDI",
+   "sub": "tez va sifatli"
+  }
+ ],
+ "texts": [
+  {
+   "t": 0.5,
+   "dur": 1.5,
+   "text": "NIMANI",
+   "size": 210,
+   "color": "#fff",
+   "y": 640,
+   "mode": "slam"
+  },
+  {
+   "t": 1.0,
+   "dur": 1.0,
+   "text": "YOQTIRASIZ?",
+   "size": 135,
+   "color": "#FFD23F",
+   "y": 880,
+   "mode": "slam"
+  },
+  {
+   "t": 1.5,
+   "dur": 0.5,
+   "text": "AI montaj qiladi",
+   "size": 84,
+   "color": "#fff",
+   "y": 1090,
+   "mode": "pop"
+  },
+  {
+   "t": 10.5,
+   "dur": 1.5,
+   "text": "ORQAGA…",
+   "size": 110,
+   "color": "#fff",
+   "y": 1180,
+   "mode": "plain"
+  },
+  {
+   "t": 18.0,
+   "dur": 1.0,
+   "text": "TEZ",
+   "size": 230,
+   "color": "#FFD23F",
+   "y": 700,
+   "mode": "slam"
+  },
+  {
+   "t": 19.0,
+   "dur": 0.5,
+   "text": "VA",
+   "size": 150,
+   "color": "#fff",
+   "y": 700,
+   "mode": "slam"
+  },
+  {
+   "t": 19.5,
+   "dur": 1.5,
+   "text": "SIFATLI",
+   "size": 190,
+   "color": "#FFD23F",
+   "y": 700,
+   "mode": "slam"
+  },
+  {
+   "t": 21.0,
+   "dur": 1.0,
+   "text": "AI MONTAJ",
+   "size": 150,
+   "color": "#fff",
+   "y": 700,
+   "mode": "slam"
+  }
+ ],
+ "sparkles": [
+  {
+   "t": 13.3,
+   "dur": 2.0
+  }
+ ],
+ "cta": {
+  "t": 22.0,
+  "lines": [
+   "Videongizni ham",
+   "AI bilan montaj qilamiz",
+   "tez va sifatli!"
+  ],
+  "sub": "Videongizni shunday yoki siz xohlagan uslubda"
+ }
+}

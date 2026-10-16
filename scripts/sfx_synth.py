@@ -55,8 +55,29 @@ def confetti():
     n = int(SR * .5); x = _rng().standard_normal(n); y = x - np.convolve(x, np.ones(6) / 6, mode='same')
     clicks = (_rng().random(n) > 0.9985) * _rng().standard_normal(n) * 3
     return 0.45 * (y + clicks) * np.exp(-_t(n) / .14)
-KINDS = {"tick": tick, "type": type_, "thud": thud, "chime": chime, "whoosh": whoosh, "boing": boing, "pop": pop, "sparkle": sparkle, "ding": ding, "squeak": squeak, "heart": heart, "ring": ring, "confetti": confetti}
-GAIN = {"tick": .45, "type": .25, "thud": .9, "chime": .5, "whoosh": .6, "boing": .8, "pop": .75, "sparkle": .55, "ding": .6, "squeak": .6, "heart": .6, "ring": .8, "confetti": .5}
+
+def scratch():  # plastinka "ziiip" — AI adashdi
+    n = int(SR * .42); t = _t(n); f = 1800 * np.exp(-t / .12) + 120
+    saw = 2 * ((np.cumsum(f) / SR) % 1) - 1
+    return 0.7 * (saw * 0.7 + 0.5 * _rng().standard_normal(n) * np.exp(-t / .1)) * np.minimum(t / .004, 1) * np.exp(-t / .22)
+def rewind():  # lenta orqaga: ko'tariluvchi "viiiiu" + flutter
+    n = int(SR * 1.4); t = _t(n); f = 250 + 2600 * (t / 1.4) ** 1.6 + 40 * np.sin(2 * np.pi * 17 * t)
+    sq = np.sign(np.sin(2 * np.pi * np.cumsum(f) / SR)); noise = _rng().standard_normal(n)
+    return 0.45 * (0.55 * sq + 0.45 * noise * (0.4 + 0.6 * (t / 1.4))) * np.minimum(t / .03, 1) * np.minimum((1.4 - t) / .06, 1)
+def glitch():  # raqamli "bzzt" bo'laklari
+    n = int(SR * .3); out = np.zeros(n); r = _rng()
+    for k in range(6):
+        i0 = int(k * .045 * SR); m = int(SR * (.02 + .02 * r.random())); tt = _t(m)
+        out[i0:i0 + m] += (np.sign(np.sin(2 * np.pi * (300 + 1500 * r.random()) * tt)) * 0.5 + 0.3 * r.standard_normal(m)) * np.minimum((m - np.arange(m)) / (SR * .004), 1)
+    return 0.55 * out
+def riser():  # hook oldidan ko'tarilish
+    n = int(SR * 1.0); t = _t(n); x = _rng().standard_normal(n); y = np.zeros(n); a = 0.03 + 0.6 * (t / 1.0) ** 2
+    for i in range(1, n): y[i] = y[i - 1] + a[i] * (x[i] - y[i - 1])
+    return 0.9 * y / (np.abs(y).max() + 1e-9) * (t / 1.0) ** 1.4
+def stamp():  # muhr: past zarb + qisqa tak
+    n = int(SR * .5); t = _t(n); return 0.9 * np.sin(2 * np.pi * np.cumsum(70 + 120 * np.exp(-t / .05)) / SR) * _env(n, .001, .14) + 0.4 * _rng().standard_normal(n) * _env(n, .0005, .012)
+KINDS = {"scratch": scratch, "rewind": rewind, "glitch": glitch, "riser": riser, "stamp": stamp, "tick": tick, "type": type_, "thud": thud, "chime": chime, "whoosh": whoosh, "boing": boing, "pop": pop, "sparkle": sparkle, "ding": ding, "squeak": squeak, "heart": heart, "ring": ring, "confetti": confetti}
+GAIN = {"scratch": .8, "rewind": .5, "glitch": .6, "riser": .6, "stamp": .55, "tick": .45, "type": .25, "thud": .9, "chime": .5, "whoosh": .6, "boing": .8, "pop": .75, "sparkle": .55, "ding": .6, "squeak": .6, "heart": .6, "ring": .8, "confetti": .5}
 def wave(kind, db=0.0): return KINDS[kind]() * GAIN[kind] * 10 ** (db / 20)
 def track(events, total_sec, peak=0.5):
     n = int(SR * total_sec); tr = np.zeros(n)
