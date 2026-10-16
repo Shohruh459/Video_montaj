@@ -36,7 +36,7 @@ const PhoneI: React.FC<{s: number; c?: string}> = ({s, c = DK}) => (
 // ---- video: 1080x1920, kattalashtirilgan (manba tepasidagi yozuv/taymer yashiriladi) ----
 const Vid: React.FC<{video: string; zoom: number; frozenAt?: number}> = ({video, zoom, frozenAt}) => (
   <AbsoluteFill style={{overflow: 'hidden'}}>
-    <div style={{position: 'absolute', inset: 0, transform: `scale(${1.2 * zoom})`, transformOrigin: '50% 62%', filter: 'contrast(1.08) saturate(1.12) brightness(1.02)'}}>
+    <div style={{position: 'absolute', inset: 0, transform: `translateY(-110px) scale(${1.2 * zoom})`, transformOrigin: '50% 62%', filter: 'contrast(1.08) saturate(1.12) brightness(1.02)'}}>
       {frozenAt !== undefined ? <Freeze frame={0}><OffthreadVideo src={staticFile(video)} startFrom={Math.round(frozenAt * 30)} muted style={{width: '100%', height: '100%', objectFit: 'cover'}} /></Freeze>
         : <OffthreadVideo src={staticFile(video)} muted style={{width: '100%', height: '100%', objectFit: 'cover'}} />}
     </div>
@@ -53,10 +53,10 @@ const Caption: React.FC<{l: ILine}> = ({l}) => {
   return (
     <div style={{position: 'absolute', left: 0, right: 0, top: 1530 - l.rows.length * size * 1.16, textAlign: 'center', fontFamily: 'YB', opacity: out, transform: `scale(${0.82 + 0.18 * pop})`}}>
       {l.rows.map((row, ri) => (
-        <div key={ri} style={{fontSize: size, lineHeight: 1.16, textShadow: outline(Math.max(4, size / 14)), whiteSpace: 'nowrap'}}>
+        <div key={ri} style={{fontSize: size, lineHeight: 1.16, textShadow: outline(Math.max(4, size / 14)), whiteSpace: 'nowrap', display: 'flex', justifyContent: 'center', gap: '0.3em'}}>
           {row.map((w, wi) => {
             const on = t >= w.t0 - 0.02; const cur = on && t < w.t1;
-            return <span key={wi} style={{color: cur ? YL : on ? '#fff' : 'rgba(255,255,255,0.45)', display: 'inline-block', transform: cur ? 'scale(1.1)' : 'none', margin: '0 0.14em'}}>{w.w}</span>;
+            return <span key={wi} style={{color: cur ? YL : on ? '#fff' : 'rgba(255,255,255,0.45)', display: 'inline-block', transform: cur ? 'translateY(-6px)' : 'none'}}>{w.w}</span>;
           })}
         </div>
       ))}
@@ -69,9 +69,9 @@ const Card: React.FC<{c: ICard}> = ({c}) => {
   const f = useCurrentFrame(); const {fps} = useVideoConfig(); const t = f / fps;
   const inn = bnc(c01(t / 0.45)); const out = interpolate(t, [c.dur - 0.25, c.dur], [1, 0], clamp);
   const bg = c.kind === 'oylik' ? GR : OR; const fg = c.kind === 'oylik' ? '#04210f' : '#fff';
-  const left = c.kind === 'oylik' ? 560 : 40;
+  const left = c.kind === 'oylik' ? 520 : 30;
   return (
-    <div style={{position: 'absolute', left, top: c.kind === 'povar' ? 330 : c.kind === 'oylik' ? 470 : 330, opacity: out, transform: `translateX(${(1 - eO(c01(t / 0.35))) * (c.kind === 'oylik' ? 500 : -500)}px) scale(${0.85 + 0.15 * inn}) rotate(${c.kind === 'oylik' ? 3 : -3}deg)`}}>
+    <div style={{position: 'absolute', left, top: 1015, opacity: out, transform: `translateX(${(1 - eO(c01(t / 0.35))) * (c.kind === 'oylik' ? 500 : -500)}px) scale(${0.85 + 0.15 * inn}) rotate(${c.kind === 'oylik' ? 3 : -3}deg)`}}>
       <div style={{background: bg, color: fg, fontFamily: 'YB', padding: '18px 30px 20px', borderRadius: 22, boxShadow: '0 12px 34px rgba(0,0,0,0.55)', border: '4px solid #fff', display: 'flex', alignItems: 'center', gap: 18}}>
         {c.kind === 'povar' && <FishI s={78} />}
         <div>
@@ -112,7 +112,7 @@ const Badge: React.FC<{text: string}> = ({text}) => {
   const f = useCurrentFrame(); const {fps} = useVideoConfig(); const t = f / fps; const a = bnc(c01((t - 0.1) / 0.5));
   const blink = 0.55 + 0.45 * Math.sin(t * 9);
   return (
-    <div style={{position: 'absolute', left: 0, right: 0, top: 118, textAlign: 'center', transform: `scale(${a})`}}>
+    <div style={{position: 'absolute', left: 0, right: 0, top: 96, textAlign: 'center', transform: `scale(${a})`}}>
       <div style={{display: 'inline-flex', alignItems: 'center', gap: 18, background: OR, color: '#fff', fontFamily: 'YB', fontSize: 92, padding: '6px 44px 14px', borderRadius: 26, border: '6px solid #fff', boxShadow: '0 12px 34px rgba(0,0,0,0.5)', letterSpacing: 3}}>
         <span style={{width: 26, height: 26, borderRadius: 13, background: '#fff', opacity: blink, display: 'inline-block'}} />{text}
       </div>
@@ -131,7 +131,7 @@ const EndCard: React.FC<{p: IshProps; dur: number}> = ({p, dur}) => {
         <div style={{opacity: ap(0.9), marginTop: 12, fontSize: 56, color: YL}}>{p.place}</div>
         <div style={{opacity: ap(1.2), marginTop: 38, fontSize: 52, color: GR}}>Oylik — kelishuv asosida</div>
         <div style={{opacity: ap(1.6), marginTop: 70, fontSize: 44, color: '#cfc7bd', fontFamily: 'YR'}}>Bogʻlaning:</div>
-        <div style={{opacity: ap(1.8), transform: `scale(${bnc(c01((t - 1.8) / 0.55))})`, marginTop: 10, display: 'inline-flex', alignItems: 'center', gap: 20, background: YL, color: DK, fontSize: 80, padding: '16px 40px', borderRadius: 28, border: `6px solid #fff`}}><PhoneI s={72} />{p.phone}</div>
+        <div style={{opacity: ap(1.8), transform: `scale(${bnc(c01((t - 1.8) / 0.55))})`, marginTop: 10, display: 'inline-flex', alignItems: 'center', gap: 20, background: YL, color: DK, fontSize: 70, whiteSpace: 'nowrap', padding: '16px 34px', borderRadius: 28, border: `6px solid #fff`}}><PhoneI s={72} />{p.phone}</div>
       </div>
     </AbsoluteFill>
   );
