@@ -1,0 +1,369 @@
+{
+ "totalSec": 26.0,
+ "audio": "adashdi_mix.wav",
+ "shots": [
+  {
+   "file": "00_h1.mp4",
+   "t": 0.0,
+   "dur": 0.5,
+   "z0": 1.05,
+   "z1": 1.15,
+   "fin": "flash",
+   "fout": "none",
+   "dim": 0.72
+  },
+  {
+   "file": "01_h2.mp4",
+   "t": 0.5,
+   "dur": 0.5,
+   "z0": 1.05,
+   "z1": 1.15,
+   "fin": "flash",
+   "fout": "none",
+   "dim": 0.72
+  },
+  {
+   "file": "02_h3.mp4",
+   "t": 1.0,
+   "dur": 0.5,
+   "z0": 1.05,
+   "z1": 1.15,
+   "fin": "flash",
+   "fout": "none",
+   "dim": 0.72
+  },
+  {
+   "file": "03_h4.mp4",
+   "t": 1.5,
+   "dur": 0.5,
+   "z0": 1.05,
+   "z1": 1.15,
+   "fin": "flash",
+   "fout": "none",
+   "dim": 0.72
+  },
+  {
+   "file": "04_n1.mp4",
+   "t": 2.0,
+   "dur": 3.25,
+   "z0": 1.0,
+   "z1": 1.12,
+   "fin": "punch",
+   "fout": "whip"
+  },
+  {
+   "file": "05_c1.mp4",
+   "t": 5.0,
+   "dur": 3.0,
+   "z0": 1.0,
+   "z1": 1.1,
+   "fin": "whip",
+   "fout": "none"
+  },
+  {
+   "file": "06_g1.mp4",
+   "t": 8.0,
+   "dur": 1.0,
+   "z0": 1.0,
+   "z1": 1.08,
+   "fin": "glitch",
+   "fout": "none"
+  },
+  {
+   "file": "06_g1.mp4",
+   "t": 9.0,
+   "dur": 1.5,
+   "z0": 1.08,
+   "z1": 1.12,
+   "fin": "none",
+   "fout": "none",
+   "shake": true,
+   "tint": "#ff6b6b",
+   "freeze": 0.95
+  },
+  {
+   "file": "08_r1.mp4",
+   "t": 10.5,
+   "dur": 1.5,
+   "z0": 1.0,
+   "z1": 1.0,
+   "fin": "none",
+   "fout": "none",
+   "vhs": true
+  },
+  {
+   "file": "09_c2.mp4",
+   "t": 12.0,
+   "dur": 1.25,
+   "z0": 1.0,
+   "z1": 1.06,
+   "fin": "flash",
+   "fout": "whip"
+  },
+  {
+   "file": "10_j1.mp4",
+   "t": 13.0,
+   "dur": 2.5,
+   "z0": 1.0,
+   "z1": 1.18,
+   "fin": "whip",
+   "fout": "none"
+  },
+  {
+   "file": "11_f1.mp4",
+   "t": 15.5,
+   "dur": 2.5,
+   "z0": 1.0,
+   "z1": 1.1,
+   "fin": "glitch",
+   "fout": "none"
+  },
+  {
+   "file": "12_m1.mp4",
+   "t": 18.0,
+   "dur": 0.5,
+   "z0": 1.0,
+   "z1": 1.08,
+   "fin": "punch",
+   "fout": "none"
+  },
+  {
+   "file": "13_m2.mp4",
+   "t": 18.5,
+   "dur": 0.5,
+   "z0": 1.0,
+   "z1": 1.08,
+   "fin": "punch",
+   "fout": "none"
+  },
+  {
+   "file": "14_m3.mp4",
+   "t": 19.0,
+   "dur": 0.5,
+   "z0": 1.0,
+   "z1": 1.08,
+   "fin": "punch",
+   "fout": "none"
+  },
+  {
+   "file": "15_m4.mp4",
+   "t": 19.5,
+   "dur": 0.5,
+   "z0": 1.0,
+   "z1": 1.08,
+   "fin": "punch",
+   "fout": "none"
+  },
+  {
+   "file": "16_m5.mp4",
+   "t": 20.0,
+   "dur": 0.5,
+   "z0": 1.0,
+   "z1": 1.08,
+   "fin": "punch",
+   "fout": "none"
+  },
+  {
+   "file": "17_m6.mp4",
+   "t": 20.5,
+   "dur": 0.5,
+   "z0": 1.0,
+   "z1": 1.08,
+   "fin": "punch",
+   "fout": "none"
+  },
+  {
+   "file": "18_m7.mp4",
+   "t": 21.0,
+   "dur": 0.5,
+   "z0": 1.0,
+   "z1": 1.08,
+   "fin": "punch",
+   "fout": "none"
+  },
+  {
+   "file": "19_m8.mp4",
+   "t": 21.5,
+   "dur": 0.5,
+   "z0": 1.0,
+   "z1": 1.08,
+   "fin": "punch",
+   "fout": "none"
+  },
+  {
+   "file": "20_cb.mp4",
+   "t": 22.0,
+   "dur": 4.0,
+   "z0": 1.0,
+   "z1": 1.1,
+   "fin": "flash",
+   "fout": "none",
+   "blur": 10,
+   "dim": 0.6
+  }
+ ],
+ "labels": [
+  {
+   "t": 2.15,
+   "dur": 2.85,
+   "n": 1,
+   "text": "TABIAT",
+   "color": "#1faa59"
+  },
+  {
+   "t": 5.15,
+   "dur": 2.85,
+   "n": 2,
+   "text": "MASHINA",
+   "color": "#e03a3a"
+  },
+  {
+   "t": 13.15,
+   "dur": 2.35,
+   "n": 3,
+   "text": "TAQINCHOQ",
+   "color": "#a855f7"
+  },
+  {
+   "t": 15.65,
+   "dur": 2.35,
+   "n": 4,
+   "text": "TAOM",
+   "color": "#f59e0b"
+  }
+ ],
+ "tags": [
+  {
+   "t": 2.1,
+   "text": "KESISH"
+  },
+  {
+   "t": 5.1,
+   "text": "TEZLASHISH"
+  },
+  {
+   "t": 12.1,
+   "text": "TUZATISH"
+  },
+  {
+   "t": 13.1,
+   "text": "RANG + YALTIRASH"
+  },
+  {
+   "t": 15.6,
+   "text": "GLITCH"
+  },
+  {
+   "t": 18.1,
+   "text": "RITMGA KESISH"
+  }
+ ],
+ "stamps": [
+  {
+   "t": 9.0,
+   "dur": 1.5,
+   "kind": "adashdi",
+   "text": "AI ADASHDI",
+   "sub": "mashina so‘ragan edingiz-ku"
+  },
+  {
+   "t": 12.0,
+   "dur": 1.0,
+   "kind": "togri",
+   "text": "TO‘G‘RILANDI",
+   "sub": "tez va sifatli"
+  }
+ ],
+ "texts": [
+  {
+   "t": 0.5,
+   "dur": 1.5,
+   "text": "NIMANI",
+   "size": 210,
+   "color": "#fff",
+   "y": 640,
+   "mode": "slam"
+  },
+  {
+   "t": 1.0,
+   "dur": 1.0,
+   "text": "YOQTIRASIZ?",
+   "size": 135,
+   "color": "#FFD23F",
+   "y": 880,
+   "mode": "slam"
+  },
+  {
+   "t": 1.5,
+   "dur": 0.5,
+   "text": "AI montaj qiladi",
+   "size": 84,
+   "color": "#fff",
+   "y": 1090,
+   "mode": "pop"
+  },
+  {
+   "t": 10.5,
+   "dur": 1.5,
+   "text": "ORQAGA…",
+   "size": 110,
+   "color": "#fff",
+   "y": 1180,
+   "mode": "plain"
+  },
+  {
+   "t": 18.0,
+   "dur": 1.0,
+   "text": "TEZ",
+   "size": 230,
+   "color": "#FFD23F",
+   "y": 700,
+   "mode": "slam"
+  },
+  {
+   "t": 19.0,
+   "dur": 0.5,
+   "text": "VA",
+   "size": 150,
+   "color": "#fff",
+   "y": 700,
+   "mode": "slam"
+  },
+  {
+   "t": 19.5,
+   "dur": 1.5,
+   "text": "SIFATLI",
+   "size": 190,
+   "color": "#FFD23F",
+   "y": 700,
+   "mode": "slam"
+  },
+  {
+   "t": 21.0,
+   "dur": 1.0,
+   "text": "AI MONTAJ",
+   "size": 150,
+   "color": "#fff",
+   "y": 700,
+   "mode": "slam"
+  }
+ ],
+ "hudEnd": 22.0,
+ "sparkles": [
+  {
+   "t": 13.3,
+   "dur": 2.0
+  }
+ ],
+ "cta": {
+  "t": 22.0,
+  "lines": [
+   "Videongizni ham",
+   "AI bilan montaj qilamiz",
+   "tez va sifatli!"
+  ],
+  "sub": "Videongizni shunday yoki siz xohlagan uslubda",
+  "brand": "ZARAFSHON DASTURCHILARI",
+  "phone": "+998 93 316 97 13"
+ }
+}
