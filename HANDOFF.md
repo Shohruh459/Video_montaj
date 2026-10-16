@@ -129,3 +129,12 @@ Pixabay'da Song Plus'ning o'zi ehtimol yo'q → umumiy elektromobil kadrlari; an
 
 ### 2026-10-15 — #06 yakuniy
 - `out/reel_06_final.mp4` (1080x1920, 32.6 s, -14.4 LUFS, TP -1.5, QC toza). Izoh `captions/06.md`. Navbat: #10, #12, #08, #02, #07, #11, #04, #09, #05. Yangi video uchun: ovozni IBORA-IBORA eshittirib tasdiq olib, keyin yig'.
+
+### 2026-10-15/16 — Zarafshon dasturchilari: "AI montajchi" reklamasi, o'zbekcha ASR, ish e'loni
+- **Montajchi** (`projects/zarafshon-montajchi-2026-10-15/`): `templates/kinetic/src/Montajchi.tsx` (comp `Montajchi`), `scripts/build_montajchi.py` (.venv), `specs/01.json`. Pastda haqiqiy video, tepada uslubli versiya (kino-oltin, neon, jurnal; 10 s dan), uslub e'loni kartasi paytida pastki video qotadi, oxirida CTA (ovoz: OmniVoice DEMO). Draft yuborildi (`out/montajchi_01_draft.mp4`, 44.5 s, subtitrsiz). KUTILMOQDA: uch bo'lakning to'g'rilangan matni (subtitr uchun), telekanal (yoshlar_tv) materiali uchun ruxsat/kredit, CTA uchun jonli ovoz (litsenziya), profil/telefon, uslublar va bo'laklar tasdig'i.
+- **O'zbekcha ASR**: `scripts/asr_uz.py` (HF `navai-uz/whisper-medium-uzbek`, Apache-2.0; ~6x real vaqt CPU'da; so'z vaqtlari ISHONCHSIZ). Oddiy Whisper (small/large-v3) o'zbekchada yaroqsiz. Natija HAR DOIM odam tomonidan to'g'rilanadi.
+- **Vaqtga moslash**: `scripts/align_uz.py <video> <matn.txt> <prefiks> [--rel]` — tasdiqlangan matnni CTC forced alignment bilan nutqqa moslaydi (model `MahmoudAshraf/mms-300m-1130-forced-aligner`, CC-BY-NC, ichki vosita; torchaudio rasmiy vaznlari tarmoqda yopiq). Aligner matn to'g'riligini tekshirmaydi.
+- Kelajak: har buyurtmaning to'g'rilangan matni + audiosini `data/asr_tuzatishlar/` ga saqlash (fine-tuning uchun) — foydalanuvchiga taklif qilindi, javob kutilmoqda. Brifga "mijoz matni" bandini qo'shish tavsiya.
+- **zarafshonda.ish e'loni** (`projects/zarafshonda-ish-2026-10-16/`): `src/Ish.tsx` (comp `Ish`), `scripts/build_ish.py`, `specs/01.json`; matn foydalanuvchidan, moslash `voice/al.json`. Draft yuborildi: `out/ish_01_draft.mp4` (15.2 s, -15.0 LUFS). Uslub: so'zma-so'z karaoke subtitr, punch-zoom, kalit kartochkalar, telefon +998 94 229 03 29, oxirgi karta. Musiqa CC0 HF 3:13. KUTILMOQDA: imlo ("povirga/dagovor" aynan qoldi), kanal nomi, "Bog'laning" aloqa, oxirgi kartadagi qo'shilgan matn tasdig'i; keyin `--scale 1`.
+- Musiqa treklari /tmp/music/raw da vaqtinchalik (3:13 electropop, 4:13 techno qo'shildi).
+- Yuksalish navbat o'zgarmadi: #10, #12, #08, #02, #07, #11, #04, #09, #05.
