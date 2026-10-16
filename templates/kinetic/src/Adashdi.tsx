@@ -10,7 +10,7 @@ export type ALabel = {t: number; dur: number; n: number; text: string; color: st
 export type ATag = {t: number; text: string};
 export type AStamp = {t: number; dur: number; kind: 'adashdi' | 'togri'; text: string; sub?: string};
 export type AText = {t: number; dur: number; text: string; size: number; color: string; y: number; mode: 'slam' | 'pop' | 'plain'};
-export type ACta = {t: number; lines: string[]; brand: string; phone: string; sub: string};
+export type ACta = {t: number; lines: string[]; brand: string; phone: string; sub: string; handle: string};
 export type AdashdiProps = {totalSec: number; audio: string; shots: AShot[]; labels: ALabel[]; tags: ATag[]; stamps: AStamp[]; texts: AText[]; cta: ACta; hudEnd: number; sparkles: {t: number; dur: number}[]};
 
 const YL = '#FFD23F', RED = '#FF3B3B', GRN = '#3DDC84', DK = '#0d0f14';
@@ -95,11 +95,11 @@ const Hud: React.FC<{tags: ATag[]}> = ({tags}) => {
   const ca = cur ? bnc(c01((t - cur.t) / 0.25)) * (1 - c01((t - cur.t - 0.55) / 0.25)) : 0;
   return (
     <div style={{position: 'absolute', left: 36, top: 150}}>
-      <div style={{display: 'inline-flex', alignItems: 'center', gap: 12, background: 'rgba(10,12,18,0.72)', padding: '10px 20px', borderRadius: 14, border: '2px solid rgba(255,255,255,0.35)', fontFamily: 'YB', color: '#fff', fontSize: 32}}>
-        <span style={{width: 18, height: 18, borderRadius: 9, background: RED, opacity: 0.5 + 0.5 * Math.sin(t * 9), display: 'inline-block'}} />
-        <span>AI MONTAJCHI</span><span style={{fontFamily: 'YR', fontSize: 28, opacity: 0.8}}>{tc}</span>
+      <div style={{display: 'inline-flex', alignItems: 'center', gap: 12, background: 'rgba(10,12,18,0.72)', padding: '12px 24px', borderRadius: 16, border: '3px solid rgba(255,255,255,0.4)', fontFamily: 'YB', color: '#fff', fontSize: 42}}>
+        <span style={{width: 22, height: 22, borderRadius: 11, background: RED, opacity: 0.5 + 0.5 * Math.sin(t * 9), display: 'inline-block'}} />
+        <span>AI MONTAJCHI</span><span style={{fontFamily: 'YR', fontSize: 36, opacity: 0.85}}>{tc}</span>
       </div>
-      {cur && <div style={{marginTop: 10, display: 'inline-block', background: YL, color: DK, fontFamily: 'YB', fontSize: 34, padding: '4px 18px', borderRadius: 10, transform: `scale(${ca})`, transformOrigin: 'left', opacity: ca}}>{cur.text}</div>}
+      {cur && <div style={{marginTop: 10, display: 'inline-block', background: YL, color: DK, fontFamily: 'YB', fontSize: 46, padding: '6px 22px', borderRadius: 12, transform: `scale(${ca})`, transformOrigin: 'left', opacity: ca}}>{cur.text}</div>}
     </div>
   );
 };
@@ -159,9 +159,10 @@ const Cta: React.FC<{c: ACta}> = ({c}) => {
       <AbsoluteFill style={{background: `rgba(10,12,18,${0.55 * ap(0)})`}} />
       <div style={{textAlign: 'center', fontFamily: 'YB', padding: '0 50px'}}>
         {c.lines.map((l, i) => <div key={i} style={{fontSize: i === c.lines.length - 1 ? 92 : 74, color: i === c.lines.length - 1 ? YL : '#fff', textShadow: outline(6), lineHeight: 1.15, opacity: ap(0.15 + i * 0.3), transform: `translateY(${(1 - ap(0.15 + i * 0.3)) * 30}px)`}}>{l}</div>)}
-        <div style={{marginTop: 56, fontSize: 42, color: '#cfd6e4', fontFamily: 'YR', opacity: ap(1.3)}}>{c.sub}</div>
-        <div style={{marginTop: 8, fontSize: 64, color: '#fff', letterSpacing: 3, textShadow: outline(5), opacity: ap(1.4)}}>{c.brand}</div>
-        <div style={{opacity: ap(1.7), transform: `scale(${bnc(c01((t - 1.7) / 0.55))})`, marginTop: 30, display: 'inline-flex', alignItems: 'center', gap: 18, background: YL, color: DK, fontSize: 70, whiteSpace: 'nowrap', padding: '14px 36px', borderRadius: 26, border: '6px solid #fff'}}><PhoneI s={66} />{c.phone}</div>
+        <div style={{marginTop: 50, fontSize: 46, color: '#fff', fontFamily: 'YR', opacity: ap(1.3), textShadow: outline(4)}}>{c.sub}</div>
+        <div style={{marginTop: 8, fontSize: 68, color: '#fff', letterSpacing: 3, textShadow: outline(6), opacity: ap(1.4)}}>{c.brand}</div>
+        <div style={{marginTop: 14, fontSize: 56, color: YL, textShadow: outline(5), opacity: ap(1.6)}}>{c.handle}</div>
+        <div style={{opacity: ap(1.7), transform: `scale(${bnc(c01((t - 1.7) / 0.55))})`, marginTop: 26, display: 'inline-flex', alignItems: 'center', gap: 18, background: YL, color: DK, fontSize: 70, whiteSpace: 'nowrap', padding: '14px 36px', borderRadius: 26, border: '6px solid #fff'}}><PhoneI s={66} />{c.phone}</div>
       </div>
     </AbsoluteFill>
   );
