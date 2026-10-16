@@ -157,7 +157,7 @@ const Cta: React.FC<{c: ACta}> = ({c}) => {
   return (
     <AbsoluteFill style={{alignItems: 'center', justifyContent: 'center'}}>
       <AbsoluteFill style={{background: `rgba(10,12,18,${0.55 * ap(0)})`}} />
-      <div style={{textAlign: 'center', fontFamily: 'YB', padding: '0 50px'}}>
+      <div style={{position: 'relative', textAlign: 'center', fontFamily: 'YB', padding: '0 50px'}}>
         {c.lines.map((l, i) => <div key={i} style={{fontSize: i === c.lines.length - 1 ? 92 : 74, color: i === c.lines.length - 1 ? YL : '#fff', textShadow: outline(6), lineHeight: 1.15, opacity: ap(0.15 + i * 0.3), transform: `translateY(${(1 - ap(0.15 + i * 0.3)) * 30}px)`}}>{l}</div>)}
         <div style={{marginTop: 50, fontSize: 46, color: '#fff', fontFamily: 'YR', opacity: ap(1.3), textShadow: outline(4)}}>{c.sub}</div>
         <div style={{marginTop: 8, fontSize: 68, color: '#fff', letterSpacing: 3, textShadow: outline(6), opacity: ap(1.4)}}>{c.brand}</div>
