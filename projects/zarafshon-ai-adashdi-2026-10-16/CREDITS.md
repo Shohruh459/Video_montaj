@@ -12,3 +12,9 @@
 - pixabay_video_124830.mp4 — Pixabay #124830, muallif: srb_films, https://pixabay.com/videos/id-124830/, litsenziya: Pixabay Content License (https://pixabay.com/service/license-summary/), yuklandi: 2026-10-16
 - pixabay_video_152831.mp4 — Pixabay #152831, muallif: ymyphoto, https://pixabay.com/videos/id-152831/, litsenziya: Pixabay Content License (https://pixabay.com/service/license-summary/), yuklandi: 2026-10-16
 - pixabay_video_227128.mp4 — Pixabay #227128, muallif: kurt_BID, https://pixabay.com/videos/id-227128/, litsenziya: Pixabay Content License (https://pixabay.com/service/license-summary/), yuklandi: 2026-10-16
+
+## Qo'shimcha manbalar
+- Musiqa: HF mrfakename/cc0-music-captioned 3:13 (electro-pop, 120 BPM) — CC0.
+- Ovoz (5 ibora): VoiceStudio/OmniVoice, profil ASOSIY-ayol-orta — model CC-BY-NC (tijoriy ishlatish xavfi foydalanuvchiga ma'lum qilingan; u o'z xizmati reklamasi uchun so'ragan).
+- Ba'zi Pixabay kadrlari AI bilan yaratilgan stok (teglarida "ai generated"): mashina va taqinchoq. "Haqiqiy suratga olingan" deb ko'rsatilmasin.
+- SFX: scripts/sfx_synth.py (numpy sintezi, litsenziya muammosiz).

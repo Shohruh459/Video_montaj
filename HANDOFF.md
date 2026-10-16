@@ -138,3 +138,9 @@ Pixabay'da Song Plus'ning o'zi ehtimol yo'q → umumiy elektromobil kadrlari; an
 - **zarafshonda.ish e'loni** (`projects/zarafshonda-ish-2026-10-16/`): `src/Ish.tsx` (comp `Ish`), `scripts/build_ish.py`, `specs/01.json`; matn foydalanuvchidan, moslash `voice/al.json`. Draft yuborildi: `out/ish_01_draft.mp4` (15.2 s, -15.0 LUFS). Uslub: so'zma-so'z karaoke subtitr, punch-zoom, kalit kartochkalar, telefon +998 94 229 03 29, oxirgi karta. Musiqa CC0 HF 3:13. KUTILMOQDA: imlo ("povirga/dagovor" aynan qoldi), kanal nomi, "Bog'laning" aloqa, oxirgi kartadagi qo'shilgan matn tasdig'i; keyin `--scale 1`.
 - Musiqa treklari /tmp/music/raw da vaqtinchalik (3:13 electropop, 4:13 techno qo'shildi).
 - Yuksalish navbat o'zgarmadi: #10, #12, #08, #02, #07, #11, #04, #09, #05.
+
+### 2026-10-16 — "AI adashdi" motion reklama (Zarafshon dasturchilari) YAKUNIY
+- `projects/zarafshon-ai-adashdi-2026-10-16/`: `src/Adashdi.tsx` (comp `Adashdi`), `scripts/build_adashdi.py` (.venv; `--scale 1 --reuse-shots`), `specs/01.json`. Pixabay kadrlari (tabiat, mashina, taqinchoq, taom) -> 9:16 kesim -> effektlar (speed ramp, whip-pan, glitch, rewind/VHS, muhr, HUD), 120 BPM ritmga kesish, yangi SFX (scratch, rewind, glitch, riser, stamp).
+- Ovoz: 5 ibora (OmniVoice, foydalanuvchi tasdiqlagan) `voice/lines/p*.wav`; musiqa ovoz ostida duck. Final: `out/adashdi_01_final.mp4` (1080x1920, 28 s, -14.0 LUFS, TP -1.5, QC toza). Instagram `@zarafshon_dasturchilari`, tel +998 93 316 97 13.
+- Dars: Remotion'da absolute-joylashgan fon qatlami oddiy (static) bolalar ustidan chiqadi — matn bloki `position: 'relative'` bo'lsin (CTA matni xira chiqqan edi).
+- Kutilmoqda: foydalanuvchi fikri (hazil, ritm, musiqa A/B). Musiqa fayllari /tmp/music/raw vaqtinchalik. Yuksalish #10 keyin boshlanadi.
