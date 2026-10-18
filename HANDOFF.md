@@ -189,3 +189,8 @@ Pixabay'da Song Plus'ning o'zi ehtimol yo'q → umumiy elektromobil kadrlari; an
 - Shablon: `phone` sahnada `amount`+`amountTo` (diapazon sanash), `amountLabel`, `hls:[{at,left,top,width,height}]` (bir nechta belgilash, `at` = qator indeksi); `screen` sahnada `frame:"phone"` (telefon ramkasida vertikal video, `from`, `rate`).
 - DIQQAT (mijoz bilan hal qilinmagan): manba yozuvi hozir "Manba: hh.ru, 18.10.2026" (avval "hh.uz" edi). Vakansiya Rossiyadan, ish haqi rublda, ish "удалённо"; Zarafshon tomoshabini uchun chalg'ishi mumkin — hh.uz dan qayta yozib olish yoki yozuvni saqlab qolish haqida qaror kerak. Yozuvda sensorli ekran nuqtalari (kulrang doira) bor — tanlangan kadrda yo'q.
 - Demo sayt kim yaratgani/mahsulot rasmlari (Nike, Chanel) litsenziyasi noma'lum — tasdiq kerak.
+
+## Yangilanish (2026-10-18, FINAL) — Diplomat yakuniy render yuborildi
+- Mijoz "BISMILLAH" deb yakuniy renderga ruxsat berdi. `out/diplomat_final.mp4` (1080×1920, 31,7 s, H.264 High yuv420p, 30 fps, AAC 256k/48k, 16,6 MB), `diplomat_musiqasiz.mp4` (faqat ovoz), `diplomat.srt`. QC: −14,0 LUFS, TP −3,2 dBFS, qora kadr yo'q, kutilmagan jimlik yo'q. Boshi/o'rtasi/oxiri kadrlar ko'rildi.
+- Hal qilinmagan savollar (mijoz javob bermadi, standart tanlandi): hh manbasi — hh.ru/rubl yozuvi qoldirildi; demo sayt muallifi/Nike-Chanel rasmlari litsenziyasi noma'lum; 30 s o'rniga 31,7 s.
+- LITSENZIYA: ovoz CC-BY-NC (faqat demo/sinov) va musiqa `cin_17_2` (muallif noma'lum) — TIJORAT joylashdan oldin almashtirish shart (mijoz o'z ovozini yozib beradi / litsenziyali musiqa). `_musiqasiz` varianti o'z musiqasini qo'shish uchun.
