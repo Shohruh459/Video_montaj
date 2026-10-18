@@ -164,3 +164,15 @@ Pixabay'da Song Plus'ning o'zi ehtimol yo'q → umumiy elektromobil kadrlari; an
 - Foydalanuvchi №3 da xato sezdi: "Eng katta yolg'on — o'zingga aytganing yolg'on" → **"Eng katta yolg'on — o'zingga aytgan yolg'oning."** (to'g'ri imlo "o'zingga"). `reels/yuksalish_scripts.py` yangilandi, №3 qayta renderlandi va yuborildi (21.3 s, qc toza, musiqa −18.9…−22.8 dB).
 - Taklif qilingan, TASDIQ KUTILMOQDA (matn foydalanuvchiniki): №1 "erta ham" → "ertaga ham"; №13 "seni qanday bo'lishingni" → "sening qanday bo'lishingni"; №17 "charchaganini" → "charchaganingni". Tasdiqlansa: data faylni o'zgartir → `gen_reels.py --only N` → `run_queue.sh` (faqat o'zgargan ovoz qatori qayta yaratiladi).
 - Izohlar (caption) №1–5 yuborilgan; foydalanuvchi "keyingisi" desa №6–10, so'ng 5 tadan davom. Izohlar uslubi: asosiy g'oya 2–3 qator + savol (izohga undash) + CTA (videodagi bilan bir xil) + 7–8 xeshteg; apostrof ʻ/ʼ bilan; faktsiz (№1 statistikasi ishlatilmagan).
+
+## Yangilanish (2026-10-18) — Diplomat o'quv markazi (Zarafshon) namunasi
+- **Buyurtma:** Instagram Reels 30 s, 9:16, karaoke subtitr. Markaz roziligi bor; mijoz = foydalanuvchi (ishga kirish/portfolio emas, endi markaz uchun). Loyiha: `projects/diplomat-2026-10-18/` (`script.md`, `scenes.json`, `voice/script_lines.txt`, `voice/sub_lines.txt`).
+- **Holat: NAMUNA yuborildi** (`out/diplomat_draft.mp4`, 540×960, 30.0 s, −14 LUFS). **Yakuniy render hali yo'q — avval mijoz tasdig'i kerak** (CLAUDE.md §1).
+- **Montajga qo'shilgan imkoniyatlar** (eski loyihalarga ta'sir qilmaydi):
+  - `make_video.py`: sahnada `"span": k` (bir sahna k ta ovoz qatorini qamraydi), `build.sub_lines` (subtitr matni alohida fayl; `|` — qatorni vaqt bo'yicha bo'laklaydi), `build.sub_balance` (2 qatorga teng bo'lish), sahnaga `cues` (qator vaqtlari) uzatiladi.
+  - `Montage.jsx`: `bg:true` (uzluksiz fon) va yangi `kind`lar: `card`, `phone` (hh skrinshot: `image`, `amount`, `hl`, `scroll`, `source`), `screen` (`src` ekran videosi yoki sxema, `chips`), `roadmap` (`steps`, `place`, `footer`), `endcard` (`logo`, `name`, `course`, `items`, `phone`). Material bo'lmasa — belgilangan joy (placeholder). Haqiqiy fayl yo'llari sun'iy fayllar bilan sinalgan.
+- **Kutilayotgan materiallar** (`projects/diplomat-2026-10-18/broll/` ga qo'yiladi): `logo.png`, `hh.png` (+ oylik raqami `amount`, "Tajriba" qatori joyi `hl.top/height`, sana `[sana]`), `screen.mp4`. `scenes.json` da `image`/`src`/`logo` maydonlarini yoqish kerak.
+- **Ovoz/musiqa:** namuna — asosiy ovoz (CC-BY-NC) va `cin_17_2` (litsenziya noma'lum). Yakuniyda mijoz ovozi/litsenziyali ovoz va musiqa. `check_music.py`: 11 qatordan 1-si −24.2 dB (boshdagi fade-in, musiqa tinchroq), qolganlari −18.9…−22.6 dB.
+- **Vaqt:** nutq 25.9 s; 30 s ga sig'dirish uchun lead 0.3, tail 1.2, pauza 0.25 s. Ovoz sintezi CPU'da ~6.5 min (11 qator), keyin keshdan.
+- `scripts/setup.sh`: `grep -q libx264` (pipefail bilan yolg'on xato berardi) → `grep libx264 >/dev/null`.
+- Mijoz matni bo'yicha eslatma: subtitrda "Diplomatʼda" (mijoz yozuvi), TTS'da "Diplomatda"; "portfolio" → TTS "portfolyo".

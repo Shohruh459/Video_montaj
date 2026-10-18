@@ -41,8 +41,18 @@ cache = proj / "voice/cache"; cache.mkdir(parents=True, exist_ok=True)
 # 1) Ovoz qatorlari (kesh)
 lines = [l.strip() for l in (proj / b["voice_lines"]).read_text(encoding="utf-8").splitlines() if l.strip()]
 scenes = cfg["scenes"]
-if len(lines) != len(scenes):
-    sys.exit(f"XATO: ovoz qatorlari ({len(lines)}) va sahnalar ({len(scenes)}) soni teng emas")
+# Sahna bir nechta ovoz qatorini qamrab olishi mumkin: "span": k (standart 1). Qatorlar yig'indisi = ovoz qatorlari soni.
+spans = [int(s.get("span", 1)) for s in scenes]
+if sum(spans) != len(lines):
+    sys.exit(f"XATO: ovoz qatorlari ({len(lines)}) va sahnalar span yig'indisi ({sum(spans)}) teng emas")
+first = [sum(spans[:i]) for i in range(len(scenes))]
+owner = [i for i, k in enumerate(spans) for _ in range(k)]  # qator → sahna
+# Ixtiyoriy: subtitr matni alohida faylda (raqam/belgilar bilan); "|" — qatorni vaqt bo'yicha bo'laklarga ajratadi
+disp = lines
+if b.get("sub_lines"):
+    disp = [l.strip() for l in (proj / b["sub_lines"]).read_text(encoding="utf-8").splitlines() if l.strip()]
+    if len(disp) != len(lines):
+        sys.exit(f"XATO: sub_lines ({len(disp)}) va ovoz qatorlari ({len(lines)}) soni teng emas")
 pid = None; parts = []
 ref_sig = hashlib.sha1((tts_vs.ROOT / tts_vs.CFG["ref_audio"]).read_bytes()).hexdigest()[:8]
 for i, line in enumerate(lines):
@@ -70,16 +80,23 @@ print(f"nutq {sum(d):.1f}s, pauza {pause:.2f}s, jami {total:.1f}s (maqsad {b['ta
 tts_vs.concat_with_pauses(parts, pause, out / "voice_final.wav", lead=lead)
 
 # 3) Sahna uzunliklari (kesishma xf bilan)
-t0 = [0.0] + [s - pre for s in starts[1:]]
+t0 = [0.0] + [starts[first[i]] - pre for i in range(1, len(scenes))]
 res = json.loads(json.dumps(cfg)); res.pop("build", None)
 res["publicDir"] = str((proj / cfg.get("publicDir", "broll")).resolve())
 for i, s in enumerate(res["scenes"]):
     s["dur"] = round((t0[i + 1] - t0[i] + xf) if i < len(scenes) - 1 else (total - t0[i]), 3)
 # Subtitr: matn sahnadagi "sub" (bo'lmasa ovoz qatori); vaqt = ovoz qatori oralig'i. Qator: gap bo'yicha, uzun bo'lsa wrap, ≤ 2 qator
-def split_lines(text, per_line=36, wrap=30, max_lines=2):
+def split_lines(text, per_line=36, wrap=30, max_lines=2, balance=False):
     lines = []
     for sent in re.split(r"(?<=[.!?])\s+", text.strip()):
-        lines += [sent] if len(sent) <= per_line else textwrap.wrap(sent, wrap)
+        if len(sent) <= per_line:
+            lines.append(sent)
+        elif balance and len(sent) <= 2 * wrap and " " in sent:  # ikki qatorga teng bo'lish (yolg'iz so'z qolmasin)
+            mid = len(sent) / 2
+            i = min((m.start() for m in re.finditer(" ", sent)), key=lambda k: abs(k - mid))
+            lines += [sent[:i], sent[i + 1:]]
+        else:
+            lines += textwrap.wrap(sent, wrap)
     if len(lines) > max_lines:
         print(f"OGOHLANTIRISH: subtitr {len(lines)} qator: {text[:40]}")
     return "\n".join(lines)
@@ -91,14 +108,24 @@ def srt_time(x):
 
 
 subs = []
-for i, s in enumerate(scenes):
-    if s.get("nosub"):
+for j in range(len(lines)):
+    sc = scenes[owner[j]]
+    if sc.get("nosub"):
         continue  # bu sahnada subtitr yo'q (ekran yozuvi o'zi yetarli)
-    txt = split_lines(s.get("sub") or lines[i], b.get("sub_per_line", 36), b.get("sub_wrap", 30), b.get("sub_max_lines", 2))
-    longest = max(len(l) for l in txt.split("\n"))
-    if longest > 42:
-        print(f"OGOHLANTIRISH: subtitr qatori {longest} belgi (>42): {txt[:40]}")
-    subs.append({"text": txt, "from": round(max(0, starts[i] - 0.1), 3), "to": round(min(total, starts[i] + d[i] + 0.25), 3)})
+    text = (sc.get("sub") if spans[owner[j]] == 1 and sc.get("sub") else disp[j])
+    chunks = [c.strip() for c in text.split("|") if c.strip()]
+    tot = sum(len(c) for c in chunks); cum = 0
+    for k, ch in enumerate(chunks):
+        t_a = starts[j] - 0.1 if k == 0 else starts[j] + d[j] * cum / tot
+        cum += len(ch)
+        t_b = starts[j] + d[j] + 0.25 if k == len(chunks) - 1 else starts[j] + d[j] * cum / tot
+        txt = split_lines(ch, b.get("sub_per_line", 36), b.get("sub_wrap", 30), b.get("sub_max_lines", 2), b.get("sub_balance", False))
+        longest = max(len(l) for l in txt.split("\n"))
+        if longest > 42:
+            print(f"OGOHLANTIRISH: subtitr qatori {longest} belgi (>42): {txt[:40]}")
+        subs.append({"text": txt, "from": round(max(0, t_a), 3), "to": round(min(total, t_b), 3)})
+for i, s_ in enumerate(res["scenes"]):  # sahna ichidagi qator vaqtlari (sahna boshiga nisbatan) — animatsiyalarni ovozga bog'lash uchun
+    s_["cues"] = [{"from": round(starts[j] - t0[i], 3), "to": round(starts[j] + d[j] - t0[i], 3)} for j in range(first[i], first[i] + spans[i])]
 res["subs"] = subs
 res["xfadeFrames"] = int(round(xf * 30))
 (out / f"{b['name']}.srt").write_text("\n".join(

@@ -11,7 +11,7 @@ python3 -m venv .venv
 pip install -U pip
 pip install -r requirements.txt
 [ -f .env ] || cp .env.example .env
-ffmpeg -hide_banner -encoders 2>/dev/null | grep -q libx264 || { echo "XATO: ffmpeg'da libx264 yo'q"; exit 1; }
+ffmpeg -hide_banner -encoders 2>/dev/null | grep libx264 >/dev/null || { echo "XATO: ffmpeg'da libx264 yo'q"; exit 1; }
 echo "Tayyor. Tekshiruv: ffmpeg $(ffmpeg -version | head -1 | cut -d' ' -f3), python $(python3 -V)"
 
 # --- Remotion (motion grafika) ---
