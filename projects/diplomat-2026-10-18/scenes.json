@@ -6,27 +6,83 @@
   "subMode": "color",
   "subBox": false,
   "subBottom": 470,
-  "subSize": 58,
+  "subSize": 52,
   "scenes": [
-    {"kind": "card", "span": 2, "nosub": true,
-     "lines": [{"text": "Maktabni\nbitirdingiz."}, {"text": "Endi nima?", "accent": true}]},
-    {"kind": "phone", "span": 2,
-     "source": "Manba: hh.uz, [sana]. Misol sifatida, daromad kafolatlanmaydi."},
-    {"kind": "screen", "span": 2, "chips": ["Sayt", "Bot", "Ilova"]},
-    {"kind": "roadmap", "span": 2, "place": "Zarafshon",
-     "footer": "72 dars · haftasiga 3 marta · 90 daqiqadan",
-     "steps": [
-       {"m": "1-oy", "t": "Sayt"},
-       {"m": "2-oy", "t": "Internetga chiqarish"},
-       {"m": "3-oy", "t": "Ilova va baza"},
-       {"m": "4-oy", "t": "Bot va server"},
-       {"m": "5-oy", "t": "Real buyurtmachi"},
-       {"m": "6-oy", "t": "Portfolio"}]},
-    {"kind": "endcard", "span": 3,
-     "name": "Diplomat oʻquv markazi", "course": "Sunʼiy intellekt bilan dasturlash",
-     "items": ["16 yoshdan", "Bir haftalik sinov darsi", "Kompyuterda boshlangʻich ishlay olish", "Shaxsiy noutbuk",
-               "Ingliz tili va dasturlash tajribasi talab qilinmaydi"],
-     "phone": "+998 93 664 27 72"}
+    {
+      "kind": "card",
+      "span": 2,
+      "nosub": true,
+      "lines": [
+        {
+          "text": "Maktabni\nbitirdingiz."
+        },
+        {
+          "text": "Endi nima?",
+          "accent": true
+        }
+      ]
+    },
+    {
+      "kind": "phone",
+      "span": 2,
+      "source": "Manba: hh.uz, [sana]. Misol sifatida, daromad kafolatlanmaydi."
+    },
+    {
+      "kind": "screen",
+      "span": 2,
+      "chips": [
+        "Sayt",
+        "Bot",
+        "Ilova"
+      ]
+    },
+    {
+      "kind": "roadmap",
+      "span": 2,
+      "place": "Zarafshon",
+      "footer": "72 dars · haftasiga 3 marta · 90 daqiqadan",
+      "steps": [
+        {
+          "m": "1-oy",
+          "t": "Sayt"
+        },
+        {
+          "m": "2-oy",
+          "t": "Internetga chiqarish"
+        },
+        {
+          "m": "3-oy",
+          "t": "Ilova va baza"
+        },
+        {
+          "m": "4-oy",
+          "t": "Bot va server"
+        },
+        {
+          "m": "5-oy",
+          "t": "Real buyurtmachi"
+        },
+        {
+          "m": "6-oy",
+          "t": "Portfolio"
+        }
+      ]
+    },
+    {
+      "kind": "endcard",
+      "span": 3,
+      "name": "Oʻquv markazi",
+      "course": "Sunʼiy intellekt bilan dasturlash",
+      "items": [
+        "16 yoshdan",
+        "Bir haftalik sinov darsi",
+        "Kompyuterda boshlangʻich ishlay olish",
+        "Shaxsiy noutbuk",
+        "Ingliz tili va dasturlash tajribasi talab qilinmaydi"
+      ],
+      "phone": "+998 93 664 27 72",
+      "logo": "logo.png"
+    }
   ],
   "build": {
     "name": "diplomat",
@@ -51,5 +107,7 @@
     "sub_wrap": 24,
     "sub_max_lines": 2,
     "sub_balance": true
-  }
+  },
+  "fontBody": "Montserrat",
+  "fontDisplay": "Playfair Display"
 }

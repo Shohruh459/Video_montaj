@@ -176,3 +176,10 @@ Pixabay'da Song Plus'ning o'zi ehtimol yo'q → umumiy elektromobil kadrlari; an
 - **Vaqt:** nutq 25.9 s; 30 s ga sig'dirish uchun lead 0.3, tail 1.2, pauza 0.25 s. Ovoz sintezi CPU'da ~6.5 min (11 qator), keyin keshdan.
 - `scripts/setup.sh`: `grep -q libx264` (pipefail bilan yolg'on xato berardi) → `grep libx264 >/dev/null`.
 - Mijoz matni bo'yicha eslatma: subtitrda "Diplomatʼda" (mijoz yozuvi), TTS'da "Diplomatda"; "portfolio" → TTS "portfolyo".
+
+## Yangilanish (2026-10-18, v2) — Diplomat: shrift, logotip, Zarafshon gapi
+- Mijoz logotip yubordi (oq fonli, atrofi bo'sh): `raw/logo_original.webp` → `broll/logo.png` (faqat chetlari kesilgan, piksellar o'zgarmagan). Endcard'da oq plastinada ko'rsatiladi (`logo`, `logoWidth`).
+- Shrift: `scenes.json` da `fontBody: "Montserrat"`, `fontDisplay: "Playfair Display"` (npm `@fontsource/*`, OFL; `ʻ ʼ` latin qismida bor). Ko'rsatilmasa — Noto Sans (eski loyihalar sinalgan, o'zgarmagan). `FontGate` shrift yuklanguncha kadr olmaydi. Montserrat kengroq → `subSize` 52, roadmap sarlavhasi 52 px.
+- Mijoz so'rovi: "Zarafshonliklar uchun zamonaviy kasbiy tayyorgarlik" qo'shildi (8-qator, "Zarafshonning o'zida." o'rniga). Jami 31,6 s (30 s dan ~1,6 s ko'p). "80% davlat ishida" raqami VIDEOGA KIRITILMADI (manbasiz).
+- v2 namuna yuborildi; yakuniy render hali yo'q. `out/diplomat_draft_v1.mp4` — oldingi versiya (lokal).
+- `.gitignore`: `projects/*/voice/*.txt` endi gitga kiradi (ovoz/subtitr qatorlari).

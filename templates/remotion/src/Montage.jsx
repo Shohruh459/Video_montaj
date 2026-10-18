@@ -1,8 +1,22 @@
-import React, {createContext, useContext} from 'react';
+import React, {createContext, useContext, useEffect, useState} from 'react';
 import {AbsoluteFill, Sequence, OffthreadVideo, Img, staticFile, useCurrentFrame, useVideoConfig,
-  interpolate, spring, Easing} from 'remotion';
+  interpolate, spring, Easing, delayRender, continueRender} from 'remotion';
+// Ixtiyoriy shriftlar (OFL, npm: @fontsource): scenes.json da "fontBody"/"fontDisplay" bilan yoqiladi. Standart — Noto Sans.
+import '@fontsource/montserrat/700.css';
+import '@fontsource/montserrat/800.css';
+import '@fontsource/playfair-display/800.css';
 
-const FONT = '"Noto Sans", "DejaVu Sans", Arial, sans-serif';
+const STACK = '"Noto Sans", "DejaVu Sans", Arial, sans-serif';
+const FONT = `var(--fb, ${STACK})`;     // asosiy matn (subtitr, yozuvlar)
+const DISPLAY = `var(--fd, ${STACK})`;  // sarlavha shrifti (karta, markaz nomi)
+// Shrift to'liq yuklanmaguncha kadr olinmasin (aks holda birinchi kadrlar zaxira shriftda chiqadi)
+const FontGate = ({families}) => {
+  const [h] = useState(() => delayRender('fonts'));
+  useEffect(() => {
+    Promise.all(families.flatMap((f) => [700, 800].map((w) => document.fonts.load(`${w} 48px "${f}"`, 'Oʻʼo0Aa1')))).then(() => continueRender(h), () => continueRender(h));
+  }, []);
+  return null;
+};
 const DEFAULT_ACCENT = '#35d6c0';
 const AccentCtx = createContext(DEFAULT_ACCENT);
 const X_DEFAULT = 12; // crossfade, kadr (0.4 s); Montage'da xfadeFrames prop bilan o'zgartiriladi
@@ -169,7 +183,7 @@ const CardScene = ({s}) => {
         const at = (cues[i] ? cues[i].from : 0.2 + i * 1.1) - 0.05;
         const p = ease((t - at) / 0.45);
         return (
-          <div key={i} style={{fontFamily: FONT, fontWeight: 800, whiteSpace: 'pre-line', textAlign: 'center', lineHeight: 1.1,
+          <div key={i} style={{fontFamily: DISPLAY, fontWeight: 800, whiteSpace: 'pre-line', textAlign: 'center', lineHeight: 1.1,
             fontSize: ln.size || (ln.accent ? 150 : 118), color: ln.accent ? ACCENT : '#fff', opacity: p,
             transform: `translateY(${(1 - p) * 40}px) scale(${0.94 + 0.06 * p})`, marginTop: i ? 34 : 0,
             textShadow: '0 8px 36px rgba(0,0,0,.55)'}}>{ln.text}</div>
@@ -335,7 +349,7 @@ const RoadmapScene = ({s}) => {
               boxShadow: last ? `0 0 40px ${ACCENT}88` : 'none'}}>{i + 1}</div>
             <div style={{fontFamily: FONT, lineHeight: 1.1}}>
               <div style={{fontSize: 32, fontWeight: 700, color: ACCENT, letterSpacing: 1}}>{st.m}</div>
-              <div style={{fontSize: 58, fontWeight: 800, color: '#fff'}}>{st.t}</div>
+              <div style={{fontSize: 52, fontWeight: 800, color: '#fff'}}>{st.t}</div>
             </div>
           </div>
         );
@@ -345,13 +359,13 @@ const RoadmapScene = ({s}) => {
           <div style={{fontFamily: FONT, fontWeight: 800, fontSize: 46, color: '#2a1d00', background: ACCENT, padding: '8px 36px', borderRadius: 44, display: 'flex', alignItems: 'center', gap: 16}}>
             <div style={{width: 18, height: 18, borderRadius: 9, background: '#2a1d00'}} />{s.place}
           </div></div>); })() : null}
-      {s.footer ? (<div style={{position: 'absolute', left: 60, right: 60, top: TOP + ROW * steps.length + 78, textAlign: 'center', fontFamily: FONT, fontWeight: 700, fontSize: 36,
+      {s.footer ? (<div style={{position: 'absolute', left: 60, right: 60, top: TOP + ROW * steps.length + 78, textAlign: 'center', fontFamily: FONT, fontWeight: 700, fontSize: 34,
         color: 'rgba(255,255,255,.88)', opacity: ease((t - 0.8) / 0.5)}}>{s.footer}</div>) : null}
     </>
   );
 };
 
-// Oxirgi karta: logotip (broll/ ichida s.logo; bo'lmasa belgilangan joy), markaz nomi, shartlar ro'yxati, telefon raqami.
+// Oxirgi karta: logotip (broll/ ichida s.logo — oq plastinada, o'zgartirilmaydi; bo'lmasa belgilangan joy), markaz nomi, shartlar, telefon.
 const EndCardScene = ({s}) => {
   const ACCENT = useContext(AccentCtx);
   const t = useT();
@@ -359,40 +373,46 @@ const EndCardScene = ({s}) => {
   const enter = ease(t / 0.5);
   const phoneAt = (cues[2] ? cues[2].from : 3.4) - 0.2;
   const pp = ease((t - phoneAt) / 0.45);
+  const LW = s.logoWidth || 760;
   return (
     <AbsoluteFill>
-      <div style={{position: 'absolute', left: 0, right: 0, top: 235, display: 'flex', justifyContent: 'center', opacity: enter, transform: `translateY(${(1 - enter) * 30}px)`}}>
-        {s.logo ? (<Img src={staticFile(s.logo)} style={{height: 170, objectFit: 'contain'}} />) : (
+      <div style={{position: 'absolute', left: 0, right: 0, top: 230, display: 'flex', justifyContent: 'center', opacity: enter, transform: `translateY(${(1 - enter) * 30}px)`}}>
+        {s.logo ? (
+          <div style={{background: '#fff', borderRadius: 34, padding: '16px 24px', boxShadow: '0 20px 60px rgba(0,0,0,.45), 0 0 0 2px rgba(232,174,28,.55)'}}>
+            <Img src={staticFile(s.logo)} style={{display: 'block', width: LW}} />
+          </div>
+        ) : (
           <div style={{width: 440, height: 170, borderRadius: 26, border: `4px dashed ${ACCENT}`, color: ACCENT, fontFamily: FONT, fontWeight: 800, fontSize: 36,
             display: 'flex', alignItems: 'center', justifyContent: 'center', letterSpacing: 1}}>LOGOTIP OʻRNI</div>)}
       </div>
-      <div style={{position: 'absolute', left: 0, right: 0, top: 432, textAlign: 'center', fontFamily: FONT, opacity: enter}}>
-        <div style={{fontWeight: 800, fontSize: 60, color: '#fff'}}>{s.name}</div>
-        <div style={{fontWeight: 700, fontSize: 40, color: ACCENT, marginTop: 6}}>{s.course}</div>
+      <div style={{position: 'absolute', left: 0, right: 0, top: s.logo ? 522 : 432, textAlign: 'center', opacity: enter}}>
+        <div style={{fontFamily: DISPLAY, fontWeight: 800, fontSize: 48, color: '#fff'}}>{s.name}</div>
+        <div style={{fontFamily: FONT, fontWeight: 700, fontSize: 34, color: ACCENT, marginTop: 8}}>{s.course}</div>
       </div>
-      <div style={{position: 'absolute', left: 120, right: 90, top: 610}}>
+      <div style={{position: 'absolute', left: 110, right: 70, top: 670}}>
         {(s.items || []).map((it, i) => {
           const p = ease((t - (0.35 + i * 0.32)) / 0.4);
-          return (<div key={i} style={{display: 'flex', alignItems: 'flex-start', gap: 22, marginBottom: 20, opacity: p, transform: `translateX(${(1 - p) * 40}px)`}}>
-            <div style={{flex: 'none', width: 16, height: 30, marginTop: 6, marginLeft: 8, borderRight: `7px solid ${ACCENT}`, borderBottom: `7px solid ${ACCENT}`, transform: 'rotate(45deg)'}} />
-            <div style={{fontFamily: FONT, fontWeight: 700, fontSize: 40, lineHeight: 1.18, color: '#fff'}}>{it}</div>
+          return (<div key={i} style={{display: 'flex', alignItems: 'flex-start', gap: 22, marginBottom: 16, opacity: p, transform: `translateX(${(1 - p) * 40}px)`}}>
+            <div style={{flex: 'none', width: 14, height: 26, marginTop: 5, marginLeft: 8, borderRight: `7px solid ${ACCENT}`, borderBottom: `7px solid ${ACCENT}`, transform: 'rotate(45deg)'}} />
+            <div style={{fontFamily: FONT, fontWeight: 700, fontSize: 35, lineHeight: 1.2, color: '#fff'}}>{it}</div>
           </div>);
         })}
       </div>
-      <div style={{position: 'absolute', left: 0, right: 0, top: 1085, display: 'flex', justifyContent: 'center', opacity: pp, transform: `scale(${0.85 + 0.15 * pp})`}}>
-        <div style={{fontFamily: FONT, fontWeight: 800, fontSize: 70, color: '#2a1d00', background: ACCENT, padding: '16px 48px', borderRadius: 60, whiteSpace: 'nowrap',
+      <div style={{position: 'absolute', left: 0, right: 0, top: 1035, display: 'flex', justifyContent: 'center', opacity: pp, transform: `scale(${0.85 + 0.15 * pp})`}}>
+        <div style={{fontFamily: FONT, fontWeight: 800, fontSize: 62, color: '#2a1d00', background: ACCENT, padding: '14px 44px', borderRadius: 60, whiteSpace: 'nowrap',
           boxShadow: `0 12px 44px rgba(0,0,0,.5), 0 0 ${40 * pp}px ${ACCENT}66`}}>{s.phone}</div>
       </div>
     </AbsoluteFill>
   );
 };
 
-export const Montage = ({scenes, brand, cta, subs = [], accent, clipFilter, titlePos, xfadeFrames, subBottom = 200, subSize = 38, karaoke = false, subMode = 'color', subBox = true, badge, bg = false}) => {
+export const Montage = ({scenes, brand, cta, subs = [], accent, clipFilter, titlePos, xfadeFrames, subBottom = 200, subSize = 38, karaoke = false, subMode = 'color', subBox = true, badge, bg = false, fontBody, fontDisplay}) => {
   const X = xfadeFrames ?? X_DEFAULT;
   let start = 0;
   return (
     <AccentCtx.Provider value={accent || DEFAULT_ACCENT}>
-    <AbsoluteFill style={{background: '#000'}}>
+    <AbsoluteFill style={{background: '#000', ...(fontBody ? {'--fb': `"${fontBody}", ${STACK}`} : {}), ...(fontDisplay || fontBody ? {'--fd': `"${fontDisplay || fontBody}", ${STACK}`} : {})}}>
+      {(fontBody || fontDisplay) ? <FontGate families={[fontBody, fontDisplay].filter(Boolean)} /> : null}
       {bg ? <Bg /> : null}
       {scenes.map((s, i) => {
         const dur = Math.round(s.dur * 30);
