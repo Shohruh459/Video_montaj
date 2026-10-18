@@ -8,6 +8,7 @@ __pycache__/
 !assets/**/*.mp3
 projects/*/raw/*
 projects/*/voice/*
+!projects/*/voice/*.txt
 projects/*/broll/*
 projects/*/out/*
 !projects/*/*/.gitkeep
