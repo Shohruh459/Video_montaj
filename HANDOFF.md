@@ -183,3 +183,9 @@ Pixabay'da Song Plus'ning o'zi ehtimol yo'q → umumiy elektromobil kadrlari; an
 - Mijoz so'rovi: "Zarafshonliklar uchun zamonaviy kasbiy tayyorgarlik" qo'shildi (8-qator, "Zarafshonning o'zida." o'rniga). Jami 31,6 s (30 s dan ~1,6 s ko'p). "80% davlat ishida" raqami VIDEOGA KIRITILMADI (manbasiz).
 - v2 namuna yuborildi; yakuniy render hali yo'q. `out/diplomat_draft_v1.mp4` — oldingi versiya (lokal).
 - `.gitignore`: `projects/*/voice/*.txt` endi gitga kiradi (ovoz/subtitr qatorlari).
+
+## Yangilanish (2026-10-18, v3) — Diplomat: mijoz ekran yozuvlari joylandi
+- Yozuvlar (720×1600): `raw/hh_recording.mp4` (hh.ru ilovasi, rus tilida, rubl, Rossiya vakansiyalari!) va `raw/site_recording.mp4` ("Bozor pro" o'zbekcha demo market sayti). Tayyorlash: hh → bitta kadr `ffmpeg -ss 3.2 ... crop=720:1250:0:195` → `broll/hh.png`; sayt → `crop=720:1255:0:185,fps=30` → `broll/site.mp4` (holat paneli, manzil satri, pastki tugmalar kesilgan).
+- Shablon: `phone` sahnada `amount`+`amountTo` (diapazon sanash), `amountLabel`, `hls:[{at,left,top,width,height}]` (bir nechta belgilash, `at` = qator indeksi); `screen` sahnada `frame:"phone"` (telefon ramkasida vertikal video, `from`, `rate`).
+- DIQQAT (mijoz bilan hal qilinmagan): manba yozuvi hozir "Manba: hh.ru, 18.10.2026" (avval "hh.uz" edi). Vakansiya Rossiyadan, ish haqi rublda, ish "удалённо"; Zarafshon tomoshabini uchun chalg'ishi mumkin — hh.uz dan qayta yozib olish yoki yozuvni saqlab qolish haqida qaror kerak. Yozuvda sensorli ekran nuqtalari (kulrang doira) bor — tanlangan kadrda yo'q.
+- Demo sayt kim yaratgani/mahsulot rasmlari (Nike, Chanel) litsenziyasi noma'lum — tasdiq kerak.

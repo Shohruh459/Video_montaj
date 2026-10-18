@@ -1,7 +1,7 @@
 # Diplomat o'quv markazi — Instagram Reels (30 s, 9:16, o'zbek tili)
 
 Mijoz: Diplomat o'quv markazi, Zarafshon (markaz roziligi bor). Kurs: Sun'iy intellekt bilan dasturlash.
-Holat: **NAMUNA v2 (draft)** — yakuniy renderdan oldin mijoz tasdig'i kerak.
+Holat: **NAMUNA v3 (draft)** — yakuniy renderdan oldin mijoz tasdig'i kerak.
 
 v2 o'zgarishlari: shrift (subtitr/matn — Montserrat, sarlavha — Playfair Display; ikkalasi OFL), logotip fayli joylandi (chetlari kesilgan, oq plastinada, o'zgartirilmagan), 8-qator "Zarafshonning o'zida." → "Zarafshonliklar uchun zamonaviy kasbiy tayyorgarlik." (jami ~31,6 s).
 
@@ -30,6 +30,8 @@ TTS uchun "portfolio" → "portfolyo", "Diplomat'da" → "Diplomatda" deb yozilg
 
 ## Ovoz va musiqa (yakuniyda almashtiriladi)
 Namuna: asosiy ovoz (OmniVoice, CC-BY-NC — faqat demo). Yakuniy: mijozning jonli ovozi yoki tijoriy ruxsatli ovoz. Musiqa: namuna (litsenziyasi noma'lum) → litsenziyali trek.
+
+v3: mijozning ikkita ekran yozuvi joylandi: (1) hh.ru ilovasi — kadr `broll/hh.png` (Vibe Coder / AI-Native Full-Stack Developer, 120 000 – 200 000 ₽, Опыт 1-3 года; manba yozuvi "hh.ru, 18.10.2026" — hh.uz EMAS, Rossiya vakansiyasi, rubl), (2) "Bozor pro" demo sayti — `broll/site.mp4` (1,5× tezlikda). Asl fayllar: `raw/hh_recording.mp4`, `raw/site_recording.mp4`.
 
 ## Tasdiqlanmagan da'volar (videoga KIRITILMAGAN)
 "Zarafshonliklarning ~80% davlat ishida ishlaydi" va "ish izlaganlar haddan tashqari ko'p" — mijoz taxmini; rasmiy manba (statistika) topilmaguncha ovozda/ekranda ishlatilmaydi.

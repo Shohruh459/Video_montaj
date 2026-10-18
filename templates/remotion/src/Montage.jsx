@@ -228,11 +228,12 @@ const PhoneScene = ({s}) => {
     const f = Math.floor(t * 18);
     return [0, 1, 2, 3, 4, 5, 6].map((k) => Math.floor(rnd(f * 7 + k) * 10)).join('').replace(/^(\d)(\d{3})(\d{3})$/, '$1 $2 $3');
   })();
-  const amountText = hasAmount ? fmtNum(s.amount * cnt) : roll;
+  const isRange = hasAmount && typeof s.amountTo === 'number';
+  const amountText = hasAmount ? (isRange ? `${fmtNum(s.amount * cnt)} – ${fmtNum(s.amountTo * cnt)}` : fmtNum(s.amount * cnt)) : roll;
   const chip = (
     <div style={{fontFamily: FONT, fontWeight: 800, color: '#14182e'}}>
-      <div style={{fontSize: 22, color: '#6b7090', fontWeight: 700, letterSpacing: 1}}>OYLIK</div>
-      <div style={{fontSize: 62, lineHeight: 1.1, whiteSpace: 'nowrap', fontVariantNumeric: 'tabular-nums', opacity: (!hasAmount && t <= 1.9) ? 0.45 : 1}}>{amountText}<span style={{fontSize: 30, marginLeft: 10, color: '#6b7090'}}>{s.currency || 'soʻm'}</span></div>
+      <div style={{fontSize: 22, color: '#6b7090', fontWeight: 700, letterSpacing: 1}}>{s.amountLabel || 'OYLIK'}</div>
+      <div style={{fontSize: isRange ? 34 : 62, lineHeight: 1.1, whiteSpace: 'nowrap', fontVariantNumeric: 'tabular-nums', opacity: (!hasAmount && t <= 1.9) ? 0.45 : 1}}>{amountText}<span style={{fontSize: isRange ? 30 : 30, marginLeft: 10, color: '#6b7090'}}>{s.currency || 'soʻm'}</span></div>
     </div>
   );
   return (
@@ -243,8 +244,13 @@ const PhoneScene = ({s}) => {
             <Img src={staticFile(s.image)} style={{width: '100%', display: 'block', transform: `translateY(${-(s.scroll || 0) * ease((t - 0.4) / 2.2)}px)`}} />
             {hasAmount ? (<div style={{position: 'absolute', left: 24, right: 24, bottom: 36, background: 'rgba(255,255,255,.94)', padding: '16px 22px', borderRadius: 26,
               boxShadow: '0 10px 40px rgba(0,0,0,.25)'}}>{chip}</div>) : null}
-            {s.hl ? (<div style={{position: 'absolute', left: 10, right: 10, top: s.hl.top, height: s.hl.height, borderRadius: 14,
-              background: `${ACCENT}${hl > 0.02 ? '66' : '00'}`, border: `4px solid ${ACCENT}`, opacity: hl}} />) : null}
+            {(s.hls || (s.hl ? [{...s.hl, at: 1}] : [])).map((h, k) => {
+              const c = cues[h.at ?? 1] || {from: 1, to: 3};
+              const tt = c.from + (h.at === 0 ? 0.6 : 0.45) * (c.to - c.from);
+              const q = ease((t - tt) / 0.35);
+              return (<div key={k} style={{position: 'absolute', left: h.left ?? 10, top: h.top, width: h.width, right: h.width ? undefined : 10, height: h.height, borderRadius: 14,
+                background: `${ACCENT}${q > 0.02 ? '55' : '00'}`, border: `4px solid ${ACCENT}`, opacity: q, transform: `scale(${1.08 - 0.08 * q})`}} />);
+            })}
           </>
         ) : (
           <div style={{position: 'absolute', inset: 0, paddingTop: 118, paddingLeft: 30, paddingRight: 30, boxSizing: 'border-box'}}>
@@ -267,8 +273,37 @@ const PhoneScene = ({s}) => {
   );
 };
 
+// Telefon ramkasidagi ekran videosi (vertikal yozuv, oldindan kesilgan: holat paneli va pastki tugmalarsiz). s.frame === 'phone' bo'lganda ScreenScene shuni chizadi.
+const PhoneVideoScene = ({s}) => {
+  const ACCENT = useContext(AccentCtx);
+  const t = useT();
+  const cues = s.cues || [];
+  const enter = ease(t / 0.5);
+  const c1 = cues[1] || {from: 3, to: 7};
+  const chipAt = c1.from + 0.56 * (c1.to - c1.from), chipGap = 0.44 * (c1.to - c1.from) / 3;
+  return (
+    <>
+      <Phone enter={enter}>
+        <div style={{position: 'absolute', inset: 0, background: '#fff'}} />
+        <div style={{position: 'absolute', left: 0, right: 0, top: 54, bottom: 0}}>
+          <OffthreadVideo src={staticFile(s.src)} muted startFrom={Math.round((s.from || 0) * 30)} playbackRate={s.rate || 1}
+            style={{width: '100%', height: '100%', objectFit: 'cover', objectPosition: '50% 0%'}} />
+        </div>
+      </Phone>
+      <div style={{position: 'absolute', left: 0, right: 0, top: PHONE_TOP + PHONE_H + 28, display: 'flex', justifyContent: 'center', gap: 20}}>
+        {(s.chips || []).map((c, i) => {
+          const p = ease((t - (chipAt + i * chipGap)) / 0.35);
+          return (<div key={i} style={{fontFamily: FONT, fontWeight: 800, fontSize: 50, color: '#2a1d00', background: ACCENT, padding: '8px 36px', borderRadius: 50,
+            opacity: p, transform: `translateY(${(1 - p) * 24}px) scale(${0.85 + 0.15 * p})`, boxShadow: '0 10px 36px rgba(0,0,0,.4)'}}>{c}</div>);
+        })}
+      </div>
+    </>
+  );
+};
+
 // Ekran videosi (kompyuter oynasi). s.src (broll/ ichida video) bo'lsa — o'sha; bo'lmasa kod → sahifa yig'ilishi sxemasi (placeholder).
 const ScreenScene = ({s}) => {
+  if (s.frame === 'phone') return <PhoneVideoScene s={s} />;
   const ACCENT = useContext(AccentCtx);
   const t = useT();
   const cues = s.cues || [];
