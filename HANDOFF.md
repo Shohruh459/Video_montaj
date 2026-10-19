@@ -159,3 +159,7 @@ Pixabay'da Song Plus'ning o'zi ehtimol yo'q → umumiy elektromobil kadrlari; an
 - O'rnatildi: three@0.169, @react-three/fiber@8.17, @remotion/three@4.0.250. Komp `Kids3D` (`src/Kids3D.tsx`): sferalardan yig'ilgan toon-material Benny (kontur bilan), kod animatsiyasi. Render: `npx remotion render src/index.ts Kids3D out.mp4 --gl=angle --scale=0.5` (--gl=angle SHART).
 - O'lchov (4 CPU, GPU yo'q): 960x540 da ~1.3 s/kadr (60 kadr = 77 s). 50 s epizod (1500 kadr) ~33 daqiqa 540p da; 1080p da taxminan 3–4x sekinroq.
 - Blender (Cycles CPU) bu serverda juda sekin bo'ladi; Pixar darajasi uchun GPU server (ijara) kerak. glTF CC0 modellar (Quaternius/Kenney/Poly Pizza) — har bir litsenziyani alohida tekshirish.
+
+### 2026-10-19 — Reja o'zgardi: bolalar multfilmi / 3D / "baron" uslubidagi video KEYINGA SURILDI
+- Foydalanuvchi: hozircha to'xtatildi (Kids ep1 test, Kids3D pilot, baronbiladi uslubi — Kling AI + film parchalari; film kadrlari huquqi muammosi aytilgan). Qayta boshlash uchun: HANDOFF yuqoridagi bo'limlar.
+- Yangi navbat: (1) Instagram holatini tahlil qilish (instagram.com sandbox'dan ochilmaydi — foydalanuvchi skrinshot/Insights beradi), (2) keyin Yuksalish videolarini tuzatishda davom etish (#01/#03 tushunarsiz joylar so'ralgan edi; #10, #12, #08, #02, #07, #11, #04, #09, #05).
