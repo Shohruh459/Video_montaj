@@ -154,3 +154,8 @@ Pixabay'da Song Plus'ning o'zi ehtimol yo'q → umumiy elektromobil kadrlari; an
 - `out/ep1_test.mp4` (1440x810, 49.1 s, -14.3 LUFS, QC toza). Komp `KidsEp` (`src/KidsEp.tsx`), builder `scripts/build_kids_ep.py <lines.json> <voice_dir> --scale 0.75` (scale 0.6667 TOQ o'lchamga olib keladi — ishlatma), ingliz TTS `scripts/tts_en.py` (language=en xotirada, config o'zgarmaydi) va `scripts/tts_en_pick.py` (ASR bilan eng tushunarli variantni tanlaydi). Satrlar `specs/ep1_lines.json`.
 - Dars: "Ribbit" kabi onomatopeya TTS'da tushunarsiz (5 urinish) — oddiy jumla bilan almashtirildi; "red" takroriy so'z ba'zan "rit" bo'lib chiqadi — ASR tanlovi kerak. Whisper tekshiruvi nisbiy, inson eshitishi shart.
 - Kutilmoqda: foydalanuvchi fikri. Keyingi yaxshilashlar: recap predmetlari kattaroq, Pip/Lila ham gapirsin (alohida ovoz), qo'shiq/ritm, 1920x1080 final.
+
+### 2026-10-19 — 3D sinov (Remotion + Three.js, GPU'siz)
+- O'rnatildi: three@0.169, @react-three/fiber@8.17, @remotion/three@4.0.250. Komp `Kids3D` (`src/Kids3D.tsx`): sferalardan yig'ilgan toon-material Benny (kontur bilan), kod animatsiyasi. Render: `npx remotion render src/index.ts Kids3D out.mp4 --gl=angle --scale=0.5` (--gl=angle SHART).
+- O'lchov (4 CPU, GPU yo'q): 960x540 da ~1.3 s/kadr (60 kadr = 77 s). 50 s epizod (1500 kadr) ~33 daqiqa 540p da; 1080p da taxminan 3–4x sekinroq.
+- Blender (Cycles CPU) bu serverda juda sekin bo'ladi; Pixar darajasi uchun GPU server (ijara) kerak. glTF CC0 modellar (Quaternius/Kenney/Poly Pizza) — har bir litsenziyani alohida tekshirish.
