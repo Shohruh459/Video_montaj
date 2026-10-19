@@ -11,7 +11,7 @@ const useFont = () => {
   }, [h]);
 };
 
-const Defs: React.FC = () => (
+export const Defs: React.FC = () => (
   <defs>
     <radialGradient id="gBear" cx="40%" cy="30%" r="80%"><stop offset="0" stopColor="#d08a4f" /><stop offset="1" stopColor="#97592f" /></radialGradient>
     <radialGradient id="gFox" cx="40%" cy="30%" r="80%"><stop offset="0" stopColor="#ffa94a" /><stop offset="1" stopColor="#e5761a" /></radialGradient>
@@ -24,16 +24,16 @@ const Defs: React.FC = () => (
   </defs>
 );
 
-const Eye: React.FC<{x: number; y: number; r?: number}> = ({x, y, r = 26}) => (
+export const Eye: React.FC<{x: number; y: number; r?: number}> = ({x, y, r = 26}) => (
   <g>
     <ellipse cx={x} cy={y} rx={r} ry={r * 1.18} fill="#2a1a12" />
     <circle cx={x + r * 0.32} cy={y - r * 0.42} r={r * 0.4} fill="#fff" />
     <circle cx={x - r * 0.38} cy={y + r * 0.4} r={r * 0.17} fill="#fff" opacity="0.85" />
   </g>
 );
-const Cheek: React.FC<{x: number; y: number; r?: number}> = ({x, y, r = 30}) => <ellipse cx={x} cy={y} rx={r} ry={r * 0.7} fill="#ff7e8a" opacity="0.5" />;
+export const Cheek: React.FC<{x: number; y: number; r?: number}> = ({x, y, r = 30}) => <ellipse cx={x} cy={y} rx={r} ry={r * 0.7} fill="#ff7e8a" opacity="0.5" />;
 
-const Smile: React.FC<{y?: number; w?: number}> = ({y = 70, w = 32}) => (
+export const Smile: React.FC<{y?: number; w?: number}> = ({y = 70, w = 32}) => (
   <g>
     <path d={`M${-w} ${y} Q0 ${y + 48} ${w} ${y}`} fill="#7a1f2b" stroke="#3b2316" strokeWidth="7" strokeLinecap="round" strokeLinejoin="round" />
     <path d={`M${-w * 0.55} ${y + 20} Q0 ${y + 52} ${w * 0.55} ${y + 20} Q0 ${y + 30} ${-w * 0.55} ${y + 20}Z`} fill="#ff8795" />
@@ -62,7 +62,7 @@ const Bear: React.FC<{x: number; y: number; s?: number; holdApple?: boolean}> = 
   </g>
 );
 
-const Apple: React.FC<{x: number; y: number; s?: number}> = ({x, y, s = 1}) => (
+export const Apple: React.FC<{x: number; y: number; s?: number}> = ({x, y, s = 1}) => (
   <g transform={`translate(${x} ${y}) scale(${s})`} filter="url(#soft)">
     <path d="M0 -40 Q-70 -60 -62 10 Q-58 70 0 66 Q58 70 62 10 Q70 -60 0 -40Z" fill="url(#gApple)" />
     <path d="M0 -40 Q4 -70 22 -84" stroke="#5a3a1a" strokeWidth="9" fill="none" strokeLinecap="round" />
@@ -72,7 +72,7 @@ const Apple: React.FC<{x: number; y: number; s?: number}> = ({x, y, s = 1}) => (
 );
 
 // ---- Pip the Penguin ----
-const Penguin: React.FC<{x: number; y: number; s?: number}> = ({x, y, s = 1}) => (
+export const Penguin: React.FC<{x: number; y: number; s?: number}> = ({x, y, s = 1}) => (
   <g transform={`translate(${x} ${y}) scale(${s})`} filter="url(#soft)">
     <ellipse cx="-75" cy="262" rx="66" ry="30" fill="#ff9a2e" /><ellipse cx="75" cy="262" rx="66" ry="30" fill="#ff9a2e" />
     <ellipse cx="0" cy="40" rx="190" ry="240" fill="url(#gPeng)" />
@@ -87,7 +87,7 @@ const Penguin: React.FC<{x: number; y: number; s?: number}> = ({x, y, s = 1}) =>
   </g>
 );
 
-const Fish: React.FC<{x: number; y: number; c: string; n: number}> = ({x, y, c, n}) => (
+export const Fish: React.FC<{x: number; y: number; c: string; n: number}> = ({x, y, c, n}) => (
   <g transform={`translate(${x} ${y})`} filter="url(#soft)">
     <path d="M70 0 L130 -42 L130 42Z" fill={c} /><ellipse cx="0" cy="0" rx="82" ry="52" fill={c} />
     <ellipse cx="-12" cy="-20" rx="34" ry="12" fill="#fff" opacity="0.35" />
@@ -98,7 +98,7 @@ const Fish: React.FC<{x: number; y: number; c: string; n: number}> = ({x, y, c, 
 );
 
 // ---- Lila the Fox ----
-const Fox: React.FC<{x: number; y: number; s?: number}> = ({x, y, s = 1}) => (
+export const Fox: React.FC<{x: number; y: number; s?: number}> = ({x, y, s = 1}) => (
   <g transform={`translate(${x} ${y}) scale(${s})`} filter="url(#soft)">
     <g transform="rotate(-32 140 330)"><ellipse cx="270" cy="330" rx="150" ry="62" fill="#e5761a" /><ellipse cx="392" cy="330" rx="54" ry="50" fill="#fff" /></g>
     <ellipse cx="-90" cy="430" rx="70" ry="46" fill="#7a3d12" /><ellipse cx="90" cy="430" rx="70" ry="46" fill="#7a3d12" />
@@ -117,13 +117,13 @@ const Fox: React.FC<{x: number; y: number; s?: number}> = ({x, y, s = 1}) => (
 );
 
 // ---- fon bo'laklari ----
-const Cloud: React.FC<{x: number; y: number; s?: number}> = ({x, y, s = 1}) => (
+export const Cloud: React.FC<{x: number; y: number; s?: number}> = ({x, y, s = 1}) => (
   <g transform={`translate(${x} ${y}) scale(${s})`} fill="#fff" opacity="0.95"><ellipse cx="0" cy="0" rx="120" ry="50" /><circle cx="-50" cy="-30" r="52" /><circle cx="25" cy="-48" r="64" /><circle cx="85" cy="-14" r="44" /></g>
 );
-const Tree: React.FC<{x: number; y: number; s?: number}> = ({x, y, s = 1}) => (
+export const Tree: React.FC<{x: number; y: number; s?: number}> = ({x, y, s = 1}) => (
   <g transform={`translate(${x} ${y}) scale(${s})`}><rect x="-22" y="0" width="44" height="150" rx="14" fill="#8a5a2b" /><circle cx="0" cy="-30" r="100" fill="#43b04a" /><circle cx="-60" cy="20" r="62" fill="#4cc255" /><circle cx="64" cy="14" r="66" fill="#3da345" /></g>
 );
-const Flower: React.FC<{x: number; y: number; c: string}> = ({x, y, c}) => (
+export const Flower: React.FC<{x: number; y: number; c: string}> = ({x, y, c}) => (
   <g transform={`translate(${x} ${y})`}><rect x="-3" y="0" width="6" height="40" fill="#3d9a40" />{[0, 72, 144, 216, 288].map((a) => <ellipse key={a} cx="0" cy="-16" rx="11" ry="17" fill={c} transform={`rotate(${a})`} />)}<circle r="9" fill="#ffd23f" /></g>
 );
 

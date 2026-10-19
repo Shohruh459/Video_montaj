@@ -13,10 +13,15 @@ import ish from './data/ish.json';
 import {Adashdi, AdashdiProps} from './Adashdi';
 import adashdi from './data/adashdi.json';
 import {Kids, KidsProps} from './Kids';
+import {KidsEp, KidsEpProps} from './KidsEp';
+import kidsep from './data/kidsep.json';
 
 const FPS = 30;
 export const Root: React.FC = () => (
   <>
+  <Composition id="KidsEp" component={KidsEp as React.FC<any>} width={1920} height={1080} fps={FPS}
+    durationInFrames={Math.round(kidsep.totalSec * FPS)} defaultProps={kidsep as unknown as KidsEpProps}
+    calculateMetadata={({props}: {props: any}) => ({durationInFrames: Math.round(props.totalSec * FPS)})} />
   <Composition id="Kids" component={Kids as React.FC<any>} width={1920} height={1080} fps={FPS} durationInFrames={150} defaultProps={{scene: 'bear'} as KidsProps} />
   <Composition id="Adashdi" component={Adashdi as React.FC<any>} width={1080} height={1920} fps={FPS}
     durationInFrames={Math.round(adashdi.totalSec * FPS)} defaultProps={adashdi as AdashdiProps}

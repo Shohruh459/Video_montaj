@@ -1,0 +1,82 @@
+[
+ {
+  "text": "Hello, friends! I am Benny the Bear!",
+  "pause": 0.3,
+  "scene": "intro"
+ },
+ {
+  "text": "Today, we will learn colors!",
+  "pause": 0.5,
+  "scene": "intro"
+ },
+ {
+  "text": "Look! A red apple!",
+  "pause": 0.3,
+  "scene": "red"
+ },
+ {
+  "text": "Red, red, red! Apples are red.",
+  "pause": 0.3,
+  "scene": "red"
+ },
+ {
+  "text": "Can you say red?",
+  "pause": 1.9,
+  "scene": "red"
+ },
+ {
+  "text": "Now look! A blue ball!",
+  "pause": 0.3,
+  "scene": "blue"
+ },
+ {
+  "text": "Blue, blue, blue! The ball is blue.",
+  "pause": 0.3,
+  "scene": "blue"
+ },
+ {
+  "text": "Can you say blue?",
+  "pause": 1.9,
+  "scene": "blue"
+ },
+ {
+  "text": "Wow! A yellow banana!",
+  "pause": 0.3,
+  "scene": "yellow"
+ },
+ {
+  "text": "Yellow, yellow, yellow! Bananas are yellow.",
+  "pause": 0.3,
+  "scene": "yellow"
+ },
+ {
+  "text": "Can you say yellow?",
+  "pause": 1.9,
+  "scene": "yellow"
+ },
+ {
+  "text": "And here is a green frog!",
+  "pause": 0.3,
+  "scene": "green"
+ },
+ {
+  "text": "Green, green, green! Ribbit, ribbit!",
+  "pause": 0.3,
+  "scene": "green"
+ },
+ {
+  "text": "Can you say green?",
+  "pause": 1.9,
+  "scene": "green"
+ },
+ {
+  "text": "Red, blue, yellow, green! Great job, friends!",
+  "pause": 0.6,
+  "scene": "recap"
+ },
+ {
+  "text": "See you next time! Bye-bye!",
+  "pause": 0.8,
+  "scene": "outro"
+ }
+]
