@@ -144,3 +144,8 @@ Pixabay'da Song Plus'ning o'zi ehtimol yo'q → umumiy elektromobil kadrlari; an
 - Ovoz: 5 ibora (OmniVoice, foydalanuvchi tasdiqlagan) `voice/lines/p*.wav`; musiqa ovoz ostida duck. Final: `out/adashdi_01_final.mp4` (1080x1920, 28 s, -14.0 LUFS, TP -1.5, QC toza). Instagram `@zarafshon_dasturchilari`, tel +998 93 316 97 13.
 - Dars: Remotion'da absolute-joylashgan fon qatlami oddiy (static) bolalar ustidan chiqadi — matn bloki `position: 'relative'` bo'lsin (CTA matni xira chiqqan edi).
 - Kutilmoqda: foydalanuvchi fikri (hazil, ritm, musiqa A/B). Musiqa fayllari /tmp/music/raw vaqtinchalik. Yuksalish #10 keyin boshlanadi.
+
+### 2026-10-19 — Bolalar YouTube multfilmi (ingliz tili, pul ishlash) — konsept bosqichi
+- Foydalanuvchi: YouTube, ingliz tilida, bolalar uchun o'rgatuvchi-qiziqarli; ssenariy hali yo'q, avval KADRLAR. `projects/kids-yt-2026-10-19/`, `templates/kinetic/src/Kids.tsx` (comp `Kids`, scene: bear|penguin|fox|lineup; qahramonlar Benny/Pip/Lila SVG, animatsiyaga tayyor), shrift Fredoka (OFL). Konsept PNG'lar `out/concept_*.png`.
+- Higgsfield: 0 kredit (free plan) — AI rasm/video hozir ishlamaydi. Mahalliy AI video uchun GPU yo'q.
+- Muhim cheklovlar (foydalanuvchiga aytilgan): YouTube "inauthentic/mass-produced" siyosati (2025–2026), "made for kids" (COPPA) reklama daromadini pasaytiradi; ovoz: OmniVoice CC-BY-NC monetizatsiyalangan kanalga YO'Q — ingliz tilida ruxsat etilgan TTS yoki jonli diktor kerak. Kutilmoqda: kadrlar bo'yicha fikr, ssenariy yo'nalishi, ovoz yo'li.
