@@ -149,3 +149,8 @@ Pixabay'da Song Plus'ning o'zi ehtimol yo'q → umumiy elektromobil kadrlari; an
 - Foydalanuvchi: YouTube, ingliz tilida, bolalar uchun o'rgatuvchi-qiziqarli; ssenariy hali yo'q, avval KADRLAR. `projects/kids-yt-2026-10-19/`, `templates/kinetic/src/Kids.tsx` (comp `Kids`, scene: bear|penguin|fox|lineup; qahramonlar Benny/Pip/Lila SVG, animatsiyaga tayyor), shrift Fredoka (OFL). Konsept PNG'lar `out/concept_*.png`.
 - Higgsfield: 0 kredit (free plan) — AI rasm/video hozir ishlamaydi. Mahalliy AI video uchun GPU yo'q.
 - Muhim cheklovlar (foydalanuvchiga aytilgan): YouTube "inauthentic/mass-produced" siyosati (2025–2026), "made for kids" (COPPA) reklama daromadini pasaytiradi; ovoz: OmniVoice CC-BY-NC monetizatsiyalangan kanalga YO'Q — ingliz tilida ruxsat etilgan TTS yoki jonli diktor kerak. Kutilmoqda: kadrlar bo'yicha fikr, ssenariy yo'nalishi, ovoz yo'li.
+
+### 2026-10-19 — Kids test epizod (Benny, ranglar) tayyor
+- `out/ep1_test.mp4` (1440x810, 49.1 s, -14.3 LUFS, QC toza). Komp `KidsEp` (`src/KidsEp.tsx`), builder `scripts/build_kids_ep.py <lines.json> <voice_dir> --scale 0.75` (scale 0.6667 TOQ o'lchamga olib keladi — ishlatma), ingliz TTS `scripts/tts_en.py` (language=en xotirada, config o'zgarmaydi) va `scripts/tts_en_pick.py` (ASR bilan eng tushunarli variantni tanlaydi). Satrlar `specs/ep1_lines.json`.
+- Dars: "Ribbit" kabi onomatopeya TTS'da tushunarsiz (5 urinish) — oddiy jumla bilan almashtirildi; "red" takroriy so'z ba'zan "rit" bo'lib chiqadi — ASR tanlovi kerak. Whisper tekshiruvi nisbiy, inson eshitishi shart.
+- Kutilmoqda: foydalanuvchi fikri. Keyingi yaxshilashlar: recap predmetlari kattaroq, Pip/Lila ham gapirsin (alohida ovoz), qo'shiq/ritm, 1920x1080 final.
