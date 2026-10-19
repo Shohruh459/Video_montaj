@@ -1,1 +1,1 @@
-{"name":"kinetic","private":true,"version":"1.0.0","dependencies":{"@remotion/cli":"^4.0.250","@remotion/renderer":"^4.0.250","react":"^18.3.1","react-dom":"^18.3.1","remotion":"^4.0.250"}}
+{"name":"kinetic","private":true,"version":"1.0.0","dependencies":{"@react-three/fiber":"^8.17.10","@remotion/cli":"^4.0.250","@remotion/renderer":"^4.0.250","@remotion/three":"^4.0.250","@types/three":"^0.169.0","react":"^18.3.1","react-dom":"^18.3.1","remotion":"^4.0.250","three":"^0.169.0"}}
