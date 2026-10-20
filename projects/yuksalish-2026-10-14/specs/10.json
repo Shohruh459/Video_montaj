@@ -1,0 +1,170 @@
+{
+ "id": "10",
+ "title": "Kichik vaʼdalarni buzish (v2 qisqa hook)",
+ "base_style": "daftar",
+ "handle": "@yuksalish713",
+ "music": {
+  "src": "/tmp/music/raw/s44_r13_ilhomli-orkestr-aks.wav",
+  "ss": 10,
+  "rel_db": -20,
+  "note": "HF mrfakename/cc0-music-captioned 44:13 (ilhomli orkestr)"
+ },
+ "phrases": [
+  {
+   "say": "Oʻzingizga bergan vaʼdani buzdingizmi?",
+   "show": "Oʻzingizga bergan vaʼdani buzdingizmi?",
+   "acc": [
+    2,
+    3
+   ],
+   "pause": 0.5,
+   "style": "daftar",
+   "clip": "",
+   "ss": 0,
+   "pos": "50% 50%"
+  },
+  {
+   "say": "“Bugun yigirma daqiqa oʻqiyman.”",
+   "show": "“Bugun 20 daqiqa oʻqiyman.”",
+   "acc": [
+    1,
+    2
+   ],
+   "pause": 0.35,
+   "style": "daftar",
+   "clip": "",
+   "ss": 0,
+   "pos": "50% 50%"
+  },
+  {
+   "say": "“Ertalab soat oltida turaman.”",
+   "show": "“Ertalab soat 6 da turaman.”",
+   "acc": [
+    2,
+    3
+   ],
+   "pause": 0.45,
+   "style": "daftar",
+   "clip": "",
+   "ss": 0,
+   "pos": "50% 50%"
+  },
+  {
+   "say": "Keyin buzasiz.",
+   "show": "Keyin buzasiz.",
+   "acc": [
+    1
+   ],
+   "pause": 0.4,
+   "style": "daftar",
+   "clip": "",
+   "ss": 0,
+   "pos": "50% 50%"
+  },
+  {
+   "say": "Bir marta.",
+   "show": "Bir marta.",
+   "acc": [
+    0,
+    1
+   ],
+   "pause": 0.3,
+   "style": "daftar",
+   "clip": "",
+   "ss": 0,
+   "pos": "50% 50%"
+  },
+  {
+   "say": "Ikki marta.",
+   "show": "Ikki marta.",
+   "acc": [
+    0,
+    1
+   ],
+   "pause": 0.3,
+   "style": "daftar",
+   "clip": "",
+   "ss": 0,
+   "pos": "50% 50%"
+  },
+  {
+   "say": "Uch marta.",
+   "show": "Uch marta.",
+   "acc": [
+    0,
+    1
+   ],
+   "pause": 0.5,
+   "style": "daftar",
+   "clip": "",
+   "ss": 0,
+   "pos": "50% 50%"
+  },
+  {
+   "say": "Har safar oʻzingizga ishonchingiz kamayadi.",
+   "show": "Har safar oʻzingizga ishonchingiz kamayadi.",
+   "acc": [
+    3
+   ],
+   "pause": 0.6,
+   "style": "daftar",
+   "clip": "",
+   "ss": 0,
+   "pos": "50% 50%"
+  },
+  {
+   "say": "Siz ham shunday qilganmisiz? Izohda yozing.",
+   "show": "Siz ham shunday qilganmisiz? Izohda yozing.",
+   "acc": [
+    4
+   ],
+   "pause": 0.6,
+   "style": "daftar",
+   "clip": "",
+   "ss": 0,
+   "pos": "50% 50%"
+  },
+  {
+   "say": "Yechim oddiy: bitta, juda kichik vaʼda.",
+   "show": "Yechim oddiy: bitta, juda kichik vaʼda.",
+   "acc": [
+    3,
+    4,
+    5
+   ],
+   "pause": 0.45,
+   "style": "daftar",
+   "clip": "",
+   "ss": 0,
+   "pos": "50% 50%"
+  },
+  {
+   "say": "Va uni bajaring.",
+   "show": "Va uni bajaring.",
+   "acc": [
+    2
+   ],
+   "pause": 0.7,
+   "style": "daftar",
+   "clip": "",
+   "ss": 0,
+   "pos": "50% 50%"
+  },
+  {
+   "say": "Bugun vaʼdangizni bajarasizmi?",
+   "show": "Bugun vaʼdangizni bajarasizmi?",
+   "acc": [
+    1,
+    2
+   ],
+   "pause": 0.0,
+   "style": "daftar",
+   "clip": "",
+   "ss": 0,
+   "pos": "50% 50%"
+  }
+ ],
+ "scenes": [],
+ "sfx": [],
+ "tail": 0.9
+}
