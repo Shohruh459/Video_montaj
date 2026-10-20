@@ -163,3 +163,9 @@ Pixabay'da Song Plus'ning o'zi ehtimol yo'q → umumiy elektromobil kadrlari; an
 ### 2026-10-19 — Reja o'zgardi: bolalar multfilmi / 3D / "baron" uslubidagi video KEYINGA SURILDI
 - Foydalanuvchi: hozircha to'xtatildi (Kids ep1 test, Kids3D pilot, baronbiladi uslubi — Kling AI + film parchalari; film kadrlari huquqi muammosi aytilgan). Qayta boshlash uchun: HANDOFF yuqoridagi bo'limlar.
 - Yangi navbat: (1) Instagram holatini tahlil qilish (instagram.com sandbox'dan ochilmaydi — foydalanuvchi skrinshot/Insights beradi), (2) keyin Yuksalish videolarini tuzatishda davom etish (#01/#03 tushunarsiz joylar so'ralgan edi; #10, #12, #08, #02, #07, #11, #04, #09, #05).
+
+### 2026-10-20 — Yuksalish #10 YAKUNIY (tahlil asosida v2: katta hook, o'rtada CTA)
+- Instagram tahlili (foydalanuvchi skrinshotlari): #06 228 ko'rish/5 s o'rtacha, #03 176/6 s; ~50% 2–3 s da ketadi, 100% obunachi bo'lmaganlar, 18–34 yosh 83%; CTA oxirida (3–5% yetib boradi) -> izoh 0. API: graph.instagram.com/graph.facebook.com domenlari ochildi, token KERAK (env `INSTAGRAM_ACCESS_TOKEN`, chatga yozilmaydi) — hali berilmagan.
+- #10: `specs/10.json`, yangi sahnalar `vada` (hook) va `promise` (qog'ozchalar + "ishonch" ko'rsatkichi + izoh pufagi + kichik vaʼda) Sample.tsx da; Daftar endi klip-siz. Ovoz: 12 ibora, ASR (navai-uz) bilan 10-/12-iboralar qayta tanlangan ("vaʼda"). Final `out/reel_10_final.mp4` (1080x1920, 28.4 s, -14.0 LUFS, TP -2.1, QC toza). Izoh `captions/10.md`.
+- Builder ovoz backendini (localhost:3900) talab qiladi — kesh bo'lsa ham; `bash scripts/start_voice.sh` avval.
+- Keyingi: yuklagach 48 soatdan keyin #10 ni #06 bilan solishtirish (3-soniya retention, o'rtacha ko'rish). Navbat: #12, #08, #02, #07, #11, #04, #09, #05 (yangi qoidalar: hook birinchi kadrdan, ~22–25 s, CTA o'rtada ham).
