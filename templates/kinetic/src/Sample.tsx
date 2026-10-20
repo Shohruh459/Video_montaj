@@ -5,7 +5,7 @@ type W = {t: string; a?: boolean};
 export type LineT = {words: W[]; start: number; dur: number; clip: string; pos?: string; tag?: string; style?: StyleName; ss?: number; vpos?: 'bottom'};
 export const STYLES = ['kino-oltin', 'split-oyna', 'jurnal', 'neon', 'minimal-oq', 'afisha', 'terminal', 'shisha', 'daftar', 'harakat'] as const;
 export type StyleName = typeof STYLES[number];
-export type SceneT = {kind: 'days' | 'back' | 'stop' | 'task' | 'panorama' | 'fall' | 'plan' | 'zero' | 'fork' | 'bounce' | 'wave' | 'battery' | 'flip' | 'choice' | 'timer' | 'middle' | 'week'; start: number; dur: number; p?: any};
+export type SceneT = {kind: 'days' | 'back' | 'stop' | 'task' | 'panorama' | 'fall' | 'plan' | 'zero' | 'fork' | 'bounce' | 'wave' | 'battery' | 'flip' | 'choice' | 'timer' | 'middle' | 'week' | 'vada' | 'promise'; start: number; dur: number; p?: any};
 export type SampleProps = {style: StyleName; totalSec: number; audio: string; lines: LineT[]; scenes?: SceneT[]};
 const LEGACY: Record<string, StyleName> = {gold: 'kino-oltin', split: 'split-oyna', editorial: 'jurnal'};
 
@@ -558,7 +558,7 @@ const Daftar: React.FC<{lines: LineT[]; fps: number}> = ({lines, fps}) => {
       <div style={{position: 'absolute', left: 120, top: 0, bottom: 0, width: 4, background: 'rgba(214,40,40,0.5)'}} />
       {Array.from({length: 4}, (_, i) => <div key={i} style={{position: 'absolute', left: 30, top: 260 + i * 460, width: 44, height: 44, borderRadius: 22, background: '#cfc4ad', boxShadow: 'inset 0 3px 8px rgba(0,0,0,0.35)'}} />)}
       <div style={{position: 'absolute', left: 170, top: 100, fontFamily: 'YS', fontWeight: 700, fontSize: 34, color: INK, letterSpacing: 3}}>yuksalish713</div>
-      {lines.map((l, i) => {
+      {lines.filter((l) => l.clip).map((l, i) => {
         const fr = Math.round(l.dur * fps);
         return (
           <Sequence key={i} from={Math.round(l.start * fps)} durationInFrames={fr + 8}>
@@ -685,6 +685,8 @@ const SceneLayer: React.FC<{scenes: SceneT[]; fps: number}> = ({scenes, fps}) =>
             {sc.kind === 'timer' && <TimerScene p={sc.p} />}
             {sc.kind === 'middle' && <MiddleScene />}
             {sc.kind === 'week' && <WeekScene p={sc.p} />}
+            {sc.kind === 'vada' && <VadaScene />}
+            {sc.kind === 'promise' && <PromiseScene p={sc.p} />}
           </SceneFade>
         </Sequence>
       );
@@ -1067,6 +1069,103 @@ const WeekScene: React.FC<{p: {start: number; cross: number}}> = ({p}) => {
         </div>
       </div>
       <div style={{position: 'absolute', left: 0, right: 0, top: 970, textAlign: 'center', fontFamily: 'YB', fontWeight: 700, fontSize: 44, letterSpacing: 8, color: GOLD, opacity: c01(cr * 2)}}>MUTAXASSIS</div>
+    </AbsoluteFill>
+  );
+};
+
+
+// ───────────────── #10: Vaʼdalar (daftar mavzusida) ─────────────────
+const STICKY = '#ffe27a';
+const VadaScene: React.FC = () => {
+  const f = useCurrentFrame(); const {fps} = useVideoConfig(); const t = f / fps;
+  const word = ['V', 'A', 'ʼ', 'D', 'A'];
+  const ul = eO(c01((t - 0.55) / 0.5));
+  const q = bnc(c01((t - 1.0) / 0.5));
+  const st = bnc(c01((t - 1.5) / 0.35)); const sh = t > 1.5 && t < 1.7 ? (random(`sh${f}`) - 0.5) * 14 : 0;
+  return (
+    <AbsoluteFill>
+      <div style={{position: 'absolute', left: 120, right: 120, top: 250, display: 'flex', justifyContent: 'center', fontFamily: 'YS', fontWeight: 700, fontSize: 215, color: INK, lineHeight: 1.05}}>
+        {word.map((c, i) => { const a = bnc(c01((t - 0.05 - i * 0.07) / 0.45)); return <span key={i} style={{display: 'inline-block', transform: `translateY(${(1 - a) * -260}px) scale(${0.4 + 0.6 * a})`, opacity: a > 0 ? 1 : 0}}>{c}</span>; })}
+        <span style={{display: 'inline-block', color: PEN, marginLeft: 14, transform: `scale(${q}) rotate(${(1 - q) * 25}deg)`}}>?</span>
+      </div>
+      <svg viewBox="0 0 800 60" style={{position: 'absolute', left: 190, top: 560, width: 700, height: 52, overflow: 'visible'}}>
+        <path d="M 10 35 C 150 10, 300 55, 450 28 C 560 8, 680 40, 790 22" fill="none" stroke={PEN} strokeWidth={10} strokeLinecap="round" pathLength={1} strokeDasharray={1} strokeDashoffset={1 - ul} />
+      </svg>
+      <div style={{position: 'absolute', left: 0, right: 0, top: 700, textAlign: 'center', transform: `translate(${sh}px, 0) scale(${0.4 + 0.6 * st}) rotate(-7deg)`, opacity: st > 0 ? 1 : 0}}>
+        <span style={{display: 'inline-block', fontFamily: 'YB', fontWeight: 700, fontSize: 120, letterSpacing: 6, color: PEN, border: `12px solid ${PEN}`, borderRadius: 24, padding: '4px 44px 10px', background: 'rgba(243,235,218,0.85)'}}>BUZILDI</span>
+      </div>
+    </AbsoluteFill>
+  );
+};
+
+const Sticky: React.FC<{y: number; text: string; t: number; t0: number; rot: number; cross: number; vis: number}> = ({y, text, t, t0, rot, cross, vis}) => {
+  const a = bnc(c01((t - t0) / 0.4));
+  if (a <= 0) return null;
+  const sway = Math.sin(t * 1.7 + y) * 0.6;
+  return (
+    <div style={{position: 'absolute', left: 150, top: y, width: 780, height: 210, opacity: vis, transform: `scale(${0.6 + 0.4 * a}) rotate(${rot + sway}deg)`, background: STICKY, boxShadow: '0 18px 38px rgba(60,40,10,0.35)', borderRadius: 8}}>
+      <div style={{position: 'absolute', left: '38%', top: -22, width: 190, height: 44, background: 'rgba(255,255,255,0.55)', transform: 'rotate(-2deg)'}} />
+      <div style={{position: 'absolute', left: 44, right: 36, top: 0, bottom: 0, display: 'flex', alignItems: 'center', fontFamily: 'YS', fontWeight: 700, fontSize: 52, lineHeight: 1.15, color: INK}}>{text}</div>
+      <svg viewBox="0 0 780 210" style={{position: 'absolute', inset: 0, overflow: 'visible'}}>
+        <path d="M 30 112 C 260 86, 520 130, 750 98" fill="none" stroke={PEN} strokeWidth={12} strokeLinecap="round" pathLength={1} strokeDasharray={1} strokeDashoffset={1 - cross} />
+      </svg>
+    </div>
+  );
+};
+
+type PromiseP = {n1: number; n2: number; cross: number; breaks: number[]; fall: number; cta1: number; cta1End: number; tiny: number; tick: number; end: number};
+const PromiseScene: React.FC<{p: PromiseP}> = ({p}) => {
+  const f = useCurrentFrame(); const {fps} = useVideoConfig(); const t = f / fps;
+  const [b0, b1, b2] = p.breaks;
+  const xs = [0, b0, b0 + 0.45, b1, b1 + 0.45, b2, b2 + 0.45, p.fall, p.fall + 0.9, p.tick + 0.1, p.tick + 1.4, p.end];
+  const ys = [100, 100, 70, 70, 45, 45, 22, 22, 6, 6, 40, 48];
+  const v = interpolate(t, xs, ys, clamp);
+  const col = v > 60 ? '#2fa84f' : v > 30 ? '#e0a31f' : '#d62828';
+  const notesVis = 1 - c01((t - p.cta1) / 0.3);
+  const c1 = eO(c01((t - p.cross) / 0.35)), c2 = eO(c01((t - p.cross - 0.2) / 0.35));
+  const bub = bnc(c01((t - p.cta1) / 0.45)) * (1 - c01((t - p.cta1End - 0.1) / 0.3));
+  const msg = 'Menda ham shunday boʻlgan…'; const typed = Math.floor(c01((t - p.cta1 - 0.5) / 1.3) * msg.length);
+  const tinyA = bnc(c01((t - p.tiny) / 0.45)); const tick = eO(c01((t - p.tick) / 0.3));
+  const barA = eO(c01((t - p.n1) / 0.4));
+  return (
+    <AbsoluteFill>
+      <Sticky y={210} text="Bugun 20 daqiqa oʻqiyman" t={t} t0={p.n1} rot={-2.2} cross={c1} vis={notesVis} />
+      <Sticky y={460} text="Ertalab soat 6 da turaman" t={t} t0={p.n2} rot={1.8} cross={c2} vis={notesVis} />
+
+      {/* ishonch ko'rsatkichi */}
+      <div style={{position: 'absolute', left: 150, top: 750, width: 780, opacity: barA}}>
+        <div style={{fontFamily: 'YB', fontWeight: 700, fontSize: 30, letterSpacing: 7, color: 'rgba(27,42,74,0.7)'}}>OʻZINGIZGA ISHONCH</div>
+        <div style={{marginTop: 16, display: 'flex', alignItems: 'center', gap: 22}}>
+          <div style={{position: 'relative', flex: 1, height: 70, borderRadius: 35, background: 'rgba(27,42,74,0.14)', border: `4px solid ${INK}`, overflow: 'hidden', boxSizing: 'border-box'}}>
+            <div style={{position: 'absolute', left: 0, top: 0, bottom: 0, width: `${v}%`, background: col, borderRadius: 31, boxShadow: `0 0 24px ${col}88`}} />
+          </div>
+          <div style={{fontFamily: 'YM', fontWeight: 700, fontSize: 56, color: col, width: 150, textAlign: 'right'}}>{Math.round(v)}%</div>
+        </div>
+        <div style={{marginTop: 14, display: 'flex', gap: 16}}>
+          {p.breaks.map((bt, i) => { const a = bnc(c01((t - bt) / 0.35)); return <div key={i} style={{width: 56, height: 56, borderRadius: 28, border: `5px solid ${PEN}`, color: PEN, fontFamily: 'YB', fontWeight: 700, fontSize: 40, display: 'flex', alignItems: 'center', justifyContent: 'center', transform: `scale(${a})`, opacity: a > 0 ? 1 : 0}}>✕</div>; })}
+        </div>
+      </div>
+
+      {/* izoh pufagi */}
+      {bub > 0.01 && (
+        <div style={{position: 'absolute', left: 170, top: 250, width: 740, height: 360, transform: `scale(${bub})`, opacity: bub}}>
+          <div style={{position: 'absolute', inset: 0, background: '#fff', borderRadius: 48, border: `6px solid ${INK}`, boxShadow: '0 20px 44px rgba(60,40,10,0.3)'}} />
+          <div style={{position: 'absolute', left: 90, bottom: -44, width: 0, height: 0, borderLeft: '36px solid transparent', borderRight: '36px solid transparent', borderTop: `56px solid ${INK}`}} />
+          <div style={{position: 'absolute', left: 52, right: 40, top: 54, fontFamily: 'YS', fontWeight: 700, fontSize: 56, lineHeight: 1.2, color: INK}}>{msg.slice(0, typed)}{Math.floor(f / 8) % 2 === 0 ? '▌' : ''}</div>
+          <div style={{position: 'absolute', left: 52, bottom: 40, display: 'flex', gap: 14}}>{[0, 1, 2].map((i) => <div key={i} style={{width: 24, height: 24, borderRadius: 12, background: 'rgba(27,42,74,0.5)', transform: `translateY(${-Math.abs(Math.sin(t * 6 + i * 0.7)) * 14}px)`}} />)}</div>
+        </div>
+      )}
+
+      {/* kichik vaʼda */}
+      {tinyA > 0.01 && (
+        <div style={{position: 'absolute', left: 190, top: 330, width: 700, height: 200, transform: `scale(${0.6 + 0.4 * tinyA}) rotate(-1.6deg)`, opacity: tinyA > 0 ? 1 : 0, background: STICKY, boxShadow: `0 18px 38px rgba(60,40,10,0.35)${tick > 0.6 ? ', 0 0 60px rgba(47,168,79,0.55)' : ''}`, borderRadius: 8}}>
+          <div style={{position: 'absolute', left: '38%', top: -22, width: 190, height: 44, background: 'rgba(255,255,255,0.55)', transform: 'rotate(-2deg)'}} />
+          <div style={{position: 'absolute', left: 36, top: 52, width: 96, height: 96, borderRadius: 18, boxSizing: 'border-box', border: `7px solid ${INK}`, background: 'rgba(255,255,255,0.6)'}}>
+            <svg viewBox="0 0 100 100" style={{position: 'absolute', inset: -6, overflow: 'visible'}}><path d="M 20 55 L 42 76 L 86 22" fill="none" stroke="#1f9a43" strokeWidth={16} strokeLinecap="round" strokeLinejoin="round" pathLength={1} strokeDasharray={1} strokeDashoffset={1 - tick} /></svg>
+          </div>
+          <div style={{position: 'absolute', left: 164, right: 24, top: 0, bottom: 0, display: 'flex', alignItems: 'center', fontFamily: 'YS', fontWeight: 700, fontSize: 52, lineHeight: 1.15, color: INK}}>Bugun 2 daqiqa oʻqiyman</div>
+        </div>
+      )}
     </AbsoluteFill>
   );
 };

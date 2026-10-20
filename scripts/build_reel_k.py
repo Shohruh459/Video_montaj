@@ -122,6 +122,15 @@ for sc in spec.get("scenes", []):
         events += [{"t": s0 + 0.1, "k": "whoosh", "db": -6}, {"t": s0 + 0.9, "k": "thud", "db": -8}, {"t": s0 + 2.1, "k": "thud", "db": -8}]
     elif sc["kind"] == "week":
         st, cr = T(sc["start"]), T(sc["cross"]); P = {"start": round(st - s0, 3), "cross": round(cr - s0, 3)}; events += [{"t": st + 0.17 * i, "k": "tick", "db": 1} for i in range(7)] + [{"t": cr, "k": "ding"}, {"t": cr + 0.05, "k": "sparkle", "db": -3}]
+    elif sc["kind"] == "vada":
+        events += [{"t": s0 + 0.05 + 0.07 * i, "k": "tick", "db": 1} for i in range(5)] + [{"t": s0 + 0.1, "k": "whoosh", "db": -6}, {"t": s0 + 1.0, "k": "pop"}, {"t": s0 + 1.5, "k": "thud", "db": 2}]
+    elif sc["kind"] == "promise":
+        ts = {k: T(sc[k]) for k in ("n1", "n2", "cross", "fall", "cta1", "cta1End", "tiny", "tick")}; br = [T(x) for x in sc["breaks"]]
+        P = {k: round(v - s0, 3) for k, v in ts.items()}; P["breaks"] = [round(x - s0, 3) for x in br]; P["end"] = round(s1 - s0, 3)
+        events += [{"t": ts["n1"], "k": "thud", "db": -4}, {"t": ts["n2"], "k": "thud", "db": -4}, {"t": ts["cross"], "k": "whoosh", "db": -6}, {"t": ts["cross"] + 0.2, "k": "whoosh", "db": -6}]
+        events += [{"t": x, "k": "thud", "db": -2} for x in br] + [{"t": ts["fall"], "k": "whoosh", "db": -3}, {"t": ts["fall"] + 0.7, "k": "thud", "db": -3}]
+        events += [{"t": ts["cta1"], "k": "pop"}] + [{"t": ts["cta1"] + 0.5 + 0.07 * i, "k": "type", "db": 2} for i in range(26)]
+        events += [{"t": ts["tiny"], "k": "pop"}, {"t": ts["tick"], "k": "ding", "db": -2}, {"t": ts["tick"] + 0.05, "k": "sparkle", "db": -4}, {"t": ts["tick"] + 0.6, "k": "chime", "db": -6}]
     elif sc["kind"] == "panorama":
         P = {"titles": sc["titles"], "hi": sc.get("hi", 0)}; events += [{"t": s0 + 0.2, "k": "whoosh"}]
     scenes.append({"kind": sc["kind"], "start": round(s0, 3), "dur": round(s1 - s0, 3), "p": P})

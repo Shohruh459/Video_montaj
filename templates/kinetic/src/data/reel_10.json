@@ -1,0 +1,321 @@
+{
+ "style": "daftar",
+ "totalSec": 28.42,
+ "audio": "reel10_mix.wav",
+ "lines": [
+  {
+   "words": [
+    {
+     "t": "Oʻzingizga"
+    },
+    {
+     "t": "bergan"
+    },
+    {
+     "t": "vaʼdani",
+     "a": true
+    },
+    {
+     "t": "buzdingizmi?",
+     "a": true
+    }
+   ],
+   "start": 0,
+   "dur": 2.75,
+   "clip": "",
+   "pos": "50% 50%",
+   "ss": 0,
+   "tag": "",
+   "style": "daftar"
+  },
+  {
+   "words": [
+    {
+     "t": "“Bugun"
+    },
+    {
+     "t": "20",
+     "a": true
+    },
+    {
+     "t": "daqiqa",
+     "a": true
+    },
+    {
+     "t": "oʻqiyman.”"
+    }
+   ],
+   "start": 3.0,
+   "dur": 2.2,
+   "clip": "",
+   "pos": "50% 50%",
+   "ss": 0,
+   "tag": "",
+   "style": "daftar"
+  },
+  {
+   "words": [
+    {
+     "t": "“Ertalab"
+    },
+    {
+     "t": "soat"
+    },
+    {
+     "t": "6",
+     "a": true
+    },
+    {
+     "t": "da",
+     "a": true
+    },
+    {
+     "t": "turaman.”"
+    }
+   ],
+   "start": 5.33,
+   "dur": 2.08,
+   "clip": "",
+   "pos": "50% 50%",
+   "ss": 0,
+   "tag": "",
+   "style": "daftar"
+  },
+  {
+   "words": [
+    {
+     "t": "Keyin"
+    },
+    {
+     "t": "buzasiz.",
+     "a": true
+    }
+   ],
+   "start": 7.62,
+   "dur": 1.62,
+   "clip": "",
+   "pos": "50% 50%",
+   "ss": 0,
+   "tag": "",
+   "style": "daftar"
+  },
+  {
+   "words": [
+    {
+     "t": "Bir",
+     "a": true
+    },
+    {
+     "t": "marta.",
+     "a": true
+    }
+   ],
+   "start": 9.41,
+   "dur": 1.36,
+   "clip": "",
+   "pos": "50% 50%",
+   "ss": 0,
+   "tag": "",
+   "style": "daftar"
+  },
+  {
+   "words": [
+    {
+     "t": "Ikki",
+     "a": true
+    },
+    {
+     "t": "marta.",
+     "a": true
+    }
+   ],
+   "start": 10.86,
+   "dur": 1.69,
+   "clip": "",
+   "pos": "50% 50%",
+   "ss": 0,
+   "tag": "",
+   "style": "daftar"
+  },
+  {
+   "words": [
+    {
+     "t": "Uch",
+     "a": true
+    },
+    {
+     "t": "marta.",
+     "a": true
+    }
+   ],
+   "start": 12.64,
+   "dur": 1.49,
+   "clip": "",
+   "pos": "50% 50%",
+   "ss": 0,
+   "tag": "",
+   "style": "daftar"
+  },
+  {
+   "words": [
+    {
+     "t": "Har"
+    },
+    {
+     "t": "safar"
+    },
+    {
+     "t": "oʻzingizga"
+    },
+    {
+     "t": "ishonchingiz",
+     "a": true
+    },
+    {
+     "t": "kamayadi."
+    }
+   ],
+   "start": 14.38,
+   "dur": 2.76,
+   "clip": "",
+   "pos": "50% 50%",
+   "ss": 0,
+   "tag": "",
+   "style": "daftar"
+  },
+  {
+   "words": [
+    {
+     "t": "Siz"
+    },
+    {
+     "t": "ham"
+    },
+    {
+     "t": "shunday"
+    },
+    {
+     "t": "qilganmisiz?"
+    },
+    {
+     "t": "Izohda",
+     "a": true
+    },
+    {
+     "t": "yozing."
+    }
+   ],
+   "start": 17.47,
+   "dur": 2.87,
+   "clip": "",
+   "pos": "50% 50%",
+   "ss": 0,
+   "tag": "",
+   "style": "daftar"
+  },
+  {
+   "words": [
+    {
+     "t": "Yechim"
+    },
+    {
+     "t": "oddiy:"
+    },
+    {
+     "t": "bitta,"
+    },
+    {
+     "t": "juda",
+     "a": true
+    },
+    {
+     "t": "kichik",
+     "a": true
+    },
+    {
+     "t": "vaʼda.",
+     "a": true
+    }
+   ],
+   "start": 20.67,
+   "dur": 2.59,
+   "clip": "",
+   "pos": "50% 50%",
+   "ss": 0,
+   "tag": "",
+   "style": "daftar"
+  },
+  {
+   "words": [
+    {
+     "t": "Va"
+    },
+    {
+     "t": "uni"
+    },
+    {
+     "t": "bajaring.",
+     "a": true
+    }
+   ],
+   "start": 23.47,
+   "dur": 1.64,
+   "clip": "",
+   "pos": "50% 50%",
+   "ss": 0,
+   "tag": "",
+   "style": "daftar"
+  },
+  {
+   "words": [
+    {
+     "t": "Bugun"
+    },
+    {
+     "t": "vaʼdangizni",
+     "a": true
+    },
+    {
+     "t": "bajarasizmi?",
+     "a": true
+    }
+   ],
+   "start": 25.52,
+   "dur": 2.15,
+   "clip": "",
+   "pos": "50% 50%",
+   "ss": 0,
+   "tag": "",
+   "style": "daftar"
+  }
+ ],
+ "scenes": [
+  {
+   "kind": "vada",
+   "start": 0,
+   "dur": 2.85,
+   "p": {}
+  },
+  {
+   "kind": "promise",
+   "start": 2.85,
+   "dur": 25.47,
+   "p": {
+    "n1": 0.2,
+    "n2": 2.53,
+    "cross": 4.92,
+    "fall": 12.03,
+    "cta1": 14.72,
+    "cta1End": 17.34,
+    "tiny": 18.62,
+    "tick": 20.97,
+    "breaks": [
+     6.66,
+     8.11,
+     9.89
+    ],
+    "end": 25.47
+   }
+  }
+ ]
+}

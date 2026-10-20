@@ -17,7 +17,7 @@
     2,
     3
    ],
-   "pause": 0.5,
+   "pause": 0.4,
    "style": "daftar",
    "clip": "",
    "ss": 0,
@@ -30,7 +30,7 @@
     1,
     2
    ],
-   "pause": 0.35,
+   "pause": 0.28,
    "style": "daftar",
    "clip": "",
    "ss": 0,
@@ -43,7 +43,7 @@
     2,
     3
    ],
-   "pause": 0.45,
+   "pause": 0.36,
    "style": "daftar",
    "clip": "",
    "ss": 0,
@@ -55,7 +55,7 @@
    "acc": [
     1
    ],
-   "pause": 0.4,
+   "pause": 0.32,
    "style": "daftar",
    "clip": "",
    "ss": 0,
@@ -68,7 +68,7 @@
     0,
     1
    ],
-   "pause": 0.3,
+   "pause": 0.24,
    "style": "daftar",
    "clip": "",
    "ss": 0,
@@ -81,7 +81,7 @@
     0,
     1
    ],
-   "pause": 0.3,
+   "pause": 0.24,
    "style": "daftar",
    "clip": "",
    "ss": 0,
@@ -94,7 +94,7 @@
     0,
     1
    ],
-   "pause": 0.5,
+   "pause": 0.4,
    "style": "daftar",
    "clip": "",
    "ss": 0,
@@ -106,7 +106,7 @@
    "acc": [
     3
    ],
-   "pause": 0.6,
+   "pause": 0.48,
    "style": "daftar",
    "clip": "",
    "ss": 0,
@@ -118,7 +118,7 @@
    "acc": [
     4
    ],
-   "pause": 0.6,
+   "pause": 0.48,
    "style": "daftar",
    "clip": "",
    "ss": 0,
@@ -132,7 +132,7 @@
     4,
     5
    ],
-   "pause": 0.45,
+   "pause": 0.36,
    "style": "daftar",
    "clip": "",
    "ss": 0,
@@ -144,7 +144,7 @@
    "acc": [
     2
    ],
-   "pause": 0.7,
+   "pause": 0.56,
    "style": "daftar",
    "clip": "",
    "ss": 0,
@@ -157,14 +157,73 @@
     1,
     2
    ],
-   "pause": 0.0,
+   "pause": 0,
    "style": "daftar",
    "clip": "",
    "ss": 0,
    "pos": "50% 50%"
   }
  ],
- "scenes": [],
+ "scenes": [
+  {
+   "kind": "vada",
+   "from_p": 0,
+   "to_p": 0,
+   "to_extra": 0.25
+  },
+  {
+   "kind": "promise",
+   "from_p": 1,
+   "to_p": 11,
+   "to_extra": 0.8,
+   "n1": {
+    "p": 1,
+    "dt": 0.05
+   },
+   "n2": {
+    "p": 2,
+    "dt": 0.05
+   },
+   "cross": {
+    "p": 3,
+    "dt": 0.15
+   },
+   "breaks": [
+    {
+     "p": 4,
+     "dt": 0.1
+    },
+    {
+     "p": 5,
+     "dt": 0.1
+    },
+    {
+     "p": 6,
+     "dt": 0.1
+    }
+   ],
+   "fall": {
+    "p": 7,
+    "dt": 0.5
+   },
+   "cta1": {
+    "p": 8,
+    "dt": 0.1
+   },
+   "cta1End": {
+    "p": 8,
+    "end": 0.0
+   },
+   "tiny": {
+    "p": 9,
+    "dt": 0.8
+   },
+   "tick": {
+    "p": 10,
+    "dt": 0.35
+   }
+  }
+ ],
  "sfx": [],
  "tail": 0.9
 }
