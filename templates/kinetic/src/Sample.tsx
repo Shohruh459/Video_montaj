@@ -1084,15 +1084,15 @@ const VadaScene: React.FC = () => {
   const st = bnc(c01((t - 1.5) / 0.35)); const sh = t > 1.5 && t < 1.7 ? (random(`sh${f}`) - 0.5) * 14 : 0;
   return (
     <AbsoluteFill>
-      <div style={{position: 'absolute', left: 120, right: 120, top: 250, display: 'flex', justifyContent: 'center', fontFamily: 'YS', fontWeight: 700, fontSize: 215, color: INK, lineHeight: 1.05}}>
-        {word.map((c, i) => { const a = bnc(c01((t - 0.05 - i * 0.07) / 0.45)); return <span key={i} style={{display: 'inline-block', transform: `translateY(${(1 - a) * -260}px) scale(${0.4 + 0.6 * a})`, opacity: a > 0 ? 1 : 0}}>{c}</span>; })}
-        <span style={{display: 'inline-block', color: PEN, marginLeft: 14, transform: `scale(${q}) rotate(${(1 - q) * 25}deg)`}}>?</span>
+      <div style={{position: 'absolute', left: 70, right: 70, top: 300, display: 'flex', justifyContent: 'center', fontFamily: 'YS', fontWeight: 700, fontSize: 250, color: INK, lineHeight: 1.05}}>
+        {word.map((c, i) => { const a = bnc(c01((t - i * 0.05) / 0.4)); return <span key={i} style={{display: 'inline-block', transform: `translateY(${(1 - a) * -260}px) scale(${0.4 + 0.6 * a})`, opacity: a > 0 ? 1 : 0}}>{c}</span>; })}
       </div>
-      <svg viewBox="0 0 800 60" style={{position: 'absolute', left: 190, top: 560, width: 700, height: 52, overflow: 'visible'}}>
+      <div style={{position: 'absolute', right: 70, top: 130, fontFamily: 'YS', fontWeight: 700, fontSize: 230, color: PEN, lineHeight: 1, transform: `scale(${q}) rotate(${14 + (1 - q) * 25}deg)`, opacity: q > 0 ? 1 : 0}}>?</div>
+      <svg viewBox="0 0 800 60" style={{position: 'absolute', left: 190, top: 610, width: 700, height: 52, overflow: 'visible'}}>
         <path d="M 10 35 C 150 10, 300 55, 450 28 C 560 8, 680 40, 790 22" fill="none" stroke={PEN} strokeWidth={10} strokeLinecap="round" pathLength={1} strokeDasharray={1} strokeDashoffset={1 - ul} />
       </svg>
-      <div style={{position: 'absolute', left: 0, right: 0, top: 700, textAlign: 'center', transform: `translate(${sh}px, 0) scale(${0.4 + 0.6 * st}) rotate(-7deg)`, opacity: st > 0 ? 1 : 0}}>
-        <span style={{display: 'inline-block', fontFamily: 'YB', fontWeight: 700, fontSize: 120, letterSpacing: 6, color: PEN, border: `12px solid ${PEN}`, borderRadius: 24, padding: '4px 44px 10px', background: 'rgba(243,235,218,0.85)'}}>BUZILDI</span>
+      <div style={{position: 'absolute', left: 0, right: 0, top: 730, textAlign: 'center', transform: `translate(${sh}px, 0) scale(${0.4 + 0.6 * st}) rotate(-7deg)`, opacity: st > 0 ? 1 : 0}}>
+        <span style={{display: 'inline-block', fontFamily: 'YB', fontWeight: 700, fontSize: 136, letterSpacing: 6, color: PEN, border: `13px solid ${PEN}`, borderRadius: 24, padding: '4px 44px 10px', background: 'rgba(243,235,218,0.85)'}}>BUZILDI</span>
       </div>
     </AbsoluteFill>
   );
