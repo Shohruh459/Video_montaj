@@ -5,7 +5,7 @@ type W = {t: string; a?: boolean};
 export type LineT = {words: W[]; start: number; dur: number; clip: string; pos?: string; tag?: string; style?: StyleName; ss?: number; vpos?: 'bottom'};
 export const STYLES = ['kino-oltin', 'split-oyna', 'jurnal', 'neon', 'minimal-oq', 'afisha', 'terminal', 'shisha', 'daftar', 'harakat'] as const;
 export type StyleName = typeof STYLES[number];
-export type SceneT = {kind: 'days' | 'back' | 'stop' | 'task' | 'panorama' | 'fall' | 'plan' | 'zero' | 'fork' | 'bounce' | 'wave' | 'battery' | 'flip' | 'choice' | 'timer' | 'middle' | 'week' | 'vada' | 'promise'; start: number; dur: number; p?: any};
+export type SceneT = {kind: 'days' | 'back' | 'stop' | 'task' | 'panorama' | 'fall' | 'plan' | 'zero' | 'fork' | 'bounce' | 'wave' | 'battery' | 'flip' | 'choice' | 'timer' | 'middle' | 'week' | 'vada' | 'promise' | 'know' | 'fade' | 'go'; start: number; dur: number; p?: any};
 export type SampleProps = {style: StyleName; totalSec: number; audio: string; lines: LineT[]; scenes?: SceneT[]};
 const LEGACY: Record<string, StyleName> = {gold: 'kino-oltin', split: 'split-oyna', editorial: 'jurnal'};
 
@@ -687,6 +687,9 @@ const SceneLayer: React.FC<{scenes: SceneT[]; fps: number}> = ({scenes, fps}) =>
             {sc.kind === 'week' && <WeekScene p={sc.p} />}
             {sc.kind === 'vada' && <VadaScene />}
             {sc.kind === 'promise' && <PromiseScene p={sc.p} />}
+            {sc.kind === 'know' && <KnowScene p={sc.p} />}
+            {sc.kind === 'fade' && <FadeRingScene p={sc.p} />}
+            {sc.kind === 'go' && <GoScene p={sc.p} />}
           </SceneFade>
         </Sequence>
       );
@@ -1166,6 +1169,82 @@ const PromiseScene: React.FC<{p: PromiseP}> = ({p}) => {
           <div style={{position: 'absolute', left: 164, right: 24, top: 0, bottom: 0, display: 'flex', alignItems: 'center', fontFamily: 'YS', fontWeight: 700, fontSize: 52, lineHeight: 1.15, color: INK}}>Bugun 2 daqiqa oʻqiyman</div>
         </div>
       )}
+    </AbsoluteFill>
+  );
+};
+
+// ───────────────── #12: Bilish — harakat emas (neon / shisha) ─────────────────
+const RingSvg: React.FC<{size: number; pct: number; color: string; track?: string; w?: number}> = ({size, pct, color, track = 'rgba(255,255,255,0.12)', w = 22}) => {
+  const r = size / 2 - w; const C = 2 * Math.PI * r;
+  return (
+    <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} style={{overflow: 'visible'}}>
+      <circle cx={size / 2} cy={size / 2} r={r} fill="none" stroke={track} strokeWidth={w} />
+      <circle cx={size / 2} cy={size / 2} r={r} fill="none" stroke={color} strokeWidth={w} strokeLinecap="round" strokeDasharray={`${C * pct} ${C}`} transform={`rotate(-90 ${size / 2} ${size / 2})`} style={{filter: `drop-shadow(0 0 16px ${color})`}} />
+    </svg>
+  );
+};
+
+const KnowScene: React.FC<{p: {right: number; slam: number}}> = ({p}) => {
+  const f = useCurrentFrame(); const {fps} = useVideoConfig(); const t = f / fps;
+  const a = bnc(c01((t - 0.1) / 0.5)); const b = bnc(c01((t - p.right) / 0.5)); const sl = bnc(c01((t - p.slam) / 0.3));
+  const sh = t > p.slam && t < p.slam + 0.25 ? (random(`k${f}`) - 0.5) * 18 : 0;
+  const card = (x: number, on: boolean, label: string, pct: number, col: string, k: number) => (
+    <div style={{position: 'absolute', left: x, top: 250, width: 420, height: 470, borderRadius: 36, boxSizing: 'border-box', border: `4px solid ${on ? col : 'rgba(255,255,255,0.18)'}`, background: on ? 'rgba(39,233,247,0.08)' : 'rgba(255,255,255,0.03)', boxShadow: on ? `0 0 50px ${col}66, inset 0 0 40px ${col}22` : 'none', transform: `scale(${0.7 + 0.3 * k})`, opacity: k > 0 ? 1 : 0, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 24}}>
+      <div style={{position: 'relative', width: 250, height: 250}}>
+        <RingSvg size={250} pct={pct} color={col} />
+        <div style={{position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'YM', fontWeight: 700, fontSize: 72, color: on ? '#fff' : 'rgba(255,255,255,0.4)'}}>{Math.round(pct * 100)}%</div>
+      </div>
+      <div style={{fontFamily: 'YB', fontWeight: 700, fontSize: 52, letterSpacing: 5, color: on ? col : 'rgba(255,255,255,0.4)'}}>{label}</div>
+    </div>
+  );
+  return (
+    <AbsoluteFill>
+      {card(90, true, 'BILAMAN', 1, NEON_C, a)}
+      {card(570, false, 'QILAMAN', 0, NEON_M, b)}
+      <div style={{position: 'absolute', left: 540 - 70, top: 420, width: 140, height: 140, borderRadius: 70, background: NEON_M, boxShadow: `0 0 60px ${NEON_M}`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'YB', fontWeight: 700, fontSize: 110, color: '#fff', transform: `translate(${sh}px, 0) scale(${sl * 1.0})`, opacity: sl > 0 ? 1 : 0}}>≠</div>
+    </AbsoluteFill>
+  );
+};
+
+const FadeRingScene: React.FC<{p: {tom: number; dim: number}}> = ({p}) => {
+  const f = useCurrentFrame(); const {fps} = useVideoConfig(); const t = f / fps;
+  const a = bnc(c01((t - 0.05) / 0.5));
+  const drain = c01((t - p.dim) / 1.4); const pct = 1 - 0.88 * eIO(drain);
+  const col = pct > 0.55 ? NEON_C : pct > 0.3 ? '#ffb020' : NEON_M;
+  const flick = drain > 0 && drain < 1 ? 0.75 + 0.25 * Math.sin(t * 40) : 1;
+  const w = c01((t - p.tom) / 1.1); const wx = 1200 - 1500 * eO(w); const wo = w > 0 ? 1 : 0;
+  return (
+    <AbsoluteFill>
+      <div style={{position: 'absolute', left: 540 - 175, top: 300, width: 350, height: 350, transform: `scale(${a})`, opacity: flick}}>
+        <RingSvg size={350} pct={pct} color={col} w={26} />
+        <div style={{position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'YM', fontWeight: 700, fontSize: 90, color: '#fff', textShadow: `0 0 24px ${col}`}}>{Math.round(pct * 100)}%</div>
+      </div>
+      <div style={{position: 'absolute', left: 0, right: 0, top: 215, textAlign: 'center', fontFamily: 'YB', fontWeight: 700, fontSize: 34, letterSpacing: 10, color: 'rgba(255,255,255,0.6)', opacity: a}}>ICHKI KUCH</div>
+      <div style={{position: 'absolute', left: 0, top: 700, width: 1080, opacity: wo, transform: `translateX(${wx}px)`, whiteSpace: 'nowrap', fontFamily: 'YB', fontWeight: 700, fontSize: 120, letterSpacing: 8, color: 'rgba(255,255,255,0.22)', WebkitTextStroke: '2px rgba(255,255,255,0.5)'}}>ERTAGA · ERTAGA · ERTAGA</div>
+    </AbsoluteFill>
+  );
+};
+
+const GoScene: React.FC<{p: {start: number; go: number; strike: number}}> = ({p}) => {
+  const f = useCurrentFrame(); const {fps} = useVideoConfig(); const t = f / fps;
+  const a = bnc(c01((t - 0.05) / 0.5));
+  const el = Math.max(0, t - p.start) * 1.0; const left = Math.max(0, 120 - el * 10); // tezlashtirilgan hisob
+  const mm = String(Math.floor(left / 60)).padStart(2, '0'), ss = String(Math.floor(left % 60)).padStart(2, '0');
+  const pct = left / 120; const goA = bnc(c01((t - p.go) / 0.4)); const flash = t > p.go && t < p.go + 0.18 ? 0.3 : 0;
+  const stk = eO(c01((t - p.strike) / 0.35));
+  return (
+    <AbsoluteFill>
+      <AbsoluteFill style={{background: `rgba(31,214,120,${flash})`}} />
+      <div style={{position: 'absolute', left: 540 - 190, top: 250, width: 380, height: 380, transform: `scale(${a})`}}>
+        <RingSvg size={380} pct={pct} color={t > p.go ? '#34e08a' : '#ffffff'} w={26} track="rgba(255,255,255,0.18)" />
+        <div style={{position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'YM', fontWeight: 700, fontSize: 104, color: '#fff', textShadow: '0 0 24px rgba(255,255,255,0.6)'}}>{mm}:{ss}</div>
+      </div>
+      <div style={{position: 'absolute', left: 0, right: 0, top: 660, textAlign: 'center', transform: `scale(${goA})`, opacity: goA > 0 ? 1 : 0}}>
+        <span style={{display: 'inline-block', fontFamily: 'YB', fontWeight: 700, fontSize: 64, letterSpacing: 8, color: '#06150d', background: '#34e08a', borderRadius: 999, padding: '8px 54px 12px', boxShadow: '0 0 50px rgba(52,224,138,0.7)'}}>BOSHLANG</span>
+      </div>
+      <div style={{position: 'absolute', left: 0, right: 0, top: 200, textAlign: 'center', fontFamily: 'YB', fontWeight: 700, fontSize: 56, letterSpacing: 10, color: 'rgba(255,255,255,0.75)', opacity: stk > 0 ? 1 : 0, transform: `scale(${0.9 + 0.1 * stk})`}}>
+        <span style={{position: 'relative', display: 'inline-block'}}>ERTAGA<span style={{position: 'absolute', left: -10, top: '50%', height: 8, width: `${stk * 110}%`, background: RED2, borderRadius: 4, boxShadow: '0 0 18px rgba(255,77,77,0.8)'}} /></span>
+      </div>
     </AbsoluteFill>
   );
 };

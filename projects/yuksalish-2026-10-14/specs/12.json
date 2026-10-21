@@ -1,0 +1,171 @@
+{
+ "id": "12",
+ "title": "Bilish — harakat emas (v2 qisqa)",
+ "base_style": "neon",
+ "handle": "@yuksalish713",
+ "music": {
+  "src": "/tmp/music/raw/s4_r13_techno-upbeat.wav",
+  "ss": 2,
+  "rel_db": -21,
+  "note": "HF mrfakename/cc0-music-captioned 4:13 (techno upbeat, 120 BPM), CC0"
+ },
+ "phrases": [
+  {
+   "say": "Siz nima qilish kerakligini bilasiz.",
+   "show": "Siz nima qilish kerakligini bilasiz.",
+   "acc": [
+    4
+   ],
+   "pause": 0.35,
+   "style": "neon",
+   "clip": "",
+   "ss": 0,
+   "pos": "50% 50%"
+  },
+  {
+   "say": "Lekin qilmayapsiz.",
+   "show": "Lekin qilmayapsiz.",
+   "acc": [
+    1
+   ],
+   "pause": 0.45,
+   "style": "neon",
+   "clip": "",
+   "ss": 0,
+   "pos": "50% 50%"
+  },
+  {
+   "say": "Bilish harakat emas.",
+   "show": "Bilish — harakat emas.",
+   "acc": [
+    0,
+    2
+   ],
+   "pause": 0.45,
+   "style": "neon",
+   "clip": "",
+   "ss": 0,
+   "pos": "50% 50%"
+  },
+  {
+   "say": "“Bugun emas, ertaga” deysiz.",
+   "show": "“Bugun emas, ertaga” deysiz.",
+   "acc": [
+    0,
+    2
+   ],
+   "pause": 0.45,
+   "style": "neon",
+   "clip": "",
+   "ss": 0,
+   "pos": "50% 50%"
+  },
+  {
+   "say": "Har safar kechiktirsangiz,",
+   "show": "Har safar kechiktirsangiz,",
+   "acc": [
+    2
+   ],
+   "pause": 0.3,
+   "style": "neon",
+   "clip": "",
+   "ss": 0,
+   "pos": "50% 50%"
+  },
+  {
+   "say": "ichki kuchingiz soʻnadi.",
+   "show": "ichki kuchingiz soʻnadi.",
+   "acc": [
+    1,
+    2
+   ],
+   "pause": 0.5,
+   "style": "neon",
+   "clip": "",
+   "ss": 0,
+   "pos": "50% 50%"
+  },
+  {
+   "say": "Hozir ikki daqiqa ajrating — va boshlang.",
+   "show": "Hozir ikki daqiqa ajrating — va boshlang.",
+   "acc": [
+    1,
+    2,
+    6
+   ],
+   "pause": 0.4,
+   "style": "shisha",
+   "clip": "",
+   "ss": 0,
+   "pos": "50% 50%"
+  },
+  {
+   "say": "Yana “ertaga” deysizmi?",
+   "show": "Yana “ertaga” deysizmi?",
+   "acc": [
+    1
+   ],
+   "pause": 0.0,
+   "style": "shisha",
+   "clip": "",
+   "ss": 0,
+   "pos": "50% 50%"
+  }
+ ],
+ "scenes": [
+  {
+   "kind": "know",
+   "from_p": 0,
+   "to_p": 2,
+   "to_extra": 0.3,
+   "right": {
+    "p": 1,
+    "dt": 0.05
+   },
+   "slam": {
+    "p": 2,
+    "dt": 0.1
+   }
+  },
+  {
+   "kind": "fade",
+   "from_p": 3,
+   "to_p": 5,
+   "to_extra": 0.4,
+   "tom": {
+    "p": 3,
+    "dt": 0.8
+   },
+   "dim": {
+    "p": 5,
+    "dt": 0.15
+   }
+  },
+  {
+   "kind": "go",
+   "from_p": 6,
+   "to_p": 7,
+   "to_extra": 0.6,
+   "start": {
+    "p": 6,
+    "dt": 0.4
+   },
+   "go": {
+    "p": 6,
+    "frac": 0.88
+   },
+   "strike": {
+    "p": 7,
+    "dt": 0.5
+   }
+  }
+ ],
+ "sfx": [
+  {
+   "t": 0.1,
+   "k": "thud",
+   "db": -3
+  }
+ ],
+ "tail": 0.9
+}

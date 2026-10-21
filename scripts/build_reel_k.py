@@ -131,6 +131,15 @@ for sc in spec.get("scenes", []):
         events += [{"t": x, "k": "thud", "db": -2} for x in br] + [{"t": ts["fall"], "k": "whoosh", "db": -3}, {"t": ts["fall"] + 0.7, "k": "thud", "db": -3}]
         events += [{"t": ts["cta1"], "k": "pop"}] + [{"t": ts["cta1"] + 0.5 + 0.07 * i, "k": "type", "db": 2} for i in range(26)]
         events += [{"t": ts["tiny"], "k": "pop"}, {"t": ts["tick"], "k": "ding", "db": -2}, {"t": ts["tick"] + 0.05, "k": "sparkle", "db": -4}, {"t": ts["tick"] + 0.6, "k": "chime", "db": -6}]
+    elif sc["kind"] == "know":
+        rt, sl = T(sc["right"]), T(sc["slam"]); P = {"right": round(rt - s0, 3), "slam": round(sl - s0, 3)}
+        events += [{"t": s0 + 0.1, "k": "pop"}, {"t": s0 + 0.15, "k": "whoosh", "db": -8}, {"t": rt, "k": "pop"}, {"t": sl, "k": "thud", "db": 2}, {"t": sl, "k": "whoosh", "db": -6}]
+    elif sc["kind"] == "fade":
+        tm, dm = T(sc["tom"]), T(sc["dim"]); P = {"tom": round(tm - s0, 3), "dim": round(dm - s0, 3)}
+        events += [{"t": s0 + 0.05, "k": "pop"}, {"t": tm - 0.05, "k": "whoosh", "db": -3}, {"t": dm, "k": "whoosh", "db": -2}, {"t": dm + 1.0, "k": "thud", "db": -3}]
+    elif sc["kind"] == "go":
+        st, go, sk = T(sc["start"]), T(sc["go"]), T(sc["strike"]); P = {"start": round(st - s0, 3), "go": round(go - s0, 3), "strike": round(sk - s0, 3)}
+        events += [{"t": s0 + 0.05, "k": "pop"}] + [{"t": st + 0.5 * i, "k": "tick", "db": -3} for i in range(max(1, int((go - st) / 0.5)))] + [{"t": go, "k": "ding"}, {"t": go + 0.05, "k": "sparkle", "db": -4}, {"t": sk, "k": "tick", "db": 4}, {"t": sk + 0.15, "k": "thud", "db": -4}]
     elif sc["kind"] == "panorama":
         P = {"titles": sc["titles"], "hi": sc.get("hi", 0)}; events += [{"t": s0 + 0.2, "k": "whoosh"}]
     scenes.append({"kind": sc["kind"], "start": round(s0, 3), "dur": round(s1 - s0, 3), "p": P})
