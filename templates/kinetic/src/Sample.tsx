@@ -45,6 +45,7 @@ const Clip: React.FC<{src: string; pos?: string; zoomFrom?: number; zoomTo?: num
   const f = useCurrentFrame();
   const {fps} = useVideoConfig();
   const z = interpolate(f, [0, frames], [zoomFrom, zoomTo], clamp);
+  if (!src) return null;
   return <AbsoluteFill style={{overflow: 'hidden'}}>
     <OffthreadVideo src={staticFile(src)} muted startFrom={Math.round((ss ?? 0) * fps)} style={{width: '100%', height: '100%', objectFit: 'cover', objectPosition: pos ?? '50% 50%', transform: `scale(${z})`, filter}} />
   </AbsoluteFill>;
