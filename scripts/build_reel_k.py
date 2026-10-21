@@ -140,6 +140,10 @@ for sc in spec.get("scenes", []):
     elif sc["kind"] == "go":
         st, go, sk = T(sc["start"]), T(sc["go"]), T(sc["strike"]); P = {"start": round(st - s0, 3), "go": round(go - s0, 3), "strike": round(sk - s0, 3)}
         events += [{"t": s0 + 0.05, "k": "pop"}] + [{"t": st + 0.5 * i, "k": "tick", "db": -3} for i in range(max(1, int((go - st) / 0.5)))] + [{"t": go, "k": "ding"}, {"t": go + 0.05, "k": "sparkle", "db": -4}, {"t": sk, "k": "tick", "db": 4}, {"t": sk + 0.15, "k": "thud", "db": -4}]
+    elif sc["kind"] == "ticket":
+        stp, fr_, vl = T(sc["stamp"]), T(sc["fear"]), T(sc["valid"]); P = {"stamp": round(stp - s0, 3), "fear": round(fr_ - s0, 3), "valid": round(vl - s0, 3)}
+        events += [{"t": s0 + 0.05, "k": "thud", "db": -2}] + [{"t": s0 + 1.3 * i, "k": "tick", "db": -5} for i in range(1, int((vl - s0) / 1.3) + 1)]
+        events += [{"t": stp, "k": "thud", "db": 2}, {"t": stp, "k": "whoosh", "db": -6}, {"t": fr_, "k": "thud", "db": 0}, {"t": fr_ + 0.05, "k": "glitch", "db": -3}, {"t": vl, "k": "ding"}, {"t": vl + 0.05, "k": "sparkle", "db": -3}, {"t": vl + 0.1, "k": "thud", "db": -4}]
     elif sc["kind"] == "panorama":
         P = {"titles": sc["titles"], "hi": sc.get("hi", 0)}; events += [{"t": s0 + 0.2, "k": "whoosh"}]
     scenes.append({"kind": sc["kind"], "start": round(s0, 3), "dur": round(s1 - s0, 3), "p": P})

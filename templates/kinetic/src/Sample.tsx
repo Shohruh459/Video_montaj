@@ -5,7 +5,7 @@ type W = {t: string; a?: boolean};
 export type LineT = {words: W[]; start: number; dur: number; clip: string; pos?: string; tag?: string; style?: StyleName; ss?: number; vpos?: 'bottom'};
 export const STYLES = ['kino-oltin', 'split-oyna', 'jurnal', 'neon', 'minimal-oq', 'afisha', 'terminal', 'shisha', 'daftar', 'harakat'] as const;
 export type StyleName = typeof STYLES[number];
-export type SceneT = {kind: 'days' | 'back' | 'stop' | 'task' | 'panorama' | 'fall' | 'plan' | 'zero' | 'fork' | 'bounce' | 'wave' | 'battery' | 'flip' | 'choice' | 'timer' | 'middle' | 'week' | 'vada' | 'promise' | 'know' | 'fade' | 'go'; start: number; dur: number; p?: any};
+export type SceneT = {kind: 'days' | 'back' | 'stop' | 'task' | 'panorama' | 'fall' | 'plan' | 'zero' | 'fork' | 'bounce' | 'wave' | 'battery' | 'flip' | 'choice' | 'timer' | 'middle' | 'week' | 'vada' | 'promise' | 'know' | 'fade' | 'go' | 'ticket'; start: number; dur: number; p?: any};
 export type SampleProps = {style: StyleName; totalSec: number; audio: string; lines: LineT[]; scenes?: SceneT[]};
 const LEGACY: Record<string, StyleName> = {gold: 'kino-oltin', split: 'split-oyna', editorial: 'jurnal'};
 
@@ -656,9 +656,9 @@ const Harakat: React.FC<{lines: LineT[]; fps: number}> = ({lines, fps}) => {
   );
 };
 
-const SceneFade: React.FC<{dur: number; children: React.ReactNode}> = ({dur, children}) => {
+const SceneFade: React.FC<{dur: number; first?: boolean; children: React.ReactNode}> = ({dur, first, children}) => {
   const f = useCurrentFrame();
-  const o = interpolate(f, [0, 8, dur - 10, dur], [0, 1, 1, 0], clamp);
+  const o = first ? interpolate(f, [0, dur - 10, dur], [1, 1, 0], clamp) : interpolate(f, [0, 8, dur - 10, dur], [0, 1, 1, 0], clamp);
   return <AbsoluteFill style={{opacity: o}}>{children}</AbsoluteFill>;
 };
 
@@ -668,7 +668,7 @@ const SceneLayer: React.FC<{scenes: SceneT[]; fps: number}> = ({scenes, fps}) =>
       const dur = Math.round(sc.dur * fps);
       return (
         <Sequence key={i} from={Math.round(sc.start * fps)} durationInFrames={dur}>
-          <SceneFade dur={sc.kind === 'panorama' ? dur + 20 : dur}>
+          <SceneFade dur={sc.kind === 'panorama' ? dur + 20 : dur} first={sc.start === 0}>
             {sc.kind === 'days' && <DaysScene p={sc.p} />}
             {sc.kind === 'back' && <BackScene p={sc.p} />}
             {sc.kind === 'stop' && <StopScene />}
@@ -691,6 +691,7 @@ const SceneLayer: React.FC<{scenes: SceneT[]; fps: number}> = ({scenes, fps}) =>
             {sc.kind === 'know' && <KnowScene p={sc.p} />}
             {sc.kind === 'fade' && <FadeRingScene p={sc.p} />}
             {sc.kind === 'go' && <GoScene p={sc.p} />}
+            {sc.kind === 'ticket' && <TicketScene p={sc.p} />}
           </SceneFade>
         </Sequence>
       );
@@ -1256,6 +1257,45 @@ const GoScene: React.FC<{p: {start: number; go: number; strike: number}}> = ({p}
       </div>
       <div style={{position: 'absolute', left: 0, right: 0, top: 200, textAlign: 'center', fontFamily: 'YB', fontWeight: 700, fontSize: 56, letterSpacing: 10, color: 'rgba(255,255,255,0.75)', opacity: stk > 0 ? 1 : 0, transform: `scale(${0.9 + 0.1 * stk})`}}>
         <span style={{position: 'relative', display: 'inline-block'}}>ERTAGA<span style={{position: 'absolute', left: -10, top: '50%', height: 8, width: `${stk * 110}%`, background: RED2, borderRadius: 4, boxShadow: '0 0 18px rgba(255,77,77,0.8)'}} /></span>
+      </div>
+    </AbsoluteFill>
+  );
+};
+
+// ───────────────── #08: Imkoniyat chiptasi (afisha) ─────────────────
+const TICKET_PATH = 'M 30 0 H 810 Q 840 0 840 30 V 186 A 38 38 0 0 0 840 262 V 410 Q 840 440 810 440 H 30 Q 0 440 0 410 V 262 A 38 38 0 0 0 0 186 V 30 Q 0 0 30 0 Z';
+const TicketScene: React.FC<{p: {stamp: number; fear: number; valid: number}}> = ({p}) => {
+  const f = useCurrentFrame(); const {fps} = useVideoConfig(); const t = f / fps;
+  const left = Math.max(0, 10 - Math.floor(Math.min(t, p.valid) / 1.3)); const cd = `00:${String(left).padStart(2, '0')}`;
+  const st = bnc(c01((t - p.stamp) / 0.3)); const stOut = 1 - c01((t - p.valid) / 0.2);
+  const ok = bnc(c01((t - p.valid) / 0.4));
+  const afraid = t > p.fear && t < p.valid; const jx = afraid && t < p.fear + 0.6 ? (random(`tj${f}`) - 0.5) * 16 : 0; const jy = afraid && t < p.fear + 0.6 ? (random(`ty${f}`) - 0.5) * 10 : 0;
+  const crack = eO(c01((t - p.fear) / 0.35)) * (1 - c01((t - p.valid) / 0.3));
+  const glow = t > p.valid ? '0 0 80px rgba(52,224,138,0.7)' : afraid ? '0 0 60px rgba(255,60,60,0.6)' : '0 24px 60px rgba(0,0,0,0.5)';
+  const bars = Array.from({length: 34}, (_, i) => 3 + Math.floor(random(`bc${i}`) * 9));
+  return (
+    <AbsoluteFill>
+      <div style={{position: 'absolute', left: 120, top: 330, width: 840, height: 440, transform: `translate(${jx}px, ${jy}px) rotate(${-3 + (afraid ? Math.sin(t * 30) * 0.6 : 0)}deg)`, filter: `drop-shadow(${glow === '0 24px 60px rgba(0,0,0,0.5)' ? '0 24px 30px rgba(0,0,0,0.5)' : '0 0 30px ' + (t > p.valid ? 'rgba(52,224,138,0.8)' : 'rgba(255,60,60,0.7)')})`}}>
+        <svg width="840" height="440" viewBox="0 0 840 440" style={{position: 'absolute', inset: 0, overflow: 'visible'}}>
+          <path d={TICKET_PATH} fill="#fff7e8" />
+          <line x1="620" y1="22" x2="620" y2="418" stroke="#0a0a0a" strokeWidth="4" strokeDasharray="10 12" opacity="0.5" />
+          <path d="M 396 0 L 420 90 L 392 150 L 430 230 L 404 300 L 440 380 L 420 440" fill="none" stroke={t > p.valid ? '#34e08a' : '#e11d1d'} strokeWidth="9" strokeLinecap="round" strokeLinejoin="round" pathLength={1} strokeDasharray={1} strokeDashoffset={1 - crack} opacity={crack > 0 ? 1 : 0} />
+        </svg>
+        <div style={{position: 'absolute', left: 44, top: 34, fontFamily: 'YB', fontWeight: 700, fontSize: 28, letterSpacing: 8, color: '#0a0a0a'}}>YUKSALISH · BILET</div>
+        <div style={{position: 'absolute', left: 40, top: 92, fontFamily: 'YB', fontWeight: 700, fontSize: 124, letterSpacing: 2, color: '#0a0a0a', lineHeight: 1}}>IMKONIYAT</div>
+        <div style={{position: 'absolute', left: 46, top: 236, fontFamily: 'YB', fontWeight: 700, fontSize: 34, letterSpacing: 6, color: '#c2410c'}}>KIRISH: BUGUN</div>
+        <div style={{position: 'absolute', left: 46, bottom: 38, display: 'flex', alignItems: 'flex-end', gap: 7, height: 70}}>
+          {bars.map((b, i) => <div key={i} style={{width: b, height: 70, background: '#0a0a0a'}} />)}
+        </div>
+        <div style={{position: 'absolute', left: 640, top: 60, width: 190, textAlign: 'center', fontFamily: 'YB', fontWeight: 700, fontSize: 26, letterSpacing: 6, color: '#0a0a0a'}}>QOLDI</div>
+        <div style={{position: 'absolute', left: 632, top: 112, width: 206, textAlign: 'center', fontFamily: 'YM', fontWeight: 700, fontSize: 64, color: t > p.valid ? '#16a34a' : '#e11d1d'}}>{cd}</div>
+        <div style={{position: 'absolute', left: 640, bottom: 54, width: 190, textAlign: 'center', fontFamily: 'YB', fontWeight: 700, fontSize: 24, letterSpacing: 6, color: '#0a0a0a', opacity: 0.6}}>№ 000713</div>
+        <div style={{position: 'absolute', left: -20, right: -20, top: 150, textAlign: 'center', transform: `scale(${0.5 + 0.5 * st}) rotate(-9deg)`, opacity: (st > 0 ? 1 : 0) * stOut}}>
+          <span style={{display: 'inline-block', fontFamily: 'YB', fontWeight: 700, fontSize: 70, letterSpacing: 3, color: '#e11d1d', border: '11px solid #e11d1d', borderRadius: 18, padding: '2px 30px 8px', background: 'rgba(255,247,232,0.9)'}}>HALI TAYYOR EMASMAN</span>
+        </div>
+        <div style={{position: 'absolute', left: 0, right: 0, top: 150, textAlign: 'center', transform: `scale(${0.5 + 0.5 * ok}) rotate(-7deg)`, opacity: ok > 0 ? 1 : 0}}>
+          <span style={{display: 'inline-block', fontFamily: 'YB', fontWeight: 700, fontSize: 86, letterSpacing: 4, color: '#06150d', border: '11px solid #06150d', borderRadius: 18, padding: '2px 34px 8px', background: '#34e08a'}}>BOSHLANDI ✓</span>
+        </div>
       </div>
     </AbsoluteFill>
   );
