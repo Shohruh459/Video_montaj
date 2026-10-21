@@ -61,23 +61,12 @@
    "pos": "50% 50%"
   },
   {
-   "say": "Har safar kechiktirsangiz,",
-   "show": "Har safar kechiktirsangiz,",
+   "say": "Har safar kechiktirsangiz, ichki kuchingiz soʻnadi.",
+   "show": "Har safar kechiktirsangiz, ichki kuchingiz soʻnadi.",
    "acc": [
-    2
-   ],
-   "pause": 0.3,
-   "style": "neon",
-   "clip": "",
-   "ss": 0,
-   "pos": "50% 50%"
-  },
-  {
-   "say": "ichki kuchingiz soʻnadi.",
-   "show": "ichki kuchingiz soʻnadi.",
-   "acc": [
-    1,
-    2
+    3,
+    4,
+    5
    ],
    "pause": 0.5,
    "style": "neon",
@@ -130,32 +119,32 @@
   {
    "kind": "fade",
    "from_p": 3,
-   "to_p": 5,
+   "to_p": 4,
    "to_extra": 0.4,
    "tom": {
     "p": 3,
     "dt": 0.8
    },
    "dim": {
-    "p": 5,
-    "dt": 0.15
+    "p": 4,
+    "frac": 0.5
    }
   },
   {
    "kind": "go",
-   "from_p": 6,
-   "to_p": 7,
+   "from_p": 5,
+   "to_p": 6,
    "to_extra": 0.6,
    "start": {
-    "p": 6,
+    "p": 5,
     "dt": 0.4
    },
    "go": {
-    "p": 6,
+    "p": 5,
     "frac": 0.88
    },
    "strike": {
-    "p": 7,
+    "p": 6,
     "dt": 0.5
    }
   }

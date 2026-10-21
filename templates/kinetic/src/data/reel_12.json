@@ -1,6 +1,6 @@
 {
  "style": "neon",
- "totalSec": 19.48,
+ "totalSec": 18.6,
  "audio": "reel12_mix.wav",
  "lines": [
   {
@@ -107,22 +107,11 @@
      "t": "safar"
     },
     {
-     "t": "kechiktirsangiz,",
-     "a": true
-    }
-   ],
-   "start": 9.45,
-   "dur": 2.03,
-   "clip": "",
-   "pos": "50% 50%",
-   "ss": 0,
-   "tag": "",
-   "style": "neon"
-  },
-  {
-   "words": [
+     "t": "kechiktirsangiz,"
+    },
     {
-     "t": "ichki"
+     "t": "ichki",
+     "a": true
     },
     {
      "t": "kuchingiz",
@@ -133,8 +122,8 @@
      "a": true
     }
    ],
-   "start": 11.63,
-   "dur": 2.04,
+   "start": 9.45,
+   "dur": 3.34,
    "clip": "",
    "pos": "50% 50%",
    "ss": 0,
@@ -168,7 +157,7 @@
      "a": true
     }
    ],
-   "start": 14.02,
+   "start": 13.14,
    "dur": 2.55,
    "clip": "",
    "pos": "50% 50%",
@@ -189,7 +178,7 @@
      "t": "deysizmi?"
     }
    ],
-   "start": 16.82,
+   "start": 15.94,
    "dur": 1.91,
    "clip": "",
    "pos": "50% 50%",
@@ -211,15 +200,15 @@
   {
    "kind": "fade",
    "start": 6.98,
-   "dur": 6.94,
+   "dur": 6.06,
    "p": {
     "tom": 0.95,
-    "dim": 4.8
+    "dim": 4.065
    }
   },
   {
    "kind": "go",
-   "start": 13.87,
+   "start": 12.99,
    "dur": 5.31,
    "p": {
     "start": 0.55,
