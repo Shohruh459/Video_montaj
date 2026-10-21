@@ -169,3 +169,7 @@ Pixabay'da Song Plus'ning o'zi ehtimol yo'q → umumiy elektromobil kadrlari; an
 - #10: `specs/10.json`, yangi sahnalar `vada` (hook) va `promise` (qog'ozchalar + "ishonch" ko'rsatkichi + izoh pufagi + kichik vaʼda) Sample.tsx da; Daftar endi klip-siz. Ovoz: 12 ibora, ASR (navai-uz) bilan 10-/12-iboralar qayta tanlangan ("vaʼda"). Final `out/reel_10_final.mp4` (1080x1920, 28.4 s, -14.0 LUFS, TP -2.1, QC toza). Izoh `captions/10.md`.
 - Builder ovoz backendini (localhost:3900) talab qiladi — kesh bo'lsa ham; `bash scripts/start_voice.sh` avval.
 - Keyingi: yuklagach 48 soatdan keyin #10 ni #06 bilan solishtirish (3-soniya retention, o'rtacha ko'rish). Navbat: #12, #08, #02, #07, #11, #04, #09, #05 (yangi qoidalar: hook birinchi kadrdan, ~22–25 s, CTA o'rtada ham).
+
+### 2026-10-21 — #10 natijasi (~14 soat): kutilgan yaxshilanish chiqmadi
+- #10: 191 ko'rish / 178 odam, o'rtacha 4 s (#06: 5 s, #03: 6 s), like/izoh/ulashish/saqlash 0, obuna 1. Retention: ~2–3 s da ~50% ketadi (oldingilar bilan deyarli bir xil), oxirida ~2–3%. "Doля пропусков" 66.9% ("Ниже" = odatdagidan past, yaxshi belgi, lekin mutlaq qiymat baland). Manbalar: Reels 82%, Explore 18%. Dinamikada boshida odatdagidan sal yuqori, keyin tekislanadi.
+- Xulosa: katta matnli hook + qisqartirish (28 s) ko'rsatkichni o'zgartirmadi; namuna kichik (~190). Keyingi sinov: qisqaroq (~18 s), harakatli hook, boshqa format (foydalanuvchi o'zi kamerada). Foydalanuvchi kamera videosini boshqa mavzuda suratga oladi; shu orada #12 (neon -> shisha), qisqa versiya.
