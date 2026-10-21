@@ -1,0 +1,231 @@
+{
+ "style": "neon",
+ "totalSec": 19.48,
+ "audio": "reel12_mix.wav",
+ "lines": [
+  {
+   "words": [
+    {
+     "t": "Siz"
+    },
+    {
+     "t": "nima"
+    },
+    {
+     "t": "qilish"
+    },
+    {
+     "t": "kerakligini"
+    },
+    {
+     "t": "bilasiz.",
+     "a": true
+    }
+   ],
+   "start": 0,
+   "dur": 2.55,
+   "clip": "",
+   "pos": "50% 50%",
+   "ss": 0,
+   "tag": "",
+   "style": "neon"
+  },
+  {
+   "words": [
+    {
+     "t": "Lekin"
+    },
+    {
+     "t": "qilmayapsiz.",
+     "a": true
+    }
+   ],
+   "start": 2.75,
+   "dur": 1.82,
+   "clip": "",
+   "pos": "50% 50%",
+   "ss": 0,
+   "tag": "",
+   "style": "neon"
+  },
+  {
+   "words": [
+    {
+     "t": "Bilish",
+     "a": true
+    },
+    {
+     "t": "—"
+    },
+    {
+     "t": "harakat",
+     "a": true
+    },
+    {
+     "t": "emas."
+    }
+   ],
+   "start": 4.87,
+   "dur": 1.96,
+   "clip": "",
+   "pos": "50% 50%",
+   "ss": 0,
+   "tag": "",
+   "style": "neon"
+  },
+  {
+   "words": [
+    {
+     "t": "“Bugun",
+     "a": true
+    },
+    {
+     "t": "emas,"
+    },
+    {
+     "t": "ertaga”",
+     "a": true
+    },
+    {
+     "t": "deysiz."
+    }
+   ],
+   "start": 7.13,
+   "dur": 2.02,
+   "clip": "",
+   "pos": "50% 50%",
+   "ss": 0,
+   "tag": "",
+   "style": "neon"
+  },
+  {
+   "words": [
+    {
+     "t": "Har"
+    },
+    {
+     "t": "safar"
+    },
+    {
+     "t": "kechiktirsangiz,",
+     "a": true
+    }
+   ],
+   "start": 9.45,
+   "dur": 2.03,
+   "clip": "",
+   "pos": "50% 50%",
+   "ss": 0,
+   "tag": "",
+   "style": "neon"
+  },
+  {
+   "words": [
+    {
+     "t": "ichki"
+    },
+    {
+     "t": "kuchingiz",
+     "a": true
+    },
+    {
+     "t": "soʻnadi.",
+     "a": true
+    }
+   ],
+   "start": 11.63,
+   "dur": 2.04,
+   "clip": "",
+   "pos": "50% 50%",
+   "ss": 0,
+   "tag": "",
+   "style": "neon"
+  },
+  {
+   "words": [
+    {
+     "t": "Hozir"
+    },
+    {
+     "t": "ikki",
+     "a": true
+    },
+    {
+     "t": "daqiqa",
+     "a": true
+    },
+    {
+     "t": "ajrating"
+    },
+    {
+     "t": "—"
+    },
+    {
+     "t": "va"
+    },
+    {
+     "t": "boshlang.",
+     "a": true
+    }
+   ],
+   "start": 14.02,
+   "dur": 2.55,
+   "clip": "",
+   "pos": "50% 50%",
+   "ss": 0,
+   "tag": "",
+   "style": "shisha"
+  },
+  {
+   "words": [
+    {
+     "t": "Yana"
+    },
+    {
+     "t": "“ertaga”",
+     "a": true
+    },
+    {
+     "t": "deysizmi?"
+    }
+   ],
+   "start": 16.82,
+   "dur": 1.91,
+   "clip": "",
+   "pos": "50% 50%",
+   "ss": 0,
+   "tag": "",
+   "style": "shisha"
+  }
+ ],
+ "scenes": [
+  {
+   "kind": "know",
+   "start": 0,
+   "dur": 6.98,
+   "p": {
+    "right": 2.8,
+    "slam": 4.97
+   }
+  },
+  {
+   "kind": "fade",
+   "start": 6.98,
+   "dur": 6.94,
+   "p": {
+    "tom": 0.95,
+    "dim": 4.8
+   }
+  },
+  {
+   "kind": "go",
+   "start": 13.87,
+   "dur": 5.31,
+   "p": {
+    "start": 0.55,
+    "go": 2.262,
+    "strike": 3.45
+   }
+  }
+ ]
+}
