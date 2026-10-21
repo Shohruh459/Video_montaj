@@ -1282,8 +1282,8 @@ const TicketScene: React.FC<{p: {stamp: number; fear: number; valid: number}}> =
           <path d="M 396 0 L 420 90 L 392 150 L 430 230 L 404 300 L 440 380 L 420 440" fill="none" stroke={t > p.valid ? '#34e08a' : '#e11d1d'} strokeWidth="9" strokeLinecap="round" strokeLinejoin="round" pathLength={1} strokeDasharray={1} strokeDashoffset={1 - crack} opacity={crack > 0 ? 1 : 0} />
         </svg>
         <div style={{position: 'absolute', left: 44, top: 34, fontFamily: 'YB', fontWeight: 700, fontSize: 28, letterSpacing: 8, color: '#0a0a0a'}}>YUKSALISH · BILET</div>
-        <div style={{position: 'absolute', left: 40, top: 92, fontFamily: 'YB', fontWeight: 700, fontSize: 124, letterSpacing: 2, color: '#0a0a0a', lineHeight: 1}}>IMKONIYAT</div>
-        <div style={{position: 'absolute', left: 46, top: 236, fontFamily: 'YB', fontWeight: 700, fontSize: 34, letterSpacing: 6, color: '#c2410c'}}>KIRISH: BUGUN</div>
+        <div style={{position: 'absolute', left: 40, top: 108, fontFamily: 'YB', fontWeight: 700, fontSize: 88, letterSpacing: 1, color: '#0a0a0a', lineHeight: 1}}>IMKONIYAT</div>
+        <div style={{position: 'absolute', left: 46, top: 226, fontFamily: 'YB', fontWeight: 700, fontSize: 34, letterSpacing: 6, color: '#c2410c'}}>KIRISH: BUGUN</div>
         <div style={{position: 'absolute', left: 46, bottom: 38, display: 'flex', alignItems: 'flex-end', gap: 7, height: 70}}>
           {bars.map((b, i) => <div key={i} style={{width: b, height: 70, background: '#0a0a0a'}} />)}
         </div>
