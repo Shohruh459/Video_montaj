@@ -1185,23 +1185,33 @@ const RingSvg: React.FC<{size: number; pct: number; color: string; track?: strin
   );
 };
 
+const EqBars: React.FC<{t: number; a: number}> = ({t, a}) => (
+  <div style={{position: 'absolute', left: 90, right: 90, bottom: 340, height: 260, display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', opacity: 0.85 * a}}>
+    {Array.from({length: 26}, (_, i) => {
+      const h = 30 + 200 * Math.abs(Math.sin(t * 3.1 + i * 0.7)) * (0.45 + 0.55 * Math.abs(Math.sin(t * 1.3 + i * 1.7)));
+      return <div key={i} style={{width: 24, height: h, borderRadius: 12, background: `linear-gradient(180deg, ${NEON_M}, ${NEON_C})`, boxShadow: `0 0 16px ${NEON_C}88`}} />;
+    })}
+  </div>
+);
+
 const KnowScene: React.FC<{p: {right: number; slam: number}}> = ({p}) => {
   const f = useCurrentFrame(); const {fps} = useVideoConfig(); const t = f / fps;
   const a = bnc(c01((t - 0.1) / 0.5)); const b = bnc(c01((t - p.right) / 0.5)); const sl = bnc(c01((t - p.slam) / 0.3));
   const sh = t > p.slam && t < p.slam + 0.25 ? (random(`k${f}`) - 0.5) * 18 : 0;
   const card = (x: number, on: boolean, label: string, pct: number, col: string, k: number) => (
-    <div style={{position: 'absolute', left: x, top: 250, width: 420, height: 470, borderRadius: 36, boxSizing: 'border-box', border: `4px solid ${on ? col : 'rgba(255,255,255,0.18)'}`, background: on ? 'rgba(39,233,247,0.08)' : 'rgba(255,255,255,0.03)', boxShadow: on ? `0 0 50px ${col}66, inset 0 0 40px ${col}22` : 'none', transform: `scale(${0.7 + 0.3 * k})`, opacity: k > 0 ? 1 : 0, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 24}}>
-      <div style={{position: 'relative', width: 250, height: 250}}>
-        <RingSvg size={250} pct={pct} color={col} />
-        <div style={{position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'YM', fontWeight: 700, fontSize: 72, color: on ? '#fff' : 'rgba(255,255,255,0.4)'}}>{Math.round(pct * 100)}%</div>
+    <div style={{position: 'absolute', left: x, top: 230, width: 460, height: 520, borderRadius: 40, boxSizing: 'border-box', border: `4px solid ${on ? col : 'rgba(255,255,255,0.18)'}`, background: on ? 'rgba(39,233,247,0.08)' : 'rgba(255,255,255,0.03)', boxShadow: on ? `0 0 50px ${col}66, inset 0 0 40px ${col}22` : 'none', transform: `scale(${0.7 + 0.3 * k})`, opacity: k > 0 ? 1 : 0, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 24}}>
+      <div style={{position: 'relative', width: 290, height: 290}}>
+        <RingSvg size={290} pct={pct} color={col} />
+        <div style={{position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'YM', fontWeight: 700, fontSize: 82, color: on ? '#fff' : 'rgba(255,255,255,0.4)'}}>{Math.round(pct * 100)}%</div>
       </div>
       <div style={{fontFamily: 'YB', fontWeight: 700, fontSize: 52, letterSpacing: 5, color: on ? col : 'rgba(255,255,255,0.4)'}}>{label}</div>
     </div>
   );
   return (
     <AbsoluteFill>
-      {card(90, true, 'BILAMAN', 1, NEON_C, a)}
-      {card(570, false, 'QILAMAN', 0, NEON_M, b)}
+      {card(70, true, 'BILAMAN', 1, NEON_C, a)}
+      {card(550, false, 'QILAMAN', 0, NEON_M, b)}
+      <EqBars t={t} a={a} />
       <div style={{position: 'absolute', left: 540 - 70, top: 420, width: 140, height: 140, borderRadius: 70, background: NEON_M, boxShadow: `0 0 60px ${NEON_M}`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'YB', fontWeight: 700, fontSize: 110, color: '#fff', transform: `translate(${sh}px, 0) scale(${sl * 1.0})`, opacity: sl > 0 ? 1 : 0}}>≠</div>
     </AbsoluteFill>
   );
@@ -1216,12 +1226,13 @@ const FadeRingScene: React.FC<{p: {tom: number; dim: number}}> = ({p}) => {
   const w = c01((t - p.tom) / 1.1); const wx = 1200 - 1500 * eO(w); const wo = w > 0 ? 1 : 0;
   return (
     <AbsoluteFill>
-      <div style={{position: 'absolute', left: 540 - 175, top: 300, width: 350, height: 350, transform: `scale(${a})`, opacity: flick}}>
-        <RingSvg size={350} pct={pct} color={col} w={26} />
-        <div style={{position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'YM', fontWeight: 700, fontSize: 90, color: '#fff', textShadow: `0 0 24px ${col}`}}>{Math.round(pct * 100)}%</div>
+      <div style={{position: 'absolute', left: 540 - 210, top: 270, width: 420, height: 420, transform: `scale(${a})`, opacity: flick}}>
+        <RingSvg size={420} pct={pct} color={col} w={30} />
+        <div style={{position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'YM', fontWeight: 700, fontSize: 108, color: '#fff', textShadow: `0 0 24px ${col}`}}>{Math.round(pct * 100)}%</div>
       </div>
+      <EqBars t={t} a={a * (1 - 0.8 * c01((t - p.dim) / 1.0))} />
       <div style={{position: 'absolute', left: 0, right: 0, top: 215, textAlign: 'center', fontFamily: 'YB', fontWeight: 700, fontSize: 34, letterSpacing: 10, color: 'rgba(255,255,255,0.6)', opacity: a}}>ICHKI KUCH</div>
-      <div style={{position: 'absolute', left: 0, top: 700, width: 1080, opacity: wo, transform: `translateX(${wx}px)`, whiteSpace: 'nowrap', fontFamily: 'YB', fontWeight: 700, fontSize: 120, letterSpacing: 8, color: 'rgba(255,255,255,0.22)', WebkitTextStroke: '2px rgba(255,255,255,0.5)'}}>ERTAGA · ERTAGA · ERTAGA</div>
+      <div style={{position: 'absolute', left: 0, top: 700, width: 1080, opacity: wo, transform: `translateX(${wx}px)`, whiteSpace: 'nowrap', fontFamily: 'YB', fontWeight: 700, fontSize: 96, letterSpacing: 8, color: 'rgba(255,255,255,0.22)', WebkitTextStroke: '2px rgba(255,255,255,0.5)'}}>ERTAGA · ERTAGA · ERTAGA</div>
     </AbsoluteFill>
   );
 };
