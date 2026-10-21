@@ -1,0 +1,235 @@
+{
+ "style": "afisha",
+ "totalSec": 20.4,
+ "audio": "reel08_mix.wav",
+ "lines": [
+  {
+   "words": [
+    {
+     "t": "Sizga"
+    },
+    {
+     "t": "imkoniyat",
+     "a": true
+    },
+    {
+     "t": "keldi."
+    },
+    {
+     "t": "Siz"
+    },
+    {
+     "t": "nima"
+    },
+    {
+     "t": "dedingiz?",
+     "a": true
+    }
+   ],
+   "start": 0,
+   "dur": 2.9,
+   "clip": "",
+   "pos": "50% 50%",
+   "ss": 0,
+   "tag": "",
+   "vpos": "bottom",
+   "style": "afisha"
+  },
+  {
+   "words": [
+    {
+     "t": "“Hali"
+    },
+    {
+     "t": "tayyor",
+     "a": true
+    },
+    {
+     "t": "emasman.”",
+     "a": true
+    }
+   ],
+   "start": 3.1,
+   "dur": 2.03,
+   "clip": "",
+   "pos": "50% 50%",
+   "ss": 0,
+   "tag": "",
+   "vpos": "bottom",
+   "style": "afisha"
+  },
+  {
+   "words": [
+    {
+     "t": "Bu"
+    },
+    {
+     "t": "tayyor"
+    },
+    {
+     "t": "emaslik",
+     "a": true
+    },
+    {
+     "t": "emas.",
+     "a": true
+    }
+   ],
+   "start": 5.43,
+   "dur": 1.93,
+   "clip": "",
+   "pos": "50% 50%",
+   "ss": 0,
+   "tag": "",
+   "vpos": "bottom",
+   "style": "afisha"
+  },
+  {
+   "words": [
+    {
+     "t": "Bu"
+    },
+    {
+     "t": "—"
+    },
+    {
+     "t": "qoʻrquv.",
+     "a": true
+    }
+   ],
+   "start": 7.56,
+   "dur": 1.42,
+   "clip": "",
+   "pos": "50% 50%",
+   "ss": 0,
+   "tag": "",
+   "vpos": "bottom",
+   "style": "afisha"
+  },
+  {
+   "words": [
+    {
+     "t": "Hech"
+    },
+    {
+     "t": "kim"
+    },
+    {
+     "t": "toʻliq",
+     "a": true
+    },
+    {
+     "t": "tayyor",
+     "a": true
+    },
+    {
+     "t": "boʻlmaydi."
+    }
+   ],
+   "start": 9.43,
+   "dur": 2.25,
+   "clip": "",
+   "pos": "50% 50%",
+   "ss": 0,
+   "tag": "",
+   "vpos": "bottom",
+   "style": "afisha"
+  },
+  {
+   "words": [
+    {
+     "t": "Boshlagan",
+     "a": true
+    },
+    {
+     "t": "odam"
+    },
+    {
+     "t": "tayyor"
+    },
+    {
+     "t": "boʻladi.",
+     "a": true
+    }
+   ],
+   "start": 11.93,
+   "dur": 2.25,
+   "clip": "",
+   "pos": "50% 50%",
+   "ss": 0,
+   "tag": "",
+   "vpos": "bottom",
+   "style": "afisha"
+  },
+  {
+   "words": [
+    {
+     "t": "Birinchi"
+    },
+    {
+     "t": "qadamni",
+     "a": true
+    },
+    {
+     "t": "hozir"
+    },
+    {
+     "t": "izohda",
+     "a": true
+    },
+    {
+     "t": "yozing."
+    }
+   ],
+   "start": 14.53,
+   "dur": 2.39,
+   "clip": "",
+   "pos": "50% 50%",
+   "ss": 0,
+   "tag": "",
+   "vpos": "bottom",
+   "style": "afisha"
+  },
+  {
+   "words": [
+    {
+     "t": "Hali"
+    },
+    {
+     "t": "ham"
+    },
+    {
+     "t": "“tayyor",
+     "a": true
+    },
+    {
+     "t": "emasman”",
+     "a": true
+    },
+    {
+     "t": "deyapsizmi?"
+    }
+   ],
+   "start": 17.27,
+   "dur": 2.38,
+   "clip": "",
+   "pos": "50% 50%",
+   "ss": 0,
+   "tag": "",
+   "vpos": "bottom",
+   "style": "afisha"
+  }
+ ],
+ "scenes": [
+  {
+   "kind": "ticket",
+   "start": 0,
+   "dur": 20.3,
+   "p": {
+    "stamp": 3.2,
+    "fear": 7.66,
+    "valid": 12.13
+   }
+  }
+ ]
+}
