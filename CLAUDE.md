@@ -17,7 +17,7 @@ Papka: `projects/<mijoz>-<sana>/{raw,voice,broll,out}` (`projects/_template` dan
 ## 2. Texnik standartlar (buzilmasin)
 - Video: H.264 High, `yuv420p`, CRF 16–18, `-movflags +faststart`, 30 fps (yoki manba fps, **hech qachon aralash emas**).
 - O'lcham: 1920×1080 (16:9), 1080×1920 (9:16 Reels/Shorts/TikTok), 1080×1350 (4:5). Kichik manbani kattalashtirib "xira" qilma — kerak bo'lsa upscale (Higgsfield `upscale_video`).
-- Audio: AAC 256k, 48 kHz, **−14 LUFS, true peak ≤ −1 dB**. Fon musiqasi ovozdan **−18…−22 dB** pastda; ovoz paytida ducking.
+- Audio: AAC 256k, 48 kHz, **−14 LUFS, true peak ≤ −1 dB**. Fon musiqasi ovozdan **~−13 dB** pastda (−18…−22 dB da amalda eshitilmadi, 2026-10-21), ovoz paytida yengil ducking (ratio 2).
 - Subtitr: ekran chetidan 8–10% xavfsiz zona, 1–2 qator, bir qatorda ≤ 42 belgi, kontrast yetarli. O'zbekcha harflar (oʻ, gʻ, shʻ, tutuq belgisi) to'g'ri chiqishini **ko'z bilan tekshir** (shrift: Noto Sans / DejaVu).
 - Montaj: kesish ritmga mos, 0.3 s dan qisqa "tasodifiy" kadr yo'q, qora kadr yo'q, ovozda klik/chiqish yo'q (har bir kesishda 10–30 ms fade).
 - Mualliflik huquqi: faqat litsenziyali musiqa/rasm/shrift. Manbani `projects/<...>/CREDITS.md` ga yoz. Mijozning logotipini o'zgartirma.

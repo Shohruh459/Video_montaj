@@ -60,7 +60,7 @@ vl, vp = lufs(W / "voice_full.wav"); print(f"ovoz: {vd:.1f}s, {vl} LUFS, peak {v
 m = spec["music"]; mus = W / "music_cut.wav"
 run("ffmpeg", "-v", "error", "-y", "-ss", m["ss"], "-t", total + 1, "-i", m["src"], "-af", f"afade=t=in:d=1.8,afade=t=out:st={total-3:.2f}:d=3,loudnorm=I={vl + m.get('rel_db', -20):.1f}:TP=-3:LRA=11", "-ar", 48000, "-ac", 2, mus)
 run("ffmpeg", "-v", "error", "-y", "-i", W / "voice_full.wav", "-i", mus, "-filter_complex",
-    "[0]asplit=2[v1][v2];[1][v1]sidechaincompress=threshold=0.02:ratio=4:attack=30:release=500[md];[v2]pan=stereo|c0=c0|c1=c0[vs];[vs][md]amix=inputs=2:normalize=0:duration=first,loudnorm=I=-14:TP=-1.5:LRA=7",
+    "[0]asplit=2[v1][v2];[1][v1]sidechaincompress=threshold=0.04:ratio=2:attack=30:release=400[md];[v2]pan=stereo|c0=c0|c1=c0[vs];[vs][md]amix=inputs=2:normalize=0:duration=first,loudnorm=I=-14:TP=-1.5:LRA=7",
     "-ar", 48000, "-ac", 2, W / "mix.wav")
 ml, mp = lufs(W / "mix.wav"); print(f"miks: {ml} LUFS, peak {mp} dBFS (maqsad -14 / <= -1)")
 mixname = f"reel{spec['id']}_mix.wav"; shutil.copy(W / "mix.wav", K / "public" / mixname)
@@ -152,7 +152,7 @@ if events:
         if i0 < n: tr[i0:i0 + len(w)] += w[: n - i0]
     tr *= 0.2 / (np.abs(tr).max() + 1e-9); sf.write(W / "sfx.wav", np.stack([tr, tr], 1), SR)
     run("ffmpeg", "-v", "error", "-y", "-i", W / "voice_full.wav", "-i", mus, "-i", W / "sfx.wav", "-filter_complex",
-        "[0]asplit=2[v1][v2];[1][v1]sidechaincompress=threshold=0.02:ratio=4:attack=30:release=500[md];[v2]pan=stereo|c0=c0|c1=c0[vs];[vs][md][2]amix=inputs=3:normalize=0:duration=first,loudnorm=I=-14:TP=-1.5:LRA=7",
+        "[0]asplit=2[v1][v2];[1][v1]sidechaincompress=threshold=0.04:ratio=2:attack=30:release=400[md];[v2]pan=stereo|c0=c0|c1=c0[vs];[vs][md][2]amix=inputs=3:normalize=0:duration=first,loudnorm=I=-14:TP=-1.5:LRA=7",
         "-ar", 48000, "-ac", 2, W / "mix.wav")
     ml, mp = lufs(W / "mix.wav"); print(f"SFX bilan miks: {ml} LUFS, peak {mp} dBFS"); shutil.copy(W / "mix.wav", K / "public" / mixname)
 data = {"style": spec["base_style"], "totalSec": total, "audio": mixname, "lines": lines, **({"scenes": scenes} if scenes else {})}

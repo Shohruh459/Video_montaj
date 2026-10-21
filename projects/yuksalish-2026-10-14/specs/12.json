@@ -4,10 +4,10 @@
  "base_style": "neon",
  "handle": "@yuksalish713",
  "music": {
-  "src": "/tmp/music/raw/s4_r13_techno-upbeat.wav",
-  "ss": 2,
-  "rel_db": -21,
-  "note": "HF mrfakename/cc0-music-captioned 4:13 (techno upbeat, 120 BPM), CC0"
+  "src": "/tmp/music/raw/s44_r13_ilhomli-orkestr-aks.wav",
+  "ss": 10,
+  "rel_db": -13,
+  "note": "HF mrfakename/cc0-music-captioned 44:13 (ilhomli/kinematik orkestr), CC0"
  },
  "phrases": [
   {
